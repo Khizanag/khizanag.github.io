@@ -42,6 +42,7 @@
         }
 
         App.updatePhaseIndicator();
+        if (App.updatePhaseUI) App.updatePhaseUI();
         App.saveSession();
     };
 

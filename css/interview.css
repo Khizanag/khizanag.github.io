@@ -850,6 +850,85 @@ body {
     50% { opacity: 0.6; }
 }
 
+/* --- Introduction overlay --- */
+.q-intro {
+    text-align: center;
+    padding: 60px 32px;
+    margin-bottom: 32px;
+}
+
+.q-intro__icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.q-intro__title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-gray-50);
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+}
+
+.q-intro__text {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-gray-400);
+    line-height: 1.6;
+    max-width: 440px;
+    margin: 0 auto 32px;
+}
+
+.q-intro__skip {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: var(--border-radius-pill);
+    border: none;
+    background: var(--color-blue);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.q-intro__skip:hover {
+    background: var(--color-blue-hover);
+    transform: scale(1.04);
+}
+
+/* --- Skip section button --- */
+.btn-skip-section {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: transparent;
+    color: var(--color-gray-500);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-skip-section:hover {
+    border-color: rgba(59, 130, 246, 0.3);
+    color: var(--color-blue);
+    background-color: rgba(59, 130, 246, 0.06);
+}
+
 .q-card {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);

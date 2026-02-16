@@ -702,13 +702,41 @@
             transform: translateY(-2px);
         }
 
-        .exp-card__header {
-            padding: 40px 40px 0;
+        .exp-card__toggle {
+            width: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            padding: 40px 40px 24px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            font: inherit;
+            color: inherit;
+        }
+
+        .exp-card__toggle:focus-visible {
+            outline: 2px solid var(--color-blue);
+            outline-offset: -2px;
+            border-radius: var(--border-radius-card) var(--border-radius-card) 0 0;
+        }
+
+        .exp-card__header {
+            display: flex;
+            align-items: center;
             gap: 16px;
             flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .exp-card__header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
         }
 
         .exp-card__role {
@@ -717,6 +745,24 @@
             font-weight: 700;
             letter-spacing: -0.025em;
             line-height: 1.15;
+        }
+
+        .exp-card__chevron {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: var(--color-gray-400);
+            transition: transform 0.5s var(--ease-out-expo), color 0.3s;
+            transform: rotate(0deg);
+        }
+
+        .exp-card.is-expanded .exp-card__chevron {
+            transform: rotate(180deg);
+            color: var(--color-blue);
+        }
+
+        .exp-card__toggle:hover .exp-card__chevron {
+            color: var(--color-blue);
         }
 
         .exp-card__period {
@@ -731,7 +777,6 @@
         }
 
         .exp-card__company {
-            padding: 8px 40px 0;
             font-size: 15px;
             color: var(--color-gray-500);
             display: flex;
@@ -746,8 +791,24 @@
             flex-shrink: 0;
         }
 
+        .exp-card__collapsible {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.5s var(--ease-out-expo), opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .exp-card.is-expanded .exp-card__collapsible {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+
+        .exp-card__collapsible-inner {
+            overflow: hidden;
+        }
+
         .exp-card__body {
-            padding: 24px 40px 36px;
+            padding: 0 40px 36px;
         }
 
         .exp-card__bullets {
@@ -1351,8 +1412,7 @@
             .skills__grid        { grid-template-columns: 1fr; }
             .about__highlights   { grid-template-columns: 1fr; }
 
-            .exp-card__header    { padding: 28px 28px 0; }
-            .exp-card__company   { padding: 8px 28px 0; }
+            .exp-card__toggle    { padding: 28px 28px 16px; }
             .exp-card__body      { padding: 20px 28px 28px; }
             .exp-card__tags      { padding: 0 28px 24px; }
             .exp-card__role      { font-size: 22px; }
@@ -1528,72 +1588,108 @@
         <h2 class="section-headline rv rv--d1" id="experience-heading">Built for scale.<br>Shipped to millions.</h2>
         <p class="section-desc rv rv--d2">From junior analyst to leading architecture for 50+ engineers — each role shaped how I think about software.</p>
         <div class="experience__timeline">
-            <article class="exp-card rv">
-                <div class="exp-card__header">
-                    <h3 class="exp-card__role">Senior iOS Architect</h3>
-                    <time class="exp-card__period">Mar 2023 — Present</time>
+            <article class="exp-card is-expanded rv" id="exp-1">
+                <button class="exp-card__toggle" aria-expanded="true" aria-controls="exp-1-content">
+                    <div class="exp-card__header">
+                        <div class="exp-card__header-left">
+                            <h3 class="exp-card__role">Senior iOS Architect</h3>
+                        </div>
+                        <time class="exp-card__period">Mar 2023 — Present</time>
+                        <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-blue)"></span>Space International (TBC UZ) &middot; Tbilisi, Georgia</div>
+                </button>
+                <div class="exp-card__collapsible" id="exp-1-content">
+                    <div class="exp-card__collapsible-inner">
+                        <div class="exp-card__body">
+                            <ul class="exp-card__bullets">
+                                <li>Lead iOS architecture decisions across 8 product teams and 50+ iOS developers, participating in every core technical and architectural decision</li>
+                                <li>Architected and delivered enterprise-grade Design System in SwiftUI, now adopted by 2 additional subsidiary companies beyond TBC UZ</li>
+                                <li>Led complete migration to SwiftUI and Swift 6+, achieving 100% modern codebase with full adoption of structured concurrency and Combine</li>
+                                <li>Implemented comprehensive testing strategy achieving 90%+ code coverage through unit, UI, snapshot, and contract tests</li>
+                                <li>Designed and evolved Clean MVVM → MVI architecture, creating scalable foundation for multi-team parallel development</li>
+                                <li>Built CI/CD infrastructure on Bitrise with automated builds, tests, and App Store deployments — reduced release cycle from 2 weeks to 3 days</li>
+                                <li>Established iOS Quality Gate enforcing SwiftLint rules, minimum coverage thresholds, and mandatory code review for all pull requests</li>
+                                <li>Mentored iOS engineers on architecture patterns, SwiftUI best practices, modularization, and testing strategies</li>
+                            </ul>
+                        </div>
+                        <div class="exp-card__tags"><span class="tag">Swift 6+</span><span class="tag">SwiftUI</span><span class="tag">Combine</span><span class="tag">MVI</span><span class="tag">Clean Architecture</span><span class="tag">Bitrise</span><span class="tag">Fastlane</span><span class="tag">SPM</span></div>
+                    </div>
                 </div>
-                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-blue)"></span>Space International (TBC UZ) &middot; Tbilisi, Georgia</div>
-                <div class="exp-card__body">
-                    <ul class="exp-card__bullets">
-                        <li>Lead iOS architecture decisions across 8 product teams and 50+ iOS developers, participating in every core technical and architectural decision</li>
-                        <li>Architected and delivered enterprise-grade Design System in SwiftUI, now adopted by 2 additional subsidiary companies beyond TBC UZ</li>
-                        <li>Led complete migration to SwiftUI and Swift 6+, achieving 100% modern codebase with full adoption of structured concurrency and Combine</li>
-                        <li>Implemented comprehensive testing strategy achieving 90%+ code coverage through unit, UI, snapshot, and contract tests</li>
-                        <li>Designed and evolved Clean MVVM → MVI architecture, creating scalable foundation for multi-team parallel development</li>
-                        <li>Built CI/CD infrastructure on Bitrise with automated builds, tests, and App Store deployments — reduced release cycle from 2 weeks to 3 days</li>
-                        <li>Established iOS Quality Gate enforcing SwiftLint rules, minimum coverage thresholds, and mandatory code review for all pull requests</li>
-                        <li>Mentored iOS engineers on architecture patterns, SwiftUI best practices, modularization, and testing strategies</li>
-                    </ul>
-                </div>
-                <div class="exp-card__tags"><span class="tag">Swift 6+</span><span class="tag">SwiftUI</span><span class="tag">Combine</span><span class="tag">MVI</span><span class="tag">Clean Architecture</span><span class="tag">Bitrise</span><span class="tag">Fastlane</span><span class="tag">SPM</span></div>
             </article>
-            <article class="exp-card rv rv--d1">
-                <div class="exp-card__header">
-                    <h3 class="exp-card__role">iOS Developer</h3>
-                    <time class="exp-card__period">Jul 2021 — Apr 2023</time>
+            <article class="exp-card rv rv--d1" id="exp-2">
+                <button class="exp-card__toggle" aria-expanded="false" aria-controls="exp-2-content">
+                    <div class="exp-card__header">
+                        <div class="exp-card__header-left">
+                            <h3 class="exp-card__role">iOS Developer</h3>
+                        </div>
+                        <time class="exp-card__period">Jul 2021 — Apr 2023</time>
+                        <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-purple)"></span>Adjarabet &middot; Tbilisi, Georgia</div>
+                </button>
+                <div class="exp-card__collapsible" id="exp-2-content">
+                    <div class="exp-card__collapsible-inner">
+                        <div class="exp-card__body">
+                            <ul class="exp-card__bullets">
+                                <li>Built iOS application from scratch to production launch, delivering full-featured gaming platform to 500K+ monthly active users</li>
+                                <li>Developed core features using UIKit, SwiftUI, CoreData, and CoreAnimation with MVVM architecture and Combine</li>
+                                <li>Integrated 5+ third-party vendor SDKs (slot games, sportsbook, payment providers) with custom abstraction layers</li>
+                                <li>Collaborated with QA team to implement XCUITest automation suite covering critical user flows, reducing manual testing by 30%</li>
+                                <li>Conducted 200+ code reviews, mentored junior developers, and contributed to team engineering standards documentation</li>
+                            </ul>
+                        </div>
+                        <div class="exp-card__tags"><span class="tag">Swift</span><span class="tag">UIKit</span><span class="tag">SwiftUI</span><span class="tag">CoreData</span><span class="tag">CoreAnimation</span><span class="tag">MVVM</span><span class="tag">XCUITest</span></div>
+                    </div>
                 </div>
-                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-purple)"></span>Adjarabet &middot; Tbilisi, Georgia</div>
-                <div class="exp-card__body">
-                    <ul class="exp-card__bullets">
-                        <li>Built iOS application from scratch to production launch, delivering full-featured gaming platform to 500K+ monthly active users</li>
-                        <li>Developed core features using UIKit, SwiftUI, CoreData, and CoreAnimation with MVVM architecture and Combine</li>
-                        <li>Integrated 5+ third-party vendor SDKs (slot games, sportsbook, payment providers) with custom abstraction layers</li>
-                        <li>Collaborated with QA team to implement XCUITest automation suite covering critical user flows, reducing manual testing by 30%</li>
-                        <li>Conducted 200+ code reviews, mentored junior developers, and contributed to team engineering standards documentation</li>
-                    </ul>
-                </div>
-                <div class="exp-card__tags"><span class="tag">Swift</span><span class="tag">UIKit</span><span class="tag">SwiftUI</span><span class="tag">CoreData</span><span class="tag">CoreAnimation</span><span class="tag">MVVM</span><span class="tag">XCUITest</span></div>
             </article>
-            <article class="exp-card rv rv--d2">
-                <div class="exp-card__header">
-                    <h3 class="exp-card__role">iOS Developer</h3>
-                    <time class="exp-card__period">Oct 2020 — Jul 2021</time>
+            <article class="exp-card rv rv--d2" id="exp-3">
+                <button class="exp-card__toggle" aria-expanded="false" aria-controls="exp-3-content">
+                    <div class="exp-card__header">
+                        <div class="exp-card__header-left">
+                            <h3 class="exp-card__role">iOS Developer</h3>
+                        </div>
+                        <time class="exp-card__period">Oct 2020 — Jul 2021</time>
+                        <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-green)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
+                </button>
+                <div class="exp-card__collapsible" id="exp-3-content">
+                    <div class="exp-card__collapsible-inner">
+                        <div class="exp-card__body">
+                            <ul class="exp-card__bullets">
+                                <li>Built features for flagship mobile banking app serving 1M+ users using Swift and MVP architecture</li>
+                                <li>Implemented secure financial transaction flows with biometric authentication (Face ID, Touch ID) and encryption</li>
+                                <li>Collaborated with product managers, designers, and backend engineers in Agile/Scrum environment</li>
+                                <li>Participated in cross-team discovery phase for core banking platform redesign spanning 4 Scrum teams</li>
+                            </ul>
+                        </div>
+                        <div class="exp-card__tags"><span class="tag">Swift</span><span class="tag">MVP</span><span class="tag">Face ID</span><span class="tag">Touch ID</span><span class="tag">Agile</span></div>
+                    </div>
                 </div>
-                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-green)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
-                <div class="exp-card__body">
-                    <ul class="exp-card__bullets">
-                        <li>Built features for flagship mobile banking app serving 1M+ users using Swift and MVP architecture</li>
-                        <li>Implemented secure financial transaction flows with biometric authentication (Face ID, Touch ID) and encryption</li>
-                        <li>Collaborated with product managers, designers, and backend engineers in Agile/Scrum environment</li>
-                        <li>Participated in cross-team discovery phase for core banking platform redesign spanning 4 Scrum teams</li>
-                    </ul>
-                </div>
-                <div class="exp-card__tags"><span class="tag">Swift</span><span class="tag">MVP</span><span class="tag">Face ID</span><span class="tag">Touch ID</span><span class="tag">Agile</span></div>
             </article>
-            <article class="exp-card rv rv--d3">
-                <div class="exp-card__header">
-                    <h3 class="exp-card__role">Junior Analyst Developer</h3>
-                    <time class="exp-card__period">Mar 2020 — Oct 2020</time>
+            <article class="exp-card rv rv--d3" id="exp-4">
+                <button class="exp-card__toggle" aria-expanded="false" aria-controls="exp-4-content">
+                    <div class="exp-card__header">
+                        <div class="exp-card__header-left">
+                            <h3 class="exp-card__role">Junior Analyst Developer</h3>
+                        </div>
+                        <time class="exp-card__period">Mar 2020 — Oct 2020</time>
+                        <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-orange)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
+                </button>
+                <div class="exp-card__collapsible" id="exp-4-content">
+                    <div class="exp-card__collapsible-inner">
+                        <div class="exp-card__body">
+                            <ul class="exp-card__bullets">
+                                <li>Developed internal HR Management System handling employee data, payroll, and reporting workflows</li>
+                                <li>Transitioned to iOS team after demonstrating strong programming fundamentals and mobile development aptitude</li>
+                            </ul>
+                        </div>
+                        <div class="exp-card__tags"><span class="tag">Internal Tools</span><span class="tag">HR Systems</span></div>
+                    </div>
                 </div>
-                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-orange)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
-                <div class="exp-card__body">
-                    <ul class="exp-card__bullets">
-                        <li>Developed internal HR Management System handling employee data, payroll, and reporting workflows</li>
-                        <li>Transitioned to iOS team after demonstrating strong programming fundamentals and mobile development aptitude</li>
-                    </ul>
-                </div>
-                <div class="exp-card__tags"><span class="tag">Internal Tools</span><span class="tag">HR Systems</span></div>
             </article>
         </div>
     </div>
@@ -1806,6 +1902,15 @@
                 el.classList.add('is-visible');
             });
         }
+
+        // Experience card toggle (expand/collapse)
+        document.querySelectorAll('.exp-card__toggle').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var card = btn.closest('.exp-card');
+                var isExpanded = card.classList.toggle('is-expanded');
+                btn.setAttribute('aria-expanded', String(isExpanded));
+            });
+        });
 
         // Smooth scroll for anchor links (with nav offset)
         document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {

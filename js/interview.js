@@ -137,13 +137,29 @@
     });
 
     // ---- Star rating ----
+    var allStars = ratingStars.querySelectorAll('.rating__star');
+
+    ratingStars.addEventListener('mouseover', function (e) {
+        var star = e.target.closest('.rating__star');
+        if (!star) return;
+        var hoverValue = parseInt(star.dataset.value, 10);
+        allStars.forEach(function (s, i) {
+            s.classList.toggle('is-hovered', i < hoverValue);
+        });
+    });
+
+    ratingStars.addEventListener('mouseleave', function () {
+        allStars.forEach(function (s) {
+            s.classList.remove('is-hovered');
+        });
+    });
+
     ratingStars.addEventListener('click', function (e) {
         var star = e.target.closest('.rating__star');
         if (!star) return;
 
         currentRating = parseInt(star.dataset.value, 10);
-        var stars = ratingStars.querySelectorAll('.rating__star');
-        stars.forEach(function (s, i) {
+        allStars.forEach(function (s, i) {
             s.classList.toggle('is-active', i < currentRating);
         });
         ratingDesc.textContent = RATING_LABELS[currentRating];

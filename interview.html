@@ -242,6 +242,24 @@
             color: var(--color-gray-200);
             margin-bottom: 16px;
             letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .setup__label-action {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--color-blue);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .setup__label-action:hover {
+            opacity: 0.7;
         }
 
         /* --- Topic chips --- */
@@ -871,7 +889,7 @@
         </div>
 
         <div class="setup__section">
-            <p class="setup__label">Select Topics</p>
+            <p class="setup__label">Select Topics <button class="setup__label-action" id="btnToggleAll">Clear All</button></p>
             <div class="setup__topics" id="topicGrid">
                 <button class="topic-chip" data-topic="swift">Swift Language</button>
                 <button class="topic-chip" data-topic="swiftui">SwiftUI</button>
@@ -1070,12 +1088,42 @@
         stepperPlus.disabled = questionCount >= MAX_Q;
     }
 
+    var btnToggleAll = document.getElementById('btnToggleAll');
+    var allChips = topicGrid.querySelectorAll('.topic-chip');
+
     function updateStartButton() {
         var hasTopics = selectedTopics.length > 0;
+        var allSelected = selectedTopics.length === allChips.length;
         btnStart.disabled = !hasTopics;
+        btnToggleAll.textContent = allSelected ? 'Clear All' : 'Select All';
         validationHint.textContent = hasTopics
             ? selectedTopics.length + ' topic' + (selectedTopics.length > 1 ? 's' : '') + ' selected'
             : 'Select at least one topic to begin';
+    }
+
+    // ---- Select All / Clear All ----
+    btnToggleAll.addEventListener('click', function () {
+        var allSelected = selectedTopics.length === allChips.length;
+        if (allSelected) {
+            selectedTopics = [];
+            allChips.forEach(function (c) { c.classList.remove('is-selected'); });
+        } else {
+            selectedTopics = [];
+            allChips.forEach(function (c) {
+                c.classList.add('is-selected');
+                selectedTopics.push(c.dataset.topic);
+            });
+        }
+        updateStartButton();
+    });
+
+    function selectAllTopics() {
+        selectedTopics = [];
+        allChips.forEach(function (c) {
+            c.classList.add('is-selected');
+            selectedTopics.push(c.dataset.topic);
+        });
+        updateStartButton();
     }
 
     // ---- Screen transitions ----
@@ -1328,8 +1376,8 @@
     });
 
     // ---- Init ----
+    selectAllTopics();
     updateStepper();
-    updateStartButton();
 
     // ============================================
     // QUESTION BANK

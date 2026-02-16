@@ -55,6 +55,11 @@
         d.btnPrev = document.getElementById('btnPrev');
         d.btnEnd = document.getElementById('btnEnd');
         d.btnFullscreen = document.getElementById('btnFullscreen');
+        d.btnSkipSection = document.getElementById('btnSkipSection');
+        d.btnSkipIntro = document.getElementById('btnSkipIntro');
+        d.qIntro = document.getElementById('qIntro');
+        d.qCard = document.querySelector('.q-card');
+        d.qRating = document.querySelector('.rating');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
 
         // Plan & Phases
@@ -77,6 +82,27 @@
         });
         document.getElementById(id).classList.add('is-active');
         window.scrollTo(0, 0);
+    };
+
+    // ===========================================================
+    //  PHASE-AWARE DISPLAY
+    // ===========================================================
+
+    App.updatePhaseUI = function () {
+        var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
+        var isIntro = phaseId === 'intro';
+        var isLast = App.isLastPhase ? App.isLastPhase() : true;
+
+        dom.qIntro.style.display = isIntro ? '' : 'none';
+        dom.qCard.style.display = isIntro ? 'none' : '';
+        dom.qRating.style.display = isIntro ? 'none' : '';
+
+        // Show skip section button when not on last phase (time mode only)
+        if (s.interviewMode === 'time' && !isLast) {
+            dom.btnSkipSection.style.display = '';
+        } else {
+            dom.btnSkipSection.style.display = 'none';
+        }
     };
 
     // ===========================================================
@@ -132,6 +158,8 @@
 
         // Show prev button only if not on the first question
         dom.btnPrev.style.display = index > 0 ? '' : 'none';
+
+        App.updatePhaseUI();
     };
 
     // ===========================================================
@@ -435,6 +463,18 @@
             App.updatePhaseIndicator();
             App.displayQuestion(0);
             App.saveSession();
+        });
+
+        // Skip to next section
+        dom.btnSkipSection.addEventListener('click', function () {
+            App.skipToNextPhase();
+            App.updatePhaseUI();
+        });
+
+        // Skip intro (same as skip section)
+        dom.btnSkipIntro.addEventListener('click', function () {
+            App.skipToNextPhase();
+            App.updatePhaseUI();
         });
 
         // End interview (manual) with confirmation

@@ -320,6 +320,32 @@
         }
     };
 
+    App.skipToNextPhase = function () {
+        if (s.interviewMode !== 'time' || !s.phases) return;
+        var totalSeconds = s.timeLimitMin * 60;
+        var elapsed = totalSeconds - s.remainingSeconds;
+        var cumulative = 0;
+
+        for (var i = 0; i < s.phases.length; i++) {
+            cumulative += s.phases[i].time * 60;
+            if (elapsed < cumulative) {
+                // Skip to the start of the next phase
+                if (i < s.phases.length - 1) {
+                    s.remainingSeconds = totalSeconds - cumulative;
+                    App.dom.timerText.textContent = App.formatTime(s.remainingSeconds);
+                    App.updatePhaseIndicator();
+                    App.saveSession();
+                }
+                return;
+            }
+        }
+    };
+
+    App.isLastPhase = function () {
+        var currentId = App.getCurrentPhaseId();
+        return currentId === s.phases[s.phases.length - 1].id;
+    };
+
     App.initPlan = function () {
         App.renderPlan();
         bindPlanEvents();

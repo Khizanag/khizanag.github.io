@@ -158,12 +158,13 @@
         var star = e.target.closest('.rating__star');
         if (!star) return;
 
-        currentRating = parseInt(star.dataset.value, 10);
+        var tapped = parseInt(star.dataset.value, 10);
+        currentRating = tapped === currentRating ? 0 : tapped;
         allStars.forEach(function (s, i) {
             s.classList.toggle('is-active', i < currentRating);
         });
         ratingDesc.textContent = RATING_LABELS[currentRating];
-        btnNext.disabled = false;
+        btnNext.disabled = currentRating === 0;
     });
 
     // ---- Display a question ----

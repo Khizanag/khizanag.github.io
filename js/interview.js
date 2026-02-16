@@ -32,6 +32,7 @@
     var timeValue = document.getElementById('timeValue');
     var qTimer = document.getElementById('qTimer');
     var timerText = document.getElementById('timerText');
+    var btnEnd = document.getElementById('btnEnd');
 
     // ---- Mode toggle ----
     modeToggle.addEventListener('click', function (e) {
@@ -211,6 +212,8 @@
     var qText = document.getElementById('qText');
     var qHint = document.getElementById('qHint');
     var qAnswer = document.getElementById('qAnswer');
+    var qCodeWrap = document.getElementById('qCodeWrap');
+    var qCode = document.getElementById('qCode');
     var btnHint = document.getElementById('btnHint');
     var btnAnswer = document.getElementById('btnAnswer');
     var hintReveal = document.getElementById('hintReveal');
@@ -270,6 +273,49 @@
         btnNext.disabled = currentRating === 0;
     });
 
+    // ---- Swift syntax highlighter ----
+    function highlightSwift(code) {
+        // Escape HTML first
+        var html = code
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+        // Comments (// ...)
+        html = html.replace(/(\/\/.*)/g, '<span class="cmt">$1</span>');
+
+        // Strings ("...")
+        html = html.replace(/("(?:[^"\\]|\\.)*")/g, '<span class="str">$1</span>');
+
+        // Numbers
+        html = html.replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>');
+
+        // Keywords
+        var keywords = ['func', 'var', 'let', 'class', 'struct', 'enum', 'protocol', 'extension',
+            'if', 'else', 'guard', 'switch', 'case', 'default', 'for', 'in', 'while', 'repeat',
+            'return', 'throw', 'throws', 'try', 'catch', 'do', 'break', 'continue', 'fallthrough',
+            'import', 'typealias', 'associatedtype', 'init', 'deinit', 'self', 'Self',
+            'true', 'false', 'nil', 'super', 'where', 'is', 'as',
+            'private', 'fileprivate', 'internal', 'public', 'open', 'static', 'final',
+            'override', 'mutating', 'nonmutating', 'lazy', 'weak', 'unowned',
+            'optional', 'required', 'convenience', 'indirect',
+            'async', 'await', 'actor', 'nonisolated', 'isolated',
+            'some', 'any', 'inout', 'defer', 'willSet', 'didSet', 'get', 'set',
+            '@escaping', '@autoclosure', '@MainActor', '@Published', '@State', '@Observable'];
+        var kwPattern = new RegExp('\\b(' + keywords.join('|').replace(/@/g, '@') + ')\\b', 'g');
+        // Handle @ keywords separately
+        html = html.replace(/@(escaping|autoclosure|MainActor|Published|State|Observable)\b/g, '<span class="kw">@$1</span>');
+        html = html.replace(new RegExp('(?<!["\'].*?)\\b(' + keywords.filter(function (k) { return k[0] !== '@'; }).join('|') + ')\\b(?![^<]*>)', 'g'), '<span class="kw">$1</span>');
+
+        // Types (capitalized words not already wrapped)
+        html = html.replace(/(?<!["\'].*?)(?<!class="[^"]*)\b([A-Z][a-zA-Z0-9]*)\b(?![^<]*>)/g, '<span class="type">$1</span>');
+
+        // print function
+        html = html.replace(/\b(print)\b(?![^<]*>)/g, '<span class="call">$1</span>');
+
+        return html;
+    }
+
     // ---- Display a question ----
     function displayQuestion(index) {
         var q = sessionQuestions[index];
@@ -286,10 +332,21 @@
             progressText.textContent = 'Q' + (index + 1);
         }
 
-        qTopic.textContent = q.topic.toUpperCase();
+        var isCodeChallenge = q.topic === 'code-challenge';
+        qTopic.textContent = isCodeChallenge ? 'CODE CHALLENGE' : q.topic.toUpperCase();
+        qTopic.className = 'q-card__topic' + (isCodeChallenge ? ' q-card__topic--code' : '');
         qLevel.textContent = LEVEL_LABELS[q.level];
         qLevel.className = 'q-card__level q-card__level--' + LEVEL_NAMES[q.level];
         qText.textContent = q.question;
+
+        // Code block
+        if (q.code) {
+            qCode.innerHTML = highlightSwift(q.code);
+            qCodeWrap.style.display = '';
+        } else {
+            qCodeWrap.style.display = 'none';
+        }
+
         qHint.textContent = q.hint;
         qAnswer.textContent = q.answer;
 
@@ -407,16 +464,31 @@
         }
         sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
 
-        // Timer
+        // Timer & End button
         if (interviewMode === 'time') {
             qTimer.style.display = '';
+            btnEnd.style.display = '';
             startTimer();
         } else {
             qTimer.style.display = 'none';
+            btnEnd.style.display = 'none';
         }
 
         showScreen('screen-question');
         displayQuestion(0);
+    });
+
+    // ---- End Interview (manual) ----
+    btnEnd.addEventListener('click', function () {
+        // Save current rating if given
+        if (currentRating > 0) {
+            ratings.push(currentRating);
+        } else {
+            // Remove the unrated question from session
+            sessionQuestions.splice(currentQ, 1);
+        }
+        stopTimer();
+        showResults();
     });
 
     // ---- Results ----

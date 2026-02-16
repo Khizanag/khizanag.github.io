@@ -1,0 +1,27 @@
+/* ============================================
+   RESPONSIVE — Mobile
+   ============================================ */
+@media (max-width: 640px) {
+    .setup__header { margin-bottom: 36px; }
+    .setup__icon { width: 52px; height: 52px; font-size: 24px; border-radius: 14px; }
+    .topic-chip { font-size: 13px; padding: 8px 14px; }
+    .stepper__value { font-size: 28px; }
+    .q-card { padding: 28px; }
+    .rating { padding: 24px 20px; }
+    .rating__star { width: 40px; height: 40px; }
+    .results__stats { grid-template-columns: 1fr; }
+    .results__level-ring { width: 130px; height: 130px; }
+    .results__breakdown { padding: 24px 20px; }
+    .results__topic-breakdown { padding: 24px 20px; }
+    .results__topic-row { flex-direction: column; gap: 8px; align-items: stretch; }
+    .results__topic-info { flex: none; }
+    .results__actions { flex-direction: column; align-items: center; }
+    .setup__names { grid-template-columns: 1fr; }
+    .setup__name-input { padding: 14px 16px; }
+    .plan__phase { padding: 12px 14px; }
+    .plan__name { font-size: 13px; }
+    .plan__time-btn { width: 26px; height: 26px; font-size: 14px; }
+    .q-phases__item { font-size: 10px; padding: 5px 2px; }
+    .q-card__pre { padding: 16px 18px; }
+    .q-card__pre code { font-size: 12px; }
+}

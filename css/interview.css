@@ -395,56 +395,20 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* --- Foldable topic section --- */
-.setup__fold-toggle {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 18px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--border-radius-lg);
+/* --- Foldable section --- */
+.setup__label--fold {
     cursor: pointer;
-    transition: all 0.2s;
     -webkit-tap-highlight-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
-    text-align: left;
-}
-
-.setup__fold-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-}
-
-.setup__fold-label {
-    font-family: var(--font-display);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-gray-200);
-}
-
-.setup__fold-summary {
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: var(--color-gray-500);
-    margin-left: auto;
 }
 
 .setup__fold-chevron {
-    width: 16px;
-    height: 16px;
     color: var(--color-gray-500);
     transition: transform 0.3s var(--ease-smooth);
     flex-shrink: 0;
+    margin-left: 4px;
 }
 
-.setup__fold-toggle.is-open .setup__fold-chevron {
+.setup__label--fold.is-open .setup__fold-chevron {
     transform: rotate(180deg);
 }
 

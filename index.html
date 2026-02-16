@@ -708,7 +708,7 @@
             border: none;
             cursor: pointer;
             text-align: left;
-            padding: 40px 40px 24px;
+            padding: 40px 40px 12px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -752,7 +752,7 @@
             height: 20px;
             flex-shrink: 0;
             color: var(--color-gray-400);
-            transition: transform 0.5s var(--ease-out-expo), color 0.3s;
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s;
             transform: rotate(0deg);
         }
 
@@ -782,6 +782,13 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            padding: 0 40px 24px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .exp-card__company:hover {
+            color: var(--color-gray-900);
         }
 
         .exp-card__company-dot {
@@ -791,16 +798,28 @@
             flex-shrink: 0;
         }
 
+        .exp-card__company-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .exp-card__company:hover .exp-card__company-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
         .exp-card__collapsible {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.5s var(--ease-out-expo), opacity 0.4s ease;
-            opacity: 0;
+            transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .exp-card.is-expanded .exp-card__collapsible {
             grid-template-rows: 1fr;
-            opacity: 1;
         }
 
         .exp-card__collapsible-inner {
@@ -1412,7 +1431,8 @@
             .skills__grid        { grid-template-columns: 1fr; }
             .about__highlights   { grid-template-columns: 1fr; }
 
-            .exp-card__toggle    { padding: 28px 28px 16px; }
+            .exp-card__toggle    { padding: 28px 28px 8px; }
+            .exp-card__company   { padding: 0 28px 16px; }
             .exp-card__body      { padding: 20px 28px 28px; }
             .exp-card__tags      { padding: 0 28px 24px; }
             .exp-card__role      { font-size: 22px; }
@@ -1588,8 +1608,8 @@
         <h2 class="section-headline rv rv--d1" id="experience-heading">Built for scale.<br>Shipped to millions.</h2>
         <p class="section-desc rv rv--d2">From junior analyst to leading architecture for 50+ engineers — each role shaped how I think about software.</p>
         <div class="experience__timeline">
-            <article class="exp-card is-expanded rv" id="exp-1">
-                <button class="exp-card__toggle" aria-expanded="true" aria-controls="exp-1-content">
+            <article class="exp-card rv" id="exp-1">
+                <button class="exp-card__toggle" aria-expanded="false" aria-controls="exp-1-content">
                     <div class="exp-card__header">
                         <div class="exp-card__header-left">
                             <h3 class="exp-card__role">Senior iOS Architect</h3>
@@ -1597,8 +1617,8 @@
                         <time class="exp-card__period">Mar 2023 — Present</time>
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
-                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-blue)"></span>Space International (TBC UZ) &middot; Tbilisi, Georgia</div>
                 </button>
+                <a href="https://space.ge" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-blue)"></span>Space International (TBC UZ) &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
                 <div class="exp-card__collapsible" id="exp-1-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">
@@ -1626,8 +1646,8 @@
                         <time class="exp-card__period">Jul 2021 — Apr 2023</time>
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
-                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-purple)"></span>Adjarabet &middot; Tbilisi, Georgia</div>
                 </button>
+                <a href="https://adjarabet.com" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-purple)"></span>Adjarabet &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
                 <div class="exp-card__collapsible" id="exp-2-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">
@@ -1652,8 +1672,8 @@
                         <time class="exp-card__period">Oct 2020 — Jul 2021</time>
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
-                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-green)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
                 </button>
+                <a href="https://bankofgeorgia.ge" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-green)"></span>Bank of Georgia &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
                 <div class="exp-card__collapsible" id="exp-3-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">
@@ -1677,8 +1697,8 @@
                         <time class="exp-card__period">Mar 2020 — Oct 2020</time>
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
-                    <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-orange)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
                 </button>
+                <a href="https://bankofgeorgia.ge" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-orange)"></span>Bank of Georgia &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
                 <div class="exp-card__collapsible" id="exp-4-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">

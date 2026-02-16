@@ -1,4 +1,4 @@
-# khizanag — Personal GitHub Pages Site
+# Giga Khizanishvili — Personal GitHub Pages Site
 
 ## Overview
 Personal portfolio/resume website for Giga Khizanishvili, hosted via GitHub Pages.
@@ -6,7 +6,7 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 
 ## Git Identity
 - **Always use this identity for commits in this repo:**
-  - Name: `khizanag`
+  - Name: `Giga Khizanishvili`
   - Email: `khizanag@gmail.com`
 - This is configured via local git config (`user.name` and `user.email`)
 - **Never** use the work email (`giga.khizanishvili@space.ge`) for this repository

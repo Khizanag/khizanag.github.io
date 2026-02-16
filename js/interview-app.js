@@ -26,6 +26,9 @@
         d.interviewerInput = document.getElementById('interviewerInput');
         d.nameInput = document.getElementById('nameInput');
         d.btnToggleAll = document.getElementById('btnToggleAll');
+        d.btnFoldTopics = document.getElementById('btnFoldTopics');
+        d.topicFoldBody = document.getElementById('topicFoldBody');
+        d.topicSummary = document.getElementById('topicSummary');
         d.allChips = Array.prototype.slice.call(d.topicGrid.querySelectorAll('.topic-chip'));
 
         // Question
@@ -165,12 +168,25 @@
     //  SETUP HELPERS
     // ===========================================================
 
+    function updateTopicSummary() {
+        var total = dom.allChips.length;
+        var count = s.selectedTopics.length;
+        if (count === total) {
+            dom.topicSummary.textContent = 'All ' + total + ' topics';
+        } else if (count === 0) {
+            dom.topicSummary.textContent = 'None selected';
+        } else {
+            dom.topicSummary.textContent = count + ' of ' + total + ' topics';
+        }
+    }
+
     function updateStartButton() {
         var hasTopics = s.selectedTopics.length > 0;
         var hasNames = s.interviewerName.length > 0 && s.intervieweeName.length > 0;
         var allSelected = s.selectedTopics.length === dom.allChips.length;
         dom.btnStart.disabled = !(hasTopics && hasNames);
         dom.btnToggleAll.textContent = allSelected ? 'Clear All' : 'Select All';
+        updateTopicSummary();
 
         if (!hasNames) {
             dom.validationHint.textContent = 'Enter both participant names to begin';
@@ -209,6 +225,12 @@
         dom.nameInput.addEventListener('input', function () {
             s.intervieweeName = dom.nameInput.value.trim();
             updateStartButton();
+        });
+
+        // Topic fold toggle
+        dom.btnFoldTopics.addEventListener('click', function () {
+            dom.btnFoldTopics.classList.toggle('is-open');
+            dom.topicFoldBody.classList.toggle('is-open');
         });
 
         // Mode toggle

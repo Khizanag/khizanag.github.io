@@ -377,8 +377,250 @@
         }
 
         /* ============================================
-           QUESTION SCREEN (placeholder)
+           QUESTION SCREEN
            ============================================ */
+        .q-progress {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .q-progress__bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .q-progress__fill {
+            height: 100%;
+            background: var(--color-blue);
+            border-radius: 2px;
+            transition: width 0.5s var(--ease-out-expo);
+        }
+
+        .q-progress__text {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-gray-500);
+            white-space: nowrap;
+        }
+
+        .q-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .q-card__meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .q-card__topic {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-blue);
+            padding: 5px 12px;
+            background: rgba(41, 151, 255, 0.1);
+            border-radius: var(--border-radius-pill);
+        }
+
+        .q-card__level {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: var(--border-radius-pill);
+        }
+
+        .q-card__level--intern   { background: rgba(90, 200, 250, 0.12); color: var(--color-teal); }
+        .q-card__level--junior   { background: rgba(48, 209, 88, 0.12);  color: var(--color-green); }
+        .q-card__level--middle   { background: rgba(255, 159, 10, 0.12); color: var(--color-orange); }
+        .q-card__level--senior   { background: rgba(191, 90, 242, 0.12); color: var(--color-purple); }
+        .q-card__level--lead     { background: rgba(255, 55, 95, 0.12);  color: var(--color-pink); }
+        .q-card__level--staff    { background: rgba(255, 214, 10, 0.12); color: var(--color-yellow); }
+
+        .q-card__question {
+            font-family: var(--font-display);
+            font-size: clamp(20px, 3.5vw, 26px);
+            font-weight: 600;
+            line-height: 1.35;
+            letter-spacing: -0.02em;
+            color: var(--color-gray-50);
+        }
+
+        /* --- Hint & Answer reveal --- */
+        .q-reveal {
+            margin-top: 16px;
+        }
+
+        .q-reveal__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-gray-400);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--border-radius-pill);
+            cursor: pointer;
+            transition: all 0.25s;
+            margin-right: 8px;
+        }
+
+        .q-reveal__btn:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--color-gray-200);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .q-reveal__btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .q-reveal__content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s var(--ease-smooth);
+        }
+
+        .q-reveal__content.is-open {
+            grid-template-rows: 1fr;
+        }
+
+        .q-reveal__inner {
+            overflow: hidden;
+        }
+
+        .q-reveal__text {
+            padding: 16px 0 0;
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--color-gray-400);
+            font-weight: 300;
+        }
+
+        .q-reveal__text--hint {
+            border-left: 2px solid var(--color-orange);
+            padding-left: 16px;
+            margin-top: 16px;
+        }
+
+        .q-reveal__text--answer {
+            border-left: 2px solid var(--color-green);
+            padding-left: 16px;
+            margin-top: 16px;
+        }
+
+        /* --- Star rating --- */
+        .rating {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-lg);
+            padding: 32px 40px;
+            text-align: center;
+        }
+
+        .rating__label {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--color-gray-400);
+            margin-bottom: 16px;
+        }
+
+        .rating__stars {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .rating__star {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s var(--ease-smooth);
+            color: var(--color-gray-500);
+        }
+
+        .rating__star:hover {
+            border-color: rgba(255, 214, 10, 0.4);
+            background: rgba(255, 214, 10, 0.08);
+            transform: scale(1.1);
+        }
+
+        .rating__star.is-active {
+            border-color: var(--color-yellow);
+            background: rgba(255, 214, 10, 0.15);
+            color: var(--color-yellow);
+        }
+
+        .rating__star svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .rating__desc {
+            font-size: 13px;
+            color: var(--color-gray-500);
+            min-height: 20px;
+            margin-top: 4px;
+        }
+
+        .rating__next {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 32px;
+            border-radius: var(--border-radius-pill);
+            border: none;
+            background: var(--color-blue);
+            color: #fff;
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            letter-spacing: -0.01em;
+        }
+
+        .rating__next:hover {
+            background: var(--color-blue-hover);
+            transform: scale(1.04);
+        }
+
+        .rating__next:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .rating__next svg {
+            width: 16px;
+            height: 16px;
+        }
 
         /* ============================================
            RESULTS SCREEN (placeholder)
@@ -392,6 +634,9 @@
             .setup__icon { width: 52px; height: 52px; font-size: 24px; border-radius: 14px; }
             .topic-chip { font-size: 13px; padding: 8px 14px; }
             .stepper__value { font-size: 28px; }
+            .q-card { padding: 28px; }
+            .rating { padding: 24px 20px; }
+            .rating__star { width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -466,6 +711,59 @@
      QUESTION SCREEN (Step 2)
      ========================================== -->
 <main class="screen" id="screen-question">
+    <div class="container">
+        <div class="q-progress">
+            <div class="q-progress__bar"><div class="q-progress__fill" id="progressFill" style="width:0%"></div></div>
+            <span class="q-progress__text" id="progressText">1 / 10</span>
+        </div>
+
+        <div class="q-card">
+            <div class="q-card__meta">
+                <span class="q-card__topic" id="qTopic">SWIFT</span>
+                <span class="q-card__level" id="qLevel">Junior</span>
+            </div>
+            <h2 class="q-card__question" id="qText">Loading question...</h2>
+
+            <div class="q-reveal">
+                <div style="margin-top:20px">
+                    <button class="q-reveal__btn" id="btnHint">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        Show Hint
+                    </button>
+                    <button class="q-reveal__btn" id="btnAnswer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        Show Answer
+                    </button>
+                </div>
+                <div class="q-reveal__content" id="hintReveal">
+                    <div class="q-reveal__inner">
+                        <p class="q-reveal__text q-reveal__text--hint" id="qHint"></p>
+                    </div>
+                </div>
+                <div class="q-reveal__content" id="answerReveal">
+                    <div class="q-reveal__inner">
+                        <p class="q-reveal__text q-reveal__text--answer" id="qAnswer"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rating">
+            <p class="rating__label">How did the candidate answer?</p>
+            <div class="rating__stars" id="ratingStars">
+                <button class="rating__star" data-value="1" aria-label="1 star — No answer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                <button class="rating__star" data-value="2" aria-label="2 stars — Weak"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                <button class="rating__star" data-value="3" aria-label="3 stars — Partial"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                <button class="rating__star" data-value="4" aria-label="4 stars — Good"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                <button class="rating__star" data-value="5" aria-label="5 stars — Perfect"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+            </div>
+            <p class="rating__desc" id="ratingDesc"></p>
+            <button class="rating__next" id="btnNext" disabled>
+                Next Question
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+        </div>
+    </div>
 </main>
 
 <!-- ==========================================
@@ -550,16 +848,271 @@
         window.scrollTo(0, 0);
     }
 
+    // ---- Question screen DOM refs ----
+    var progressFill = document.getElementById('progressFill');
+    var progressText = document.getElementById('progressText');
+    var qTopic = document.getElementById('qTopic');
+    var qLevel = document.getElementById('qLevel');
+    var qText = document.getElementById('qText');
+    var qHint = document.getElementById('qHint');
+    var qAnswer = document.getElementById('qAnswer');
+    var btnHint = document.getElementById('btnHint');
+    var btnAnswer = document.getElementById('btnAnswer');
+    var hintReveal = document.getElementById('hintReveal');
+    var answerReveal = document.getElementById('answerReveal');
+    var ratingStars = document.getElementById('ratingStars');
+    var ratingDesc = document.getElementById('ratingDesc');
+    var btnNext = document.getElementById('btnNext');
+
+    var RATING_LABELS = ['', 'No answer', 'Weak', 'Partial', 'Good', 'Perfect'];
+    var LEVEL_NAMES = ['intern', 'junior', 'middle', 'senior', 'lead', 'staff'];
+    var LEVEL_LABELS = ['Intern', 'Junior', 'Middle', 'Senior', 'Lead', 'Staff'];
+
+    var currentQ = 0;
+    var currentRating = 0;
+    var ratings = [];
+    var sessionQuestions = [];
+
+    // ---- Hint / Answer reveals ----
+    btnHint.addEventListener('click', function () {
+        hintReveal.classList.toggle('is-open');
+        btnHint.textContent = hintReveal.classList.contains('is-open') ? 'Hide Hint' : 'Show Hint';
+    });
+
+    btnAnswer.addEventListener('click', function () {
+        answerReveal.classList.toggle('is-open');
+        btnAnswer.textContent = answerReveal.classList.contains('is-open') ? 'Hide Answer' : 'Show Answer';
+    });
+
+    // ---- Star rating ----
+    ratingStars.addEventListener('click', function (e) {
+        var star = e.target.closest('.rating__star');
+        if (!star) return;
+
+        currentRating = parseInt(star.dataset.value, 10);
+        var stars = ratingStars.querySelectorAll('.rating__star');
+        stars.forEach(function (s, i) {
+            s.classList.toggle('is-active', i < currentRating);
+        });
+        ratingDesc.textContent = RATING_LABELS[currentRating];
+        btnNext.disabled = false;
+    });
+
+    // ---- Display a question ----
+    function displayQuestion(index) {
+        var q = sessionQuestions[index];
+        var progress = ((index) / questionCount) * 100;
+
+        progressFill.style.width = progress + '%';
+        progressText.textContent = (index + 1) + ' / ' + questionCount;
+
+        qTopic.textContent = q.topic.toUpperCase();
+        qLevel.textContent = LEVEL_LABELS[q.level];
+        qLevel.className = 'q-card__level q-card__level--' + LEVEL_NAMES[q.level];
+        qText.textContent = q.question;
+        qHint.textContent = q.hint;
+        qAnswer.textContent = q.answer;
+
+        // Reset reveals
+        hintReveal.classList.remove('is-open');
+        answerReveal.classList.remove('is-open');
+        btnHint.textContent = 'Show Hint';
+        btnAnswer.textContent = 'Show Answer';
+
+        // Reset rating
+        currentRating = 0;
+        ratingStars.querySelectorAll('.rating__star').forEach(function (s) {
+            s.classList.remove('is-active');
+        });
+        ratingDesc.textContent = '';
+        btnNext.disabled = true;
+        btnNext.textContent = index < questionCount - 1 ? 'Next Question' : 'See Results';
+    }
+
+    // ---- Next question ----
+    btnNext.addEventListener('click', function () {
+        ratings.push(currentRating);
+        currentQ++;
+
+        if (currentQ >= questionCount) {
+            showScreen('screen-results');
+            // TODO: build results in next step
+            return;
+        }
+
+        // Adaptive: pick next question based on performance
+        var nextQ = pickNextQuestion();
+        sessionQuestions.push(nextQ);
+        displayQuestion(currentQ);
+        window.scrollTo(0, 0);
+    });
+
+    // ---- Adaptive question picker ----
+    function pickNextQuestion() {
+        var avgRating = ratings.reduce(function (a, b) { return a + b; }, 0) / ratings.length;
+        var targetLevel;
+
+        if (avgRating >= 4.5) targetLevel = 5;
+        else if (avgRating >= 3.8) targetLevel = 4;
+        else if (avgRating >= 3.0) targetLevel = 3;
+        else if (avgRating >= 2.2) targetLevel = 2;
+        else if (avgRating >= 1.5) targetLevel = 1;
+        else targetLevel = 0;
+
+        // Slight variation: 70% target level, 30% adjacent
+        var rand = Math.random();
+        if (rand < 0.15 && targetLevel > 0) targetLevel--;
+        else if (rand > 0.85 && targetLevel < 5) targetLevel++;
+
+        var topic = selectedTopics[Math.floor(Math.random() * selectedTopics.length)];
+        var pool = QUESTION_BANK.filter(function (q) {
+            return q.topic === topic && q.level === targetLevel;
+        });
+
+        // Fallback: any question from selected topics at target level
+        if (pool.length === 0) {
+            pool = QUESTION_BANK.filter(function (q) {
+                return selectedTopics.indexOf(q.topic) !== -1 && q.level === targetLevel;
+            });
+        }
+
+        // Fallback: any question from selected topics
+        if (pool.length === 0) {
+            pool = QUESTION_BANK.filter(function (q) {
+                return selectedTopics.indexOf(q.topic) !== -1;
+            });
+        }
+
+        // Avoid repeats
+        var used = sessionQuestions.map(function (q) { return q.question; });
+        var unused = pool.filter(function (q) { return used.indexOf(q.question) === -1; });
+        if (unused.length > 0) pool = unused;
+
+        return pool[Math.floor(Math.random() * pool.length)];
+    }
+
     // ---- Start interview ----
     btnStart.addEventListener('click', function () {
         if (selectedTopics.length === 0) return;
+
+        // Reset state
+        currentQ = 0;
+        currentRating = 0;
+        ratings = [];
+        sessionQuestions = [];
+
+        // Pick first question at middle level (level 2)
+        var topic = selectedTopics[Math.floor(Math.random() * selectedTopics.length)];
+        var pool = QUESTION_BANK.filter(function (q) {
+            return selectedTopics.indexOf(q.topic) !== -1 && q.level === 2;
+        });
+        if (pool.length === 0) {
+            pool = QUESTION_BANK.filter(function (q) {
+                return selectedTopics.indexOf(q.topic) !== -1;
+            });
+        }
+        sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+
         showScreen('screen-question');
-        // TODO: initialize questions in next step
+        displayQuestion(0);
     });
 
     // ---- Init ----
     updateStepper();
     updateStartButton();
+
+    // ============================================
+    // QUESTION BANK
+    // ============================================
+    var QUESTION_BANK = [
+        // SWIFT LANGUAGE
+        { topic: 'swift', level: 0, question: 'What is the difference between var and let in Swift?', hint: 'Think about mutability.', answer: 'let declares a constant (immutable) — its value cannot be changed after assignment. var declares a variable (mutable) — its value can be reassigned.' },
+        { topic: 'swift', level: 0, question: 'What are optionals in Swift and why do they exist?', hint: 'Think about representing the absence of a value.', answer: 'Optionals represent a value that may or may not exist. They are an enum with two cases: .some(value) and .none (nil). They exist to provide compile-time safety against null pointer exceptions.' },
+        { topic: 'swift', level: 1, question: 'Explain the difference between struct and class in Swift.', hint: 'Consider value vs reference semantics, inheritance, and deinit.', answer: 'Structs are value types (copied on assignment), classes are reference types (shared via pointers). Classes support inheritance and deinit, structs do not. Structs are stack-allocated (usually), classes are heap-allocated.' },
+        { topic: 'swift', level: 1, question: 'What is a closure in Swift? How does it capture values?', hint: 'Think about functions as first-class citizens and capture lists.', answer: 'A closure is a self-contained block of functionality that can be passed around. It captures and stores references to variables and constants from the surrounding context (closing over them). By default, closures capture values by strong reference; use capture lists [weak self] or [unowned self] to change this.' },
+        { topic: 'swift', level: 2, question: 'What are generics in Swift and when would you use them?', hint: 'Think about type-safe code that works with any type.', answer: 'Generics allow you to write flexible, reusable functions and types that can work with any type, subject to requirements you define. Example: Array<Element> is generic. Use them to avoid code duplication while maintaining type safety. You can add constraints with where clauses or protocol conformances.' },
+        { topic: 'swift', level: 2, question: 'Explain the difference between map, flatMap, and compactMap.', hint: 'All three transform collections, but handle optionals and nesting differently.', answer: 'map transforms each element and returns an array of results. compactMap transforms each element, unwraps optional results, and discards nils. flatMap transforms each element into a sequence and flattens the result into a single array. On optionals, flatMap unwraps and transforms if non-nil.' },
+        { topic: 'swift', level: 3, question: 'What is type erasure in Swift and why would you need it?', hint: 'Consider protocols with associated types and how to store them in collections.', answer: 'Type erasure hides the concrete type behind a wrapper, exposing only the protocol interface. It is needed because protocols with associated types (PATs) cannot be used as existential types directly. AnyPublisher, AnySequence, AnyHashable are examples. In modern Swift, the `any` keyword and primary associated types reduce this need.' },
+        { topic: 'swift', level: 3, question: 'How does Swift\'s copy-on-write (COW) work internally?', hint: 'Think about reference counting and isKnownUniquelyReferenced.', answer: 'COW stores data in a reference-counted buffer. On mutation, Swift checks isKnownUniquelyReferenced — if the buffer has only one reference, it mutates in place; otherwise, it copies the buffer first. Standard library types like Array, Dictionary, and String use this. Custom value types can implement COW using a class-based storage box.' },
+        { topic: 'swift', level: 4, question: 'Explain Swift\'s ownership model and how borrowing/consuming works in Swift 5.9+.', hint: 'Think about ~Copyable types, consuming, and borrowing parameters.', answer: 'Swift 5.9+ introduces non-copyable types (~Copyable) that have exactly one owner at a time. The consuming keyword transfers ownership (the caller can no longer use the value), borrowing provides read-only access without copying. This enables RAII patterns, unique ownership, and zero-cost abstractions. It eliminates unnecessary ARC overhead for types that should not be copied.' },
+        { topic: 'swift', level: 5, question: 'How would you design a compile-time dependency injection system using Swift macros and the type system?', hint: 'Consider @attached macros, result builders, and phantom types for compile-time safety.', answer: 'Use Swift macros (@attached(member, peer)) to generate protocol conformances and factory methods at compile time. Phantom types with generic constraints can encode the dependency graph in the type system, making missing dependencies a compile error. A result builder DSL can declare the module graph, and macros expand it into concrete initializers with all dependencies resolved. This eliminates runtime DI failures entirely.' },
+
+        // SWIFTUI
+        { topic: 'swiftui', level: 0, question: 'What is the role of the body property in a SwiftUI View?', hint: 'Think about declarative UI.', answer: 'The body property is a computed property that returns the view\'s content. SwiftUI calls it whenever the view\'s state changes, and it returns a description of what the UI should look like. SwiftUI diffs the old and new descriptions to apply minimal updates.' },
+        { topic: 'swiftui', level: 1, question: 'What is the difference between @State, @Binding, and @ObservedObject?', hint: 'Consider ownership and source of truth.', answer: '@State is for private value-type state owned by the view. @Binding creates a two-way connection to a @State owned by a parent. @ObservedObject watches a reference-type ObservableObject owned elsewhere. @State is the source of truth; @Binding and @ObservedObject are derived references.' },
+        { topic: 'swiftui', level: 2, question: 'How does SwiftUI determine view identity and why does it matter?', hint: 'Structural identity vs explicit identity, and how it affects animations and state preservation.', answer: 'SwiftUI uses structural identity (position in the view hierarchy) and explicit identity (via .id() modifier or ForEach with Identifiable). Identity determines whether a view is the same between renders — same identity preserves state and enables transitions. Changing identity resets state. Using stable, unique IDs in lists is critical for correct diffing and animation.' },
+        { topic: 'swiftui', level: 3, question: 'Explain the SwiftUI rendering pipeline: what happens between a state change and pixels on screen?', hint: 'Think about attribute graph, dependency tracking, and render tree.', answer: 'When state changes, SwiftUI\'s attribute graph detects which views depend on that state. Only affected body properties are re-evaluated. SwiftUI diffs the new view description against the previous one, generating a minimal set of changes. These are applied to the render tree (backed by CALayer/UIView on iOS). The whole process is O(n) in the number of changed nodes, not the total tree size.' },
+        { topic: 'swiftui', level: 4, question: 'How would you build a performant infinite scrolling list with complex cells in SwiftUI?', hint: 'Consider LazyVStack, prefetching, view identity, and avoiding body re-evaluations.', answer: 'Use LazyVStack inside a ScrollView (or List) for view recycling. Ensure stable Identifiable IDs to prevent unnecessary recreation. Extract cell views into separate structs with Equatable conformance to enable SwiftUI to skip unchanged cells. Use .task for async data prefetching. Minimize @ObservedObject dependencies per cell. For truly complex cases, use UIViewControllerRepresentable wrapping UICollectionView with DiffableDataSource.' },
+        { topic: 'swiftui', level: 5, question: 'How would you design a cross-platform Design System in SwiftUI that supports theming, RTL, accessibility, and dynamic type while remaining maintainable across 50+ engineers?', hint: 'Think about token architecture, component API design, and documentation automation.', answer: 'Build a token layer (colors, typography, spacing) as environment values, loaded from platform-specific configurations. Components accept semantic tokens, not raw values. Use ViewModifiers and custom Styles for consistent theming. Environment-based RTL support with layoutDirection. Require accessibilityLabel, dynamic type support via @ScaledMetric. Ship as SPM package with snapshot tests for every component state. Auto-generate documentation with DocC. Use a showroom app for visual regression testing across all configurations.' },
+
+        // ARCHITECTURE
+        { topic: 'architecture', level: 1, question: 'What is the MVVM pattern and how does it work in iOS?', hint: 'Think about separation of concerns between UI, business logic, and data.', answer: 'MVVM separates the app into Model (data & business logic), View (UI display), and ViewModel (transforms model data for the view, handles user actions). The View observes the ViewModel (via bindings, Combine, or @Published). The ViewModel doesn\'t know about the View. This enables testability since ViewModels can be unit tested without UI.' },
+        { topic: 'architecture', level: 2, question: 'What are the SOLID principles and how do you apply them in Swift?', hint: 'Five principles: S, O, L, I, D.', answer: 'Single Responsibility: each type has one reason to change. Open/Closed: open for extension, closed for modification (protocols, generics). Liskov Substitution: subtypes must be substitutable for base types. Interface Segregation: many specific protocols over one general one. Dependency Inversion: depend on abstractions (protocols), not concretions. In Swift, protocols are the primary tool for O, L, I, and D.' },
+        { topic: 'architecture', level: 3, question: 'Compare MVI and MVVM architectures. When would you choose one over the other?', hint: 'Think about unidirectional data flow vs bidirectional bindings.', answer: 'MVVM uses bidirectional bindings — the ViewModel exposes observable state and the View both reads and sends actions. MVI (Model-View-Intent) enforces unidirectional flow: View emits Intents → Reducer produces new State → View renders State. MVI is more predictable and testable for complex state, easier to debug (single state snapshot), and avoids state inconsistencies. Choose MVI for complex flows with many state transitions; MVVM for simpler screens where bidirectional bindings reduce boilerplate.' },
+        { topic: 'architecture', level: 4, question: 'How would you design a modular architecture for a large iOS app (50+ engineers, 8 teams)?', hint: 'Think about module boundaries, dependency rules, build times, and team autonomy.', answer: 'Use a layered module architecture: Feature modules (owned by teams), Domain modules (shared business logic), Core modules (networking, storage, analytics), and a thin App shell. Enforce dependency rules: features cannot depend on each other, only on domain/core. Use SPM for module management. Define module APIs via protocols in separate interface packages. Each module has its own tests, schemes, and CI. Use a dependency injection container at the app level to wire modules together.' },
+        { topic: 'architecture', level: 5, question: 'How would you migrate a 500K+ LOC UIKit app to SwiftUI incrementally with zero regressions across 8 teams shipping in parallel?', hint: 'Think about coexistence strategy, feature flags, testing pyramid, and team coordination.', answer: 'Create a UIHostingController bridge layer for embedding SwiftUI views in UIKit navigation. Migrate screen-by-screen, bottom-up (leaf screens first). Use feature flags to ship old/new implementations side by side. Establish a shared SwiftUI design system early. Snapshot tests compare old UIKit and new SwiftUI renders pixel-by-pixel. Contract tests ensure ViewModels produce identical state. Run both implementations in shadow mode during QA. Coordinate via architecture guild with representatives from each team.' },
+
+        // MEMORY MANAGEMENT
+        { topic: 'memory', level: 1, question: 'What is ARC and how does it work?', hint: 'Automatic Reference Counting.', answer: 'ARC automatically manages memory for reference types (classes). Each object has a reference count. When a new strong reference is created, the count increments; when a reference is removed, it decrements. When the count reaches 0, the object is deallocated. ARC is compile-time — it inserts retain/release calls at compile time, not runtime (unlike garbage collection).' },
+        { topic: 'memory', level: 2, question: 'What is a retain cycle and how do you prevent it?', hint: 'Two objects holding strong references to each other.', answer: 'A retain cycle occurs when two or more objects hold strong references to each other, preventing their reference counts from reaching zero. Common in closures capturing self and delegate patterns. Prevent with weak references (optional, auto-nils on deallocation) for delegates, and [weak self] or [unowned self] in closure capture lists. unowned is for guaranteed non-nil lifetime; weak is safer for uncertain lifetimes.' },
+        { topic: 'memory', level: 3, question: 'How would you detect and fix a memory leak in a production iOS app?', hint: 'Think about tools and systematic approaches.', answer: 'Use Instruments (Leaks, Allocations) to detect leaks. Xcode Memory Graph Debugger shows live object relationships. Add deinit logs in debug builds. For production: monitor memory footprint via MetricKit. Common fixes: [weak self] in closures, weak delegates, breaking notification observer cycles. For systematic prevention: establish code review rules for closure captures, use SwiftLint rules for retain cycles, and add unit tests that verify deallocation.' },
+        { topic: 'memory', level: 4, question: 'Explain autorelease pools, their purpose in modern Swift, and when you would manually use one.', hint: 'Think about tight loops creating many temporary objects.', answer: 'Autorelease pools defer object deallocation until the pool drains. In modern Swift/ARC, they are rarely needed explicitly. The main run loop has an autorelease pool per iteration. Use autoreleasepool {} manually in tight loops creating many temporary Objective-C objects (e.g., image processing) to prevent memory spikes — it forces immediate deallocation of temporary objects each iteration instead of waiting for the outer pool.' },
+
+        // CONCURRENCY
+        { topic: 'concurrency', level: 1, question: 'What is the difference between synchronous and asynchronous execution?', hint: 'Think about blocking vs non-blocking.', answer: 'Synchronous execution blocks the current thread until the operation completes. Asynchronous execution starts the operation and returns immediately, allowing the thread to do other work; the result is delivered later via callback, delegate, or async/await. UI updates must always happen on the main thread.' },
+        { topic: 'concurrency', level: 2, question: 'How do async/await and structured concurrency work in Swift?', hint: 'Think about Task, TaskGroup, and the suspension model.', answer: 'async marks a function that can suspend and resume. await marks suspension points where the function yields the thread. Structured concurrency via TaskGroup creates child tasks that must complete before the parent finishes. Task {} creates unstructured tasks. The runtime uses a cooperative thread pool — suspended tasks don\'t block threads. Cancellation propagates through the task hierarchy automatically.' },
+        { topic: 'concurrency', level: 3, question: 'What is an actor in Swift and how does it prevent data races?', hint: 'Think about mutual exclusion and actor isolation.', answer: 'An actor is a reference type that protects its mutable state with serial access — only one task can access the actor\'s state at a time. External access to actor properties/methods requires await (potential suspension point). The compiler enforces actor isolation at compile time, preventing data races. @MainActor ensures code runs on the main thread. Global actors allow shared isolation domains across types.' },
+        { topic: 'concurrency', level: 4, question: 'Explain the Swift 6 strict concurrency model and Sendable.', hint: 'Think about data isolation, Sendable protocol, and compiler enforcement.', answer: 'Swift 6 enables strict concurrency by default — the compiler verifies that no data races are possible at compile time. Sendable marks types safe to share across concurrency domains. Value types are implicitly Sendable. Classes must be final with immutable stored properties, or be actors. @Sendable closures cannot capture mutable state. The compiler checks every cross-isolation boundary for Sendable conformance. @preconcurrency eases migration from pre-concurrency code.' },
+        { topic: 'concurrency', level: 5, question: 'How would you design a high-throughput event processing pipeline using actors, async streams, and back-pressure handling?', hint: 'Think about bounded channels, actor reentrancy, and flow control.', answer: 'Use AsyncStream with a bounded buffer as the channel between producers and consumers. Implement back-pressure via the AsyncStream.Continuation yield result — when the buffer is full, the producer suspends. Process events through a pipeline of actors, each handling a transformation stage. Use TaskGroup for fan-out parallelism at stages that benefit from it. Monitor throughput via async-safe metrics actors. Handle actor reentrancy carefully — avoid calling other actors while holding state locks.' },
+
+        // TESTING
+        { topic: 'testing', level: 1, question: 'What is unit testing and why is it important?', hint: 'Testing individual units of code in isolation.', answer: 'Unit testing verifies that individual functions, methods, or classes work correctly in isolation. Tests are automated, fast, and repeatable. They catch regressions early, serve as documentation, enable confident refactoring, and reduce debugging time. In iOS, XCTest is the standard framework. Good unit tests follow the AAA pattern: Arrange, Act, Assert.' },
+        { topic: 'testing', level: 2, question: 'How do you test asynchronous code in Swift?', hint: 'XCTestExpectation and async/await support in XCTest.', answer: 'For async/await: mark test methods as async and use await directly. For callback-based: use XCTestExpectation — create an expectation, fulfill it in the callback, and wait(for:timeout:). For Combine: use expectation with sink, or the .collect() operator in tests. Always set reasonable timeouts. Test cancellation paths too.' },
+        { topic: 'testing', level: 3, question: 'What is snapshot testing and when would you use it over unit/UI tests?', hint: 'Visual regression testing.', answer: 'Snapshot testing captures a rendered view as an image and compares it against a reference. It catches unintended visual changes that unit tests miss (layout, colors, fonts). Use it for design system components, complex layouts, and dark mode/RTL/accessibility variations. Libraries: swift-snapshot-testing by Point-Free. Faster than XCUITest but tests visual output, not behavior. Combine with unit tests for logic and snapshot tests for appearance.' },
+        { topic: 'testing', level: 4, question: 'How would you achieve 90%+ test coverage in a large iOS codebase?', hint: 'Think about testing pyramid, architecture, and team processes.', answer: 'Architecture that enables testing: inject all dependencies via protocols. Testing pyramid: many unit tests (fast, isolated), moderate integration tests, few E2E/UI tests. Test ViewModels exhaustively (state transitions, error paths). Snapshot test all UI components in multiple configurations. Contract tests for API boundaries between modules. CI enforces minimum coverage thresholds per PR. Code review checklist includes test coverage. Make untestable code architecturally impossible by design.' },
+
+        // COMBINE & ASYNC
+        { topic: 'combine', level: 1, question: 'What is Combine and what problem does it solve?', hint: 'Think about reactive programming and event streams.', answer: 'Combine is Apple\'s reactive framework for processing values over time. It provides a declarative API for handling asynchronous events using Publishers (emit values), Operators (transform), and Subscribers (receive). It solves callback hell, simplifies async data flow, and provides built-in support for error handling, cancellation, and back-pressure via the Demand system.' },
+        { topic: 'combine', level: 2, question: 'What is the difference between CurrentValueSubject and PassthroughSubject?', hint: 'One remembers its latest value, the other does not.', answer: 'CurrentValueSubject holds and broadcasts a current value — new subscribers immediately receive the latest value. It requires an initial value and has a .value property. PassthroughSubject does not hold any value — subscribers only receive values published after they subscribe. Use CurrentValueSubject for state (like a view model property), PassthroughSubject for events (like button taps).' },
+        { topic: 'combine', level: 3, question: 'How does back-pressure work in Combine?', hint: 'Think about the Demand type and how subscribers control flow.', answer: 'Subscribers request values from publishers via Subscribers.Demand (.none, .max(n), or .unlimited). Publishers should only emit as many values as demanded. This prevents fast publishers from overwhelming slow subscribers. In practice, most built-in subscribers use .unlimited demand. Custom subscribers can implement back-pressure by requesting .max(1) and requesting more only after processing. The receive(_:) method returns a new Demand that is added to the existing demand.' },
+
+        // PERSISTENCE
+        { topic: 'persistence', level: 1, question: 'What are the different ways to persist data in iOS?', hint: 'Think about UserDefaults, Keychain, Core Data, files, and more.', answer: 'UserDefaults: small key-value pairs (settings, flags). Keychain: secure storage for credentials and tokens. Core Data: object graph and relationship management with SQLite backing. FileManager: raw file storage (JSON, images). SwiftData: modern declarative persistence (Swift 5.9+). SQLite directly via libraries. CloudKit for cloud sync. Choose based on data size, complexity, security requirements, and sync needs.' },
+        { topic: 'persistence', level: 2, question: 'How does Core Data handle concurrency and what are the rules?', hint: 'Think about NSManagedObjectContext and thread confinement.', answer: 'NSManagedObjectContext is not thread-safe — each context must be used only on the thread/queue it was created for. Use perform {} or performAndWait {} for thread-safe access. Use separate contexts for background operations (NSPersistentContainer.newBackgroundContext()). NSManagedObjects are confined to their context\'s queue. Pass objectIDs (not objects) between contexts. NSPersistentContainer simplifies the stack setup.' },
+        { topic: 'persistence', level: 3, question: 'How would you design a robust offline-first architecture for an iOS app?', hint: 'Think about local cache, sync strategy, and conflict resolution.', answer: 'Store all data locally (Core Data/SwiftData) as the source of truth. UI always reads from local store. Background sync service pushes changes to server and pulls updates. Use timestamps or vector clocks for conflict resolution. Queue pending changes when offline and sync when connectivity returns. Use URLSession background sessions for reliable uploads. Handle merge conflicts with last-write-wins or user-prompt strategies depending on data criticality.' },
+
+        // NETWORKING
+        { topic: 'networking', level: 1, question: 'How does URLSession work in iOS?', hint: 'Think about tasks, delegates, and async/await.', answer: 'URLSession is the standard networking API. Create a session (shared, custom, or background). Create tasks: dataTask (in-memory), downloadTask (file), uploadTask. Tasks can use completion handlers or async/await (data(for:)). Configure via URLSessionConfiguration (timeouts, caching, headers). URLSession handles cookies, caching, and HTTP/2 automatically.' },
+        { topic: 'networking', level: 2, question: 'How would you design a type-safe networking layer in Swift?', hint: 'Think about protocols, generics, and Codable.', answer: 'Define an Endpoint protocol with associated types for request/response. Each endpoint specifies path, method, headers, body type (Encodable), and response type (Decodable). A generic NetworkClient takes any Endpoint and returns the decoded response. Use URLRequest construction from endpoint properties. Handle errors via a typed NetworkError enum. Add interceptors for auth tokens, logging, and retry logic via middleware pattern.' },
+        { topic: 'networking', level: 3, question: 'How do you handle authentication token refresh in a networking layer without race conditions?', hint: 'Think about request queuing and serial access.', answer: 'Use an actor (or serial DispatchQueue) to serialize token refresh. When a 401 is received, check if a refresh is already in progress. If so, suspend the current request and queue it. If not, start a refresh, and queue all subsequent 401 requests. Once the token is refreshed, retry all queued requests with the new token. If refresh fails, fail all queued requests. Use async/await with actor isolation to prevent race conditions naturally.' },
+
+        // PERFORMANCE
+        { topic: 'performance', level: 2, question: 'What tools does Apple provide for profiling iOS app performance?', hint: 'Think about Instruments and Xcode features.', answer: 'Instruments: Time Profiler (CPU), Allocations (memory), Leaks (retain cycles), Core Animation (rendering), Network, Energy. Xcode: Memory Graph Debugger, View Debugger, GPU Frame Debugger. MetricKit for production monitoring. os_signpost for custom performance markers. XCTest measureBlock for benchmark tests. Instruments can record, replay, and compare performance across runs.' },
+        { topic: 'performance', level: 3, question: 'How do you optimize table/collection view scrolling performance?', hint: 'Think about cell reuse, offscreen rendering, and image loading.', answer: 'Reuse cells via dequeueReusableCell. Avoid offscreen rendering (shadows, masking, corner radius) — use pre-rendered images or CALayer shouldRasterize. Async image loading and decoding on background threads. Pre-calculate cell heights (auto-layout can be expensive). Minimize view hierarchy depth. Use DiffableDataSource for efficient updates. Prefetch data via UITableViewDataSourcePrefetching. Profile with Core Animation instrument to ensure 60fps.' },
+        { topic: 'performance', level: 4, question: 'How would you reduce app launch time from 3 seconds to under 1 second?', hint: 'Think about pre-main and post-main optimization phases.', answer: 'Pre-main: reduce dylib count (merge frameworks, use static linking), reduce Objective-C classes and categories, minimize +load and __attribute__((constructor)) usage, optimize binary size. Post-main: defer non-critical initialization, lazy-load services, avoid synchronous network calls, reduce initial view hierarchy complexity, use placeholder UI. Measure with DYLD_PRINT_STATISTICS and Instruments App Launch template. Profile both cold and warm launches.' },
+
+        // APP LIFECYCLE
+        { topic: 'lifecycle', level: 1, question: 'What are the main states of an iOS application lifecycle?', hint: 'Not Running, Inactive, Active, Background, Suspended.', answer: 'Not Running: app hasn\'t been launched. Inactive: app is in foreground but not receiving events (e.g., during transition). Active: app is in foreground and receiving events. Background: app is executing code but not visible. Suspended: app is in memory but not executing code. Key delegate methods: didFinishLaunchingWithOptions, applicationDidBecomeActive, applicationDidEnterBackground, applicationWillTerminate.' },
+        { topic: 'lifecycle', level: 2, question: 'How does the SceneDelegate differ from AppDelegate and why was it introduced?', hint: 'Think about multi-window support on iPad.', answer: 'AppDelegate handles app-level events (launch, push notifications, background fetch). SceneDelegate handles UI lifecycle per window/scene. Introduced in iOS 13 for multi-window support on iPad — each window is a UIScene with its own lifecycle. In SwiftUI, @main and App protocol replace both. AppDelegate still handles non-UI events; SceneDelegate manages foreground/background state per scene.' },
+
+        // SECURITY
+        { topic: 'security', level: 2, question: 'How do you securely store sensitive data in iOS?', hint: 'Keychain, not UserDefaults.', answer: 'Use the Keychain for tokens, passwords, and cryptographic keys — it\'s encrypted at the hardware level and persists across app reinstalls (configurable). Never store secrets in UserDefaults (unencrypted plist), code, or Info.plist. Use kSecAttrAccessible to control when keychain items are readable (e.g., only when device is unlocked). For highly sensitive data, use Secure Enclave for key generation. Use App Transport Security (ATS) for network security.' },
+        { topic: 'security', level: 3, question: 'What is certificate pinning and how do you implement it in iOS?', hint: 'Preventing MITM attacks by validating the server\'s certificate.', answer: 'Certificate pinning validates that the server\'s TLS certificate matches a known, trusted certificate bundled with the app. This prevents man-in-the-middle attacks even if a CA is compromised. Implement via URLSessionDelegate\'s urlSession(_:didReceive:completionHandler:) by comparing the server\'s certificate or public key hash. Pin the public key (not the certificate) to survive certificate rotation. Use backup pins. Libraries like TrustKit simplify implementation.' },
+
+        // CI/CD
+        { topic: 'cicd', level: 2, question: 'What is a CI/CD pipeline and why is it important for iOS development?', hint: 'Continuous Integration and Continuous Delivery.', answer: 'CI automatically builds and tests code on every commit/PR, catching issues early. CD automates deployment to TestFlight/App Store. Pipeline stages: build → lint → unit tests → UI tests → archive → distribute. Benefits: faster feedback, consistent builds, reduced manual errors, confidence to ship frequently. Tools: Xcode Cloud, Bitrise, GitHub Actions, Fastlane for automation. Quality gates enforce code standards before merge.' },
+        { topic: 'cicd', level: 3, question: 'How does Fastlane help with iOS automation and what are the key lanes you would set up?', hint: 'Think about building, testing, signing, and distributing.', answer: 'Fastlane automates iOS development tasks via Ruby-based "lanes." Key lanes: test (scan — run tests), build (gym — archive), sign (match — code signing), screenshot (snapshot), distribute (pilot — TestFlight upload, deliver — App Store). Match stores certificates/profiles in a git repo for team consistency. Use environment variables for secrets. Integrate with CI for fully automated pipelines. Fastfile defines lanes; Appfile configures app metadata.' },
+
+        // UIKIT
+        { topic: 'uikit', level: 1, question: 'What is the difference between frame and bounds in UIKit?', hint: 'Think about the parent coordinate system vs the view\'s own coordinate system.', answer: 'frame is the view\'s position and size in its superview\'s coordinate system (x, y, width, height relative to parent). bounds is the view\'s position and size in its own coordinate system (origin is usually 0,0). Changing bounds.origin scrolls the content. After rotation, frame becomes the bounding rect while bounds stays the same. Use frame for positioning relative to parent; bounds for internal layout.' },
+        { topic: 'uikit', level: 2, question: 'Explain the Auto Layout constraint system and its priority mechanism.', hint: 'Required vs optional constraints and intrinsic content size.', answer: 'Auto Layout uses constraints (equations relating view attributes) to calculate layout. Constraints have priorities: 1000 (required) — must be satisfied; < 1000 (optional) — satisfied on best-effort basis. Content Hugging resists growing beyond intrinsic size; Compression Resistance resists shrinking below it. The layout engine solves all constraints simultaneously. Ambiguous layouts have multiple solutions; conflicting constraints cause runtime errors. Use inequality constraints and priorities to build flexible layouts.' },
+        { topic: 'uikit', level: 3, question: 'How does the UIKit responder chain work and how would you use it?', hint: 'Think about event propagation from hit-testing to first responder.', answer: 'Touch events use hit-testing (hitTest(_:with:)) to find the deepest view at the touch point. Events then travel up the responder chain: view → superview → ... → view controller → window → application. Each responder can handle the event or pass it to the next responder. Custom events can use this chain via UIResponder methods. Useful for implementing app-wide gestures, menu actions, and undo/redo. First responder is the object that currently receives keyboard/remote events.' },
+
+        // SYSTEM DESIGN
+        { topic: 'system-design', level: 3, question: 'How would you design an image loading and caching system for a social media feed?', hint: 'Think about multi-level cache, memory/disk, and concurrent loading.', answer: 'Multi-level cache: L1 NSCache (memory, automatic eviction under pressure) → L2 disk cache (FileManager with hash-based filenames). Download via URLSession with concurrent queue. Cancel requests for cells that scroll off-screen. Decode images on background thread. Downsample to display size before caching. Use ETag/Last-Modified for cache validation. LRU eviction for disk cache with size limit. Progressive JPEG loading for large images.' },
+        { topic: 'system-design', level: 4, question: 'Design an analytics SDK that other teams integrate into their iOS apps.', hint: 'Think about API simplicity, batching, persistence, privacy, and reliability.', answer: 'Simple API: Analytics.track(event, properties). Queue events in memory, flush periodically or on threshold. Persist unsent events to disk (SQLite/Core Data) for crash resilience. Batch uploads to reduce network overhead. Retry with exponential backoff. Respect user privacy: consent management, data anonymization, GDPR compliance. Thread-safe via actor isolation. Minimal binary size and zero third-party dependencies. Provide debug mode with console logging. Version the event schema for backward compatibility.' },
+        { topic: 'system-design', level: 5, question: 'Design a real-time collaborative document editing feature for an iOS app (like Google Docs).', hint: 'Think about CRDTs or OT, conflict resolution, offline support, and sync protocol.', answer: 'Use CRDTs (Conflict-free Replicated Data Types) for automatic conflict resolution — specifically a sequence CRDT like RGA or Yjs. Local changes apply immediately for responsiveness. Sync via WebSocket for real-time, with HTTP fallback. Offline support: queue local operations, merge on reconnect using CRDT merge semantics. Cursor/selection presence via lightweight presence channel. Undo/redo per user via operation inversion. Compress operation history periodically. Use SwiftUI for the editor with custom TextLayoutManager for performance.' },
+    ];
 })();
 </script>
 </body>

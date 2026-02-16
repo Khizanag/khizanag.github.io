@@ -532,6 +532,46 @@ body {
     color: var(--color-gray-50);
 }
 
+/* --- Code challenge topic tag --- */
+.q-card__topic--code {
+    color: var(--color-purple);
+    background: rgba(191, 90, 242, 0.1);
+}
+
+/* --- Code block --- */
+.q-card__code {
+    margin-top: 20px;
+    border-radius: var(--border-radius-sm);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.q-card__pre {
+    margin: 0;
+    padding: 20px 24px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.q-card__pre code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--color-gray-200);
+    white-space: pre;
+    tab-size: 4;
+}
+
+/* Swift syntax tokens */
+.q-card__pre .kw { color: #ff7eb6; }
+.q-card__pre .type { color: #82cfff; }
+.q-card__pre .fn { color: #33b1ff; }
+.q-card__pre .str { color: #42be65; }
+.q-card__pre .num { color: #be95ff; }
+.q-card__pre .cmt { color: var(--color-gray-500); font-style: italic; }
+.q-card__pre .call { color: #78a9ff; }
+
 /* --- Hint & Answer reveal --- */
 .q-reveal {
     margin-top: 16px;
@@ -693,6 +733,33 @@ body {
 .rating__next svg {
     width: 16px;
     height: 16px;
+}
+
+/* --- End interview button --- */
+.btn-end {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 14px 32px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    color: var(--color-gray-500);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    letter-spacing: -0.01em;
+}
+
+.btn-end:hover {
+    border-color: rgba(255, 69, 58, 0.3);
+    color: var(--color-red);
+    background: rgba(255, 69, 58, 0.06);
 }
 
 /* ============================================
@@ -914,4 +981,6 @@ body {
     .results__level-ring { width: 130px; height: 130px; }
     .results__breakdown { padding: 24px 20px; }
     .results__actions { flex-direction: column; align-items: center; }
+    .q-card__pre { padding: 16px 18px; }
+    .q-card__pre code { font-size: 12px; }
 }

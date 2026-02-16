@@ -57,6 +57,7 @@
                 <button class="topic-chip" data-topic="security">Security</button>
                 <button class="topic-chip" data-topic="cicd">CI/CD & Tools</button>
                 <button class="topic-chip" data-topic="system-design">System Design</button>
+                <button class="topic-chip" data-topic="code-challenge">Code Challenges</button>
             </div>
         </div>
 
@@ -125,6 +126,10 @@
             </div>
             <h2 class="q-card__question" id="qText">Loading question...</h2>
 
+            <div class="q-card__code" id="qCodeWrap" style="display:none">
+                <pre class="q-card__pre"><code id="qCode"></code></pre>
+            </div>
+
             <div class="q-reveal">
                 <div style="margin-top:20px">
                     <button class="q-reveal__btn" id="btnHint">
@@ -164,6 +169,11 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
         </div>
+
+        <button class="btn-end" id="btnEnd" style="display:none">
+            End Interview
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+        </button>
     </div>
 </main>
 

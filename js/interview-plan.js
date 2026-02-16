@@ -287,22 +287,24 @@
         });
     };
 
+    App.getCurrentPhaseId = function () {
+        if (s.interviewMode !== 'time' || !s.phases) return null;
+        var totalSeconds = s.timeLimitMin * 60;
+        var elapsed = totalSeconds - s.remainingSeconds;
+        var cumulative = 0;
+
+        for (var i = 0; i < s.phases.length; i++) {
+            cumulative += s.phases[i].time * 60;
+            if (elapsed < cumulative) return s.phases[i].id;
+        }
+        return s.phases[s.phases.length - 1].id;
+    };
+
     App.updatePhaseIndicator = function () {
         var container = App.dom.qPhases;
         if (!container || s.interviewMode !== 'time') return;
 
-        var totalSeconds = s.timeLimitMin * 60;
-        var elapsed = totalSeconds - s.remainingSeconds;
-        var cumulative = 0;
-        var currentId = s.phases[s.phases.length - 1].id;
-
-        for (var i = 0; i < s.phases.length; i++) {
-            cumulative += s.phases[i].time * 60;
-            if (elapsed < cumulative) {
-                currentId = s.phases[i].id;
-                break;
-            }
-        }
+        var currentId = App.getCurrentPhaseId();
 
         var items = container.querySelectorAll('.q-phases__item');
         var found = false;

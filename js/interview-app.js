@@ -52,6 +52,7 @@
         d.ratingStars = document.getElementById('ratingStars');
         d.ratingDesc = document.getElementById('ratingDesc');
         d.btnNext = document.getElementById('btnNext');
+        d.btnPrev = document.getElementById('btnPrev');
         d.btnEnd = document.getElementById('btnEnd');
         d.btnFullscreen = document.getElementById('btnFullscreen');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
@@ -128,11 +129,19 @@
         } else {
             dom.btnNext.textContent = s.timerExpired ? 'See Results' : 'Next Question';
         }
+
+        // Show prev button only if not on the first question
+        dom.btnPrev.style.display = index > 0 ? '' : 'none';
     };
 
     // ===========================================================
     //  ADAPTIVE QUESTION PICKER
     // ===========================================================
+
+    function isCodePhase() {
+        var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
+        return phaseId === 'code';
+    }
 
     function pickNextQuestion() {
         var avgRating = s.ratings.reduce(function (a, b) { return a + b; }, 0) / s.ratings.length;
@@ -142,21 +151,35 @@
         if (rand < 0.15 && targetLevel > 0) targetLevel--;
         else if (rand > 0.85 && targetLevel < 5) targetLevel++;
 
-        var topic = s.selectedTopics[Math.floor(Math.random() * s.selectedTopics.length)];
-        var pool = QUESTION_BANK.filter(function (q) {
-            return q.topic === topic && q.level === targetLevel;
-        });
+        var codePhase = isCodePhase();
+        var pool;
 
-        if (pool.length === 0) {
+        if (codePhase) {
             pool = QUESTION_BANK.filter(function (q) {
-                return s.selectedTopics.indexOf(q.topic) !== -1 && q.level === targetLevel;
+                return q.topic === 'code-challenge' && q.level === targetLevel;
             });
-        }
+            if (pool.length === 0) {
+                pool = QUESTION_BANK.filter(function (q) {
+                    return q.topic === 'code-challenge';
+                });
+            }
+        } else {
+            var topic = s.selectedTopics[Math.floor(Math.random() * s.selectedTopics.length)];
+            pool = QUESTION_BANK.filter(function (q) {
+                return q.topic === topic && q.topic !== 'code-challenge' && q.level === targetLevel;
+            });
 
-        if (pool.length === 0) {
-            pool = QUESTION_BANK.filter(function (q) {
-                return s.selectedTopics.indexOf(q.topic) !== -1;
-            });
+            if (pool.length === 0) {
+                pool = QUESTION_BANK.filter(function (q) {
+                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === targetLevel;
+                });
+            }
+
+            if (pool.length === 0) {
+                pool = QUESTION_BANK.filter(function (q) {
+                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
+                });
+            }
         }
 
         var used = s.sessionQuestions.map(function (q) { return q.question; });
@@ -349,6 +372,34 @@
             window.scrollTo(0, 0);
         });
 
+        // Previous question
+        dom.btnPrev.addEventListener('click', function () {
+            if (s.currentQ <= 0) return;
+            // Undo last rating if we already rated and moved forward
+            if (s.ratings.length > s.currentQ) {
+                s.ratings.pop();
+            }
+            // Remove the current (unanswered) question that was added for "next"
+            if (s.sessionQuestions.length > s.currentQ + 1) {
+                s.sessionQuestions.splice(s.currentQ + 1);
+            }
+            s.currentQ--;
+            // Restore the previous rating
+            var prevRating = s.ratings.length > s.currentQ ? s.ratings.pop() : 0;
+            s.currentRating = prevRating;
+            App.displayQuestion(s.currentQ);
+            // Restore stars for the previous rating
+            if (prevRating > 0) {
+                dom.allStars.forEach(function (star, i) {
+                    star.classList.toggle('is-active', i < prevRating);
+                });
+                dom.ratingDesc.textContent = App.RATING_LABELS[prevRating];
+                dom.btnNext.disabled = false;
+            }
+            App.saveSession();
+            window.scrollTo(0, 0);
+        });
+
         // Start interview
         dom.btnStart.addEventListener('click', function () {
             if (s.selectedTopics.length === 0 || !s.interviewerName || !s.intervieweeName) return;
@@ -360,11 +411,11 @@
             App.stopTimer();
 
             var pool = QUESTION_BANK.filter(function (q) {
-                return s.selectedTopics.indexOf(q.topic) !== -1 && q.level === 2;
+                return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === 2;
             });
             if (pool.length === 0) {
                 pool = QUESTION_BANK.filter(function (q) {
-                    return s.selectedTopics.indexOf(q.topic) !== -1;
+                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
                 });
             }
             s.sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
@@ -386,8 +437,9 @@
             App.saveSession();
         });
 
-        // End interview (manual)
+        // End interview (manual) with confirmation
         dom.btnEnd.addEventListener('click', function () {
+            if (!confirm('End the interview now?')) return;
             if (s.currentRating > 0) {
                 s.ratings.push(s.currentRating);
             } else {

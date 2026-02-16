@@ -1070,11 +1070,46 @@ body {
     margin-top: 4px;
 }
 
+.rating__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.rating__prev {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: var(--color-gray-400);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    letter-spacing: -0.01em;
+}
+
+.rating__prev:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--color-gray-200);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.rating__prev svg {
+    width: 16px;
+    height: 16px;
+}
+
 .rating__next {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-top: 20px;
     padding: 12px 32px;
     border-radius: var(--border-radius-pill);
     border: none;
@@ -1086,6 +1121,7 @@ body {
     cursor: pointer;
     transition: all 0.3s var(--ease-smooth);
     letter-spacing: -0.01em;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .rating__next:hover {

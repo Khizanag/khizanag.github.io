@@ -4,6 +4,13 @@
 Personal portfolio/resume website for Giga Khizanishvili, hosted via GitHub Pages.
 Static HTML/CSS/JS — no build tools or frameworks required.
 
+## Git Identity
+- **Always use this identity for commits in this repo:**
+  - Name: `khizanag`
+  - Email: `khizanag@gmail.com`
+- This is configured via local git config (`user.name` and `user.email`)
+- **Never** use the work email (`giga.khizanishvili@space.ge`) for this repository
+
 ## Workflow Rules
 - **Always commit directly to `master`** — no feature branches
 - **Always push to remote after every commit**

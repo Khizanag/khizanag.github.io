@@ -604,6 +604,7 @@ body {
 .plan__arrow svg {
     width: 14px;
     height: 14px;
+    pointer-events: none;
 }
 
 .plan__arrow:hover:not(:disabled) {

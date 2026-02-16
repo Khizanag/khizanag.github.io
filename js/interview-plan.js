@@ -55,8 +55,8 @@
                 var isLast = (i === s.phases.length - 2);
                 moveHtml =
                     '<div class="plan__arrows">' +
-                        '<button class="plan__arrow" data-dir="up"' + (isFirst ? ' disabled' : '') + ' aria-label="Move up">' + UP_SVG + '</button>' +
                         '<button class="plan__arrow" data-dir="down"' + (isLast ? ' disabled' : '') + ' aria-label="Move down">' + DOWN_SVG + '</button>' +
+                        '<button class="plan__arrow" data-dir="up"' + (isFirst ? ' disabled' : '') + ' aria-label="Move up">' + UP_SVG + '</button>' +
                     '</div>';
             }
 

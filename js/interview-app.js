@@ -3,6 +3,7 @@
 
     var s = App.state;
     var dom = App.dom;
+    var INTERVIEWER_KEY = 'ios-interview-interviewer';
 
     // ===========================================================
     //  DOM REFS
@@ -52,6 +53,7 @@
         d.ratingDesc = document.getElementById('ratingDesc');
         d.btnNext = document.getElementById('btnNext');
         d.btnEnd = document.getElementById('btnEnd');
+        d.btnFullscreen = document.getElementById('btnFullscreen');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
 
         // Plan & Phases
@@ -220,6 +222,7 @@
         // Name inputs
         dom.interviewerInput.addEventListener('input', function () {
             s.interviewerName = dom.interviewerInput.value.trim();
+            try { localStorage.setItem(INTERVIEWER_KEY, s.interviewerName); } catch (e) { /* */ }
             updateStartButton();
         });
         dom.nameInput.addEventListener('input', function () {
@@ -399,6 +402,23 @@
             App.downloadReport();
         });
 
+        // Fullscreen
+        dom.btnFullscreen.addEventListener('click', function () {
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+                (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+            } else {
+                var el = document.documentElement;
+                (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+            }
+        });
+
+        function onFullscreenChange() {
+            var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+            document.documentElement.classList.toggle('is-fullscreen', isFs);
+        }
+        document.addEventListener('fullscreenchange', onFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
         // Restart
         document.getElementById('btnRestart').addEventListener('click', function () {
             App.stopTimer();
@@ -418,6 +438,14 @@
     var restored = App.restoreSession();
     if (!restored) {
         selectAllTopics();
+        // Restore cached interviewer name
+        try {
+            var cachedName = localStorage.getItem(INTERVIEWER_KEY);
+            if (cachedName) {
+                s.interviewerName = cachedName;
+                dom.interviewerInput.value = cachedName;
+            }
+        } catch (e) { /* */ }
     }
     updateStepper();
     updateStartButton();

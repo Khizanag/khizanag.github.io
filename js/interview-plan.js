@@ -8,7 +8,7 @@
 
     var DEFAULT_PHASES = [
         { id: 'intro', name: 'Introduction', time: 5, locked: true },
-        { id: 'theory', name: 'Theory', time: 15, locked: false },
+        { id: 'theory', name: 'Theory', time: 25, locked: false },
         { id: 'code', name: 'Code Questions', time: 10, locked: false },
         { id: 'live', name: 'Live Coding', time: 15, locked: false },
         { id: 'wrapup', name: 'Wrap-up', time: 5, locked: true },

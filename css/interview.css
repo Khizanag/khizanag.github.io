@@ -543,7 +543,7 @@ body {
     background-color: rgba(255, 255, 255, 0.04);
 }
 
-.plan__phase--locked {
+.plan__phase--locked .plan__left {
     opacity: 0.55;
 }
 

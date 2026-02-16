@@ -447,7 +447,7 @@ body {
     font-size: 14px;
     font-weight: 400;
     padding: 10px 18px;
-    border-radius: var(--border-radius-pill);
+    border-radius: var(--border-radius-lg);
     cursor: pointer;
     transition: all 0.25s var(--ease-smooth);
     user-select: none;

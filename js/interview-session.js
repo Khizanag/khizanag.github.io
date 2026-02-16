@@ -20,6 +20,7 @@
                 sessionQuestions: s.sessionQuestions,
                 remainingSeconds: s.remainingSeconds,
                 timerExpired: s.timerExpired,
+                phases: s.phases,
                 hintRevealed: dom.hintReveal.classList.contains('is-open'),
                 answerRevealed: dom.answerReveal.classList.contains('is-open'),
                 timestamp: Date.now(),
@@ -75,6 +76,9 @@
         s.sessionQuestions = data.sessionQuestions;
         s.remainingSeconds = data.remainingSeconds || 0;
         s.timerExpired = data.timerExpired || false;
+        if (Array.isArray(data.phases) && data.phases.length > 0) {
+            s.phases = data.phases;
+        }
 
         // Restore setup screen UI
         dom.interviewerInput.value = s.interviewerName;
@@ -85,7 +89,7 @@
         dom.modeToggle.querySelectorAll('.mode-toggle__btn').forEach(function (b) {
             b.classList.toggle('is-active', b.dataset.mode === s.interviewMode);
         });
-        dom.sectionTime.style.display = s.interviewMode === 'time' ? '' : 'none';
+        dom.sectionTime.style.display = 'none';
         dom.sectionCount.style.display = s.interviewMode === 'count' ? '' : 'none';
         dom.timeSlider.value = s.timeLimitMin;
         dom.timeDisplay.textContent = s.timeLimitMin + ' min';
@@ -102,7 +106,10 @@
             dom.qTimer.style.display = 'none';
         }
 
+        App.renderPlan();
         App.showScreen('screen-question');
+        App.renderPhaseIndicator();
+        App.updatePhaseIndicator();
         App.displayQuestion(s.currentQ);
 
         // Restore in-progress rating

@@ -51,6 +51,11 @@
         d.btnEnd = document.getElementById('btnEnd');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
 
+        // Plan & Phases
+        d.planList = document.getElementById('planList');
+        d.planTotal = document.getElementById('planTotal');
+        d.qPhases = document.getElementById('qPhases');
+
         // Results
         d.resultsInterviewee = document.getElementById('resultsInterviewee');
         d.btnDownload = document.getElementById('btnDownload');
@@ -182,11 +187,6 @@
         dom.stepperPlus.disabled = s.questionCount >= App.MAX_Q;
     }
 
-    function updateTimeSlider() {
-        dom.timeSlider.value = s.timeLimitMin;
-        dom.timeDisplay.textContent = s.timeLimitMin + ' min';
-    }
-
     function selectAllTopics() {
         s.selectedTopics = [];
         dom.allChips.forEach(function (c) {
@@ -219,7 +219,7 @@
             dom.modeToggle.querySelectorAll('.mode-toggle__btn').forEach(function (b) {
                 b.classList.toggle('is-active', b.dataset.mode === s.interviewMode);
             });
-            dom.sectionTime.style.display = s.interviewMode === 'time' ? '' : 'none';
+            dom.sectionTime.style.display = 'none';
             dom.sectionCount.style.display = s.interviewMode === 'count' ? '' : 'none';
         });
 
@@ -355,6 +355,8 @@
 
             dom.btnEnd.style.display = '';
             App.showScreen('screen-question');
+            App.renderPhaseIndicator();
+            App.updatePhaseIndicator();
             App.displayQuestion(0);
             App.saveSession();
         });
@@ -389,13 +391,13 @@
 
     initDom();
     bindEvents();
+    App.initPlan();
 
     var restored = App.restoreSession();
     if (!restored) {
         selectAllTopics();
     }
     updateStepper();
-    updateTimeSlider();
     updateStartButton();
 
 })(InterviewApp);

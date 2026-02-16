@@ -93,8 +93,8 @@
             <p class="setup__label">Interview Duration <span class="setup__label-value" id="timeDisplay">15 min</span></p>
             <div class="time-slider">
                 <span class="time-slider__label">5</span>
-                <input type="range" class="time-slider__input" id="timeSlider" min="5" max="60" step="5" value="15">
-                <span class="time-slider__label">60</span>
+                <input type="range" class="time-slider__input" id="timeSlider" min="5" max="120" step="5" value="15">
+                <span class="time-slider__label">120</span>
             </div>
         </div>
 
@@ -221,6 +221,11 @@
             </div>
         </div>
 
+        <div class="results__topic-breakdown">
+            <p class="results__breakdown-title">Topic Knowledge</p>
+            <div id="topicBreakdown"></div>
+        </div>
+
         <div class="results__breakdown">
             <p class="results__breakdown-title">Question Breakdown</p>
             <div id="breakdownList"></div>
@@ -228,6 +233,10 @@
 
         <div class="results__actions">
             <button class="btn-restart" id="btnRestart">Try Again</button>
+            <button class="btn-download" id="btnDownload">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Report
+            </button>
             <a href="index.html" class="btn-secondary">Back to Portfolio</a>
         </div>
     </div>
@@ -237,6 +246,11 @@
      SCRIPTS
      ========================================== -->
 <script src="js/questions.js"></script>
-<script src="js/interview.js"></script>
+<script src="js/interview-config.js"></script>
+<script src="js/interview-highlighter.js"></script>
+<script src="js/interview-session.js"></script>
+<script src="js/interview-timer.js"></script>
+<script src="js/interview-results.js"></script>
+<script src="js/interview-app.js"></script>
 </body>
 </html>

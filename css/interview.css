@@ -565,6 +565,35 @@ body {
     color: var(--color-gray-700);
 }
 
+.plan__grip {
+    cursor: grab;
+    padding: 4px 2px;
+    border-radius: 4px;
+    transition: color 0.2s;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.plan__grip:hover {
+    color: var(--color-gray-400);
+}
+
+.plan__grip:active {
+    cursor: grabbing;
+}
+
+.plan__phase--placeholder {
+    opacity: 0.3;
+}
+
+.plan__phase--ghost {
+    background-color: var(--color-gray-900);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    opacity: 0.95;
+}
+
 .plan__name {
     font-family: var(--font-display);
     font-size: 14px;
@@ -580,43 +609,6 @@ body {
     flex-shrink: 0;
 }
 
-.plan__arrows {
-    display: flex;
-    gap: 4px;
-}
-
-.plan__arrow {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background-color: rgba(255, 255, 255, 0.04);
-    color: var(--color-gray-400);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    transition: all 0.2s;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.plan__arrow svg {
-    width: 14px;
-    height: 14px;
-    pointer-events: none;
-}
-
-.plan__arrow:hover:not(:disabled) {
-    border-color: rgba(255, 255, 255, 0.15);
-    background-color: rgba(255, 255, 255, 0.08);
-    color: var(--color-gray-200);
-}
-
-.plan__arrow:disabled {
-    opacity: 0.25;
-    cursor: not-allowed;
-}
 
 .plan__time {
     display: flex;
@@ -1419,7 +1411,6 @@ body {
     .setup__name-input { padding: 14px 16px; }
     .plan__phase { padding: 12px 14px; }
     .plan__name { font-size: 13px; }
-    .plan__arrow { width: 26px; height: 26px; }
     .plan__time-btn { width: 26px; height: 26px; font-size: 14px; }
     .q-phases__item { font-size: 10px; padding: 5px 2px; }
     .q-card__pre { padding: 16px 18px; }

@@ -17,7 +17,15 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - Keep the site as a single `index.html` unless complexity requires splitting
 
 ## Structure
-- `index.html` — the entire site (HTML + inline CSS + JS)
+- `index.html` — the main portfolio site (HTML + inline CSS + JS)
+- `interview.html` — iOS Interview tool
+- `js/` — modular JS files (config, session, timer, plan, results, app, etc.)
+- `css/` — modular CSS files, split by screen/concern
+
+## CSS Rules
+- Keep CSS files split by screen/concern — never create a single monolithic CSS file
+- Current split: `interview-base.css`, `interview-setup.css`, `interview-question.css`, `interview-results.css`, `interview-responsive.css`
+- When adding new styles, place them in the appropriate file by screen
 
 ## Deployment
 - GitHub Pages serves from the `master` branch root

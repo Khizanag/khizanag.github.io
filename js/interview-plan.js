@@ -4,6 +4,7 @@
     var s = App.state;
     var MIN_TIME = 1;
     var MAX_TIME = 60;
+    var PLAN_KEY = 'ios-interview-plan';
 
     var DEFAULT_PHASES = [
         { id: 'intro', name: 'Introduction', time: 5, locked: true },
@@ -13,10 +14,34 @@
         { id: 'wrapup', name: 'Wrap-up', time: 5, locked: true },
     ];
 
+    function loadCachedPlan() {
+        try {
+            var raw = localStorage.getItem(PLAN_KEY);
+            if (!raw) return null;
+            var data = JSON.parse(raw);
+            if (!Array.isArray(data) || data.length === 0) return null;
+            var valid = data.every(function (p) {
+                return p && p.id && p.name && typeof p.time === 'number' && typeof p.locked === 'boolean';
+            });
+            return valid ? data : null;
+        } catch (e) { return null; }
+    }
+
+    function savePlan() {
+        try {
+            localStorage.setItem(PLAN_KEY, JSON.stringify(s.phases));
+        } catch (e) { /* localStorage unavailable */ }
+    }
+
     if (!s.phases || !s.phases.length) {
-        s.phases = DEFAULT_PHASES.map(function (p) {
-            return { id: p.id, name: p.name, time: p.time, locked: p.locked };
-        });
+        var cached = loadCachedPlan();
+        if (cached) {
+            s.phases = cached;
+        } else {
+            s.phases = DEFAULT_PHASES.map(function (p) {
+                return { id: p.id, name: p.name, time: p.time, locked: p.locked };
+            });
+        }
     }
 
     function getPlanTotal() {
@@ -29,6 +54,7 @@
         if (dom.planTotal) dom.planTotal.textContent = s.timeLimitMin + ' min';
         if (dom.timeSlider) dom.timeSlider.value = Math.min(s.timeLimitMin, 120);
         if (dom.timeDisplay) dom.timeDisplay.textContent = s.timeLimitMin + ' min';
+        savePlan();
     }
 
     var LOCK_SVG = '<svg class="plan__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>';

@@ -54,8 +54,16 @@
         </div>
 
         <div class="setup__section">
-            <p class="setup__label">Select Topics <button class="setup__label-action" id="btnToggleAll">Clear All</button></p>
-            <div class="setup__topics" id="topicGrid">
+            <button class="setup__fold-toggle" id="btnFoldTopics">
+                <span class="setup__fold-label">Topics</span>
+                <span class="setup__fold-summary" id="topicSummary">All 16 topics</span>
+                <svg class="setup__fold-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="setup__fold-body" id="topicFoldBody">
+                <div class="setup__fold-actions">
+                    <button class="setup__label-action" id="btnToggleAll">Clear All</button>
+                </div>
+                <div class="setup__topics" id="topicGrid">
                 <button class="topic-chip" data-topic="swift">Swift Language</button>
                 <button class="topic-chip" data-topic="swiftui">SwiftUI</button>
                 <button class="topic-chip" data-topic="uikit">UIKit</button>
@@ -72,6 +80,7 @@
                 <button class="topic-chip" data-topic="cicd">CI/CD & Tools</button>
                 <button class="topic-chip" data-topic="system-design">System Design</button>
                 <button class="topic-chip" data-topic="code-challenge">Code Challenges</button>
+                </div>
             </div>
         </div>
 

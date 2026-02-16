@@ -48,6 +48,7 @@ var InterviewApp = {
         currentRating: 0,
         ratings: [],
         sessionQuestions: [],
+        phases: null,
     },
 
     dom: {},

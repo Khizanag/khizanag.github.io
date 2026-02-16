@@ -516,6 +516,153 @@ body {
     margin-left: 8px;
 }
 
+/* --- Interview plan --- */
+.plan {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+}
+
+.plan__phase {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background-color 0.2s;
+}
+
+.plan__phase:last-child {
+    border-bottom: none;
+}
+
+.plan__phase:not(.plan__phase--locked):hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.plan__phase--locked {
+    opacity: 0.55;
+}
+
+.plan__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.plan__icon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-gray-500);
+    flex-shrink: 0;
+}
+
+.plan__icon--grip {
+    color: var(--color-gray-700);
+}
+
+.plan__name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-200);
+    white-space: nowrap;
+}
+
+.plan__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.plan__arrows {
+    display: flex;
+    gap: 4px;
+}
+
+.plan__arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--color-gray-400);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.plan__arrow svg {
+    width: 14px;
+    height: 14px;
+}
+
+.plan__arrow:hover:not(:disabled) {
+    border-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--color-gray-200);
+}
+
+.plan__arrow:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.plan__time {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.plan__time-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--color-gray-400);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-family: var(--font-display);
+    padding: 0;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.plan__time-btn:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--color-gray-200);
+}
+
+.plan__time-value {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-50);
+    min-width: 28px;
+    text-align: center;
+}
+
+.plan__time-unit {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-gray-500);
+    margin-left: 2px;
+}
+
 /* --- Start button --- */
 .setup__start {
     display: flex;
@@ -568,6 +715,39 @@ body {
 /* ============================================
    QUESTION SCREEN
    ============================================ */
+/* --- Phase indicator --- */
+.q-phases {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.q-phases__item {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 6px 4px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.04);
+    color: var(--color-gray-500);
+    transition: all 0.4s var(--ease-smooth);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.q-phases__item.is-done {
+    background-color: rgba(48, 209, 88, 0.1);
+    color: var(--color-green);
+}
+
+.q-phases__item.is-active {
+    background-color: rgba(41, 151, 255, 0.15);
+    color: var(--color-blue);
+    font-weight: 500;
+}
+
 .q-progress {
     display: flex;
     align-items: center;
@@ -1238,6 +1418,11 @@ body {
     .results__actions { flex-direction: column; align-items: center; }
     .setup__names { grid-template-columns: 1fr; }
     .setup__name-input { padding: 14px 16px; }
+    .plan__phase { padding: 12px 14px; }
+    .plan__name { font-size: 13px; }
+    .plan__arrow { width: 26px; height: 26px; }
+    .plan__time-btn { width: 26px; height: 26px; font-size: 14px; }
+    .q-phases__item { font-size: 10px; padding: 5px 2px; }
     .q-card__pre { padding: 16px 18px; }
     .q-card__pre code { font-size: 12px; }
 }

@@ -41,6 +41,7 @@
             dom.qTimer.classList.add('is-danger');
         }
 
+        App.updatePhaseIndicator();
         App.saveSession();
     };
 

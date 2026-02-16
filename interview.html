@@ -89,7 +89,12 @@
             </div>
         </div>
 
-        <div class="setup__section" id="sectionTime">
+        <div class="setup__section">
+            <p class="setup__label">Interview Plan <span class="setup__label-value" id="planTotal">50 min</span></p>
+            <div class="plan" id="planList"></div>
+        </div>
+
+        <div class="setup__section" id="sectionTime" style="display:none">
             <p class="setup__label">Interview Duration <span class="setup__label-value" id="timeDisplay">15 min</span></p>
             <div class="time-slider">
                 <span class="time-slider__label">5</span>
@@ -123,6 +128,8 @@
      ========================================== -->
 <main class="screen" id="screen-question">
     <div class="container">
+        <div class="q-phases" id="qPhases"></div>
+
         <div class="q-progress">
             <div class="q-progress__bar"><div class="q-progress__fill" id="progressFill" style="width:0%"></div></div>
             <span class="q-progress__text" id="progressText">1 / 10</span>
@@ -250,6 +257,7 @@
 <script src="js/interview-highlighter.js"></script>
 <script src="js/interview-session.js"></script>
 <script src="js/interview-timer.js"></script>
+<script src="js/interview-plan.js"></script>
 <script src="js/interview-results.js"></script>
 <script src="js/interview-app.js"></script>
 </body>

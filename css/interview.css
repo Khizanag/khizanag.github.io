@@ -282,6 +282,42 @@ body {
     color: var(--color-blue);
 }
 
+/* --- Mode toggle --- */
+.mode-toggle {
+    display: flex;
+    gap: 8px;
+}
+
+.mode-toggle__btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-gray-400);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+}
+
+.mode-toggle__btn:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-gray-200);
+}
+
+.mode-toggle__btn.is-active {
+    border-color: var(--color-blue);
+    background: rgba(41, 151, 255, 0.12);
+    color: var(--color-blue);
+}
+
 /* --- Question count stepper --- */
 .stepper {
     display: flex;
@@ -409,6 +445,40 @@ body {
     font-size: 12px;
     color: var(--color-gray-500);
     white-space: nowrap;
+}
+
+.q-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-gray-400);
+    white-space: nowrap;
+    padding: 4px 12px;
+    border-radius: var(--border-radius-pill);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: color 0.3s, border-color 0.3s, background 0.3s;
+}
+
+.q-timer.is-warning {
+    color: var(--color-orange);
+    border-color: rgba(255, 159, 10, 0.3);
+    background: rgba(255, 159, 10, 0.08);
+}
+
+.q-timer.is-danger {
+    color: var(--color-red);
+    border-color: rgba(255, 69, 58, 0.3);
+    background: rgba(255, 69, 58, 0.08);
+    animation: timer-pulse 1s ease infinite;
+}
+
+@keyframes timer-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
 }
 
 .q-card {

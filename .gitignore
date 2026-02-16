@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node (if added later)
+node_modules/

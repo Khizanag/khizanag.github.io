@@ -5,568 +5,1822 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giga Khizanishvili — Senior iOS Architect</title>
     <meta name="description" content="Senior iOS Engineer & Mobile Architect with 5+ years building high-performance apps for millions of users in fintech and gaming.">
+    <meta name="author" content="Giga Khizanishvili">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Giga Khizanishvili — Senior iOS Architect">
+    <meta property="og:description" content="Senior iOS Engineer & Mobile Architect with 5+ years building high-performance apps for millions of users in fintech and gaming.">
+    <meta property="og:url" content="https://khizanag.github.io">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Giga Khizanishvili — Senior iOS Architect">
+    <meta name="twitter:description" content="Senior iOS Engineer & Mobile Architect with 5+ years building high-performance apps for millions of users.">
+
+    <link rel="canonical" href="https://khizanag.github.io">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
     <style>
+        /* ============================================
+           DESIGN TOKENS
+           ============================================ */
         :root {
-            --white: #fbfbfd;
-            --gray-50: #f5f5f7;
-            --gray-100: #e8e8ed;
-            --gray-200: #d2d2d7;
-            --gray-400: #86868b;
-            --gray-500: #6e6e73;
-            --gray-700: #424245;
-            --gray-900: #1d1d1f;
-            --black: #000000;
-            --blue: #2997ff;
-            --blue-dark: #0071e3;
-            --purple: #bf5af2;
-            --green: #30d158;
-            --orange: #ff9f0a;
-            --pink: #ff375f;
-            --teal: #5ac8fa;
+            --color-white: #fbfbfd;
+            --color-gray-50: #f5f5f7;
+            --color-gray-100: #e8e8ed;
+            --color-gray-200: #d2d2d7;
+            --color-gray-400: #86868b;
+            --color-gray-500: #6e6e73;
+            --color-gray-700: #424245;
+            --color-gray-900: #1d1d1f;
+            --color-black: #000000;
+            --color-blue: #2997ff;
+            --color-blue-hover: #3ba0ff;
+            --color-blue-dark: #0071e3;
+            --color-purple: #bf5af2;
+            --color-green: #30d158;
+            --color-orange: #ff9f0a;
+            --color-pink: #ff375f;
+            --color-teal: #5ac8fa;
+
             --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+            --nav-height: 48px;
+            --container-max: 1024px;
+            --section-padding: 140px;
+            --section-padding-mobile: 100px;
+            --border-radius-pill: 980px;
+            --border-radius-card: 24px;
+            --border-radius-card-lg: 28px;
+
+            --border-light: 1px solid rgba(0, 0, 0, 0.06);
+            --border-dark: 1px solid rgba(255, 255, 255, 0.08);
+            --border-dark-hover: 1px solid rgba(255, 255, 255, 0.12);
         }
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-        body { font-family: var(--font-body); background: var(--black); color: var(--gray-900); overflow-x: hidden; }
-        ::selection { background: rgba(41,151,255,0.3); color: inherit; }
 
-        /* NAV */
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; height: 48px; background: rgba(0,0,0,0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .nav-inner { max-width: 1024px; margin: 0 auto; height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; }
-        .nav-logo { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--gray-50); letter-spacing: -0.02em; }
-        .nav-logo span { color: var(--blue); }
-        .nav-links { display: flex; gap: 28px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--gray-200); font-size: 12px; font-weight: 400; letter-spacing: 0.01em; transition: color 0.3s; font-family: var(--font-body); }
-        .nav-links a:hover { color: #fff; }
-        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; width: 20px; height: 16px; position: relative; }
-        .nav-hamburger span { display: block; width: 100%; height: 1px; background: var(--gray-200); position: absolute; left: 0; transition: all 0.3s; }
-        .nav-hamburger span:nth-child(1) { top: 0; }
-        .nav-hamburger span:nth-child(2) { top: 7px; }
-        .nav-hamburger span:nth-child(3) { top: 14px; }
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* HERO */
-        .hero { min-height: 100vh; background: var(--black); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 1200px; height: 1200px; background: radial-gradient(ellipse at center, rgba(41,151,255,0.08) 0%, rgba(191,90,242,0.04) 30%, transparent 70%); pointer-events: none; animation: heroGlow 8s ease-in-out infinite alternate; }
-        @keyframes heroGlow { 0% { transform: translate(-50%,-50%) scale(1); opacity: 1; } 100% { transform: translate(-50%,-50%) scale(1.15); opacity: 0.7; } }
-        .hero-eyebrow { font-family: var(--font-mono); font-size: 13px; font-weight: 400; color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; opacity: 0; transform: translateY(20px); animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards 0.3s; }
-        .hero h1 { font-family: var(--font-display); font-size: clamp(48px,8vw,96px); font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; color: var(--gray-50); margin-bottom: 24px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards 0.5s; }
-        .hero h1 .line-gradient { background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 200% 100%; animation: gradientShift 6s ease infinite 1.5s; }
-        @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        .hero-sub { font-size: clamp(17px,2.2vw,21px); color: var(--gray-400); font-weight: 300; max-width: 580px; line-height: 1.55; letter-spacing: -0.01em; margin-bottom: 48px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards 0.7s; }
-        .hero-actions { display: flex; gap: 16px; align-items: center; opacity: 0; transform: translateY(30px); animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards 0.9s; }
-        .btn-apple { display: inline-flex; align-items: center; gap: 8px; padding: 14px 30px; border-radius: 980px; font-size: 17px; font-weight: 500; font-family: var(--font-display); text-decoration: none; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94); cursor: pointer; border: none; letter-spacing: -0.01em; }
-        .btn-filled { background: var(--blue); color: #fff; }
-        .btn-filled:hover { background: #3ba0ff; transform: scale(1.04); }
-        .btn-ghost { background: transparent; color: var(--blue); }
-        .btn-ghost:hover { color: #3ba0ff; }
-        .btn-ghost svg { transition: transform 0.3s; }
-        .btn-ghost:hover svg { transform: translateX(3px); }
-        .hero-metrics { display: flex; gap: 48px; margin-top: 80px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards 1.1s; }
-        .hero-metric { text-align: center; }
-        .hero-metric-value { font-family: var(--font-display); font-size: 44px; font-weight: 700; color: var(--gray-50); letter-spacing: -0.03em; line-height: 1; }
-        .hero-metric-value .accent { color: var(--blue); }
-        .hero-metric-label { font-size: 13px; color: var(--gray-500); margin-top: 6px; letter-spacing: 0.01em; }
-        .hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards 1.5s; }
-        .hero-scroll span { font-size: 11px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; }
-        .scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, var(--gray-500), transparent); animation: scrollPulse 2s ease-in-out infinite; }
-        @keyframes scrollPulse { 0%,100% { opacity: 0.5; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.2); } }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-        /* MARQUEE */
-        .marquee-section { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 20px 0; overflow: hidden; }
-        .marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
-        .marquee-track:hover { animation-play-state: paused; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee-item { display: flex; align-items: center; gap: 12px; padding: 0 32px; white-space: nowrap; font-family: var(--font-mono); font-size: 13px; color: var(--gray-500); font-weight: 400; }
-        .marquee-item .dot { width: 4px; height: 4px; background: var(--blue); border-radius: 50%; }
+        body {
+            font-family: var(--font-body);
+            background: var(--color-black);
+            color: var(--color-gray-900);
+            overflow-x: hidden;
+        }
 
-        /* SHARED */
-        .container { max-width: 1024px; margin: 0 auto; }
-        .section-eyebrow { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--blue-dark); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
-        .section-headline { font-family: var(--font-display); font-size: clamp(36px,5.5vw,64px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 24px; }
-        .section-desc { font-size: 19px; color: var(--gray-500); line-height: 1.58; max-width: 640px; font-weight: 300; letter-spacing: -0.01em; }
+        ::selection {
+            background: rgba(41, 151, 255, 0.3);
+            color: inherit;
+        }
 
-        /* ABOUT */
-        .about { background: var(--white); padding: 140px 24px; }
-        .about-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; margin-top: 80px; }
-        .about-photo-wrapper { position: relative; }
-        .about-photo { width: 100%; aspect-ratio: 3/4; border-radius: 28px; background: linear-gradient(160deg, #e8e8ed 0%, #d2d2d7 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; position: relative; overflow: hidden; }
-        .about-photo::after { content: ''; position: absolute; inset: 0; border-radius: 28px; border: 1px solid rgba(0,0,0,0.06); pointer-events: none; }
-        .about-photo-text { color: var(--gray-400); font-size: 14px; font-weight: 500; }
-        .about-photo svg { width: 56px; height: 56px; color: var(--gray-400); opacity: 0.6; }
-        .about-float-card { position: absolute; background: var(--black); color: var(--gray-50); border-radius: 20px; padding: 24px 28px; box-shadow: 0 24px 64px rgba(0,0,0,0.2); z-index: 10; }
-        .float-card-top { bottom: -16px; right: -16px; }
-        .float-card-bottom { top: -16px; left: -16px; }
-        .float-card-title { font-family: var(--font-display); font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
-        .float-card-title .blue { color: var(--blue); }
-        .float-card-title .purple { color: var(--purple); }
-        .float-card-label { font-size: 12px; color: var(--gray-500); margin-top: 4px; letter-spacing: 0.02em; }
-        .about-details { display: flex; flex-direction: column; gap: 32px; }
-        .about-text { font-size: 17px; color: var(--gray-700); line-height: 1.7; font-weight: 300; }
-        .about-text strong { color: var(--gray-900); font-weight: 600; }
-        .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .highlight-card { background: var(--gray-50); border-radius: 16px; padding: 24px; transition: all 0.3s; }
-        .highlight-card:hover { background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-        .highlight-icon { font-size: 24px; margin-bottom: 10px; }
-        .highlight-title { font-family: var(--font-display); font-size: 15px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em; }
-        .highlight-desc { font-size: 13px; color: var(--gray-500); line-height: 1.4; }
+        img, svg {
+            display: block;
+            max-width: 100%;
+        }
 
-        /* EXPERIENCE */
-        .experience { background: var(--gray-50); padding: 140px 24px; }
-        .exp-timeline { margin-top: 64px; display: flex; flex-direction: column; gap: 24px; }
-        .exp-card { background: #fff; border-radius: 24px; border: 1px solid rgba(0,0,0,0.06); overflow: hidden; transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
-        .exp-card:hover { box-shadow: 0 12px 48px rgba(0,0,0,0.06); transform: translateY(-2px); }
-        .exp-card-header { padding: 40px 40px 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
-        .exp-role { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
-        .exp-period { font-family: var(--font-mono); font-size: 12px; color: var(--gray-400); padding: 6px 14px; background: var(--gray-50); border-radius: 100px; letter-spacing: 0.02em; white-space: nowrap; }
-        .exp-company { padding: 8px 40px 0; font-size: 15px; color: var(--gray-500); display: flex; align-items: center; gap: 8px; }
-        .exp-company-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-        .exp-body { padding: 24px 40px 36px; }
-        .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .exp-bullets li { font-size: 15px; color: var(--gray-700); line-height: 1.6; padding-left: 20px; position: relative; font-weight: 300; }
-        .exp-bullets li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-        .exp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0; padding: 0 40px 32px; }
-        .exp-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 100px; background: var(--gray-50); color: var(--gray-500); letter-spacing: 0.02em; }
+        /* ============================================
+           ACCESSIBILITY
+           ============================================ */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
 
-        /* PROJECTS */
-        .projects { background: var(--black); padding: 140px 24px; color: var(--gray-50); }
-        .projects .section-headline { color: var(--gray-50); }
-        .projects .section-desc { color: var(--gray-500); }
-        .projects-showcase { margin-top: 80px; display: flex; flex-direction: column; gap: 24px; }
-        .project-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .project-card { border-radius: 28px; padding: 48px; position: relative; overflow: hidden; min-height: 420px; display: flex; flex-direction: column; justify-content: flex-end; transition: all 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
-        .project-card:hover { transform: scale(1.01); }
-        .project-card::before { content: ''; position: absolute; inset: 0; border-radius: 28px; border: 1px solid rgba(255,255,255,0.08); pointer-events: none; z-index: 1; }
-        .project-card-1 { background: linear-gradient(160deg, #1a1a3e, #0d0d1f); grid-column: 1 / -1; }
-        .project-card-2 { background: linear-gradient(160deg, #0a2e4e, #081c30); }
-        .project-card-3 { background: linear-gradient(160deg, #2a1548, #140a28); }
-        .project-card-4 { background: linear-gradient(160deg, #1a2e1e, #0d1a10); }
-        .project-card-5 { background: linear-gradient(160deg, #2e1a0a, #1a0f05); }
-        .project-card-glow { position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; border-radius: 50%; filter: blur(80px); opacity: 0.3; pointer-events: none; }
-        .project-card-1 .project-card-glow { background: var(--blue); }
-        .project-card-2 .project-card-glow { background: var(--teal); }
-        .project-card-3 .project-card-glow { background: var(--purple); }
-        .project-card-4 .project-card-glow { background: var(--green); }
-        .project-card-5 .project-card-glow { background: var(--orange); }
-        .project-eyebrow { font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px; position: relative; z-index: 2; }
-        .project-card-1 .project-eyebrow { color: var(--blue); }
-        .project-card-2 .project-eyebrow { color: var(--teal); }
-        .project-card-3 .project-eyebrow { color: var(--purple); }
-        .project-card-4 .project-eyebrow { color: var(--green); }
-        .project-card-5 .project-eyebrow { color: var(--orange); }
-        .project-title { font-family: var(--font-display); font-size: 32px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; color: var(--gray-50); position: relative; z-index: 2; }
-        .project-card-1 .project-title { font-size: 40px; }
-        .project-desc { font-size: 15px; color: rgba(245,245,247,0.55); line-height: 1.6; max-width: 520px; font-weight: 300; position: relative; z-index: 2; }
-        .project-tech-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; position: relative; z-index: 2; }
-        .project-tech-pill { font-family: var(--font-mono); font-size: 11px; padding: 4px 12px; border-radius: 100px; background: rgba(255,255,255,0.08); color: rgba(245,245,247,0.6); letter-spacing: 0.02em; }
-        .project-stat-row { display: flex; gap: 32px; margin-top: 24px; position: relative; z-index: 2; }
-        .project-stat-value { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--gray-50); letter-spacing: -0.02em; }
-        .project-stat-label { font-size: 12px; color: rgba(245,245,247,0.4); margin-top: 2px; }
+        :focus-visible {
+            outline: 2px solid var(--color-blue);
+            outline-offset: 2px;
+        }
 
-        /* SKILLS */
-        .skills { background: var(--white); padding: 140px 24px; }
-        .skills-grid { margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .skill-card { background: var(--gray-50); border-radius: 24px; padding: 36px; transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94); border: 1px solid transparent; }
-        .skill-card:hover { background: #fff; border-color: rgba(0,0,0,0.06); box-shadow: 0 8px 32px rgba(0,0,0,0.05); transform: translateY(-4px); }
-        .skill-card-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-size: 22px; }
-        .skill-card:nth-child(1) .skill-card-icon { background: linear-gradient(135deg, #2997ff, #5ac8fa); }
-        .skill-card:nth-child(2) .skill-card-icon { background: linear-gradient(135deg, #bf5af2, #ff375f); }
-        .skill-card:nth-child(3) .skill-card-icon { background: linear-gradient(135deg, #30d158, #5ac8fa); }
-        .skill-card:nth-child(4) .skill-card-icon { background: linear-gradient(135deg, #ff9f0a, #ff375f); }
-        .skill-card:nth-child(5) .skill-card-icon { background: linear-gradient(135deg, #5e5ce6, #bf5af2); }
-        .skill-card:nth-child(6) .skill-card-icon { background: linear-gradient(135deg, #ff375f, #ff9f0a); }
-        .skill-card-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-        .skill-tag { font-family: var(--font-mono); font-size: 12px; padding: 5px 12px; border-radius: 100px; background: var(--white); color: var(--gray-500); border: 1px solid var(--gray-100); transition: all 0.2s; }
-        .skill-card:hover .skill-tag { background: var(--gray-50); }
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
 
-        /* ACHIEVEMENTS */
-        .achievements { background: var(--black); padding: 140px 24px; color: var(--gray-50); }
-        .achievements .section-headline { color: var(--gray-50); }
-        .ach-grid { margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .ach-card { border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 36px; background: rgba(255,255,255,0.02); transition: all 0.35s; position: relative; overflow: hidden; }
-        .ach-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); transform: translateY(-4px); }
-        .ach-icon { font-size: 40px; margin-bottom: 20px; display: block; }
-        .ach-year { font-family: var(--font-mono); font-size: 12px; color: var(--blue); letter-spacing: 0.06em; margin-bottom: 10px; }
-        .ach-title { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
-        .ach-desc { font-size: 14px; color: var(--gray-500); line-height: 1.55; font-weight: 300; }
+            html { scroll-behavior: auto; }
 
-        /* EDUCATION */
-        .education { background: var(--gray-50); padding: 140px 24px; }
-        .edu-grid { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .edu-card { background: #fff; border-radius: 24px; padding: 40px; border: 1px solid rgba(0,0,0,0.06); transition: all 0.3s; }
-        .edu-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
-        .edu-card-eyebrow { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue-dark); margin-bottom: 16px; }
-        .edu-card-title { font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
-        .edu-card-sub { font-size: 15px; color: var(--gray-500); margin-bottom: 6px; }
-        .edu-card-detail { font-size: 14px; color: var(--gray-400); line-height: 1.6; margin-top: 12px; font-weight: 300; }
+            .marquee-track { animation: none; }
 
-        /* CONTACT */
-        .contact { background: var(--black); padding: 160px 24px 80px; color: var(--gray-50); text-align: center; position: relative; overflow: hidden; }
-        .contact::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 800px; height: 400px; background: radial-gradient(ellipse at center bottom, rgba(41,151,255,0.1) 0%, transparent 70%); pointer-events: none; }
-        .contact .section-headline { color: var(--gray-50); margin-bottom: 16px; }
-        .contact .section-desc { margin: 0 auto 56px; color: var(--gray-400); text-align: center; }
-        .contact-grid { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; position: relative; z-index: 2; }
-        .contact-pill { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 980px; border: 1px solid rgba(255,255,255,0.12); color: var(--gray-50); text-decoration: none; font-size: 15px; font-weight: 500; font-family: var(--font-display); transition: all 0.3s; letter-spacing: -0.01em; }
-        .contact-pill:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
-        .contact-pill svg { width: 18px; height: 18px; flex-shrink: 0; }
-        .contact-pill-primary { background: var(--blue); border-color: transparent; }
-        .contact-pill-primary:hover { background: #3ba0ff; border-color: transparent; }
-        .contact-languages { margin-top: 48px; display: flex; justify-content: center; gap: 24px; position: relative; z-index: 2; }
-        .lang-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-500); }
-        .lang-flag { font-size: 18px; }
+            .rv {
+                opacity: 1;
+                transform: none;
+            }
+        }
 
-        /* FOOTER */
-        footer { background: var(--black); padding: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
-        .footer-inner { max-width: 1024px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .footer-inner p { font-size: 12px; color: rgba(255,255,255,0.25); }
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+        }
 
-        /* REVEAL */
-        .rv { opacity: 0; transform: translateY(50px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
-        .rv.vis { opacity: 1; transform: translateY(0); }
-        .rv-d1 { transition-delay: 0.1s; }
-        .rv-d2 { transition-delay: 0.2s; }
-        .rv-d3 { transition-delay: 0.3s; }
-        .rv-d4 { transition-delay: 0.4s; }
-        .rv-d5 { transition-delay: 0.5s; }
+        /* ============================================
+           TYPOGRAPHY — Shared Section Styles
+           ============================================ */
+        .section-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-blue-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 16px;
+        }
 
-        /* RESPONSIVE */
+        .section-headline {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 5.5vw, 64px);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .section-desc {
+            font-size: 19px;
+            color: var(--color-gray-500);
+            line-height: 1.58;
+            max-width: 640px;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: var(--nav-height);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: var(--border-dark);
+        }
+
+        .nav__inner {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+        }
+
+        .nav__logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--color-gray-50);
+            letter-spacing: -0.02em;
+        }
+
+        .nav__logo-accent {
+            color: var(--color-blue);
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav__link {
+            text-decoration: none;
+            color: var(--color-gray-200);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            transition: color 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .nav__link:hover,
+        .nav__link:focus-visible {
+            color: #fff;
+        }
+
+        .nav__toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 20px;
+            height: 16px;
+            position: relative;
+        }
+
+        .nav__toggle-bar {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--color-gray-200);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s;
+        }
+
+        .nav__toggle-bar:nth-child(1) { top: 0; }
+        .nav__toggle-bar:nth-child(2) { top: 7px; }
+        .nav__toggle-bar:nth-child(3) { top: 14px; }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: var(--color-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1200px;
+            height: 1200px;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(41, 151, 255, 0.08) 0%,
+                rgba(191, 90, 242, 0.04) 30%,
+                transparent 70%
+            );
+            pointer-events: none;
+            animation: hero-glow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes hero-glow {
+            0%   { transform: translate(-50%, -50%) scale(1);    opacity: 1;   }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
+        }
+
+        .hero__eyebrow {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--color-blue);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-up 1s var(--ease-out-expo) forwards 0.3s;
+        }
+
+        .hero__title {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -0.04em;
+            color: var(--color-gray-50);
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fade-up 1s var(--ease-out-expo) forwards 0.5s;
+        }
+
+        .hero__title-gradient {
+            background: linear-gradient(90deg, var(--color-blue), var(--color-purple), var(--color-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: gradient-shift 6s ease infinite 1.5s;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50%      { background-position: 100% 50%; }
+        }
+
+        .hero__subtitle {
+            font-size: clamp(17px, 2.2vw, 21px);
+            color: var(--color-gray-400);
+            font-weight: 300;
+            max-width: 580px;
+            line-height: 1.55;
+            letter-spacing: -0.01em;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fade-up 1s var(--ease-out-expo) forwards 0.7s;
+        }
+
+        .hero__actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fade-up 1s var(--ease-out-expo) forwards 0.9s;
+        }
+
+        .hero__metrics {
+            display: flex;
+            gap: 48px;
+            margin-top: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fade-up 1s var(--ease-out-expo) forwards 1.1s;
+        }
+
+        .hero__metric {
+            text-align: center;
+        }
+
+        .hero__metric-value {
+            font-family: var(--font-display);
+            font-size: 44px;
+            font-weight: 700;
+            color: var(--color-gray-50);
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .hero__metric-accent {
+            color: var(--color-blue);
+        }
+
+        .hero__metric-label {
+            font-size: 13px;
+            color: var(--color-gray-500);
+            margin-top: 6px;
+            letter-spacing: 0.01em;
+        }
+
+        .hero__scroll {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fade-up 1s var(--ease-out-expo) forwards 1.5s;
+        }
+
+        .hero__scroll-text {
+            font-size: 11px;
+            color: var(--color-gray-500);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero__scroll-line {
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(to bottom, var(--color-gray-500), transparent);
+            animation: scroll-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-pulse {
+            0%, 100% { opacity: 0.5; transform: scaleY(1);   }
+            50%      { opacity: 1;   transform: scaleY(1.2); }
+        }
+
+        @keyframes fade-up {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 30px;
+            border-radius: var(--border-radius-pill);
+            font-size: 17px;
+            font-weight: 500;
+            font-family: var(--font-display);
+            text-decoration: none;
+            transition: all 0.3s var(--ease-out-quart);
+            cursor: pointer;
+            border: none;
+            letter-spacing: -0.01em;
+        }
+
+        .btn--filled {
+            background: var(--color-blue);
+            color: #fff;
+        }
+
+        .btn--filled:hover {
+            background: var(--color-blue-hover);
+            transform: scale(1.04);
+        }
+
+        .btn--ghost {
+            background: transparent;
+            color: var(--color-blue);
+        }
+
+        .btn--ghost:hover {
+            color: var(--color-blue-hover);
+        }
+
+        .btn--ghost svg {
+            transition: transform 0.3s;
+        }
+
+        .btn--ghost:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* ============================================
+           MARQUEE
+           ============================================ */
+        .marquee {
+            background: var(--color-black);
+            border-top: var(--border-dark);
+            border-bottom: var(--border-dark);
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .marquee__track {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 30s linear infinite;
+        }
+
+        .marquee__track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee__item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 32px;
+            white-space: nowrap;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--color-gray-500);
+            font-weight: 400;
+        }
+
+        .marquee__dot {
+            width: 4px;
+            height: 4px;
+            background: var(--color-blue);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           ABOUT
+           ============================================ */
+        .about {
+            background: var(--color-white);
+            padding: var(--section-padding) 24px;
+        }
+
+        .about__layout {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .about__photo-wrapper {
+            position: relative;
+        }
+
+        .about__photo {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            border-radius: var(--border-radius-card-lg);
+            background: linear-gradient(160deg, #e8e8ed 0%, #d2d2d7 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about__photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--border-radius-card-lg);
+            border: var(--border-light);
+            pointer-events: none;
+        }
+
+        .about__photo-placeholder {
+            color: var(--color-gray-400);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .about__photo svg {
+            width: 56px;
+            height: 56px;
+            color: var(--color-gray-400);
+            opacity: 0.6;
+        }
+
+        .about__float-card {
+            position: absolute;
+            background: var(--color-black);
+            color: var(--color-gray-50);
+            border-radius: 20px;
+            padding: 24px 28px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .about__float-card--top {
+            bottom: -16px;
+            right: -16px;
+        }
+
+        .about__float-card--bottom {
+            top: -16px;
+            left: -16px;
+        }
+
+        .about__float-value {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .about__float-value--blue  { color: var(--color-blue); }
+        .about__float-value--purple { color: var(--color-purple); }
+
+        .about__float-label {
+            font-size: 12px;
+            color: var(--color-gray-500);
+            margin-top: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .about__details {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .about__text {
+            font-size: 17px;
+            color: var(--color-gray-700);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .about__text strong {
+            color: var(--color-gray-900);
+            font-weight: 600;
+        }
+
+        .about__highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .highlight {
+            background: var(--color-gray-50);
+            border-radius: 16px;
+            padding: 24px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .highlight:hover {
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .highlight__icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .highlight__title {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+
+        .highlight__desc {
+            font-size: 13px;
+            color: var(--color-gray-500);
+            line-height: 1.4;
+        }
+
+        /* ============================================
+           EXPERIENCE
+           ============================================ */
+        .experience {
+            background: var(--color-gray-50);
+            padding: var(--section-padding) 24px;
+        }
+
+        .experience__timeline {
+            margin-top: 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .exp-card {
+            background: #fff;
+            border-radius: var(--border-radius-card);
+            border: var(--border-light);
+            overflow: hidden;
+            transition: box-shadow 0.4s var(--ease-out-quart), transform 0.4s var(--ease-out-quart);
+        }
+
+        .exp-card:hover {
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .exp-card__header {
+            padding: 40px 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .exp-card__role {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+        }
+
+        .exp-card__period {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-gray-400);
+            padding: 6px 14px;
+            background: var(--color-gray-50);
+            border-radius: 100px;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .exp-card__company {
+            padding: 8px 40px 0;
+            font-size: 15px;
+            color: var(--color-gray-500);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exp-card__company-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .exp-card__body {
+            padding: 24px 40px 36px;
+        }
+
+        .exp-card__bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .exp-card__bullets li {
+            font-size: 15px;
+            color: var(--color-gray-700);
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .exp-card__bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--color-blue);
+        }
+
+        .exp-card__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 40px 32px;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: var(--color-gray-50);
+            color: var(--color-gray-500);
+            letter-spacing: 0.02em;
+        }
+
+        /* ============================================
+           PROJECTS
+           ============================================ */
+        .projects {
+            background: var(--color-black);
+            padding: var(--section-padding) 24px;
+            color: var(--color-gray-50);
+        }
+
+        .projects .section-headline { color: var(--color-gray-50); }
+        .projects .section-desc     { color: var(--color-gray-500); }
+
+        .projects__showcase {
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .projects__row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .project-card {
+            border-radius: var(--border-radius-card-lg);
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: transform 0.5s var(--ease-out-quart);
+        }
+
+        .project-card:hover {
+            transform: scale(1.01);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--border-radius-card-lg);
+            border: var(--border-dark);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .project-card--featured { background: linear-gradient(160deg, #1a1a3e, #0d0d1f); grid-column: 1 / -1; }
+        .project-card--fintech  { background: linear-gradient(160deg, #0a2e4e, #081c30); }
+        .project-card--gaming   { background: linear-gradient(160deg, #2a1548, #140a28); }
+        .project-card--devops   { background: linear-gradient(160deg, #1a2e1e, #0d1a10); }
+        .project-card--banking  { background: linear-gradient(160deg, #2e1a0a, #1a0f05); }
+
+        .project-card__glow {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .project-card--featured .project-card__glow { background: var(--color-blue); }
+        .project-card--fintech  .project-card__glow { background: var(--color-teal); }
+        .project-card--gaming   .project-card__glow { background: var(--color-purple); }
+        .project-card--devops   .project-card__glow { background: var(--color-green); }
+        .project-card--banking  .project-card__glow { background: var(--color-orange); }
+
+        .project-card__eyebrow {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card--featured .project-card__eyebrow { color: var(--color-blue); }
+        .project-card--fintech  .project-card__eyebrow { color: var(--color-teal); }
+        .project-card--gaming   .project-card__eyebrow { color: var(--color-purple); }
+        .project-card--devops   .project-card__eyebrow { color: var(--color-green); }
+        .project-card--banking  .project-card__eyebrow { color: var(--color-orange); }
+
+        .project-card__title {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            color: var(--color-gray-50);
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card--featured .project-card__title {
+            font-size: 40px;
+        }
+
+        .project-card__desc {
+            font-size: 15px;
+            color: rgba(245, 245, 247, 0.55);
+            line-height: 1.6;
+            max-width: 520px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card__tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card__pill {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(245, 245, 247, 0.6);
+            letter-spacing: 0.02em;
+        }
+
+        .project-card__stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card__stat-value {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-gray-50);
+            letter-spacing: -0.02em;
+        }
+
+        .project-card__stat-label {
+            font-size: 12px;
+            color: rgba(245, 245, 247, 0.4);
+            margin-top: 2px;
+        }
+
+        /* ============================================
+           SKILLS
+           ============================================ */
+        .skills {
+            background: var(--color-white);
+            padding: var(--section-padding) 24px;
+        }
+
+        .skills__grid {
+            margin-top: 64px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: var(--color-gray-50);
+            border-radius: var(--border-radius-card);
+            padding: 36px;
+            transition: background 0.35s var(--ease-out-quart), border-color 0.35s, box-shadow 0.35s, transform 0.35s var(--ease-out-quart);
+            border: 1px solid transparent;
+        }
+
+        .skill-card:hover {
+            background: #fff;
+            border-color: rgba(0, 0, 0, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+        }
+
+        .skill-card__icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 22px;
+        }
+
+        .skill-card:nth-child(1) .skill-card__icon { background: linear-gradient(135deg, #2997ff, #5ac8fa); }
+        .skill-card:nth-child(2) .skill-card__icon { background: linear-gradient(135deg, #bf5af2, #ff375f); }
+        .skill-card:nth-child(3) .skill-card__icon { background: linear-gradient(135deg, #30d158, #5ac8fa); }
+        .skill-card:nth-child(4) .skill-card__icon { background: linear-gradient(135deg, #ff9f0a, #ff375f); }
+        .skill-card:nth-child(5) .skill-card__icon { background: linear-gradient(135deg, #5e5ce6, #bf5af2); }
+        .skill-card:nth-child(6) .skill-card__icon { background: linear-gradient(135deg, #ff375f, #ff9f0a); }
+
+        .skill-card__title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .skill-card__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: var(--color-white);
+            color: var(--color-gray-500);
+            border: 1px solid var(--color-gray-100);
+            transition: background 0.2s;
+        }
+
+        .skill-card:hover .skill-tag {
+            background: var(--color-gray-50);
+        }
+
+        /* ============================================
+           ACHIEVEMENTS
+           ============================================ */
+        .achievements {
+            background: var(--color-black);
+            padding: var(--section-padding) 24px;
+            color: var(--color-gray-50);
+        }
+
+        .achievements .section-headline { color: var(--color-gray-50); }
+
+        .achievements__grid {
+            margin-top: 64px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .ach-card {
+            border: var(--border-dark);
+            border-radius: var(--border-radius-card);
+            padding: 36px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: background 0.35s, border-color 0.35s, transform 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ach-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .ach-card__icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .ach-card__year {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-blue);
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+
+        .ach-card__title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
+
+        .ach-card__desc {
+            font-size: 14px;
+            color: var(--color-gray-500);
+            line-height: 1.55;
+            font-weight: 300;
+        }
+
+        /* ============================================
+           EDUCATION
+           ============================================ */
+        .education {
+            background: var(--color-gray-50);
+            padding: var(--section-padding) 24px;
+        }
+
+        .education__grid {
+            margin-top: 64px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .edu-card {
+            background: #fff;
+            border-radius: var(--border-radius-card);
+            padding: 40px;
+            border: var(--border-light);
+            transition: box-shadow 0.3s;
+        }
+
+        .edu-card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .edu-card__eyebrow {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-blue-dark);
+            margin-bottom: 16px;
+        }
+
+        .edu-card__title {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .edu-card__subtitle {
+            font-size: 15px;
+            color: var(--color-gray-500);
+            margin-bottom: 6px;
+        }
+
+        .edu-card__detail {
+            font-size: 14px;
+            color: var(--color-gray-400);
+            line-height: 1.6;
+            margin-top: 12px;
+            font-weight: 300;
+        }
+
+        /* ============================================
+           CONTACT
+           ============================================ */
+        .contact {
+            background: var(--color-black);
+            padding: 160px 24px 80px;
+            color: var(--color-gray-50);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse at center bottom, rgba(41, 151, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact .section-headline { color: var(--color-gray-50); margin-bottom: 16px; }
+        .contact .section-desc     { margin: 0 auto 56px; color: var(--color-gray-400); text-align: center; }
+
+        .contact__grid {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact__pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 28px;
+            border-radius: var(--border-radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--color-gray-50);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: var(--font-display);
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
+            letter-spacing: -0.01em;
+        }
+
+        .contact__pill:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .contact__pill svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .contact__pill--primary {
+            background: var(--color-blue);
+            border-color: transparent;
+        }
+
+        .contact__pill--primary:hover {
+            background: var(--color-blue-hover);
+            border-color: transparent;
+        }
+
+        .contact__languages {
+            margin-top: 48px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact__lang {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--color-gray-500);
+        }
+
+        .contact__lang-flag {
+            font-size: 18px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--color-black);
+            padding: 24px;
+            border-top: var(--border-dark);
+        }
+
+        .footer__inner {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer__inner p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ============================================
+           SCROLL REVEAL
+           ============================================ */
+        .rv {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+        }
+
+        .rv.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rv--d1 { transition-delay: 0.1s; }
+        .rv--d2 { transition-delay: 0.2s; }
+        .rv--d3 { transition-delay: 0.3s; }
+        .rv--d4 { transition-delay: 0.4s; }
+        .rv--d5 { transition-delay: 0.5s; }
+
+        /* ============================================
+           RESPONSIVE — Tablet
+           ============================================ */
         @media (max-width: 900px) {
-            .about-layout { grid-template-columns: 1fr; gap: 48px; }
-            .about-photo-wrapper { max-width: 400px; margin: 0 auto; }
-            .project-feature { grid-template-columns: 1fr; }
-            .project-card-1 { grid-column: auto; }
-            .skills-grid { grid-template-columns: 1fr 1fr; }
-            .ach-grid { grid-template-columns: 1fr; }
-            .edu-grid { grid-template-columns: 1fr; }
-            .hero-metrics { gap: 32px; }
+            .about__layout          { grid-template-columns: 1fr; gap: 48px; }
+            .about__photo-wrapper   { max-width: 400px; margin: 0 auto; }
+            .projects__row          { grid-template-columns: 1fr; }
+            .project-card--featured { grid-column: auto; }
+            .skills__grid           { grid-template-columns: 1fr 1fr; }
+            .achievements__grid     { grid-template-columns: 1fr; }
+            .education__grid        { grid-template-columns: 1fr; }
+            .hero__metrics          { gap: 32px; }
         }
+
+        /* ============================================
+           RESPONSIVE — Mobile
+           ============================================ */
         @media (max-width: 640px) {
-            .about, .experience, .projects, .skills, .achievements, .education, .contact { padding: 100px 20px; }
-            nav .nav-links { display: none; }
-            .nav-hamburger { display: block; }
-            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 48px; left: 0; right: 0; background: rgba(0,0,0,0.96); backdrop-filter: blur(20px); padding: 24px; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-            .hero { min-height: 90vh; padding: 100px 20px 60px; }
-            .hero-metrics { flex-direction: row; gap: 24px; flex-wrap: wrap; justify-content: center; }
-            .hero-scroll { display: none; }
-            .hero-actions { flex-direction: column; }
-            .skills-grid { grid-template-columns: 1fr; }
-            .about-highlights { grid-template-columns: 1fr; }
-            .exp-card-header { padding: 28px 28px 0; }
-            .exp-company { padding: 8px 28px 0; }
-            .exp-body { padding: 20px 28px 28px; }
-            .exp-tags { padding: 0 28px 24px; }
-            .exp-role { font-size: 22px; }
-            .project-card { padding: 36px; min-height: 340px; }
-            .project-title { font-size: 26px !important; }
-            .contact-grid { flex-direction: column; align-items: center; }
-            .contact-languages { flex-direction: column; align-items: center; gap: 12px; }
-            .footer-inner { flex-direction: column; gap: 8px; text-align: center; }
+            .about,
+            .experience,
+            .projects,
+            .skills,
+            .achievements,
+            .education,
+            .contact {
+                padding: var(--section-padding-mobile) 20px;
+            }
+
+            .nav__links        { display: none; }
+            .nav__toggle       { display: block; }
+
+            .nav__links.is-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.96);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 20px;
+                border-bottom: var(--border-dark);
+            }
+
+            .hero {
+                min-height: 90vh;
+                min-height: 90dvh;
+                padding: 100px 20px 60px;
+            }
+
+            .hero__metrics {
+                flex-direction: row;
+                gap: 24px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero__scroll        { display: none; }
+            .hero__actions       { flex-direction: column; }
+            .skills__grid        { grid-template-columns: 1fr; }
+            .about__highlights   { grid-template-columns: 1fr; }
+
+            .exp-card__header    { padding: 28px 28px 0; }
+            .exp-card__company   { padding: 8px 28px 0; }
+            .exp-card__body      { padding: 20px 28px 28px; }
+            .exp-card__tags      { padding: 0 28px 24px; }
+            .exp-card__role      { font-size: 22px; }
+
+            .project-card        { padding: 36px; min-height: 340px; }
+            .project-card__title { font-size: 26px !important; }
+
+            .contact__grid       { flex-direction: column; align-items: center; }
+            .contact__languages  { flex-direction: column; align-items: center; gap: 12px; }
+            .footer__inner       { flex-direction: column; gap: 8px; text-align: center; }
+        }
+
+        /* ============================================
+           PRINT
+           ============================================ */
+        @media print {
+            .nav, .hero__scroll, .marquee { display: none; }
+            .hero { min-height: auto; padding: 40px 24px; }
+            .rv { opacity: 1; transform: none; }
+            body { background: #fff; color: #000; }
+            .hero, .projects, .achievements, .contact, .footer {
+                background: #fff;
+                color: #000;
+            }
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="nav-inner">
-        <div class="nav-logo">giga<span>.</span></div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#achievements">Achievements</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="nav-hamburger" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+<!-- ==========================================
+     NAVIGATION
+     ========================================== -->
+<header class="nav" role="banner">
+    <div class="nav__inner">
+        <a href="#" class="nav__logo" aria-label="Giga Khizanishvili — Home">giga<span class="nav__logo-accent">.</span></a>
+        <nav aria-label="Main navigation">
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#about" class="nav__link">About</a></li>
+                <li><a href="#experience" class="nav__link">Experience</a></li>
+                <li><a href="#projects" class="nav__link">Projects</a></li>
+                <li><a href="#skills" class="nav__link">Skills</a></li>
+                <li><a href="#achievements" class="nav__link">Achievements</a></li>
+                <li><a href="#education" class="nav__link">Education</a></li>
+                <li><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+        </button>
     </div>
-</nav>
+</header>
 
-<section class="hero">
-    <div class="hero-eyebrow">Senior iOS Engineer &middot; Mobile Architect</div>
-    <h1>Giga<br><span class="line-gradient">Khizanishvili.</span></h1>
-    <p class="hero-sub">Architecting high-performance iOS experiences for millions of users. Leading 50+ engineers across 8 teams in fintech at scale.</p>
-    <div class="hero-actions">
-        <a href="#contact" class="btn-apple btn-filled">Get in Touch</a>
-        <a href="#experience" class="btn-apple btn-ghost">See My Work <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3l7 7-7 7"/></svg></a>
+<!-- ==========================================
+     HERO
+     ========================================== -->
+<section class="hero" aria-label="Introduction">
+    <p class="hero__eyebrow">Senior iOS Engineer &middot; Mobile Architect</p>
+    <h1 class="hero__title">Giga<br><span class="hero__title-gradient">Khizanishvili.</span></h1>
+    <p class="hero__subtitle">Architecting high-performance iOS experiences for millions of users. Leading 50+ engineers across 8 teams in fintech at scale.</p>
+    <div class="hero__actions">
+        <a href="#contact" class="btn btn--filled">Get in Touch</a>
+        <a href="#experience" class="btn btn--ghost">See My Work <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 3l7 7-7 7"/></svg></a>
     </div>
-    <div class="hero-metrics">
-        <div class="hero-metric"><div class="hero-metric-value">5<span class="accent">+</span></div><div class="hero-metric-label">Years Experience</div></div>
-        <div class="hero-metric"><div class="hero-metric-value">50<span class="accent">+</span></div><div class="hero-metric-label">Engineers Led</div></div>
-        <div class="hero-metric"><div class="hero-metric-value">1M<span class="accent">+</span></div><div class="hero-metric-label">Users Reached</div></div>
-        <div class="hero-metric"><div class="hero-metric-value">90<span class="accent">%</span></div><div class="hero-metric-label">Test Coverage</div></div>
+    <div class="hero__metrics" role="list" aria-label="Key metrics">
+        <div class="hero__metric" role="listitem">
+            <div class="hero__metric-value">5<span class="hero__metric-accent">+</span></div>
+            <div class="hero__metric-label">Years Experience</div>
+        </div>
+        <div class="hero__metric" role="listitem">
+            <div class="hero__metric-value">50<span class="hero__metric-accent">+</span></div>
+            <div class="hero__metric-label">Engineers Led</div>
+        </div>
+        <div class="hero__metric" role="listitem">
+            <div class="hero__metric-value">1M<span class="hero__metric-accent">+</span></div>
+            <div class="hero__metric-label">Users Reached</div>
+        </div>
+        <div class="hero__metric" role="listitem">
+            <div class="hero__metric-value">90<span class="hero__metric-accent">%</span></div>
+            <div class="hero__metric-label">Test Coverage</div>
+        </div>
     </div>
-    <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+    <div class="hero__scroll" aria-hidden="true">
+        <span class="hero__scroll-text">Scroll</span>
+        <div class="hero__scroll-line"></div>
+    </div>
 </section>
 
-<div class="marquee-section">
-    <div class="marquee-track">
-        <span class="marquee-item"><span class="dot"></span>Swift 6+</span>
-        <span class="marquee-item"><span class="dot"></span>SwiftUI</span>
-        <span class="marquee-item"><span class="dot"></span>UIKit</span>
-        <span class="marquee-item"><span class="dot"></span>Combine</span>
-        <span class="marquee-item"><span class="dot"></span>async/await</span>
-        <span class="marquee-item"><span class="dot"></span>Clean Architecture</span>
-        <span class="marquee-item"><span class="dot"></span>MVVM</span>
-        <span class="marquee-item"><span class="dot"></span>MVI</span>
-        <span class="marquee-item"><span class="dot"></span>Modular Architecture</span>
-        <span class="marquee-item"><span class="dot"></span>TDD</span>
-        <span class="marquee-item"><span class="dot"></span>Bitrise CI/CD</span>
-        <span class="marquee-item"><span class="dot"></span>Fastlane</span>
-        <span class="marquee-item"><span class="dot"></span>CoreData</span>
-        <span class="marquee-item"><span class="dot"></span>CoreAnimation</span>
-        <span class="marquee-item"><span class="dot"></span>SPM</span>
-        <span class="marquee-item"><span class="dot"></span>StoreKit</span>
-        <span class="marquee-item"><span class="dot"></span>Swift 6+</span>
-        <span class="marquee-item"><span class="dot"></span>SwiftUI</span>
-        <span class="marquee-item"><span class="dot"></span>UIKit</span>
-        <span class="marquee-item"><span class="dot"></span>Combine</span>
-        <span class="marquee-item"><span class="dot"></span>async/await</span>
-        <span class="marquee-item"><span class="dot"></span>Clean Architecture</span>
-        <span class="marquee-item"><span class="dot"></span>MVVM</span>
-        <span class="marquee-item"><span class="dot"></span>MVI</span>
-        <span class="marquee-item"><span class="dot"></span>Modular Architecture</span>
-        <span class="marquee-item"><span class="dot"></span>TDD</span>
-        <span class="marquee-item"><span class="dot"></span>Bitrise CI/CD</span>
-        <span class="marquee-item"><span class="dot"></span>Fastlane</span>
-        <span class="marquee-item"><span class="dot"></span>CoreData</span>
-        <span class="marquee-item"><span class="dot"></span>CoreAnimation</span>
-        <span class="marquee-item"><span class="dot"></span>SPM</span>
-        <span class="marquee-item"><span class="dot"></span>StoreKit</span>
+<!-- ==========================================
+     MARQUEE
+     ========================================== -->
+<div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+        <span class="marquee__item"><span class="marquee__dot"></span>Swift 6+</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>SwiftUI</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>UIKit</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Combine</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>async/await</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Clean Architecture</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>MVVM</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>MVI</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Modular Architecture</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>TDD</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Bitrise CI/CD</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Fastlane</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>CoreData</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>CoreAnimation</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>SPM</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>StoreKit</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Swift 6+</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>SwiftUI</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>UIKit</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Combine</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>async/await</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Clean Architecture</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>MVVM</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>MVI</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Modular Architecture</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>TDD</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Bitrise CI/CD</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>Fastlane</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>CoreData</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>CoreAnimation</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>SPM</span>
+        <span class="marquee__item"><span class="marquee__dot"></span>StoreKit</span>
     </div>
 </div>
 
-<section class="about" id="about">
+<!-- ==========================================
+     ABOUT
+     ========================================== -->
+<section class="about" id="about" aria-labelledby="about-heading">
     <div class="container">
-        <div class="section-eyebrow rv">About</div>
-        <div class="section-headline rv rv-d1">The person behind<br>the architecture.</div>
-        <div class="about-layout">
-            <div class="about-photo-wrapper rv rv-d2">
-                <div class="about-photo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="10" r="3"/><path d="M6 21v-1a6 6 0 0112 0v1"/></svg>
-                    <span class="about-photo-text">Your photo here</span>
+        <p class="section-eyebrow rv">About</p>
+        <h2 class="section-headline rv rv--d1" id="about-heading">The person behind<br>the architecture.</h2>
+        <div class="about__layout">
+            <div class="about__photo-wrapper rv rv--d2">
+                <div class="about__photo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="10" r="3"/><path d="M6 21v-1a6 6 0 0112 0v1"/></svg>
+                    <span class="about__photo-placeholder">Your photo here</span>
                 </div>
-                <div class="about-float-card float-card-top"><div class="float-card-title">5<span class="blue">+</span></div><div class="float-card-label">Years in iOS</div></div>
-                <div class="about-float-card float-card-bottom"><div class="float-card-title">50<span class="purple">+</span></div><div class="float-card-label">Engineers Led</div></div>
-            </div>
-            <div class="about-details">
-                <p class="about-text rv rv-d2">I'm <strong>Giga Khizanishvili</strong>, a Senior iOS Engineer and Mobile Architect based in <strong>Tbilisi, Georgia</strong>. I hold a B.Sc. in Computer Science &amp; Mathematics from Free University of Tbilisi and have 5+ years of hands-on experience shipping apps to millions of users.</p>
-                <p class="about-text rv rv-d3">Currently, I lead iOS architecture for <strong>50+ engineers across 8 product teams</strong> at Space International (TBC UZ), a fintech organization with 3,000+ employees. I've driven a full SwiftUI migration, built a design system adopted by 3 companies, achieved 90%+ test coverage, and reduced release cycles from 2 weeks to 3 days.</p>
-                <p class="about-text rv rv-d4">Beyond code, I'm an <strong>ACM-ICPC finalist</strong>, a former algorithms instructor, and passionate about mentoring the next generation of developers.</p>
-                <div class="about-highlights rv rv-d5">
-                    <div class="highlight-card"><div class="highlight-icon">🏗️</div><div class="highlight-title">Architecture at Scale</div><div class="highlight-desc">Leading iOS decisions across 8 product teams</div></div>
-                    <div class="highlight-card"><div class="highlight-icon">🎨</div><div class="highlight-title">Design Systems</div><div class="highlight-desc">SwiftUI system adopted by 3 companies</div></div>
-                    <div class="highlight-card"><div class="highlight-icon">🧪</div><div class="highlight-title">Testing Champion</div><div class="highlight-desc">90%+ coverage via unit, UI, snapshot &amp; contract tests</div></div>
-                    <div class="highlight-card"><div class="highlight-icon">🚀</div><div class="highlight-title">CI/CD Mastery</div><div class="highlight-desc">Release cycle cut from 2 weeks to 3 days</div></div>
+                <div class="about__float-card about__float-card--top">
+                    <div class="about__float-value">5<span class="about__float-value--blue">+</span></div>
+                    <div class="about__float-label">Years in iOS</div>
+                </div>
+                <div class="about__float-card about__float-card--bottom">
+                    <div class="about__float-value">50<span class="about__float-value--purple">+</span></div>
+                    <div class="about__float-label">Engineers Led</div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<section class="experience" id="experience">
-    <div class="container">
-        <div class="section-eyebrow rv">Experience</div>
-        <div class="section-headline rv rv-d1">Built for scale.<br>Shipped to millions.</div>
-        <p class="section-desc rv rv-d2">From junior analyst to leading architecture for 50+ engineers — each role shaped how I think about software.</p>
-        <div class="exp-timeline">
-            <div class="exp-card rv">
-                <div class="exp-card-header"><div class="exp-role">Senior iOS Architect</div><div class="exp-period">Mar 2023 — Present</div></div>
-                <div class="exp-company"><span class="exp-company-dot" style="background:var(--blue)"></span>Space International (TBC UZ) &middot; Tbilisi, Georgia</div>
-                <div class="exp-body"><ul class="exp-bullets">
-                    <li>Lead iOS architecture decisions across 8 product teams and 50+ iOS developers, participating in every core technical and architectural decision</li>
-                    <li>Architected and delivered enterprise-grade Design System in SwiftUI, now adopted by 2 additional subsidiary companies beyond TBC UZ</li>
-                    <li>Led complete migration to SwiftUI and Swift 6+, achieving 100% modern codebase with full adoption of structured concurrency and Combine</li>
-                    <li>Implemented comprehensive testing strategy achieving 90%+ code coverage through unit, UI, snapshot, and contract tests</li>
-                    <li>Designed and evolved Clean MVVM → MVI architecture, creating scalable foundation for multi-team parallel development</li>
-                    <li>Built CI/CD infrastructure on Bitrise with automated builds, tests, and App Store deployments — reduced release cycle from 2 weeks to 3 days</li>
-                    <li>Established iOS Quality Gate enforcing SwiftLint rules, minimum coverage thresholds, and mandatory code review for all pull requests</li>
-                    <li>Mentored iOS engineers on architecture patterns, SwiftUI best practices, modularization, and testing strategies</li>
-                </ul></div>
-                <div class="exp-tags"><span class="exp-tag">Swift 6+</span><span class="exp-tag">SwiftUI</span><span class="exp-tag">Combine</span><span class="exp-tag">MVI</span><span class="exp-tag">Clean Architecture</span><span class="exp-tag">Bitrise</span><span class="exp-tag">Fastlane</span><span class="exp-tag">SPM</span></div>
-            </div>
-            <div class="exp-card rv rv-d1">
-                <div class="exp-card-header"><div class="exp-role">iOS Developer</div><div class="exp-period">Jul 2021 — Apr 2023</div></div>
-                <div class="exp-company"><span class="exp-company-dot" style="background:var(--purple)"></span>Adjarabet &middot; Tbilisi, Georgia</div>
-                <div class="exp-body"><ul class="exp-bullets">
-                    <li>Built iOS application from scratch to production launch, delivering full-featured gaming platform to 500K+ monthly active users</li>
-                    <li>Developed core features using UIKit, SwiftUI, CoreData, and CoreAnimation with MVVM architecture and Combine</li>
-                    <li>Integrated 5+ third-party vendor SDKs (slot games, sportsbook, payment providers) with custom abstraction layers</li>
-                    <li>Collaborated with QA team to implement XCUITest automation suite covering critical user flows, reducing manual testing by 30%</li>
-                    <li>Conducted 200+ code reviews, mentored junior developers, and contributed to team engineering standards documentation</li>
-                </ul></div>
-                <div class="exp-tags"><span class="exp-tag">Swift</span><span class="exp-tag">UIKit</span><span class="exp-tag">SwiftUI</span><span class="exp-tag">CoreData</span><span class="exp-tag">CoreAnimation</span><span class="exp-tag">MVVM</span><span class="exp-tag">XCUITest</span></div>
-            </div>
-            <div class="exp-card rv rv-d2">
-                <div class="exp-card-header"><div class="exp-role">iOS Developer</div><div class="exp-period">Oct 2020 — Jul 2021</div></div>
-                <div class="exp-company"><span class="exp-company-dot" style="background:var(--green)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
-                <div class="exp-body"><ul class="exp-bullets">
-                    <li>Built features for flagship mobile banking app serving 1M+ users using Swift and MVP architecture</li>
-                    <li>Implemented secure financial transaction flows with biometric authentication (Face ID, Touch ID) and encryption</li>
-                    <li>Collaborated with product managers, designers, and backend engineers in Agile/Scrum environment</li>
-                    <li>Participated in cross-team discovery phase for core banking platform redesign spanning 4 Scrum teams</li>
-                </ul></div>
-                <div class="exp-tags"><span class="exp-tag">Swift</span><span class="exp-tag">MVP</span><span class="exp-tag">Face ID</span><span class="exp-tag">Touch ID</span><span class="exp-tag">Agile</span></div>
-            </div>
-            <div class="exp-card rv rv-d3">
-                <div class="exp-card-header"><div class="exp-role">Junior Analyst Developer</div><div class="exp-period">Mar 2020 — Oct 2020</div></div>
-                <div class="exp-company"><span class="exp-company-dot" style="background:var(--orange)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
-                <div class="exp-body"><ul class="exp-bullets">
-                    <li>Developed internal HR Management System handling employee data, payroll, and reporting workflows</li>
-                    <li>Transitioned to iOS team after demonstrating strong programming fundamentals and mobile development aptitude</li>
-                </ul></div>
-                <div class="exp-tags"><span class="exp-tag">Internal Tools</span><span class="exp-tag">HR Systems</span></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="projects" id="projects">
-    <div class="container">
-        <div class="section-eyebrow rv">Featured Work</div>
-        <div class="section-headline rv rv-d1">Engineered for<br>impact.</div>
-        <p class="section-desc rv rv-d2">Key projects and systems I've built and led throughout my career.</p>
-        <div class="projects-showcase">
-            <div class="project-card project-card-1 rv">
-                <div class="project-card-glow"></div>
-                <div class="project-eyebrow">Design System &middot; Enterprise</div>
-                <div class="project-title">SwiftUI Design System</div>
-                <div class="project-desc">Enterprise-grade component library built entirely in SwiftUI. Provides a unified visual language with theming, accessibility, and animations. Now adopted by 3 companies across the TBC ecosystem.</div>
-                <div class="project-stat-row">
-                    <div><div class="project-stat-value">3</div><div class="project-stat-label">Companies Adopted</div></div>
-                    <div><div class="project-stat-value">50+</div><div class="project-stat-label">Engineers Using It</div></div>
-                    <div><div class="project-stat-value">100%</div><div class="project-stat-label">SwiftUI</div></div>
-                </div>
-                <div class="project-tech-row"><span class="project-tech-pill">SwiftUI</span><span class="project-tech-pill">Swift 6+</span><span class="project-tech-pill">SPM</span><span class="project-tech-pill">Accessibility</span><span class="project-tech-pill">Theming</span></div>
-            </div>
-            <div class="project-feature">
-                <div class="project-card project-card-2 rv">
-                    <div class="project-card-glow"></div>
-                    <div class="project-eyebrow">Fintech &middot; Architecture</div>
-                    <div class="project-title">TBC UZ Banking Platform</div>
-                    <div class="project-desc">Led iOS architecture for a 3,000+ employee fintech org. Migrated entire codebase to SwiftUI with Clean MVVM → MVI pattern enabling multi-team parallel development.</div>
-                    <div class="project-tech-row"><span class="project-tech-pill">MVI</span><span class="project-tech-pill">Combine</span><span class="project-tech-pill">async/await</span><span class="project-tech-pill">Modular</span></div>
-                </div>
-                <div class="project-card project-card-3 rv rv-d1">
-                    <div class="project-card-glow"></div>
-                    <div class="project-eyebrow">Gaming &middot; Consumer</div>
-                    <div class="project-title">Adjarabet iOS App</div>
-                    <div class="project-desc">Built from zero to 500K+ MAU. Full-featured gaming platform with 5+ SDK integrations, custom abstraction layers, and comprehensive UI test automation.</div>
-                    <div class="project-tech-row"><span class="project-tech-pill">UIKit</span><span class="project-tech-pill">CoreAnimation</span><span class="project-tech-pill">MVVM</span><span class="project-tech-pill">XCUITest</span></div>
-                </div>
-            </div>
-            <div class="project-feature">
-                <div class="project-card project-card-4 rv">
-                    <div class="project-card-glow"></div>
-                    <div class="project-eyebrow">DevOps &middot; Automation</div>
-                    <div class="project-title">CI/CD Pipeline</div>
-                    <div class="project-desc">Designed end-to-end CI/CD on Bitrise with automated builds, testing, and App Store deployments. Established Quality Gate with SwiftLint, coverage thresholds, and mandatory reviews.</div>
-                    <div class="project-tech-row"><span class="project-tech-pill">Bitrise</span><span class="project-tech-pill">Fastlane</span><span class="project-tech-pill">SwiftLint</span><span class="project-tech-pill">TestFlight</span></div>
-                </div>
-                <div class="project-card project-card-5 rv rv-d1">
-                    <div class="project-card-glow"></div>
-                    <div class="project-eyebrow">Banking &middot; Consumer</div>
-                    <div class="project-title">BOG Mobile Banking</div>
-                    <div class="project-desc">Contributed to Bank of Georgia's flagship app serving 1M+ users. Implemented biometric auth, secure transaction flows, and participated in core platform redesign across 4 teams.</div>
-                    <div class="project-tech-row"><span class="project-tech-pill">Swift</span><span class="project-tech-pill">MVP</span><span class="project-tech-pill">LocalAuth</span><span class="project-tech-pill">Encryption</span></div>
+            <div class="about__details">
+                <p class="about__text rv rv--d2">I'm <strong>Giga Khizanishvili</strong>, a Senior iOS Engineer and Mobile Architect based in <strong>Tbilisi, Georgia</strong>. I hold a B.Sc. in Computer Science &amp; Mathematics from Free University of Tbilisi and have 5+ years of hands-on experience shipping apps to millions of users.</p>
+                <p class="about__text rv rv--d3">Currently, I lead iOS architecture for <strong>50+ engineers across 8 product teams</strong> at Space International (TBC UZ), a fintech organization with 3,000+ employees. I've driven a full SwiftUI migration, built a design system adopted by 3 companies, achieved 90%+ test coverage, and reduced release cycles from 2 weeks to 3 days.</p>
+                <p class="about__text rv rv--d4">Beyond code, I'm an <strong>ACM-ICPC finalist</strong>, a former algorithms instructor, and passionate about mentoring the next generation of developers.</p>
+                <div class="about__highlights rv rv--d5">
+                    <div class="highlight"><div class="highlight__icon" aria-hidden="true">🏗️</div><h3 class="highlight__title">Architecture at Scale</h3><p class="highlight__desc">Leading iOS decisions across 8 product teams</p></div>
+                    <div class="highlight"><div class="highlight__icon" aria-hidden="true">🎨</div><h3 class="highlight__title">Design Systems</h3><p class="highlight__desc">SwiftUI system adopted by 3 companies</p></div>
+                    <div class="highlight"><div class="highlight__icon" aria-hidden="true">🧪</div><h3 class="highlight__title">Testing Champion</h3><p class="highlight__desc">90%+ coverage via unit, UI, snapshot &amp; contract tests</p></div>
+                    <div class="highlight"><div class="highlight__icon" aria-hidden="true">🚀</div><h3 class="highlight__title">CI/CD Mastery</h3><p class="highlight__desc">Release cycle cut from 2 weeks to 3 days</p></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="skills" id="skills">
+<!-- ==========================================
+     EXPERIENCE
+     ========================================== -->
+<section class="experience" id="experience" aria-labelledby="experience-heading">
     <div class="container">
-        <div class="section-eyebrow rv">Tech Stack</div>
-        <div class="section-headline rv rv-d1">Tools of<br>the craft.</div>
-        <p class="section-desc rv rv-d2">The technologies and patterns I use to build software that scales.</p>
-        <div class="skills-grid">
-            <div class="skill-card rv"><div class="skill-card-icon">⚡</div><div class="skill-card-title">Languages</div><div class="skill-tags"><span class="skill-tag">Swift 6+</span><span class="skill-tag">C</span><span class="skill-tag">C++</span></div></div>
-            <div class="skill-card rv rv-d1"><div class="skill-card-icon">🎨</div><div class="skill-card-title">Frameworks</div><div class="skill-tags"><span class="skill-tag">SwiftUI</span><span class="skill-tag">UIKit</span><span class="skill-tag">Combine</span><span class="skill-tag">async/await</span><span class="skill-tag">CoreData</span><span class="skill-tag">CoreAnimation</span><span class="skill-tag">StoreKit</span><span class="skill-tag">AVFoundation</span><span class="skill-tag">MapKit</span><span class="skill-tag">XCTest</span></div></div>
-            <div class="skill-card rv rv-d2"><div class="skill-card-icon">🏗️</div><div class="skill-card-title">Architecture</div><div class="skill-tags"><span class="skill-tag">Clean Architecture</span><span class="skill-tag">MVVM</span><span class="skill-tag">MVI</span><span class="skill-tag">MVP</span><span class="skill-tag">Modular</span><span class="skill-tag">POP</span><span class="skill-tag">DI</span></div></div>
-            <div class="skill-card rv rv-d3"><div class="skill-card-icon">🧪</div><div class="skill-card-title">Testing</div><div class="skill-tags"><span class="skill-tag">Unit Testing</span><span class="skill-tag">UI Testing</span><span class="skill-tag">Snapshot Testing</span><span class="skill-tag">Contract Testing</span><span class="skill-tag">TDD</span></div></div>
-            <div class="skill-card rv rv-d4"><div class="skill-card-icon">🛠️</div><div class="skill-card-title">DevOps & Tools</div><div class="skill-tags"><span class="skill-tag">Xcode</span><span class="skill-tag">Bitrise</span><span class="skill-tag">Fastlane</span><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">GitLab</span><span class="skill-tag">CocoaPods</span><span class="skill-tag">SPM</span></div></div>
-            <div class="skill-card rv rv-d5"><div class="skill-card-icon">📱</div><div class="skill-card-title">Distribution</div><div class="skill-tags"><span class="skill-tag">App Store Connect</span><span class="skill-tag">TestFlight</span><span class="skill-tag">Charles</span><span class="skill-tag">Instruments</span></div></div>
+        <p class="section-eyebrow rv">Experience</p>
+        <h2 class="section-headline rv rv--d1" id="experience-heading">Built for scale.<br>Shipped to millions.</h2>
+        <p class="section-desc rv rv--d2">From junior analyst to leading architecture for 50+ engineers — each role shaped how I think about software.</p>
+        <div class="experience__timeline">
+            <article class="exp-card rv">
+                <div class="exp-card__header">
+                    <h3 class="exp-card__role">Senior iOS Architect</h3>
+                    <time class="exp-card__period">Mar 2023 — Present</time>
+                </div>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-blue)"></span>Space International (TBC UZ) &middot; Tbilisi, Georgia</div>
+                <div class="exp-card__body">
+                    <ul class="exp-card__bullets">
+                        <li>Lead iOS architecture decisions across 8 product teams and 50+ iOS developers, participating in every core technical and architectural decision</li>
+                        <li>Architected and delivered enterprise-grade Design System in SwiftUI, now adopted by 2 additional subsidiary companies beyond TBC UZ</li>
+                        <li>Led complete migration to SwiftUI and Swift 6+, achieving 100% modern codebase with full adoption of structured concurrency and Combine</li>
+                        <li>Implemented comprehensive testing strategy achieving 90%+ code coverage through unit, UI, snapshot, and contract tests</li>
+                        <li>Designed and evolved Clean MVVM → MVI architecture, creating scalable foundation for multi-team parallel development</li>
+                        <li>Built CI/CD infrastructure on Bitrise with automated builds, tests, and App Store deployments — reduced release cycle from 2 weeks to 3 days</li>
+                        <li>Established iOS Quality Gate enforcing SwiftLint rules, minimum coverage thresholds, and mandatory code review for all pull requests</li>
+                        <li>Mentored iOS engineers on architecture patterns, SwiftUI best practices, modularization, and testing strategies</li>
+                    </ul>
+                </div>
+                <div class="exp-card__tags"><span class="tag">Swift 6+</span><span class="tag">SwiftUI</span><span class="tag">Combine</span><span class="tag">MVI</span><span class="tag">Clean Architecture</span><span class="tag">Bitrise</span><span class="tag">Fastlane</span><span class="tag">SPM</span></div>
+            </article>
+            <article class="exp-card rv rv--d1">
+                <div class="exp-card__header">
+                    <h3 class="exp-card__role">iOS Developer</h3>
+                    <time class="exp-card__period">Jul 2021 — Apr 2023</time>
+                </div>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-purple)"></span>Adjarabet &middot; Tbilisi, Georgia</div>
+                <div class="exp-card__body">
+                    <ul class="exp-card__bullets">
+                        <li>Built iOS application from scratch to production launch, delivering full-featured gaming platform to 500K+ monthly active users</li>
+                        <li>Developed core features using UIKit, SwiftUI, CoreData, and CoreAnimation with MVVM architecture and Combine</li>
+                        <li>Integrated 5+ third-party vendor SDKs (slot games, sportsbook, payment providers) with custom abstraction layers</li>
+                        <li>Collaborated with QA team to implement XCUITest automation suite covering critical user flows, reducing manual testing by 30%</li>
+                        <li>Conducted 200+ code reviews, mentored junior developers, and contributed to team engineering standards documentation</li>
+                    </ul>
+                </div>
+                <div class="exp-card__tags"><span class="tag">Swift</span><span class="tag">UIKit</span><span class="tag">SwiftUI</span><span class="tag">CoreData</span><span class="tag">CoreAnimation</span><span class="tag">MVVM</span><span class="tag">XCUITest</span></div>
+            </article>
+            <article class="exp-card rv rv--d2">
+                <div class="exp-card__header">
+                    <h3 class="exp-card__role">iOS Developer</h3>
+                    <time class="exp-card__period">Oct 2020 — Jul 2021</time>
+                </div>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-green)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
+                <div class="exp-card__body">
+                    <ul class="exp-card__bullets">
+                        <li>Built features for flagship mobile banking app serving 1M+ users using Swift and MVP architecture</li>
+                        <li>Implemented secure financial transaction flows with biometric authentication (Face ID, Touch ID) and encryption</li>
+                        <li>Collaborated with product managers, designers, and backend engineers in Agile/Scrum environment</li>
+                        <li>Participated in cross-team discovery phase for core banking platform redesign spanning 4 Scrum teams</li>
+                    </ul>
+                </div>
+                <div class="exp-card__tags"><span class="tag">Swift</span><span class="tag">MVP</span><span class="tag">Face ID</span><span class="tag">Touch ID</span><span class="tag">Agile</span></div>
+            </article>
+            <article class="exp-card rv rv--d3">
+                <div class="exp-card__header">
+                    <h3 class="exp-card__role">Junior Analyst Developer</h3>
+                    <time class="exp-card__period">Mar 2020 — Oct 2020</time>
+                </div>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-orange)"></span>Bank of Georgia &middot; Tbilisi, Georgia</div>
+                <div class="exp-card__body">
+                    <ul class="exp-card__bullets">
+                        <li>Developed internal HR Management System handling employee data, payroll, and reporting workflows</li>
+                        <li>Transitioned to iOS team after demonstrating strong programming fundamentals and mobile development aptitude</li>
+                    </ul>
+                </div>
+                <div class="exp-card__tags"><span class="tag">Internal Tools</span><span class="tag">HR Systems</span></div>
+            </article>
         </div>
     </div>
 </section>
 
-<section class="achievements" id="achievements">
+<!-- ==========================================
+     PROJECTS
+     ========================================== -->
+<section class="projects" id="projects" aria-labelledby="projects-heading">
     <div class="container">
-        <div class="section-eyebrow rv">Achievements</div>
-        <div class="section-headline rv rv-d1">Beyond the code.</div>
-        <div class="ach-grid">
-            <div class="ach-card rv"><span class="ach-icon">🏆</span><div class="ach-year">2020</div><div class="ach-title">ACM-ICPC Northern Eurasia Finals</div><div class="ach-desc">Competitive programming finalist representing Georgia on the international stage.</div></div>
-            <div class="ach-card rv rv-d1"><span class="ach-icon">🎓</span><div class="ach-year">2017</div><div class="ach-title">Full Academic Scholarship</div><div class="ach-desc">Awarded by the Ministry of Education and Science of Georgia for top national exam scores.</div></div>
-            <div class="ach-card rv rv-d2"><span class="ach-icon">🥇</span><div class="ach-year">2015</div><div class="ach-title">Gold Medal — IYNT Belgrade</div><div class="ach-desc">1st Place at the International Young Naturalists Tournament in Belgrade, Serbia.</div></div>
+        <p class="section-eyebrow rv">Featured Work</p>
+        <h2 class="section-headline rv rv--d1" id="projects-heading">Engineered for<br>impact.</h2>
+        <p class="section-desc rv rv--d2">Key projects and systems I've built and led throughout my career.</p>
+        <div class="projects__showcase">
+            <article class="project-card project-card--featured rv">
+                <div class="project-card__glow"></div>
+                <p class="project-card__eyebrow">Design System &middot; Enterprise</p>
+                <h3 class="project-card__title">SwiftUI Design System</h3>
+                <p class="project-card__desc">Enterprise-grade component library built entirely in SwiftUI. Provides a unified visual language with theming, accessibility, and animations. Now adopted by 3 companies across the TBC ecosystem.</p>
+                <div class="project-card__stats">
+                    <div><div class="project-card__stat-value">3</div><div class="project-card__stat-label">Companies Adopted</div></div>
+                    <div><div class="project-card__stat-value">50+</div><div class="project-card__stat-label">Engineers Using It</div></div>
+                    <div><div class="project-card__stat-value">100%</div><div class="project-card__stat-label">SwiftUI</div></div>
+                </div>
+                <div class="project-card__tech"><span class="project-card__pill">SwiftUI</span><span class="project-card__pill">Swift 6+</span><span class="project-card__pill">SPM</span><span class="project-card__pill">Accessibility</span><span class="project-card__pill">Theming</span></div>
+            </article>
+            <div class="projects__row">
+                <article class="project-card project-card--fintech rv">
+                    <div class="project-card__glow"></div>
+                    <p class="project-card__eyebrow">Fintech &middot; Architecture</p>
+                    <h3 class="project-card__title">TBC UZ Banking Platform</h3>
+                    <p class="project-card__desc">Led iOS architecture for a 3,000+ employee fintech org. Migrated entire codebase to SwiftUI with Clean MVVM → MVI pattern enabling multi-team parallel development.</p>
+                    <div class="project-card__tech"><span class="project-card__pill">MVI</span><span class="project-card__pill">Combine</span><span class="project-card__pill">async/await</span><span class="project-card__pill">Modular</span></div>
+                </article>
+                <article class="project-card project-card--gaming rv rv--d1">
+                    <div class="project-card__glow"></div>
+                    <p class="project-card__eyebrow">Gaming &middot; Consumer</p>
+                    <h3 class="project-card__title">Adjarabet iOS App</h3>
+                    <p class="project-card__desc">Built from zero to 500K+ MAU. Full-featured gaming platform with 5+ SDK integrations, custom abstraction layers, and comprehensive UI test automation.</p>
+                    <div class="project-card__tech"><span class="project-card__pill">UIKit</span><span class="project-card__pill">CoreAnimation</span><span class="project-card__pill">MVVM</span><span class="project-card__pill">XCUITest</span></div>
+                </article>
+            </div>
+            <div class="projects__row">
+                <article class="project-card project-card--devops rv">
+                    <div class="project-card__glow"></div>
+                    <p class="project-card__eyebrow">DevOps &middot; Automation</p>
+                    <h3 class="project-card__title">CI/CD Pipeline</h3>
+                    <p class="project-card__desc">Designed end-to-end CI/CD on Bitrise with automated builds, testing, and App Store deployments. Established Quality Gate with SwiftLint, coverage thresholds, and mandatory reviews.</p>
+                    <div class="project-card__tech"><span class="project-card__pill">Bitrise</span><span class="project-card__pill">Fastlane</span><span class="project-card__pill">SwiftLint</span><span class="project-card__pill">TestFlight</span></div>
+                </article>
+                <article class="project-card project-card--banking rv rv--d1">
+                    <div class="project-card__glow"></div>
+                    <p class="project-card__eyebrow">Banking &middot; Consumer</p>
+                    <h3 class="project-card__title">BOG Mobile Banking</h3>
+                    <p class="project-card__desc">Contributed to Bank of Georgia's flagship app serving 1M+ users. Implemented biometric auth, secure transaction flows, and participated in core platform redesign across 4 teams.</p>
+                    <div class="project-card__tech"><span class="project-card__pill">Swift</span><span class="project-card__pill">MVP</span><span class="project-card__pill">LocalAuth</span><span class="project-card__pill">Encryption</span></div>
+                </article>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="education" id="education">
+<!-- ==========================================
+     SKILLS
+     ========================================== -->
+<section class="skills" id="skills" aria-labelledby="skills-heading">
     <div class="container">
-        <div class="section-eyebrow rv">Education & Teaching</div>
-        <div class="section-headline rv rv-d1">Learning. Teaching.<br>Repeating.</div>
-        <div class="edu-grid">
-            <div class="edu-card rv"><div class="edu-card-eyebrow">🎓 Education</div><div class="edu-card-title">B.Sc. Computer Science & Mathematics</div><div class="edu-card-sub">Free University of Tbilisi &middot; 2017 – 2021</div><div class="edu-card-detail">GPA: 3.5 / 4.0 — Full scholarship recipient with top national exam scores.</div></div>
-            <div class="edu-card rv rv-d1"><div class="edu-card-eyebrow">👨‍🏫 Instructor</div><div class="edu-card-title">Algorithms & Data Structures</div><div class="edu-card-sub">Mziuri School of Technologies &middot; 2020 – 2023</div><div class="edu-card-detail">Taught 50+ students C++ programming, algorithm design, and competitive programming techniques.</div></div>
-            <div class="edu-card rv rv-d2"><div class="edu-card-eyebrow">📚 Teaching Assistant</div><div class="edu-card-title">Programming Methodology</div><div class="edu-card-sub">Free University of Tbilisi &middot; 2019 – 2020</div><div class="edu-card-detail">Helped students grasp core programming concepts, data structures, and algorithmic thinking.</div></div>
-            <div class="edu-card rv rv-d3"><div class="edu-card-eyebrow">🧑‍💻 Mentorship</div><div class="edu-card-title">iOS Engineering Mentorship</div><div class="edu-card-sub">Space International &middot; Ongoing</div><div class="edu-card-detail">Mentoring iOS engineers on architecture patterns, SwiftUI best practices, modularization, and testing strategies.</div></div>
+        <p class="section-eyebrow rv">Tech Stack</p>
+        <h2 class="section-headline rv rv--d1" id="skills-heading">Tools of<br>the craft.</h2>
+        <p class="section-desc rv rv--d2">The technologies and patterns I use to build software that scales.</p>
+        <div class="skills__grid">
+            <div class="skill-card rv"><div class="skill-card__icon" aria-hidden="true">⚡</div><h3 class="skill-card__title">Languages</h3><div class="skill-card__tags"><span class="skill-tag">Swift 6+</span><span class="skill-tag">C</span><span class="skill-tag">C++</span></div></div>
+            <div class="skill-card rv rv--d1"><div class="skill-card__icon" aria-hidden="true">🎨</div><h3 class="skill-card__title">Frameworks</h3><div class="skill-card__tags"><span class="skill-tag">SwiftUI</span><span class="skill-tag">UIKit</span><span class="skill-tag">Combine</span><span class="skill-tag">async/await</span><span class="skill-tag">CoreData</span><span class="skill-tag">CoreAnimation</span><span class="skill-tag">StoreKit</span><span class="skill-tag">AVFoundation</span><span class="skill-tag">MapKit</span><span class="skill-tag">XCTest</span></div></div>
+            <div class="skill-card rv rv--d2"><div class="skill-card__icon" aria-hidden="true">🏗️</div><h3 class="skill-card__title">Architecture</h3><div class="skill-card__tags"><span class="skill-tag">Clean Architecture</span><span class="skill-tag">MVVM</span><span class="skill-tag">MVI</span><span class="skill-tag">MVP</span><span class="skill-tag">Modular</span><span class="skill-tag">POP</span><span class="skill-tag">DI</span></div></div>
+            <div class="skill-card rv rv--d3"><div class="skill-card__icon" aria-hidden="true">🧪</div><h3 class="skill-card__title">Testing</h3><div class="skill-card__tags"><span class="skill-tag">Unit Testing</span><span class="skill-tag">UI Testing</span><span class="skill-tag">Snapshot Testing</span><span class="skill-tag">Contract Testing</span><span class="skill-tag">TDD</span></div></div>
+            <div class="skill-card rv rv--d4"><div class="skill-card__icon" aria-hidden="true">🛠️</div><h3 class="skill-card__title">DevOps &amp; Tools</h3><div class="skill-card__tags"><span class="skill-tag">Xcode</span><span class="skill-tag">Bitrise</span><span class="skill-tag">Fastlane</span><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">GitLab</span><span class="skill-tag">CocoaPods</span><span class="skill-tag">SPM</span></div></div>
+            <div class="skill-card rv rv--d5"><div class="skill-card__icon" aria-hidden="true">📱</div><h3 class="skill-card__title">Distribution</h3><div class="skill-card__tags"><span class="skill-tag">App Store Connect</span><span class="skill-tag">TestFlight</span><span class="skill-tag">Charles</span><span class="skill-tag">Instruments</span></div></div>
         </div>
     </div>
 </section>
 
-<section class="contact" id="contact">
+<!-- ==========================================
+     ACHIEVEMENTS
+     ========================================== -->
+<section class="achievements" id="achievements" aria-labelledby="achievements-heading">
     <div class="container">
-        <div class="section-eyebrow rv">Contact</div>
-        <div class="section-headline rv rv-d1">Let's build<br>something great.</div>
-        <p class="section-desc rv rv-d2">Open to collaboration, consulting, and interesting iOS challenges.</p>
-        <div class="contact-grid rv rv-d3">
-            <a href="mailto:giga.khizanishvili@gmail.com" class="contact-pill contact-pill-primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <p class="section-eyebrow rv">Achievements</p>
+        <h2 class="section-headline rv rv--d1" id="achievements-heading">Beyond the code.</h2>
+        <div class="achievements__grid">
+            <article class="ach-card rv"><span class="ach-card__icon" aria-hidden="true">🏆</span><time class="ach-card__year">2020</time><h3 class="ach-card__title">ACM-ICPC Northern Eurasia Finals</h3><p class="ach-card__desc">Competitive programming finalist representing Georgia on the international stage.</p></article>
+            <article class="ach-card rv rv--d1"><span class="ach-card__icon" aria-hidden="true">🎓</span><time class="ach-card__year">2017</time><h3 class="ach-card__title">Full Academic Scholarship</h3><p class="ach-card__desc">Awarded by the Ministry of Education and Science of Georgia for top national exam scores.</p></article>
+            <article class="ach-card rv rv--d2"><span class="ach-card__icon" aria-hidden="true">🥇</span><time class="ach-card__year">2015</time><h3 class="ach-card__title">Gold Medal — IYNT Belgrade</h3><p class="ach-card__desc">1st Place at the International Young Naturalists Tournament in Belgrade, Serbia.</p></article>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     EDUCATION
+     ========================================== -->
+<section class="education" id="education" aria-labelledby="education-heading">
+    <div class="container">
+        <p class="section-eyebrow rv">Education &amp; Teaching</p>
+        <h2 class="section-headline rv rv--d1" id="education-heading">Learning. Teaching.<br>Repeating.</h2>
+        <div class="education__grid">
+            <article class="edu-card rv"><p class="edu-card__eyebrow">🎓 Education</p><h3 class="edu-card__title">B.Sc. Computer Science &amp; Mathematics</h3><p class="edu-card__subtitle">Free University of Tbilisi &middot; 2017 – 2021</p><p class="edu-card__detail">GPA: 3.5 / 4.0 — Full scholarship recipient with top national exam scores.</p></article>
+            <article class="edu-card rv rv--d1"><p class="edu-card__eyebrow">👨‍🏫 Instructor</p><h3 class="edu-card__title">Algorithms &amp; Data Structures</h3><p class="edu-card__subtitle">Mziuri School of Technologies &middot; 2020 – 2023</p><p class="edu-card__detail">Taught 50+ students C++ programming, algorithm design, and competitive programming techniques.</p></article>
+            <article class="edu-card rv rv--d2"><p class="edu-card__eyebrow">📚 Teaching Assistant</p><h3 class="edu-card__title">Programming Methodology</h3><p class="edu-card__subtitle">Free University of Tbilisi &middot; 2019 – 2020</p><p class="edu-card__detail">Helped students grasp core programming concepts, data structures, and algorithmic thinking.</p></article>
+            <article class="edu-card rv rv--d3"><p class="edu-card__eyebrow">🧑‍💻 Mentorship</p><h3 class="edu-card__title">iOS Engineering Mentorship</h3><p class="edu-card__subtitle">Space International &middot; Ongoing</p><p class="edu-card__detail">Mentoring iOS engineers on architecture patterns, SwiftUI best practices, modularization, and testing strategies.</p></article>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     CONTACT
+     ========================================== -->
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+        <p class="section-eyebrow rv">Contact</p>
+        <h2 class="section-headline rv rv--d1" id="contact-heading">Let's build<br>something great.</h2>
+        <p class="section-desc rv rv--d2">Open to collaboration, consulting, and interesting iOS challenges.</p>
+        <div class="contact__grid rv rv--d3">
+            <a href="mailto:giga.khizanishvili@gmail.com" class="contact__pill contact__pill--primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 Email Me
             </a>
-            <a href="https://github.com/khizanag" target="_blank" class="contact-pill">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
+            <a href="https://github.com/khizanag" target="_blank" rel="noopener noreferrer" class="contact__pill">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub<span class="sr-only"> (opens in new tab)</span>
             </a>
-            <a href="https://linkedin.com/in/khizanag" target="_blank" class="contact-pill">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                LinkedIn
+            <a href="https://linkedin.com/in/khizanag" target="_blank" rel="noopener noreferrer" class="contact__pill">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn<span class="sr-only"> (opens in new tab)</span>
             </a>
-            <a href="tel:+995577543346" class="contact-pill">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <a href="tel:+995577543346" class="contact__pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
                 Call
             </a>
         </div>
-        <div class="contact-languages rv rv-d4">
-            <div class="lang-badge"><span class="lang-flag">🇬🇪</span> Georgian — Native</div>
-            <div class="lang-badge"><span class="lang-flag">🇬🇧</span> English — Professional</div>
-            <div class="lang-badge"><span class="lang-flag">🇷🇺</span> Russian — Basic</div>
+        <div class="contact__languages rv rv--d4">
+            <div class="contact__lang"><span class="contact__lang-flag" aria-hidden="true">🇬🇪</span> Georgian — Native</div>
+            <div class="contact__lang"><span class="contact__lang-flag" aria-hidden="true">🇬🇧</span> English — Professional</div>
+            <div class="contact__lang"><span class="contact__lang-flag" aria-hidden="true">🇷🇺</span> Russian — Basic</div>
         </div>
     </div>
 </section>
 
-<footer>
-    <div class="footer-inner">
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+<footer class="footer" role="contentinfo">
+    <div class="footer__inner">
         <p>&copy; 2025 Giga Khizanishvili. All rights reserved.</p>
         <p>Crafted with care in Tbilisi, Georgia.</p>
     </div>
 </footer>
 
+<!-- ==========================================
+     SCRIPTS
+     ========================================== -->
 <script>
-const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
-toggle.addEventListener('click',()=>links.classList.toggle('open'));
-links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:0.08,rootMargin:'0px 0px -60px 0px'});
-document.querySelectorAll('.rv').forEach(el=>observer.observe(el));
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+    (function () {
+        'use strict';
+
+        // Mobile navigation toggle
+        var toggle = document.getElementById('navToggle');
+        var links = document.getElementById('navLinks');
+
+        toggle.addEventListener('click', function () {
+            var isOpen = links.classList.toggle('is-open');
+            toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        // Close mobile nav on link click
+        links.addEventListener('click', function (e) {
+            if (e.target.closest('.nav__link')) {
+                links.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close mobile nav on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && links.classList.contains('is-open')) {
+                links.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.focus();
+            }
+        });
+
+        // Scroll reveal via IntersectionObserver
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
+            );
+
+            document.querySelectorAll('.rv').forEach(function (el) {
+                observer.observe(el);
+            });
+        } else {
+            // Fallback: show everything immediately
+            document.querySelectorAll('.rv').forEach(function (el) {
+                el.classList.add('is-visible');
+            });
+        }
+
+        // Smooth scroll for anchor links (with nav offset)
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                var target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    })();
 </script>
 </body>
 </html>

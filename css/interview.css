@@ -1133,6 +1133,41 @@ body {
     height: 16px;
 }
 
+/* --- Fullscreen button --- */
+.btn-fullscreen {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: transparent;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-fullscreen:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-gray-200);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.btn-fullscreen__collapse {
+    display: none;
+}
+
+.is-fullscreen .btn-fullscreen__expand {
+    display: none;
+}
+
+.is-fullscreen .btn-fullscreen__collapse {
+    display: block;
+}
+
 /* --- End interview button (inline with progress bar) --- */
 .btn-end {
     display: inline-flex;

@@ -61,6 +61,30 @@
         </div>
 
         <div class="setup__section">
+            <p class="setup__label">Mode</p>
+            <div class="mode-toggle" id="modeToggle">
+                <button class="mode-toggle__btn is-active" data-mode="time">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Time Limit
+                </button>
+                <button class="mode-toggle__btn" data-mode="count">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Fixed Count
+                </button>
+            </div>
+        </div>
+
+        <div class="setup__section" id="sectionTime">
+            <p class="setup__label">Interview Duration</p>
+            <div class="stepper">
+                <button class="stepper__btn" id="timeMinus" aria-label="Decrease time">−</button>
+                <span class="stepper__value" id="timeValue">15</span>
+                <button class="stepper__btn" id="timePlus" aria-label="Increase time">+</button>
+                <span class="stepper__hint">5 – 60 minutes</span>
+            </div>
+        </div>
+
+        <div class="setup__section" id="sectionCount" style="display:none">
             <p class="setup__label">Number of Questions</p>
             <div class="stepper">
                 <button class="stepper__btn" id="stepperMinus" aria-label="Decrease">−</button>
@@ -88,6 +112,10 @@
         <div class="q-progress">
             <div class="q-progress__bar"><div class="q-progress__fill" id="progressFill" style="width:0%"></div></div>
             <span class="q-progress__text" id="progressText">1 / 10</span>
+            <span class="q-timer" id="qTimer" style="display:none">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span id="timerText">15:00</span>
+            </span>
         </div>
 
         <div class="q-card">

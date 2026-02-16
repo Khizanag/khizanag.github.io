@@ -3,9 +3,19 @@
 
     // ---- State ----
     var selectedTopics = [];
+    var interviewMode = 'time'; // 'time' or 'count'
     var questionCount = 10;
+    var timeLimitMin = 15;
     var MIN_Q = 5;
     var MAX_Q = 30;
+    var MIN_TIME = 5;
+    var MAX_TIME = 60;
+    var TIME_STEP = 5;
+
+    // Timer state
+    var timerInterval = null;
+    var remainingSeconds = 0;
+    var timerExpired = false;
 
     // ---- DOM refs ----
     var topicGrid = document.getElementById('topicGrid');
@@ -14,6 +24,49 @@
     var stepperPlus = document.getElementById('stepperPlus');
     var btnStart = document.getElementById('btnStart');
     var validationHint = document.getElementById('validationHint');
+    var modeToggle = document.getElementById('modeToggle');
+    var sectionTime = document.getElementById('sectionTime');
+    var sectionCount = document.getElementById('sectionCount');
+    var timeMinus = document.getElementById('timeMinus');
+    var timePlus = document.getElementById('timePlus');
+    var timeValue = document.getElementById('timeValue');
+    var qTimer = document.getElementById('qTimer');
+    var timerText = document.getElementById('timerText');
+
+    // ---- Mode toggle ----
+    modeToggle.addEventListener('click', function (e) {
+        var btn = e.target.closest('.mode-toggle__btn');
+        if (!btn) return;
+
+        interviewMode = btn.dataset.mode;
+        modeToggle.querySelectorAll('.mode-toggle__btn').forEach(function (b) {
+            b.classList.toggle('is-active', b.dataset.mode === interviewMode);
+        });
+
+        sectionTime.style.display = interviewMode === 'time' ? '' : 'none';
+        sectionCount.style.display = interviewMode === 'count' ? '' : 'none';
+    });
+
+    // ---- Time stepper ----
+    timeMinus.addEventListener('click', function () {
+        if (timeLimitMin > MIN_TIME) {
+            timeLimitMin -= TIME_STEP;
+            updateTimeStepper();
+        }
+    });
+
+    timePlus.addEventListener('click', function () {
+        if (timeLimitMin < MAX_TIME) {
+            timeLimitMin += TIME_STEP;
+            updateTimeStepper();
+        }
+    });
+
+    function updateTimeStepper() {
+        timeValue.textContent = timeLimitMin;
+        timeMinus.disabled = timeLimitMin <= MIN_TIME;
+        timePlus.disabled = timeLimitMin >= MAX_TIME;
+    }
 
     // ---- Topic selection ----
     topicGrid.addEventListener('click', function (e) {
@@ -32,7 +85,7 @@
         updateStartButton();
     });
 
-    // ---- Stepper ----
+    // ---- Count stepper ----
     stepperMinus.addEventListener('click', function () {
         if (questionCount > MIN_Q) {
             questionCount -= 5;
@@ -98,6 +151,56 @@
         });
         document.getElementById(id).classList.add('is-active');
         window.scrollTo(0, 0);
+    }
+
+    // ---- Timer ----
+    function formatTime(seconds) {
+        var m = Math.floor(seconds / 60);
+        var s = seconds % 60;
+        return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function startTimer() {
+        remainingSeconds = timeLimitMin * 60;
+        timerExpired = false;
+        qTimer.style.display = '';
+        qTimer.classList.remove('is-warning', 'is-danger');
+        timerText.textContent = formatTime(remainingSeconds);
+
+        timerInterval = setInterval(function () {
+            remainingSeconds--;
+            if (remainingSeconds <= 0) {
+                remainingSeconds = 0;
+                timerExpired = true;
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerText.textContent = '0:00';
+                qTimer.classList.remove('is-warning');
+                qTimer.classList.add('is-danger');
+                // Let user finish current question, then auto-end
+                btnNext.textContent = 'See Results';
+                return;
+            }
+
+            timerText.textContent = formatTime(remainingSeconds);
+
+            // Warning at 20% remaining
+            var totalSeconds = timeLimitMin * 60;
+            if (remainingSeconds <= totalSeconds * 0.2 && remainingSeconds > 60) {
+                qTimer.classList.add('is-warning');
+                qTimer.classList.remove('is-danger');
+            } else if (remainingSeconds <= 60) {
+                qTimer.classList.remove('is-warning');
+                qTimer.classList.add('is-danger');
+            }
+        }, 1000);
+    }
+
+    function stopTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
     }
 
     // ---- Question screen DOM refs ----
@@ -170,10 +273,18 @@
     // ---- Display a question ----
     function displayQuestion(index) {
         var q = sessionQuestions[index];
-        var progress = ((index) / questionCount) * 100;
 
-        progressFill.style.width = progress + '%';
-        progressText.textContent = (index + 1) + ' / ' + questionCount;
+        if (interviewMode === 'count') {
+            var progress = ((index) / questionCount) * 100;
+            progressFill.style.width = progress + '%';
+            progressText.textContent = (index + 1) + ' / ' + questionCount;
+        } else {
+            // Time mode: show question number only
+            var elapsed = timeLimitMin * 60 - remainingSeconds;
+            var timePct = (elapsed / (timeLimitMin * 60)) * 100;
+            progressFill.style.width = Math.min(timePct, 100) + '%';
+            progressText.textContent = 'Q' + (index + 1);
+        }
 
         qTopic.textContent = q.topic.toUpperCase();
         qLevel.textContent = LEVEL_LABELS[q.level];
@@ -195,7 +306,13 @@
         });
         ratingDesc.textContent = '';
         btnNext.disabled = true;
-        btnNext.textContent = index < questionCount - 1 ? 'Next Question' : 'See Results';
+
+        // Button label
+        if (interviewMode === 'count') {
+            btnNext.textContent = index < questionCount - 1 ? 'Next Question' : 'See Results';
+        } else {
+            btnNext.textContent = timerExpired ? 'See Results' : 'Next Question';
+        }
     }
 
     // ---- Next question ----
@@ -203,7 +320,16 @@
         ratings.push(currentRating);
         currentQ++;
 
-        if (currentQ >= questionCount) {
+        // End conditions
+        var shouldEnd = false;
+        if (interviewMode === 'count' && currentQ >= questionCount) {
+            shouldEnd = true;
+        } else if (interviewMode === 'time' && timerExpired) {
+            shouldEnd = true;
+        }
+
+        if (shouldEnd) {
+            stopTimer();
             showResults();
             return;
         }
@@ -268,9 +394,9 @@
         currentRating = 0;
         ratings = [];
         sessionQuestions = [];
+        stopTimer();
 
         // Pick first question at middle level (level 2)
-        var topic = selectedTopics[Math.floor(Math.random() * selectedTopics.length)];
         var pool = QUESTION_BANK.filter(function (q) {
             return selectedTopics.indexOf(q.topic) !== -1 && q.level === 2;
         });
@@ -280,6 +406,14 @@
             });
         }
         sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+
+        // Timer
+        if (interviewMode === 'time') {
+            qTimer.style.display = '';
+            startTimer();
+        } else {
+            qTimer.style.display = 'none';
+        }
 
         showScreen('screen-question');
         displayQuestion(0);
@@ -298,6 +432,8 @@
     ];
 
     function showResults() {
+        stopTimer();
+
         var avg = ratings.reduce(function (a, b) { return a + b; }, 0) / ratings.length;
         var levelIndex;
 
@@ -354,10 +490,12 @@
 
     // ---- Restart ----
     document.getElementById('btnRestart').addEventListener('click', function () {
+        stopTimer();
         showScreen('screen-setup');
     });
 
     // ---- Init ----
     selectAllTopics();
     updateStepper();
+    updateTimeStepper();
 })();

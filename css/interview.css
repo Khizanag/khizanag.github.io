@@ -519,13 +519,13 @@ body {
 
 .q-reveal__text--hint {
     border-left: 2px solid var(--color-orange);
-    padding-left: 16px;
+    padding: 12px 0 12px 16px;
     margin-top: 16px;
 }
 
 .q-reveal__text--answer {
     border-left: 2px solid var(--color-green);
-    padding-left: 16px;
+    padding: 12px 0 12px 16px;
     margin-top: 16px;
 }
 

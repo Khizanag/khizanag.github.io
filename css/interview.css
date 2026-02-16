@@ -1076,31 +1076,29 @@ body {
     height: 16px;
 }
 
-/* --- End interview button --- */
+/* --- End interview button (inline with progress bar) --- */
 .btn-end {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    margin-top: 16px;
-    padding: 14px 32px;
+    gap: 5px;
+    padding: 4px 12px;
     border-radius: var(--border-radius-pill);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: transparent;
+    background-color: transparent;
     color: var(--color-gray-500);
-    font-family: var(--font-display);
-    font-size: 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.25s var(--ease-smooth);
-    letter-spacing: -0.01em;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-end:hover {
     border-color: rgba(255, 69, 58, 0.3);
     color: var(--color-red);
-    background: rgba(255, 69, 58, 0.06);
+    background-color: rgba(255, 69, 58, 0.06);
 }
 
 /* ============================================

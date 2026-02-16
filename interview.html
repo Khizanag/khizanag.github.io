@@ -623,8 +623,208 @@
         }
 
         /* ============================================
-           RESULTS SCREEN (placeholder)
+           RESULTS SCREEN
            ============================================ */
+        .results__header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .results__level-ring {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin: 0 auto 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .results__level-ring::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 3px;
+            background: conic-gradient(var(--ring-color, var(--color-blue)) calc(var(--ring-pct, 0) * 1%), rgba(255,255,255,0.08) 0%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            transition: --ring-pct 1s var(--ease-out-expo);
+        }
+
+        .results__level-emoji {
+            font-size: 40px;
+            margin-bottom: 4px;
+        }
+
+        .results__level-name {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .results__title {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+
+        .results__subtitle {
+            font-size: 16px;
+            color: var(--color-gray-400);
+            font-weight: 300;
+            line-height: 1.5;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* --- Stats row --- */
+        .results__stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .results__stat {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-md);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .results__stat-value {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .results__stat-label {
+            font-size: 12px;
+            color: var(--color-gray-500);
+            letter-spacing: 0.02em;
+        }
+
+        /* --- Breakdown --- */
+        .results__breakdown {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius-lg);
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .results__breakdown-title {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--color-gray-200);
+        }
+
+        .results__row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .results__row:last-child { border-bottom: none; }
+
+        .results__row-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--color-gray-500);
+            min-width: 24px;
+        }
+
+        .results__row-q {
+            flex: 1;
+            font-size: 14px;
+            color: var(--color-gray-400);
+            font-weight: 300;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .results__row-stars {
+            display: flex;
+            gap: 3px;
+            flex-shrink: 0;
+        }
+
+        .results__row-star {
+            width: 14px;
+            height: 14px;
+        }
+
+        .results__row-star--filled { color: var(--color-yellow); }
+        .results__row-star--empty  { color: rgba(255, 255, 255, 0.1); }
+
+        /* --- Actions --- */
+        .results__actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-restart {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: var(--border-radius-pill);
+            border: none;
+            background: var(--color-blue);
+            color: #fff;
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            letter-spacing: -0.01em;
+        }
+
+        .btn-restart:hover {
+            background: var(--color-blue-hover);
+            transform: scale(1.04);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: var(--border-radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: transparent;
+            color: var(--color-gray-200);
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            letter-spacing: -0.01em;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
 
         /* ============================================
            RESPONSIVE — Mobile
@@ -637,6 +837,10 @@
             .q-card { padding: 28px; }
             .rating { padding: 24px 20px; }
             .rating__star { width: 40px; height: 40px; }
+            .results__stats { grid-template-columns: 1fr; }
+            .results__level-ring { width: 130px; height: 130px; }
+            .results__breakdown { padding: 24px 20px; }
+            .results__actions { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -770,6 +974,41 @@
      RESULTS SCREEN (Step 3)
      ========================================== -->
 <main class="screen" id="screen-results">
+    <div class="container">
+        <div class="results__header">
+            <div class="results__level-ring" id="levelRing">
+                <span class="results__level-emoji" id="levelEmoji"></span>
+                <span class="results__level-name" id="levelName"></span>
+            </div>
+            <h2 class="results__title" id="resultsTitle">Interview Complete</h2>
+            <p class="results__subtitle" id="resultsSubtitle"></p>
+        </div>
+
+        <div class="results__stats">
+            <div class="results__stat">
+                <div class="results__stat-value" id="statAvg">—</div>
+                <div class="results__stat-label">Avg Rating</div>
+            </div>
+            <div class="results__stat">
+                <div class="results__stat-value" id="statTotal">—</div>
+                <div class="results__stat-label">Questions</div>
+            </div>
+            <div class="results__stat">
+                <div class="results__stat-value" id="statTopics">—</div>
+                <div class="results__stat-label">Topics Covered</div>
+            </div>
+        </div>
+
+        <div class="results__breakdown">
+            <p class="results__breakdown-title">Question Breakdown</p>
+            <div id="breakdownList"></div>
+        </div>
+
+        <div class="results__actions">
+            <button class="btn-restart" id="btnRestart">Try Again</button>
+            <a href="index.html" class="btn-secondary">Back to Portfolio</a>
+        </div>
+    </div>
 </main>
 
 <!-- ==========================================
@@ -935,8 +1174,7 @@
         currentQ++;
 
         if (currentQ >= questionCount) {
-            showScreen('screen-results');
-            // TODO: build results in next step
+            showResults();
             return;
         }
 
@@ -1015,6 +1253,78 @@
 
         showScreen('screen-question');
         displayQuestion(0);
+    });
+
+    // ---- Results ----
+    var LEVEL_EMOJIS = ['🌱', '🚀', '⚡', '💎', '👑', '🏆'];
+    var LEVEL_COLORS = ['#5ac8fa', '#30d158', '#ff9f0a', '#bf5af2', '#ff375f', '#ffd60a'];
+    var LEVEL_DESCS = [
+        'Starting the journey — strong foundations are being built.',
+        'Growing fast — solid grasp of fundamentals, ready for more responsibility.',
+        'Reliable contributor — handles complex tasks independently.',
+        'Expert practitioner — drives technical decisions and mentors others.',
+        'Technical leader — shapes architecture and enables teams at scale.',
+        'Elite engineer — defines industry standards and solves the hardest problems.',
+    ];
+
+    function showResults() {
+        var avg = ratings.reduce(function (a, b) { return a + b; }, 0) / ratings.length;
+        var levelIndex;
+
+        if (avg >= 4.5) levelIndex = 5;
+        else if (avg >= 3.8) levelIndex = 4;
+        else if (avg >= 3.0) levelIndex = 3;
+        else if (avg >= 2.2) levelIndex = 2;
+        else if (avg >= 1.5) levelIndex = 1;
+        else levelIndex = 0;
+
+        var uniqueTopics = [];
+        sessionQuestions.forEach(function (q) {
+            if (uniqueTopics.indexOf(q.topic) === -1) uniqueTopics.push(q.topic);
+        });
+
+        // Populate
+        document.getElementById('levelEmoji').textContent = LEVEL_EMOJIS[levelIndex];
+        document.getElementById('levelName').textContent = LEVEL_LABELS[levelIndex];
+        document.getElementById('levelName').style.color = LEVEL_COLORS[levelIndex];
+        document.getElementById('resultsSubtitle').textContent = LEVEL_DESCS[levelIndex];
+        document.getElementById('statAvg').textContent = avg.toFixed(1);
+        document.getElementById('statTotal').textContent = ratings.length;
+        document.getElementById('statTopics').textContent = uniqueTopics.length;
+
+        // Ring
+        var ring = document.getElementById('levelRing');
+        var pct = Math.round((avg / 5) * 100);
+        ring.style.setProperty('--ring-color', LEVEL_COLORS[levelIndex]);
+        ring.style.setProperty('--ring-pct', pct);
+
+        // Breakdown
+        var list = document.getElementById('breakdownList');
+        list.innerHTML = '';
+        sessionQuestions.forEach(function (q, i) {
+            var row = document.createElement('div');
+            row.className = 'results__row';
+
+            var starsHtml = '';
+            for (var s = 1; s <= 5; s++) {
+                var cls = s <= ratings[i] ? 'results__row-star--filled' : 'results__row-star--empty';
+                starsHtml += '<svg class="results__row-star ' + cls + '" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+            }
+
+            row.innerHTML =
+                '<span class="results__row-num">' + (i + 1) + '</span>' +
+                '<span class="results__row-q">' + q.question + '</span>' +
+                '<span class="results__row-stars">' + starsHtml + '</span>';
+
+            list.appendChild(row);
+        });
+
+        showScreen('screen-results');
+    }
+
+    // ---- Restart ----
+    document.getElementById('btnRestart').addEventListener('click', function () {
+        showScreen('screen-setup');
     });
 
     // ---- Init ----

@@ -783,12 +783,6 @@
             align-items: center;
             gap: 8px;
             padding: 0 40px 24px;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .exp-card__company:hover {
-            color: var(--color-gray-900);
         }
 
         .exp-card__company-dot {
@@ -798,16 +792,29 @@
             flex-shrink: 0;
         }
 
+        .exp-card__company-link {
+            color: var(--color-gray-500);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+
+        .exp-card__company-link:hover {
+            color: var(--color-gray-900);
+        }
+
         .exp-card__company-icon {
-            width: 14px;
-            height: 14px;
+            width: 13px;
+            height: 13px;
             flex-shrink: 0;
             opacity: 0;
             transform: translateX(-4px);
             transition: opacity 0.3s, transform 0.3s;
         }
 
-        .exp-card__company:hover .exp-card__company-icon {
+        .exp-card__company-link:hover .exp-card__company-icon {
             opacity: 1;
             transform: translateX(0);
         }
@@ -1619,7 +1626,7 @@
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </button>
-                <a href="https://tbcbank.uz" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-blue)"></span>Space International (TBC UZ) &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-blue)"></span><a href="https://tbcbank.uz" target="_blank" rel="noopener noreferrer" class="exp-card__company-link">Space International (TBC UZ)<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a> &middot; Tbilisi, Georgia</div>
                 <div class="exp-card__collapsible" id="exp-1-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">
@@ -1648,7 +1655,7 @@
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </button>
-                <a href="https://adjarabet.com" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-purple)"></span>Adjarabet &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-purple)"></span><a href="https://adjarabet.com" target="_blank" rel="noopener noreferrer" class="exp-card__company-link">Adjarabet<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a> &middot; Tbilisi, Georgia</div>
                 <div class="exp-card__collapsible" id="exp-2-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">
@@ -1674,7 +1681,7 @@
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </button>
-                <a href="https://bankofgeorgia.ge" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-green)"></span>Bank of Georgia &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-green)"></span><a href="https://bankofgeorgia.ge" target="_blank" rel="noopener noreferrer" class="exp-card__company-link">Bank of Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a> &middot; Tbilisi, Georgia</div>
                 <div class="exp-card__collapsible" id="exp-3-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">
@@ -1699,7 +1706,7 @@
                         <svg class="exp-card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </div>
                 </button>
-                <a href="https://bankofgeorgia.ge" target="_blank" rel="noopener noreferrer" class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-orange)"></span>Bank of Georgia &middot; Tbilisi, Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                <div class="exp-card__company"><span class="exp-card__company-dot" style="background:var(--color-orange)"></span><a href="https://bankofgeorgia.ge" target="_blank" rel="noopener noreferrer" class="exp-card__company-link">Bank of Georgia<svg class="exp-card__company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a> &middot; Tbilisi, Georgia</div>
                 <div class="exp-card__collapsible" id="exp-4-content">
                     <div class="exp-card__collapsible-inner">
                         <div class="exp-card__body">

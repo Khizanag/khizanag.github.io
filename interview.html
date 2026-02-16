@@ -40,6 +40,20 @@
         </div>
 
         <div class="setup__section">
+            <p class="setup__label">Participants</p>
+            <div class="setup__names">
+                <div class="setup__name-field">
+                    <label class="setup__name-label" for="interviewerInput">Interviewer</label>
+                    <input type="text" class="setup__name-input" id="interviewerInput" placeholder="Your name..." autocomplete="off" spellcheck="false">
+                </div>
+                <div class="setup__name-field">
+                    <label class="setup__name-label" for="nameInput">Candidate</label>
+                    <input type="text" class="setup__name-input" id="nameInput" placeholder="Candidate name..." autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div>
+
+        <div class="setup__section">
             <p class="setup__label">Select Topics <button class="setup__label-action" id="btnToggleAll">Clear All</button></p>
             <div class="setup__topics" id="topicGrid">
                 <button class="topic-chip" data-topic="swift">Swift Language</button>
@@ -76,12 +90,11 @@
         </div>
 
         <div class="setup__section" id="sectionTime">
-            <p class="setup__label">Interview Duration</p>
-            <div class="stepper">
-                <button class="stepper__btn" id="timeMinus" aria-label="Decrease time">−</button>
-                <span class="stepper__value" id="timeValue">15</span>
-                <button class="stepper__btn" id="timePlus" aria-label="Increase time">+</button>
-                <span class="stepper__hint">5 – 60 minutes</span>
+            <p class="setup__label">Interview Duration <span class="setup__label-value" id="timeDisplay">15 min</span></p>
+            <div class="time-slider">
+                <span class="time-slider__label">5</span>
+                <input type="range" class="time-slider__input" id="timeSlider" min="5" max="60" step="5" value="15">
+                <span class="time-slider__label">60</span>
             </div>
         </div>
 
@@ -101,7 +114,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
         </div>
-        <p class="setup__validation" id="validationHint">Select at least one topic to begin</p>
+        <p class="setup__validation" id="validationHint">Enter both participant names to begin</p>
     </div>
 </main>
 
@@ -113,6 +126,7 @@
         <div class="q-progress">
             <div class="q-progress__bar"><div class="q-progress__fill" id="progressFill" style="width:0%"></div></div>
             <span class="q-progress__text" id="progressText">1 / 10</span>
+            <span class="q-interviewee" id="qInterviewee"></span>
             <span class="q-timer" id="qTimer" style="display:none">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <span id="timerText">15:00</span>
@@ -188,6 +202,7 @@
                 <span class="results__level-name" id="levelName"></span>
             </div>
             <h2 class="results__title" id="resultsTitle">Interview Complete</h2>
+            <p class="results__interviewee" id="resultsInterviewee"></p>
             <p class="results__subtitle" id="resultsSubtitle"></p>
         </div>
 

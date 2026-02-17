@@ -1128,6 +1128,45 @@
     background-color: var(--color-red-a6);
 }
 
+/* --- Question action buttons (fav, blacklist, report) --- */
+.btn-qaction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-gray-700);
+    cursor: pointer;
+    transition: all 0.25s;
+    padding: 0;
+}
+
+.btn-qaction:hover {
+    color: var(--color-gray-400);
+    background: var(--color-white-a6);
+}
+
+.btn-fav.is-active {
+    color: var(--color-pink);
+    background: var(--color-pink-a12);
+    border-color: var(--color-pink);
+}
+
+.btn-fav.is-active svg {
+    fill: var(--color-pink);
+}
+
+.btn-blacklist.is-active {
+    color: var(--color-red);
+    background: var(--color-red-a8);
+    border-color: var(--color-red);
+}
+
+.is-presenter .btn-qaction { display: none !important; }
+
 /* --- Report question button (in meta row) --- */
 .btn-report {
     display: inline-flex;

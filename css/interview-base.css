@@ -97,6 +97,98 @@
 }
 
 /* ============================================
+   LIGHT THEME OVERRIDES
+   ============================================ */
+.theme-light {
+    --color-white: #1d1d1f;
+    --color-gray-50: #1d1d1f;
+    --color-gray-100: #424245;
+    --color-gray-200: #424245;
+    --color-gray-400: #6e6e73;
+    --color-gray-500: #86868b;
+    --color-gray-700: #d2d2d7;
+    --color-gray-900: #f5f5f7;
+    --color-black: #ffffff;
+
+    --color-white-a2:  rgba(0, 0, 0, 0.02);
+    --color-white-a3:  rgba(0, 0, 0, 0.03);
+    --color-white-a4:  rgba(0, 0, 0, 0.04);
+    --color-white-a6:  rgba(0, 0, 0, 0.06);
+    --color-white-a8:  rgba(0, 0, 0, 0.08);
+    --color-white-a10: rgba(0, 0, 0, 0.10);
+    --color-white-a12: rgba(0, 0, 0, 0.12);
+    --color-white-a15: rgba(0, 0, 0, 0.15);
+    --color-white-a20: rgba(0, 0, 0, 0.20);
+    --color-white-a25: rgba(0, 0, 0, 0.25);
+
+    --color-black-a40: rgba(0, 0, 0, 0.10);
+    --color-black-a80: rgba(255, 255, 255, 0.90);
+
+    --color-blue-a6:  rgba(0, 113, 227, 0.06);
+    --color-blue-a10: rgba(0, 113, 227, 0.10);
+    --color-blue-a12: rgba(0, 113, 227, 0.12);
+    --color-blue-a15: rgba(0, 113, 227, 0.15);
+    --color-blue-a20: rgba(0, 113, 227, 0.20);
+    --color-blue-a25: rgba(0, 113, 227, 0.25);
+    --color-blue-a30: rgba(0, 113, 227, 0.30);
+    --color-blue-a40: rgba(0, 113, 227, 0.40);
+}
+
+.theme-light body {
+    background: #ffffff;
+    color: #1d1d1f;
+}
+
+.theme-light .nav {
+    background: rgba(255, 255, 255, 0.90);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .q-card__pre {
+    background: #f5f5f7;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.theme-light .setup__name-input {
+    -webkit-text-fill-color: #1d1d1f;
+}
+
+.theme-light .setup__name-input::placeholder,
+.theme-light .setup__name-input::-webkit-input-placeholder {
+    -webkit-text-fill-color: #86868b;
+    color: #86868b;
+}
+
+/* Theme toggle button */
+.nav__theme-toggle {
+    appearance: none;
+    background: none;
+    border: 1px solid var(--color-white-a10);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-gray-400);
+    transition: all 0.2s;
+    padding: 0;
+    margin-left: 12px;
+    flex-shrink: 0;
+}
+
+.nav__theme-toggle:hover {
+    color: var(--color-yellow);
+    border-color: var(--color-yellow-a40);
+    background: var(--color-yellow-a8);
+}
+
+.nav__theme-icon--light { display: none; }
+.theme-light .nav__theme-icon--dark { display: none; }
+.theme-light .nav__theme-icon--light { display: block; }
+
+/* ============================================
    RESET & BASE
    ============================================ */
 *,
@@ -175,7 +267,7 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 12px;
     padding: 0 22px;
 }
 
@@ -204,6 +296,7 @@ body {
     font-weight: 600;
     color: var(--color-gray-50);
     letter-spacing: -0.01em;
+    margin-left: auto;
 }
 
 /* ============================================

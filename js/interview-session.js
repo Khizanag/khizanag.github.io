@@ -23,6 +23,8 @@
                 introNotes: s.introNotes,
                 wrapupNotes: s.wrapupNotes,
                 presenterMode: s.presenterMode || false,
+                lcHintsRevealed: s.lcHintsRevealed || 0,
+                lcSolutionRevealed: dom.lcSolutionContent ? dom.lcSolutionContent.classList.contains('is-open') : false,
                 hintRevealed: dom.hintReveal.classList.contains('is-open'),
                 answerRevealed: dom.answerReveal.classList.contains('is-open'),
                 timestamp: Date.now(),
@@ -68,7 +70,7 @@
         // Restore state
         s.interviewerName = data.interviewerName || '';
         s.intervieweeName = data.intervieweeName;
-        s.selectedTopics = data.selectedTopics.filter(function (t) { return t !== 'code-challenge'; });
+        s.selectedTopics = data.selectedTopics.filter(function (t) { return t !== 'code-challenge' && t !== 'live-coding'; });
         s.interviewMode = 'time';
         s.timeLimitMin = data.timeLimitMin || 15;
         s.currentQ = data.currentQ;
@@ -132,6 +134,27 @@
         // Restore notes
         dom.introNotes.value = s.introNotes;
         dom.wrapupNotes.value = s.wrapupNotes;
+
+        // Restore live coding state
+        if (data.lcHintsRevealed && s.sessionQuestions[s.currentQ] && s.sessionQuestions[s.currentQ]._liveCoding) {
+            s.lcHintsRevealed = data.lcHintsRevealed;
+            var lc = s.sessionQuestions[s.currentQ]._lcData;
+            if (lc && dom.lcHintButtons) {
+                for (var hi = 0; hi < s.lcHintsRevealed && hi < lc.hints.length; hi++) {
+                    var btns = dom.lcHintButtons.querySelectorAll('.lc-hints__btn');
+                    if (btns[hi]) btns[hi].classList.add('is-active');
+                    var hDiv = document.createElement('div');
+                    hDiv.className = 'lc-hint-item';
+                    hDiv.textContent = lc.hints[hi];
+                    dom.lcHintContent.appendChild(hDiv);
+                }
+            }
+            if (data.lcSolutionRevealed && dom.lcSolutionContent) {
+                dom.lcSolutionContent.classList.add('is-open');
+                dom.btnLcSolution.innerHTML =
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Hide Solution';
+            }
+        }
 
         // Restore presenter mode
         if (data.presenterMode) {

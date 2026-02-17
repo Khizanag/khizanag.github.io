@@ -49,6 +49,7 @@
     --color-blue-a40: rgba(41, 151, 255, 0.40);
 
     /* Alpha palette — green */
+    --color-green-a4:  rgba(48, 209, 88, 0.04);
     --color-green-a10: rgba(48, 209, 88, 0.10);
     --color-green-a12: rgba(48, 209, 88, 0.12);
     --color-green-a30: rgba(48, 209, 88, 0.30);
@@ -60,6 +61,7 @@
     --color-yellow-a40: rgba(255, 214, 10, 0.40);
 
     /* Alpha palette — orange */
+    --color-orange-a4:  rgba(255, 159, 10, 0.04);
     --color-orange-a8:  rgba(255, 159, 10, 0.08);
     --color-orange-a12: rgba(255, 159, 10, 0.12);
     --color-orange-a30: rgba(255, 159, 10, 0.30);

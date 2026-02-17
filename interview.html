@@ -176,15 +176,45 @@
             </button>
         </div>
 
-        <div class="q-livecoding" id="qLiveCoding" style="display:none">
-            <div class="q-intro__icon">💻</div>
-            <h2 class="q-intro__title">Live Coding</h2>
-            <p class="q-intro__text">Ask the candidate to share their screen or use a whiteboard. Present a coding task and observe their approach in real time.</p>
-            <div class="q-livecoding__tips">
-                <p class="q-livecoding__tip">🎯 Focus on problem-solving process, not just the final answer</p>
-                <p class="q-livecoding__tip">💬 Encourage thinking aloud — communication matters</p>
-                <p class="q-livecoding__tip">🧩 Offer hints if stuck, note how they respond to guidance</p>
-                <p class="q-livecoding__tip">⏱️ Keep scope realistic for the time allocated</p>
+        <div class="lc-card" id="qLiveCoding" style="display:none">
+            <div class="lc-card__header">
+                <div class="lc-card__meta">
+                    <span class="lc-card__badge">LIVE CODING</span>
+                    <span class="lc-card__topic" id="lcTopic">ARRAYS</span>
+                    <span class="lc-card__difficulty" id="lcDifficulty">Medium</span>
+                </div>
+                <span class="lc-card__counter" id="lcCounter">Problem 1</span>
+            </div>
+            <h2 class="lc-card__title" id="lcTitle">Loading...</h2>
+            <div class="lc-card__description" id="lcDescription"></div>
+
+            <div class="lc-hints" id="lcHints">
+                <div class="lc-hints__header">
+                    <span class="lc-hints__label">Hints</span>
+                    <div class="lc-hints__buttons" id="lcHintButtons"></div>
+                </div>
+                <div class="lc-hints__content" id="lcHintContent"></div>
+            </div>
+
+            <div class="lc-solution">
+                <button class="lc-solution__toggle" id="btnLcSolution">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    Show Solution
+                </button>
+                <div class="lc-solution__content" id="lcSolutionContent">
+                    <div class="lc-solution__inner">
+                        <div class="lc-solution__complexity" id="lcComplexity"></div>
+                        <div class="lc-solution__code-wrap">
+                            <pre class="q-card__pre"><code id="lcCode"></code></pre>
+                        </div>
+                        <p class="lc-solution__explanation" id="lcExplanation"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lc-tips">
+                <p class="lc-tips__item">💬 Encourage thinking aloud — communication matters</p>
+                <p class="lc-tips__item">🧩 Offer hints if stuck, note how they respond</p>
             </div>
         </div>
 
@@ -377,6 +407,9 @@
      SCRIPTS
      ========================================== -->
 <script src="js/questions.js"></script>
+<script src="js/live-coding-easy-medium.js"></script>
+<script src="js/live-coding-hard-expert.js"></script>
+<script src="js/live-coding-questions.js"></script>
 <script src="js/interview-config.js"></script>
 <script src="js/interview-highlighter.js"></script>
 <script src="js/interview-session.js"></script>

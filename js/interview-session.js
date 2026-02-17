@@ -22,6 +22,7 @@
                 phases: s.phases,
                 introNotes: s.introNotes,
                 wrapupNotes: s.wrapupNotes,
+                presenterMode: s.presenterMode || false,
                 hintRevealed: dom.hintReveal.classList.contains('is-open'),
                 answerRevealed: dom.answerReveal.classList.contains('is-open'),
                 timestamp: Date.now(),
@@ -132,6 +133,13 @@
         // Restore notes
         dom.introNotes.value = s.introNotes;
         dom.wrapupNotes.value = s.wrapupNotes;
+
+        // Restore presenter mode
+        if (data.presenterMode) {
+            s.presenterMode = true;
+            document.documentElement.classList.add('is-presenter');
+            dom.btnPresenter.classList.add('is-active');
+        }
 
         return true;
     };

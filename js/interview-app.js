@@ -48,11 +48,13 @@
         d.btnEnd = document.getElementById('btnEnd');
         d.btnPause = document.getElementById('btnPause');
         d.btnFullscreen = document.getElementById('btnFullscreen');
+        d.btnPresenter = document.getElementById('btnPresenter');
         d.btnSkipSection = document.getElementById('btnSkipSection');
         d.btnSkipIntro = document.getElementById('btnSkipIntro');
         d.qIntro = document.getElementById('qIntro');
         d.qWrapup = document.getElementById('qWrapup');
         d.qLiveCoding = document.getElementById('qLiveCoding');
+        d.btnFinish = document.getElementById('btnFinish');
         d.introNotes = document.getElementById('introNotes');
         d.wrapupNotes = document.getElementById('wrapupNotes');
         d.qCard = document.querySelector('.q-card');
@@ -467,6 +469,17 @@
             App.showResults();
         });
 
+        // Finish interview from wrap-up (no confirmation needed — it's the last section)
+        dom.btnFinish.addEventListener('click', function () {
+            if (s.currentRating > 0) {
+                s.ratings.push(s.currentRating);
+            } else {
+                s.sessionQuestions.splice(s.currentQ, 1);
+            }
+            App.stopTimer();
+            App.showResults();
+        });
+
         // Download report
         dom.btnDownload.addEventListener('click', function () {
             App.downloadReport();
@@ -494,6 +507,14 @@
         }
         document.addEventListener('fullscreenchange', onFullscreenChange);
         document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+        // Presenter mode
+        dom.btnPresenter.addEventListener('click', function () {
+            s.presenterMode = !s.presenterMode;
+            document.documentElement.classList.toggle('is-presenter', s.presenterMode);
+            dom.btnPresenter.classList.toggle('is-active', s.presenterMode);
+            App.saveSession();
+        });
 
         // Restart
         document.getElementById('btnRestart').addEventListener('click', function () {

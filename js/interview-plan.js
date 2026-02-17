@@ -293,7 +293,7 @@
             el.className = 'q-phases__item';
             el.dataset.phaseId = phase.id;
             el.textContent = phase.name;
-            if (PHASE_DESCRIPTIONS[phase.id]) el.title = PHASE_DESCRIPTIONS[phase.id];
+            if (PHASE_DESCRIPTIONS[phase.id]) el.dataset.tooltip = PHASE_DESCRIPTIONS[phase.id];
             container.appendChild(el);
         });
     };

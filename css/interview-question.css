@@ -21,6 +21,36 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
+    cursor: default;
+}
+
+.q-phases__item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-gray-900);
+    color: var(--color-gray-50);
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-white-a10);
+    white-space: normal;
+    width: max-content;
+    max-width: 260px;
+    text-align: left;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.q-phases__item:hover::after {
+    opacity: 1;
 }
 
 .q-phases__item.is-done {
@@ -223,6 +253,32 @@
     background: var(--color-white-a6);
 }
 
+/* --- Finish button (wrap-up) --- */
+.q-wrapup__finish {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 14px 32px;
+    border-radius: var(--border-radius-pill);
+    border: none;
+    background: var(--color-green);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.q-wrapup__finish:hover {
+    filter: brightness(1.15);
+    transform: scale(1.04);
+}
+
 /* --- Pause button --- */
 .btn-pause {
     display: inline-flex;
@@ -253,6 +309,45 @@
 .q-timer.is-paused {
     opacity: 0.5;
 }
+
+/* --- Presenter mode button --- */
+.btn-presenter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid var(--color-white-a8);
+    background-color: transparent;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-presenter:hover {
+    border-color: var(--color-white-a15);
+    color: var(--color-gray-200);
+    background-color: var(--color-white-a6);
+}
+
+.btn-presenter__on { display: none; }
+.btn-presenter.is-active .btn-presenter__off { display: none; }
+.btn-presenter.is-active .btn-presenter__on { display: block; }
+
+.btn-presenter.is-active {
+    border-color: var(--color-blue-a30);
+    color: var(--color-blue);
+    background-color: var(--color-blue-a10);
+}
+
+/* --- Presenter mode: hide sensitive UI --- */
+.is-presenter .rating { display: none !important; }
+.is-presenter .q-reveal { display: none !important; }
+.is-presenter .q-phase-notes { display: none !important; }
+.is-presenter .q-wrapup__finish { display: none !important; }
 
 /* --- Skip section button --- */
 .btn-skip-section {

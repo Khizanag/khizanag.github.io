@@ -1143,7 +1143,20 @@
             dom.nameInput.value = '';
             dom.introNotes.value = '';
             dom.wrapupNotes.value = '';
+            App.renderHistory();
             App.showScreen('screen-setup');
+        });
+
+        // Compare history
+        document.getElementById('btnCompare').addEventListener('click', function () {
+            App.showComparison();
+        });
+        var modalCompare = document.getElementById('modalCompare');
+        document.getElementById('btnCompareClose').addEventListener('click', function () {
+            modalCompare.style.display = 'none';
+        });
+        modalCompare.addEventListener('click', function (e) {
+            if (e.target === modalCompare) modalCompare.style.display = 'none';
         });
     }
 
@@ -1168,5 +1181,6 @@
         } catch (e) { /* */ }
     }
     updateStartButton();
+    App.renderHistory();
 
 })(InterviewApp);

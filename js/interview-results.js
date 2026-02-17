@@ -121,6 +121,9 @@
         // Topic knowledge breakdown
         renderTopicBreakdown();
 
+        // Save to history
+        App.saveToHistory();
+
         App.showScreen('screen-results');
     };
 

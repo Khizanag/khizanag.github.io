@@ -59,4 +59,8 @@
     .modal__actions { flex-direction: column; }
     .modal__btn { justify-content: center; }
     .phase-toast { max-width: calc(100vw - 32px); bottom: 20px; padding: 12px 18px; }
+    .history__card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .history__card-stats { flex-wrap: wrap; gap: 10px; }
+    .compare__table { font-size: 12px; }
+    .compare__table th, .compare__table td { padding: 8px 10px; }
 }

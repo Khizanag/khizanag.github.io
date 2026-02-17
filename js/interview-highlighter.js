@@ -1,7 +1,13 @@
 (function (App) {
     'use strict';
 
+    var highlightCache = {};
+
     App.highlightSwift = function (code) {
+        if (highlightCache[code] !== undefined) {
+            return highlightCache[code];
+        }
+
         var html = code
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -32,6 +38,7 @@
         html = html.replace(/(?<!["\'].*?)(?<!class="[^"]*)\b([A-Z][a-zA-Z0-9]*)\b(?![^<]*>)/g, '<span class="type">$1</span>');
         html = html.replace(/\b(print)\b(?![^<]*>)/g, '<span class="call">$1</span>');
 
+        highlightCache[code] = html;
         return html;
     };
 

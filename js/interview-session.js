@@ -2,8 +2,15 @@
     'use strict';
 
     var s = App.state;
+    var saveTimer = null;
 
     App.saveSession = function () {
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(function () { App.saveSessionNow(); }, 500);
+    };
+
+    App.saveSessionNow = function () {
+        if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
         var dom = App.dom;
         try {
             localStorage.setItem(App.SESSION_KEY, JSON.stringify({
@@ -169,7 +176,7 @@
 
     window.addEventListener('beforeunload', function () {
         if (document.getElementById('screen-question').classList.contains('is-active')) {
-            App.saveSession();
+            App.saveSessionNow();
         }
     });
 

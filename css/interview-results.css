@@ -285,6 +285,31 @@
     transform: scale(1.04);
 }
 
+/* --- Print / PDF button --- */
+.btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a12);
+    background: transparent;
+    color: var(--color-gray-200);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    letter-spacing: -0.01em;
+}
+
+.btn-print:hover {
+    background: var(--color-purple-a10);
+    border-color: var(--color-purple-a12);
+    color: var(--color-purple);
+    transform: scale(1.04);
+}
+
 /* --- Notes display --- */
 .results__notes {
     background: var(--color-white-a4);

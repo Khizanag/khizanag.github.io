@@ -26,4 +26,8 @@
     .q-card__pre code { font-size: 12px; }
     .q-intro, .q-wrapup, .q-livecoding { padding: 40px 20px; }
     .q-phase-notes { max-width: 100%; }
+    .modal { padding: 24px; }
+    .modal-overlay { padding: 16px; }
+    .modal__actions { flex-direction: column; }
+    .modal__btn { justify-content: center; }
 }

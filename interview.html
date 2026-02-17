@@ -203,6 +203,10 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                         Show Answer
                     </button>
+                    <button class="q-reveal__btn btn-report" id="btnReport">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                        Report
+                    </button>
                 </div>
                 <div class="q-reveal__content" id="hintReveal">
                     <div class="q-reveal__inner">
@@ -239,6 +243,32 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- Report Question Modal -->
+    <div class="modal-overlay" id="modalReport" style="display:none">
+        <div class="modal">
+            <h3 class="modal__title">Report Question</h3>
+            <div class="modal__meta" id="reportMeta"></div>
+            <label class="modal__label" for="reportCategory">Category</label>
+            <select class="modal__select" id="reportCategory">
+                <option value="Wrong Answer">Wrong Answer</option>
+                <option value="Unclear Question">Unclear Question</option>
+                <option value="Bad Difficulty">Bad Difficulty Level</option>
+                <option value="Missing Info">Missing Information</option>
+                <option value="Duplicate">Duplicate Question</option>
+                <option value="Other">Other</option>
+            </select>
+            <label class="modal__label" for="reportDetails">Details</label>
+            <textarea class="modal__textarea" id="reportDetails" placeholder="Describe the issue with this question..." rows="4"></textarea>
+            <div class="modal__actions">
+                <button class="modal__btn modal__btn--primary" id="btnReportSend">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Send Report
+                </button>
+                <button class="modal__btn modal__btn--secondary" id="btnReportCancel">Cancel</button>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -298,6 +328,41 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Download Report
             </button>
+            <button class="btn-feedback" id="btnFeedback">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Send Feedback
+            </button>
+        </div>
+
+        <!-- Feedback Modal -->
+        <div class="modal-overlay" id="modalFeedback" style="display:none">
+            <div class="modal">
+                <h3 class="modal__title">Send Feedback</h3>
+                <label class="modal__label" for="feedbackCategory">Category</label>
+                <select class="modal__select" id="feedbackCategory">
+                    <option value="Bug Report">Bug Report</option>
+                    <option value="Feature Request">Feature Request</option>
+                    <option value="Question Quality">Question Quality</option>
+                    <option value="General Feedback">General Feedback</option>
+                </select>
+                <label class="modal__label">How satisfied are you with the tool?</label>
+                <div class="modal__rating" id="feedbackRating">
+                    <button class="modal__rating-btn" data-value="1">1</button>
+                    <button class="modal__rating-btn" data-value="2">2</button>
+                    <button class="modal__rating-btn" data-value="3">3</button>
+                    <button class="modal__rating-btn" data-value="4">4</button>
+                    <button class="modal__rating-btn" data-value="5">5</button>
+                </div>
+                <label class="modal__label" for="feedbackDetails">Details</label>
+                <textarea class="modal__textarea" id="feedbackDetails" placeholder="Tell us what you think..." rows="4"></textarea>
+                <div class="modal__actions">
+                    <button class="modal__btn modal__btn--primary" id="btnFeedbackSend">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        Send Feedback
+                    </button>
+                    <button class="modal__btn modal__btn--secondary" id="btnFeedbackCancel">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 </main>

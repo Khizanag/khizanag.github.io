@@ -371,8 +371,13 @@
         // Restore per-question notes
         dom.qNote.value = q.notes || '';
 
-        // Show prev button only if not on the first question
-        dom.btnPrev.style.display = index > 0 ? '' : 'none';
+        // Show prev button only if not on the first question of the current phase
+        var canGoPrev = index > 0;
+        if (canGoPrev && q._phase) {
+            var prevQ = s.sessionQuestions[index - 1];
+            if (prevQ && prevQ._phase && prevQ._phase !== q._phase) canGoPrev = false;
+        }
+        dom.btnPrev.style.display = canGoPrev ? '' : 'none';
 
         App.updatePhaseUI();
     };
@@ -433,6 +438,7 @@
     function pickNextQuestion() {
         var avgRating = s.ratings.reduce(function (a, b) { return a + b; }, 0) / s.ratings.length;
         var targetLevel = App.getLevelIndex(avgRating);
+        var currentPhaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
 
         var rand = Math.random();
         if (rand < 0.15 && targetLevel > 0) targetLevel--;
@@ -445,7 +451,7 @@
             // Map 0-5 level to 0-3 difficulty
             var lcDifficulty = Math.min(Math.floor(targetLevel * 4 / 6), 3);
             var lcQ = pickLiveCodingQuestion(lcDifficulty);
-            if (lcQ) return lcQ;
+            if (lcQ) { lcQ._phase = currentPhaseId; return lcQ; }
             // Fallback to code challenge if no live coding bank
         }
 
@@ -500,7 +506,9 @@
         var unused = pool.filter(function (q) { return used.indexOf(q.question) === -1; });
         if (unused.length > 0) pool = unused;
 
-        return pool[Math.floor(Math.random() * pool.length)];
+        var picked = pool[Math.floor(Math.random() * pool.length)];
+        if (picked) picked._phase = currentPhaseId;
+        return picked;
     }
 
     // ===========================================================

@@ -231,6 +231,7 @@
         dom.qWrapup.style.display = isWrapup ? '' : 'none';
         dom.qLiveCoding.style.display = isLive ? '' : 'none';
         dom.qCard.style.display = (isNonQuestionOverlay || isLive) ? 'none' : '';
+        dom.qNote.style.display = isNonQuestionOverlay ? 'none' : '';
         dom.qRating.style.display = isNonQuestionOverlay ? 'none' : '';
 
         // Show skip section button when not on last phase
@@ -321,8 +322,9 @@
     }
 
     function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
+    App.escapeHtml = escapeHtml;
 
     App.displayQuestion = function (index) {
         var q = s.sessionQuestions[index];

@@ -570,3 +570,183 @@
     color: var(--color-gray-500);
     min-height: 20px;
 }
+
+/* --- Interview History --- */
+.history-section {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-white-a8);
+}
+
+.history__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.history__card {
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
+    border-radius: var(--border-radius-sm);
+    padding: 16px 20px;
+    transition: border-color 0.2s;
+}
+
+.history__card:hover {
+    border-color: var(--color-white-a15);
+}
+
+.history__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.history__card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.history__card-name {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+}
+
+.history__card-date {
+    font-size: 12px;
+    color: var(--color-gray-500);
+}
+
+.history__card-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.history__compare-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--color-gray-500);
+    cursor: pointer;
+}
+
+.history__compare-label span {
+    user-select: none;
+}
+
+.history__compare-cb {
+    accent-color: var(--color-blue);
+}
+
+.history__delete-btn {
+    appearance: none;
+    background: none;
+    border: none;
+    color: var(--color-gray-700);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.history__delete-btn:hover {
+    color: var(--color-red);
+    background: var(--color-red-a8);
+}
+
+.history__card-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+}
+
+.history__card-level {
+    font-family: var(--font-display);
+    font-weight: 600;
+}
+
+.history__card-avg {
+    color: var(--color-gray-400);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.history__card-count {
+    color: var(--color-gray-500);
+    font-size: 12px;
+}
+
+.history__card-skipped {
+    color: var(--color-orange);
+    font-size: 11px;
+}
+
+.btn-compare {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-blue);
+    background: var(--color-blue-a10);
+    border: 1px solid var(--color-blue-a25);
+    border-radius: var(--border-radius-pill);
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-compare:hover {
+    background: var(--color-blue-a20);
+}
+
+/* --- Comparison modal --- */
+.modal--wide {
+    max-width: 600px;
+}
+
+.compare__body {
+    overflow-x: auto;
+    margin: 16px 0;
+}
+
+.compare__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.compare__table th,
+.compare__table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-white-a6);
+}
+
+.compare__table th {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-blue);
+    font-size: 14px;
+}
+
+.compare__table td:first-child {
+    color: var(--color-gray-400);
+    font-weight: 500;
+    min-width: 120px;
+}
+
+.compare__table td {
+    color: var(--color-gray-200);
+}
+
+.compare__na {
+    color: var(--color-gray-700) !important;
+}

@@ -105,6 +105,25 @@
             </button>
         </div>
         <p class="setup__validation" id="validationHint">Enter both participant names to begin</p>
+
+        <div class="setup__section history-section" id="historySection" style="display:none">
+            <p class="setup__label">
+                Interview History
+                <button class="btn-compare" id="btnCompare" style="display:none">Compare Selected</button>
+            </p>
+            <div class="history__list" id="historyList"></div>
+        </div>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div class="modal-overlay" id="modalCompare" style="display:none">
+        <div class="modal modal--wide">
+            <h3 class="modal__title">Side-by-Side Comparison</h3>
+            <div class="compare__body" id="compareBody"></div>
+            <div class="modal__actions">
+                <button class="modal__btn modal__btn--secondary" id="btnCompareClose">Close</button>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -455,6 +474,7 @@
 <script src="js/interview-timer.js"></script>
 <script src="js/interview-plan.js"></script>
 <script src="js/interview-results.js"></script>
+<script src="js/interview-history.js"></script>
 <script src="js/interview-app.js"></script>
 </body>
 </html>

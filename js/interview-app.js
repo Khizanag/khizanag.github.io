@@ -4,6 +4,26 @@
     var s = App.state;
     var dom = App.dom;
     var INTERVIEWER_KEY = 'ios-interview-interviewer';
+    var FAVORITES_KEY = 'ios-interview-favorites';
+    var BLACKLIST_KEY = 'ios-interview-blacklist';
+
+    function loadSet(key) {
+        try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : []; }
+        catch (e) { return []; }
+    }
+    function saveSet(key, arr) {
+        try { localStorage.setItem(key, JSON.stringify(arr)); } catch (e) { /* */ }
+    }
+    function toggleInSet(key, qId) {
+        var arr = loadSet(key);
+        var idx = arr.indexOf(qId);
+        if (idx === -1) arr.push(qId); else arr.splice(idx, 1);
+        saveSet(key, arr);
+        return idx === -1;
+    }
+    function questionId(q) {
+        return q.topic + '::' + q.question.substring(0, 80);
+    }
 
     // ===========================================================
     //  DOM REFS
@@ -63,6 +83,10 @@
         d.qNote = document.getElementById('qNote');
         d.qRating = document.querySelector('.rating');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
+
+        // Favorite / Blacklist
+        d.btnFav = document.getElementById('btnFav');
+        d.btnBlacklist = document.getElementById('btnBlacklist');
 
         // Report question
         d.btnReport = document.getElementById('btnReport');
@@ -373,6 +397,11 @@
         // Restore per-question notes
         dom.qNote.value = q.notes || '';
 
+        // Update favorite/blacklist buttons
+        var qid = questionId(q);
+        dom.btnFav.classList.toggle('is-active', loadSet(FAVORITES_KEY).indexOf(qid) !== -1);
+        dom.btnBlacklist.classList.toggle('is-active', loadSet(BLACKLIST_KEY).indexOf(qid) !== -1);
+
         // Show prev button only if not on the first question of the current phase
         var canGoPrev = index > 0;
         if (canGoPrev && q._phase) {
@@ -504,9 +533,23 @@
             }
         }
 
+        // Filter blacklisted questions
+        var blacklist = loadSet(BLACKLIST_KEY);
+        if (blacklist.length > 0) {
+            var filtered = pool.filter(function (q) { return blacklist.indexOf(questionId(q)) === -1; });
+            if (filtered.length > 0) pool = filtered;
+        }
+
         var used = s.sessionQuestions.map(function (q) { return q.question; });
         var unused = pool.filter(function (q) { return used.indexOf(q.question) === -1; });
         if (unused.length > 0) pool = unused;
+
+        // Prioritize favorites
+        var favorites = loadSet(FAVORITES_KEY);
+        if (favorites.length > 0) {
+            var fav = pool.filter(function (q) { return favorites.indexOf(questionId(q)) !== -1; });
+            if (fav.length > 0 && Math.random() < 0.5) pool = fav;
+        }
 
         var picked = pool[Math.floor(Math.random() * pool.length)];
         if (picked) picked._phase = currentPhaseId;
@@ -1024,6 +1067,37 @@
             if (e.key !== 'Escape') return;
             if (dom.modalReport.style.display !== 'none') hideModal(dom.modalReport);
             if (dom.modalFeedback.style.display !== 'none') hideModal(dom.modalFeedback);
+        });
+
+        // ---- Favorite / Blacklist ----
+        dom.btnFav.addEventListener('click', function () {
+            var q = s.sessionQuestions[s.currentQ];
+            if (!q) return;
+            var qid = questionId(q);
+            // Remove from blacklist if adding to favorites
+            var bl = loadSet(BLACKLIST_KEY);
+            if (bl.indexOf(qid) !== -1) {
+                bl.splice(bl.indexOf(qid), 1);
+                saveSet(BLACKLIST_KEY, bl);
+                dom.btnBlacklist.classList.remove('is-active');
+            }
+            var added = toggleInSet(FAVORITES_KEY, qid);
+            dom.btnFav.classList.toggle('is-active', added);
+        });
+
+        dom.btnBlacklist.addEventListener('click', function () {
+            var q = s.sessionQuestions[s.currentQ];
+            if (!q) return;
+            var qid = questionId(q);
+            // Remove from favorites if adding to blacklist
+            var favs = loadSet(FAVORITES_KEY);
+            if (favs.indexOf(qid) !== -1) {
+                favs.splice(favs.indexOf(qid), 1);
+                saveSet(FAVORITES_KEY, favs);
+                dom.btnFav.classList.remove('is-active');
+            }
+            var added = toggleInSet(BLACKLIST_KEY, qid);
+            dom.btnBlacklist.classList.toggle('is-active', added);
         });
 
         // ---- Report Question ----

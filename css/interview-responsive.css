@@ -64,3 +64,42 @@
     .compare__table { font-size: 12px; }
     .compare__table th, .compare__table td { padding: 8px 10px; }
 }
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { background: #fff !important; color: #1d1d1f !important; }
+    .nav, .results__actions, .modal-overlay { display: none !important; }
+    .screen { display: none !important; padding-top: 0 !important; padding-bottom: 0 !important; min-height: auto !important; }
+    #screen-results { display: block !important; }
+    .container { max-width: 100% !important; padding: 0 !important; }
+
+    .results__header { margin-bottom: 24px; }
+    .results__level-ring { width: 100px; height: 100px; margin-bottom: 16px; }
+    .results__level-ring::before { padding: 2px; }
+    .results__level-emoji { font-size: 28px; }
+    .results__level-name { font-size: 15px; }
+    .results__title { font-size: 22px; color: #1d1d1f; }
+    .results__interviewee { color: #424245; }
+    .results__subtitle { color: #6e6e73; }
+
+    .results__stat { border: 1px solid #d2d2d7 !important; background: #f5f5f7 !important; }
+    .results__stat-value { color: #1d1d1f; }
+    .results__stat-label { color: #6e6e73; }
+
+    .results__breakdown,
+    .results__topic-breakdown,
+    .results__notes { border: 1px solid #d2d2d7 !important; background: #f5f5f7 !important; padding: 20px !important; margin-bottom: 16px !important; }
+    .results__breakdown-title { color: #1d1d1f; }
+    .results__row { border-bottom-color: #d2d2d7; }
+    .results__row-q { color: #424245; white-space: normal; }
+    .results__row-notes { color: #6e6e73; }
+    .results__topic-name { color: #1d1d1f; }
+    .results__topic-meta { color: #6e6e73; }
+    .results__topic-bar { background: #e8e8ed !important; }
+    .results__notes-text { color: #424245; }
+
+    @page { margin: 1.5cm; }
+}

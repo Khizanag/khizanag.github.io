@@ -922,6 +922,11 @@
             App.downloadReport();
         });
 
+        // Print / PDF
+        document.getElementById('btnPrint').addEventListener('click', function () {
+            window.print();
+        });
+
         // Pause / Continue
         dom.btnPause.addEventListener('click', function () {
             App.togglePause();

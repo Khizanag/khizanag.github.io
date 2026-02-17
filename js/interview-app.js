@@ -59,6 +59,7 @@
         d.introNotes = document.getElementById('introNotes');
         d.wrapupNotes = document.getElementById('wrapupNotes');
         d.qCard = document.querySelector('.q-card');
+        d.qNote = document.getElementById('qNote');
         d.qRating = document.querySelector('.rating');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
 
@@ -365,6 +366,9 @@
 
         var nextLabel = q._liveCoding ? 'Next Problem' : 'Next Question';
         dom.btnNext.textContent = s.timerExpired ? 'See Results' : nextLabel;
+
+        // Restore per-question notes
+        dom.qNote.value = q.notes || '';
 
         // Show prev button only if not on the first question
         dom.btnPrev.style.display = index > 0 ? '' : 'none';
@@ -720,6 +724,11 @@
         });
         dom.wrapupNotes.addEventListener('input', function () {
             s.wrapupNotes = dom.wrapupNotes.value;
+            App.saveSession();
+        });
+        dom.qNote.addEventListener('input', function () {
+            var q = s.sessionQuestions[s.currentQ];
+            if (q) q.notes = dom.qNote.value;
             App.saveSession();
         });
 

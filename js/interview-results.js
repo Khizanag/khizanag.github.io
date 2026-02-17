@@ -75,6 +75,13 @@
                 '<span class="results__row-q">' + q.question + '</span>' +
                 '<span class="results__row-stars">' + starsHtml + '</span>';
 
+            if (q.notes && q.notes.trim()) {
+                var noteEl = document.createElement('p');
+                noteEl.className = 'results__row-notes';
+                noteEl.textContent = q.notes;
+                row.appendChild(noteEl);
+            }
+
             list.appendChild(row);
         });
 
@@ -246,6 +253,9 @@
                 q.code.split('\n').forEach(function (line) {
                     lines.push('        ' + line);
                 });
+            }
+            if (q.notes && q.notes.trim()) {
+                lines.push('    Notes: ' + q.notes.trim());
             }
             lines.push('');
         });

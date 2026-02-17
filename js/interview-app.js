@@ -463,7 +463,22 @@
 
         // Skip to next section
         dom.btnSkipSection.addEventListener('click', function () {
-            if (!confirm('Skip to the next section?')) return;
+            var currentPhase = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
+            var currentName = 'this section';
+            var nextName = 'the next section';
+            if (s.phases) {
+                for (var i = 0; i < s.phases.length; i++) {
+                    if (s.phases[i].id === currentPhase) {
+                        currentName = s.phases[i].name;
+                        if (i + 1 < s.phases.length) nextName = s.phases[i + 1].name;
+                        break;
+                    }
+                }
+            }
+            var msg = 'Skip "' + currentName + '" and move to "' + nextName + '"?\n\n' +
+                'The remaining time for ' + currentName + ' will be reassigned. ' +
+                'Any unrated question will be discarded.';
+            if (!confirm(msg)) return;
             App.skipToNextPhase();
             // Generate a new question matching the new phase
             var newPhaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
@@ -492,7 +507,12 @@
 
         // End interview (manual) with confirmation
         dom.btnEnd.addEventListener('click', function () {
-            if (!confirm('End the interview now?')) return;
+            var qCount = s.ratings.length + (s.currentRating > 0 ? 1 : 0);
+            var msg = 'End the entire interview now?\n\n' +
+                'This will stop the timer and show the results screen with ' +
+                qCount + ' rated question' + (qCount !== 1 ? 's' : '') + '. ' +
+                'The current question will be ' + (s.currentRating > 0 ? 'included.' : 'discarded (not yet rated).');
+            if (!confirm(msg)) return;
             if (s.currentRating > 0) {
                 s.ratings.push(s.currentRating);
             } else {

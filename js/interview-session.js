@@ -95,7 +95,6 @@
         // Timer & End button
         dom.btnEnd.style.display = '';
         dom.qTimer.style.display = '';
-        dom.btnPause.style.display = '';
         if (data.timerPaused) {
             s.timerPaused = true;
             dom.btnPause.classList.add('is-paused');

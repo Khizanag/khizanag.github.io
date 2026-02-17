@@ -442,7 +442,6 @@
 
             dom.qInterviewee.textContent = s.intervieweeName;
             dom.qTimer.style.display = '';
-            dom.btnPause.style.display = '';
             App.startTimer();
             dom.btnEnd.style.display = '';
             App.showScreen('screen-question');

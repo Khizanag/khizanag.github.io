@@ -371,6 +371,7 @@
 .is-presenter .q-reveal { display: none !important; }
 .is-presenter .q-phase-notes { display: none !important; }
 .is-presenter .q-wrapup__finish { display: none !important; }
+.is-presenter .q-card__level { display: none !important; }
 
 /* --- Skip section button --- */
 .btn-skip-section {

@@ -366,7 +366,7 @@
         dom.btnNext.disabled = true;
 
         var nextLabel = q._liveCoding ? 'Next Problem' : 'Next Question';
-        dom.btnNext.textContent = s.timerExpired ? 'See Results' : nextLabel;
+        dom.btnNext.textContent = nextLabel;
 
         // Restore per-question notes
         dom.qNote.value = q.notes || '';
@@ -803,6 +803,20 @@
         dom.btnSkipIntro.addEventListener('click', function () {
             App.skipToNextPhase();
             App.updatePhaseUI();
+        });
+
+        // Timer expiry modal handlers
+        document.getElementById('btnTimeUpInclude').addEventListener('click', function () {
+            document.getElementById('modalTimeUp').style.display = 'none';
+            if (s.currentRating > 0) s.ratings.push(s.currentRating);
+            App.stopTimer();
+            App.showResults();
+        });
+        document.getElementById('btnTimeUpDiscard').addEventListener('click', function () {
+            document.getElementById('modalTimeUp').style.display = 'none';
+            s.sessionQuestions.splice(s.currentQ, 1);
+            App.stopTimer();
+            App.showResults();
         });
 
         // End interview (manual) with confirmation

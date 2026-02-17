@@ -22,8 +22,18 @@
             dom.progressFill.style.width = '100%';
             dom.qTimer.classList.remove('is-warning');
             dom.qTimer.classList.add('is-danger');
-            dom.btnNext.textContent = 'See Results';
             App.saveSession();
+
+            // Show expiry modal
+            var modal = document.getElementById('modalTimeUp');
+            var text = document.getElementById('timeUpText');
+            if (s.currentRating > 0) {
+                text.textContent = 'The interview timer has expired. Include the current rating (' + s.currentRating + '/5) in results?';
+            } else {
+                text.textContent = 'The interview timer has expired. The current question has no rating and will be discarded.';
+                document.getElementById('btnTimeUpInclude').style.display = 'none';
+            }
+            modal.style.display = '';
             return;
         }
 

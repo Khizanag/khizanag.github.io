@@ -62,6 +62,15 @@
         d.qRating = document.querySelector('.rating');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
 
+        // Report question
+        d.btnReport = document.getElementById('btnReport');
+        d.modalReport = document.getElementById('modalReport');
+        d.reportMeta = document.getElementById('reportMeta');
+        d.reportCategory = document.getElementById('reportCategory');
+        d.reportDetails = document.getElementById('reportDetails');
+        d.btnReportSend = document.getElementById('btnReportSend');
+        d.btnReportCancel = document.getElementById('btnReportCancel');
+
         // Plan & Phases
         d.planList = document.getElementById('planList');
         d.planTotal = document.getElementById('planTotal');
@@ -70,6 +79,16 @@
         // Results
         d.resultsInterviewee = document.getElementById('resultsInterviewee');
         d.btnDownload = document.getElementById('btnDownload');
+
+        // Feedback
+        d.btnFeedback = document.getElementById('btnFeedback');
+        d.modalFeedback = document.getElementById('modalFeedback');
+        d.feedbackCategory = document.getElementById('feedbackCategory');
+        d.feedbackRating = document.getElementById('feedbackRating');
+        d.feedbackDetails = document.getElementById('feedbackDetails');
+        d.btnFeedbackSend = document.getElementById('btnFeedbackSend');
+        d.btnFeedbackCancel = document.getElementById('btnFeedbackCancel');
+        d.feedbackRatingBtns = Array.prototype.slice.call(d.feedbackRating.querySelectorAll('.modal__rating-btn'));
     }
 
     // ===========================================================
@@ -617,6 +636,140 @@
         // Popout rating window
         dom.btnPopout.addEventListener('click', function () {
             App.openRatingPopup();
+        });
+
+        // ---- Modal helpers ----
+        var REPORT_EMAIL = 'giga.khizanishvili@gmail.com';
+
+        function showModal(modal) {
+            modal.style.display = '';
+        }
+
+        function hideModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        // Close modal on backdrop click
+        function initModalBackdrop(modal) {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) hideModal(modal);
+            });
+        }
+
+        initModalBackdrop(dom.modalReport);
+        initModalBackdrop(dom.modalFeedback);
+
+        // Escape closes any open modal
+        document.addEventListener('keydown', function (e) {
+            if (e.key !== 'Escape') return;
+            if (dom.modalReport.style.display !== 'none') hideModal(dom.modalReport);
+            if (dom.modalFeedback.style.display !== 'none') hideModal(dom.modalFeedback);
+        });
+
+        // ---- Report Question ----
+        dom.btnReport.addEventListener('click', function () {
+            var q = s.sessionQuestions[s.currentQ];
+            if (!q) return;
+            var topicLabel = App.TOPIC_LABELS[q.topic] || q.topic;
+            var levelLabel = App.LEVEL_LABELS[q.level] || 'Level ' + q.level;
+            dom.reportMeta.textContent = topicLabel + '  \u00B7  ' + levelLabel + '\n' + q.question;
+            dom.reportCategory.selectedIndex = 0;
+            dom.reportDetails.value = '';
+            showModal(dom.modalReport);
+        });
+
+        dom.btnReportCancel.addEventListener('click', function () {
+            hideModal(dom.modalReport);
+        });
+
+        dom.btnReportSend.addEventListener('click', function () {
+            var q = s.sessionQuestions[s.currentQ];
+            if (!q) return;
+            var topicLabel = App.TOPIC_LABELS[q.topic] || q.topic;
+            var levelLabel = App.LEVEL_LABELS[q.level] || 'Level ' + q.level;
+            var category = dom.reportCategory.value;
+            var details = dom.reportDetails.value.trim();
+
+            var subject = '[Question Report] ' + topicLabel + ' \u2014 ' + q.question.substring(0, 60);
+            var body = 'QUESTION REPORT\n' +
+                '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n' +
+                'Topic: ' + topicLabel + '\n' +
+                'Level: ' + levelLabel + '\n' +
+                'Question: ' + q.question + '\n';
+
+            if (q.code) {
+                body += '\nCode:\n' + q.code + '\n';
+            }
+
+            body += '\nCategory: ' + category + '\n';
+
+            if (details) {
+                body += '\nDetails:\n' + details + '\n';
+            }
+
+            body += '\n\u2500\u2500\u2500\n' +
+                'Reported from iOS Interview Tool\n' +
+                'Session: ' + (s.intervieweeName || 'N/A') + ' | ' + new Date().toLocaleDateString();
+
+            window.location.href = 'mailto:' + REPORT_EMAIL +
+                '?subject=' + encodeURIComponent(subject) +
+                '&body=' + encodeURIComponent(body);
+
+            hideModal(dom.modalReport);
+        });
+
+        // ---- Feedback ----
+        var feedbackScore = 0;
+
+        dom.feedbackRating.addEventListener('click', function (e) {
+            var btn = e.target.closest('.modal__rating-btn');
+            if (!btn) return;
+            var val = parseInt(btn.dataset.value, 10);
+            feedbackScore = val === feedbackScore ? 0 : val;
+            dom.feedbackRatingBtns.forEach(function (b) {
+                b.classList.toggle('is-active', parseInt(b.dataset.value, 10) <= feedbackScore);
+            });
+        });
+
+        dom.btnFeedback.addEventListener('click', function () {
+            feedbackScore = 0;
+            dom.feedbackCategory.selectedIndex = 0;
+            dom.feedbackDetails.value = '';
+            dom.feedbackRatingBtns.forEach(function (b) { b.classList.remove('is-active'); });
+            showModal(dom.modalFeedback);
+        });
+
+        dom.btnFeedbackCancel.addEventListener('click', function () {
+            hideModal(dom.modalFeedback);
+        });
+
+        dom.btnFeedbackSend.addEventListener('click', function () {
+            var category = dom.feedbackCategory.value;
+            var details = dom.feedbackDetails.value.trim();
+
+            var subject = '[Interview Tool Feedback] ' + category;
+            var body = 'TOOL FEEDBACK\n' +
+                '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n' +
+                'Category: ' + category + '\n';
+
+            if (feedbackScore > 0) {
+                body += 'Satisfaction: ' + feedbackScore + '/5\n';
+            }
+
+            if (details) {
+                body += '\nDetails:\n' + details + '\n';
+            }
+
+            body += '\n\u2500\u2500\u2500\n' +
+                'Session info: ' + (s.intervieweeName || 'N/A') + ' | ' +
+                new Date().toLocaleDateString() + ' | ' +
+                s.ratings.length + ' questions';
+
+            window.location.href = 'mailto:' + REPORT_EMAIL +
+                '?subject=' + encodeURIComponent(subject) +
+                '&body=' + encodeURIComponent(body);
+
+            hideModal(dom.modalFeedback);
         });
 
         // Restart

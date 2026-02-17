@@ -89,6 +89,20 @@
         d.btnFeedbackSend = document.getElementById('btnFeedbackSend');
         d.btnFeedbackCancel = document.getElementById('btnFeedbackCancel');
         d.feedbackRatingBtns = Array.prototype.slice.call(d.feedbackRating.querySelectorAll('.modal__rating-btn'));
+
+        // Live Coding
+        d.lcTopic = document.getElementById('lcTopic');
+        d.lcDifficulty = document.getElementById('lcDifficulty');
+        d.lcCounter = document.getElementById('lcCounter');
+        d.lcTitle = document.getElementById('lcTitle');
+        d.lcDescription = document.getElementById('lcDescription');
+        d.lcHintButtons = document.getElementById('lcHintButtons');
+        d.lcHintContent = document.getElementById('lcHintContent');
+        d.btnLcSolution = document.getElementById('btnLcSolution');
+        d.lcSolutionContent = document.getElementById('lcSolutionContent');
+        d.lcComplexity = document.getElementById('lcComplexity');
+        d.lcCode = document.getElementById('lcCode');
+        d.lcExplanation = document.getElementById('lcExplanation');
     }
 
     // ===========================================================
@@ -107,19 +121,40 @@
     //  PHASE-AWARE DISPLAY
     // ===========================================================
 
+    var prevPhaseId = null;
+
     App.updatePhaseUI = function () {
         var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
         var isIntro = phaseId === 'intro';
         var isWrapup = phaseId === 'wrapup';
         var isLive = phaseId === 'live';
-        var isOverlay = isIntro || isWrapup || isLive;
+        var isNonQuestionOverlay = isIntro || isWrapup;
         var isLast = App.isLastPhase ? App.isLastPhase() : true;
+
+        // Auto-pick live coding question when entering the live phase
+        if (isLive && prevPhaseId !== 'live') {
+            var lcQ = pickLiveCodingQuestion(1);
+            if (lcQ) {
+                // If current question is unrated, replace it; otherwise add new
+                if (s.currentRating > 0) {
+                    s.ratings.push(s.currentRating);
+                    s.currentQ++;
+                    s.sessionQuestions.push(lcQ);
+                } else if (s.sessionQuestions.length > 0) {
+                    s.sessionQuestions[s.currentQ] = lcQ;
+                } else {
+                    s.sessionQuestions.push(lcQ);
+                }
+                App.displayQuestion(s.currentQ);
+            }
+        }
+        prevPhaseId = phaseId;
 
         dom.qIntro.style.display = isIntro ? '' : 'none';
         dom.qWrapup.style.display = isWrapup ? '' : 'none';
         dom.qLiveCoding.style.display = isLive ? '' : 'none';
-        dom.qCard.style.display = isOverlay ? 'none' : '';
-        dom.qRating.style.display = isOverlay ? 'none' : '';
+        dom.qCard.style.display = (isNonQuestionOverlay || isLive) ? 'none' : '';
+        dom.qRating.style.display = isNonQuestionOverlay ? 'none' : '';
 
         // Show skip section button when not on last phase
         dom.btnSkipSection.style.display = !isLast ? '' : 'none';
@@ -129,12 +164,100 @@
     //  QUESTION DISPLAY
     // ===========================================================
 
+    // ===========================================================
+    //  LIVE CODING DISPLAY
+    // ===========================================================
+
+    function displayLiveCodingQuestion(q) {
+        var lc = q._lcData;
+        s.lcHintsRevealed = 0;
+
+        // Topic & difficulty badges
+        dom.lcTopic.textContent = lc.topic.toUpperCase().replace(/-/g, ' ');
+        dom.lcDifficulty.textContent = lc.difficulty.charAt(0).toUpperCase() + lc.difficulty.slice(1);
+        dom.lcDifficulty.className = 'lc-card__difficulty lc-card__difficulty--' + lc.difficulty;
+
+        // Counter
+        var lcCount = s.sessionQuestions.filter(function (sq) { return sq._liveCoding; }).length;
+        dom.lcCounter.textContent = 'Problem ' + lcCount;
+
+        // Title & description
+        dom.lcTitle.textContent = lc.title;
+        dom.lcDescription.textContent = lc.question;
+
+        // Progressive hint buttons
+        dom.lcHintButtons.innerHTML = '';
+        dom.lcHintContent.innerHTML = '';
+        for (var i = 0; i < lc.hints.length; i++) {
+            var btn = document.createElement('button');
+            btn.className = 'lc-hints__btn';
+            btn.textContent = i + 1;
+            btn.dataset.index = i;
+            btn.addEventListener('click', (function (idx) {
+                return function () { revealLcHint(idx); };
+            })(i));
+            dom.lcHintButtons.appendChild(btn);
+        }
+
+        // Complexity
+        dom.lcComplexity.innerHTML =
+            '<span class="lc-complexity-pill lc-complexity-pill--time">' +
+                '<span class="lc-complexity-pill__label">Time</span> ' + escapeHtml(lc.timeComplexity) +
+            '</span>' +
+            '<span class="lc-complexity-pill lc-complexity-pill--space">' +
+                '<span class="lc-complexity-pill__label">Space</span> ' + escapeHtml(lc.spaceComplexity) +
+            '</span>';
+
+        // Solution code
+        dom.lcCode.innerHTML = App.highlightSwift(lc.solution);
+        dom.lcExplanation.textContent = lc.explanation;
+
+        // Reset solution reveal
+        dom.lcSolutionContent.classList.remove('is-open');
+        dom.btnLcSolution.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Show Solution';
+    }
+
+    function revealLcHint(index) {
+        var q = s.sessionQuestions[s.currentQ];
+        if (!q || !q._liveCoding) return;
+        var lc = q._lcData;
+
+        // Reveal up to and including the clicked index
+        s.lcHintsRevealed = Math.max(s.lcHintsRevealed, index + 1);
+
+        // Update buttons
+        var btns = dom.lcHintButtons.querySelectorAll('.lc-hints__btn');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.toggle('is-active', i < s.lcHintsRevealed);
+        }
+
+        // Show hints
+        dom.lcHintContent.innerHTML = '';
+        for (var j = 0; j < s.lcHintsRevealed && j < lc.hints.length; j++) {
+            var div = document.createElement('div');
+            div.className = 'lc-hint-item';
+            div.textContent = lc.hints[j];
+            dom.lcHintContent.appendChild(div);
+        }
+        App.saveSession();
+    }
+
+    function escapeHtml(text) {
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
     App.displayQuestion = function (index) {
         var q = s.sessionQuestions[index];
 
         var elapsed = s.timeLimitMin * 60 - s.remainingSeconds;
         dom.progressFill.style.width = Math.min((elapsed / (s.timeLimitMin * 60)) * 100, 100) + '%';
         dom.progressText.textContent = 'Q' + (index + 1);
+
+        // Handle live coding questions
+        if (q._liveCoding) {
+            displayLiveCodingQuestion(q);
+        }
 
         var isCodeChallenge = q.topic === 'code-challenge';
         dom.qTopic.textContent = isCodeChallenge ? 'CODE CHALLENGE' : q.topic.toUpperCase();
@@ -165,7 +288,8 @@
         dom.ratingDesc.textContent = '';
         dom.btnNext.disabled = true;
 
-        dom.btnNext.textContent = s.timerExpired ? 'See Results' : 'Next Question';
+        var nextLabel = q._liveCoding ? 'Next Problem' : 'Next Question';
+        dom.btnNext.textContent = s.timerExpired ? 'See Results' : nextLabel;
 
         // Show prev button only if not on the first question
         dom.btnPrev.style.display = index > 0 ? '' : 'none';
@@ -182,6 +306,50 @@
         return phaseId === 'code';
     }
 
+    function isLivePhase() {
+        var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
+        return phaseId === 'live';
+    }
+
+    // Map live coding difficulty to a display level for adaptive picking
+    var LC_DIFFICULTY_MAP = { easy: 0, medium: 1, hard: 2, expert: 3 };
+
+    function pickLiveCodingQuestion(targetDifficulty) {
+        if (typeof LIVE_CODING_BANK === 'undefined' || LIVE_CODING_BANK.length === 0) return null;
+
+        var difficulties = ['easy', 'medium', 'hard', 'expert'];
+        var targetName = difficulties[Math.min(targetDifficulty, 3)] || 'medium';
+
+        // Try exact difficulty first
+        var pool = LIVE_CODING_BANK.filter(function (q) {
+            return q.difficulty === targetName;
+        });
+
+        // Fallback to any difficulty
+        if (pool.length === 0) pool = LIVE_CODING_BANK.slice();
+
+        // Avoid repeats
+        var usedTitles = s.sessionQuestions
+            .filter(function (q) { return q._liveCoding; })
+            .map(function (q) { return q._lcData.title; });
+        var unused = pool.filter(function (q) { return usedTitles.indexOf(q.title) === -1; });
+        if (unused.length > 0) pool = unused;
+
+        var picked = pool[Math.floor(Math.random() * pool.length)];
+
+        // Wrap live coding question in the standard format for sessionQuestions
+        return {
+            topic: 'live-coding',
+            level: LC_DIFFICULTY_MAP[picked.difficulty] || 1,
+            question: picked.title,
+            hint: picked.hints.join('\n\n'),
+            answer: picked.explanation,
+            code: '',
+            _liveCoding: true,
+            _lcData: picked,
+        };
+    }
+
     function pickNextQuestion() {
         var avgRating = s.ratings.reduce(function (a, b) { return a + b; }, 0) / s.ratings.length;
         var targetLevel = App.getLevelIndex(avgRating);
@@ -191,6 +359,16 @@
         else if (rand > 0.85 && targetLevel < 5) targetLevel++;
 
         var codePhase = isCodePhase();
+        var livePhase = isLivePhase();
+
+        if (livePhase) {
+            // Map 0-5 level to 0-3 difficulty
+            var lcDifficulty = Math.min(Math.floor(targetLevel * 4 / 6), 3);
+            var lcQ = pickLiveCodingQuestion(lcDifficulty);
+            if (lcQ) return lcQ;
+            // Fallback to code challenge if no live coding bank
+        }
+
         var pool;
 
         if (codePhase) {
@@ -326,6 +504,15 @@
         dom.btnAnswer.addEventListener('click', function () {
             dom.answerReveal.classList.toggle('is-open');
             dom.btnAnswer.textContent = dom.answerReveal.classList.contains('is-open') ? 'Hide Answer' : 'Show Answer';
+            App.saveSession();
+        });
+
+        // Live coding solution toggle
+        dom.btnLcSolution.addEventListener('click', function () {
+            var isOpen = dom.lcSolutionContent.classList.toggle('is-open');
+            dom.btnLcSolution.innerHTML = isOpen
+                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Hide Solution'
+                : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Show Solution';
             App.saveSession();
         });
 
@@ -482,7 +669,7 @@
             App.skipToNextPhase();
             // Generate a new question matching the new phase
             var newPhaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
-            if (newPhaseId === 'theory' || newPhaseId === 'code') {
+            if (newPhaseId === 'theory' || newPhaseId === 'code' || newPhaseId === 'live') {
                 if (s.currentRating > 0) {
                     s.ratings.push(s.currentRating);
                     s.currentQ++;
@@ -578,7 +765,7 @@
             if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
 
             var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
-            var isOverlay = phaseId === 'intro' || phaseId === 'wrapup' || phaseId === 'live';
+            var isOverlay = phaseId === 'intro' || phaseId === 'wrapup';
             if (isOverlay) return;
 
             var key = e.key;

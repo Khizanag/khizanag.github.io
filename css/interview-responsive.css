@@ -30,7 +30,13 @@
     .btn-skip-section, .btn-end { font-size: 11px; padding: 5px 10px; }
     .q-card__pre { padding: 16px 18px; }
     .q-card__pre code { font-size: 12px; }
-    .q-intro, .q-wrapup, .q-livecoding { padding: 40px 20px; }
+    .q-intro, .q-wrapup { padding: 40px 20px; }
+    .lc-card { padding: 24px; }
+    .lc-card__header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .lc-card__meta { flex-wrap: wrap; }
+    .lc-tips { flex-direction: column; gap: 8px; }
+    .lc-solution__code-wrap .q-card__pre { padding: 16px 18px; }
+    .lc-solution__code-wrap .q-card__pre code { font-size: 12px; }
     .q-phase-notes { max-width: 100%; }
     .modal { padding: 24px; }
     .modal-overlay { padding: 16px; }

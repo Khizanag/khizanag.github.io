@@ -39,6 +39,7 @@ var InterviewApp = {
         'cicd': 'CI/CD & Tools',
         'system-design': 'System Design',
         'code-challenge': 'Code Challenges',
+        'live-coding': 'Live Coding',
     },
 
     state: {
@@ -59,6 +60,7 @@ var InterviewApp = {
         timerPaused: false,
         introNotes: '',
         wrapupNotes: '',
+        lcHintsRevealed: 0,
     },
 
     dom: {},

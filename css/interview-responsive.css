@@ -42,4 +42,5 @@
     .modal-overlay { padding: 16px; }
     .modal__actions { flex-direction: column; }
     .modal__btn { justify-content: center; }
+    .phase-toast { max-width: calc(100vw - 32px); bottom: 20px; padding: 12px 18px; }
 }

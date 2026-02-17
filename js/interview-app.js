@@ -677,6 +677,12 @@
         // Skip question
         dom.btnSkip.addEventListener('click', skipQuestion);
 
+        // Scoring rubric toggle
+        document.getElementById('btnRubric').addEventListener('click', function () {
+            var panel = document.getElementById('ratingRubric');
+            panel.style.display = panel.style.display === 'none' ? '' : 'none';
+        });
+
         // Previous question
         dom.btnPrev.addEventListener('click', function () {
             if (s.currentQ <= 0) return;

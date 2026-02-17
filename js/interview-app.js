@@ -132,10 +132,14 @@
         var isLast = App.isLastPhase ? App.isLastPhase() : true;
 
         // Auto-pick live coding question when entering the live phase
-        if (isLive && prevPhaseId !== 'live') {
+        // Set prevPhaseId BEFORE displayQuestion to prevent infinite recursion
+        // (displayQuestion -> updatePhaseUI -> displayQuestion ...)
+        var enteringLive = isLive && prevPhaseId !== 'live';
+        prevPhaseId = phaseId;
+
+        if (enteringLive) {
             var lcQ = pickLiveCodingQuestion(1);
             if (lcQ) {
-                // If current question is unrated, replace it; otherwise add new
                 if (s.currentRating > 0) {
                     s.ratings.push(s.currentRating);
                     s.currentQ++;
@@ -148,7 +152,6 @@
                 App.displayQuestion(s.currentQ);
             }
         }
-        prevPhaseId = phaseId;
 
         dom.qIntro.style.display = isIntro ? '' : 'none';
         dom.qWrapup.style.display = isWrapup ? '' : 'none';

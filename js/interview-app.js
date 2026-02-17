@@ -455,6 +455,13 @@
             pool = QUESTION_BANK.filter(function (q) {
                 return q.topic === 'code-challenge' && q.level === targetLevel;
             });
+            // Try adjacent levels for code challenges
+            for (var co = 1; pool.length === 0 && co <= 2; co++) {
+                pool = QUESTION_BANK.filter(function (q) {
+                    return q.topic === 'code-challenge' &&
+                        (q.level === targetLevel + co || q.level === targetLevel - co);
+                });
+            }
             if (pool.length === 0) {
                 pool = QUESTION_BANK.filter(function (q) {
                     return q.topic === 'code-challenge';
@@ -466,12 +473,22 @@
                 return q.topic === topic && q.topic !== 'code-challenge' && q.level === targetLevel;
             });
 
+            // Try all selected topics at same level
             if (pool.length === 0) {
                 pool = QUESTION_BANK.filter(function (q) {
                     return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === targetLevel;
                 });
             }
 
+            // Try adjacent levels ±1, ±2
+            for (var offset = 1; pool.length === 0 && offset <= 2; offset++) {
+                pool = QUESTION_BANK.filter(function (q) {
+                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' &&
+                        (q.level === targetLevel + offset || q.level === targetLevel - offset);
+                });
+            }
+
+            // Final fallback: any level from selected topics
             if (pool.length === 0) {
                 pool = QUESTION_BANK.filter(function (q) {
                     return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';

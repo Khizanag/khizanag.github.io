@@ -974,39 +974,30 @@
 
             var subject = '[Question Report] ' + topicLabel + ' - ' + (isLc ? q._lcData.title : q.question).substring(0, 60);
 
-            var lines = [];
-            lines.push('Question Report');
-            lines.push('');
-            lines.push('QUESTION');
-            lines.push('  Title:    ' + (isLc ? q._lcData.title : q.question));
-            lines.push('  Topic:    ' + topicLabel);
-            lines.push('  Level:    ' + levelLabel);
+            var body = '--- Question Report ---\n\n' +
+                '> Question: ' + (isLc ? q._lcData.title : q.question) + '\n' +
+                '> Topic: ' + topicLabel + '\n' +
+                '> Level: ' + levelLabel + '\n';
             if (isLc && q._lcData.difficulty) {
-                lines.push('  Difficulty: ' + q._lcData.difficulty);
+                body += '> Difficulty: ' + q._lcData.difficulty + '\n';
             }
             if (q.code) {
-                lines.push('');
-                lines.push('CODE SNIPPET');
-                q.code.split('\n').forEach(function (line) {
-                    lines.push('  ' + line);
-                });
+                body += '\n--- Code ---\n\n' + q.code + '\n';
             }
-            lines.push('');
-            lines.push('REPORT');
-            lines.push('  Category: ' + category);
+            body += '\n--- Report ---\n\n' +
+                '> Category: ' + category + '\n';
             if (details) {
-                lines.push('  Details:  ' + details);
+                body += '> Details: ' + details + '\n';
             }
-            lines.push('');
-            lines.push('SESSION');
-            lines.push('  Interviewee:  ' + (s.intervieweeName || 'N/A'));
-            lines.push('  Interviewer:  ' + (s.interviewerName || 'N/A'));
-            lines.push('  Date:         ' + new Date().toLocaleDateString());
-            lines.push('  Question #:   ' + (s.currentQ + 1) + ' of ' + s.sessionQuestions.length);
+            body += '\n--- Session ---\n\n' +
+                '> Interviewee: ' + (s.intervieweeName || 'N/A') + '\n' +
+                '> Interviewer: ' + (s.interviewerName || 'N/A') + '\n' +
+                '> Date: ' + new Date().toLocaleDateString() + '\n' +
+                '> Question: #' + (s.currentQ + 1) + ' of ' + s.sessionQuestions.length + '\n';
 
             window.location.href = 'mailto:' + REPORT_EMAIL +
                 '?subject=' + encodeURIComponent(subject) +
-                '&body=' + encodeURIComponent(lines.join('\n'));
+                '&body=' + encodeURIComponent(body);
 
             hideModal(dom.modalReport);
         });
@@ -1042,27 +1033,23 @@
 
             var subject = '[Interview Tool Feedback] ' + category;
 
-            var lines = [];
-            lines.push('Tool Feedback');
-            lines.push('');
-            lines.push('FEEDBACK');
-            lines.push('  Category: ' + category);
+            var body = '--- Tool Feedback ---\n\n' +
+                '> Category: ' + category + '\n';
             if (feedbackScore > 0) {
-                lines.push('  Rating:   ' + feedbackScore + ' / 5');
+                body += '> Rating: ' + feedbackScore + ' / 5\n';
             }
             if (details) {
-                lines.push('  Details:  ' + details);
+                body += '> Details: ' + details + '\n';
             }
-            lines.push('');
-            lines.push('SESSION');
-            lines.push('  Interviewee:  ' + (s.intervieweeName || 'N/A'));
-            lines.push('  Interviewer:  ' + (s.interviewerName || 'N/A'));
-            lines.push('  Date:         ' + new Date().toLocaleDateString());
-            lines.push('  Questions:    ' + s.ratings.length + ' completed');
+            body += '\n--- Session ---\n\n' +
+                '> Interviewee: ' + (s.intervieweeName || 'N/A') + '\n' +
+                '> Interviewer: ' + (s.interviewerName || 'N/A') + '\n' +
+                '> Date: ' + new Date().toLocaleDateString() + '\n' +
+                '> Questions: ' + s.ratings.length + ' completed\n';
 
             window.location.href = 'mailto:' + REPORT_EMAIL +
                 '?subject=' + encodeURIComponent(subject) +
-                '&body=' + encodeURIComponent(lines.join('\n'));
+                '&body=' + encodeURIComponent(body);
 
             hideModal(dom.modalFeedback);
         });

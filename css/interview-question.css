@@ -816,6 +816,15 @@
 .q-card__pre .cmt { color: var(--color-gray-500); font-style: italic; }
 .q-card__pre .call { color: #78a9ff; }
 
+/* Light-theme syntax tokens (Xcode-inspired, WCAG AA on #f5f5f7) */
+.theme-light .q-card__pre .kw   { color: #9b2393; }
+.theme-light .q-card__pre .type { color: #0b4f79; }
+.theme-light .q-card__pre .fn   { color: #326d74; }
+.theme-light .q-card__pre .str  { color: #c41a16; }
+.theme-light .q-card__pre .num  { color: #1c00cf; }
+.theme-light .q-card__pre .cmt  { color: #5d6c79; }
+.theme-light .q-card__pre .call { color: #326d74; }
+
 /* --- Hint & Answer reveal --- */
 .q-reveal {
     margin-top: 16px;
@@ -1314,6 +1323,11 @@
 .modal__select option {
     background: #1d1d1f;
     color: #f5f5f7;
+}
+
+.theme-light .modal__select option {
+    background: #ffffff;
+    color: #1d1d1f;
 }
 
 .modal__textarea {

@@ -22,6 +22,12 @@
 </head>
 <body>
 
+<!-- Skip to content link -->
+<a href="#screen-setup" class="skip-link">Skip to content</a>
+
+<!-- Screen reader live region for announcements -->
+<div id="srAnnounce" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
 <!-- ==========================================
      NAVIGATION
      ========================================== -->
@@ -138,8 +144,8 @@
 
     <!-- Comparison Modal -->
     <div class="modal-overlay" id="modalCompare" style="display:none">
-        <div class="modal modal--wide">
-            <h3 class="modal__title">Side-by-Side Comparison</h3>
+        <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="modalCompareTitle">
+            <h3 class="modal__title" id="modalCompareTitle">Side-by-Side Comparison</h3>
             <div class="compare__body" id="compareBody"></div>
             <div class="modal__actions">
                 <button class="modal__btn modal__btn--secondary" id="btnCompareClose">Close</button>
@@ -157,14 +163,14 @@
 
         <div class="q-progress">
             <div class="q-progress__track">
-                <div class="q-progress__bar"><div class="q-progress__fill" id="progressFill" style="width:0%"></div></div>
+                <div class="q-progress__bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Interview progress"><div class="q-progress__fill" id="progressFill" style="width:0%"></div></div>
                 <span class="q-progress__text" id="progressText">Q1</span>
             </div>
             <div class="q-progress__toolbar">
                 <span class="q-interviewee" id="qInterviewee"></span>
-                <span class="q-timer" id="qTimer" style="display:none">
+                <span class="q-timer" id="qTimer" role="timer" aria-label="Interview timer" style="display:none">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <span id="timerText">15:00</span>
+                    <span id="timerText" aria-live="off">15:00</span>
                     <button class="btn-pause" id="btnPause" aria-label="Pause/Continue timer">
                         <svg class="btn-pause__pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                         <svg class="btn-pause__play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -319,7 +325,7 @@
                 <div class="rubric__row"><span class="rubric__stars">4</span><span class="rubric__label">Good</span><span class="rubric__desc">Solid answer with minor gaps, demonstrates clear understanding</span></div>
                 <div class="rubric__row"><span class="rubric__stars">5</span><span class="rubric__label">Perfect</span><span class="rubric__desc">Comprehensive, production-ready answer with depth</span></div>
             </div>
-            <div class="rating__stars" id="ratingStars">
+            <div class="rating__stars" id="ratingStars" role="group" aria-label="Rating: select 1 to 5 stars">
                 <button class="rating__star" data-value="1" aria-label="1 star — No answer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
                 <button class="rating__star" data-value="2" aria-label="2 stars — Weak"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
                 <button class="rating__star" data-value="3" aria-label="3 stars — Partial"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
@@ -347,8 +353,8 @@
 
     <!-- Timer Expiry Modal -->
     <div class="modal-overlay" id="modalTimeUp" style="display:none">
-        <div class="modal">
-            <h3 class="modal__title">Time's Up!</h3>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTimeUpTitle">
+            <h3 class="modal__title" id="modalTimeUpTitle">Time's Up!</h3>
             <p class="modal__text" id="timeUpText">The interview timer has expired.</p>
             <div class="modal__actions">
                 <button class="modal__btn modal__btn--primary" id="btnTimeUpInclude">Include & Finish</button>
@@ -359,8 +365,8 @@
 
     <!-- Report Question Modal -->
     <div class="modal-overlay" id="modalReport" style="display:none">
-        <div class="modal">
-            <h3 class="modal__title">Report Question</h3>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalReportTitle">
+            <h3 class="modal__title" id="modalReportTitle">Report Question</h3>
             <div class="modal__meta" id="reportMeta"></div>
             <label class="modal__label" for="reportCategory">Category</label>
             <select class="modal__select" id="reportCategory">
@@ -383,8 +389,8 @@
         </div>
     </div>
 
-    <!-- Phase transition toast -->
-    <div class="phase-toast" id="phaseToast">
+    <!-- Phase transition toast (also an ARIA live region for SR) -->
+    <div class="phase-toast" id="phaseToast" role="status" aria-live="polite">
         <div class="phase-toast__icon" id="phaseToastIcon"></div>
         <div class="phase-toast__body">
             <div class="phase-toast__title" id="phaseToastTitle"></div>
@@ -461,8 +467,8 @@
 
         <!-- Feedback Modal -->
         <div class="modal-overlay" id="modalFeedback" style="display:none">
-            <div class="modal">
-                <h3 class="modal__title">Send Feedback</h3>
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalFeedbackTitle">
+                <h3 class="modal__title" id="modalFeedbackTitle">Send Feedback</h3>
                 <label class="modal__label" for="feedbackCategory">Category</label>
                 <select class="modal__select" id="feedbackCategory">
                     <option value="General Feedback">General Feedback</option>

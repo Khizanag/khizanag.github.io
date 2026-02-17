@@ -205,6 +205,9 @@
         dom.phaseToastTitle.textContent = title;
         dom.phaseToastDetail.textContent = detail;
 
+        // Announce phase transition to screen readers
+        App.announce(title + '. ' + detail);
+
         if (toastTimer) clearTimeout(toastTimer);
         dom.phaseToast.classList.add('is-visible');
         toastTimer = setTimeout(function () {
@@ -354,8 +357,13 @@
         var q = s.sessionQuestions[index];
 
         var elapsed = s.timeLimitMin * 60 - s.remainingSeconds;
-        dom.progressFill.style.width = Math.min((elapsed / (s.timeLimitMin * 60)) * 100, 100) + '%';
+        var pct = Math.min((elapsed / (s.timeLimitMin * 60)) * 100, 100);
+        dom.progressFill.style.width = pct + '%';
         dom.progressText.textContent = 'Q' + (index + 1);
+
+        // Update progress bar ARIA
+        var progressBar = dom.progressFill.parentElement;
+        if (progressBar) progressBar.setAttribute('aria-valuenow', Math.round(pct));
 
         // Handle live coding questions
         if (q._liveCoding) {

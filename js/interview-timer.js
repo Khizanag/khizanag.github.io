@@ -9,6 +9,22 @@
         return m + ':' + (sec < 10 ? '0' : '') + sec;
     };
 
+    // Announce to screen readers at key timer milestones
+    var announcedMilestones = {};
+
+    function announceTimer(seconds) {
+        var milestones = [300, 120, 60, 30];
+        var labels = { 300: '5 minutes remaining', 120: '2 minutes remaining', 60: '1 minute remaining', 30: '30 seconds remaining' };
+        for (var i = 0; i < milestones.length; i++) {
+            var m = milestones[i];
+            if (seconds === m && !announcedMilestones[m]) {
+                announcedMilestones[m] = true;
+                App.announce(labels[m]);
+                break;
+            }
+        }
+    }
+
     App.onTimerTick = function () {
         var dom = App.dom;
         s.remainingSeconds--;
@@ -22,6 +38,7 @@
             dom.progressFill.style.width = '100%';
             dom.qTimer.classList.remove('is-warning');
             dom.qTimer.classList.add('is-danger');
+            App.announce('Time is up.');
             App.saveSession();
 
             // Show expiry modal
@@ -38,6 +55,7 @@
         }
 
         dom.timerText.textContent = App.formatTime(s.remainingSeconds);
+        announceTimer(s.remainingSeconds);
 
         var totalSeconds = s.timeLimitMin * 60;
         var elapsed = totalSeconds - s.remainingSeconds;
@@ -60,6 +78,7 @@
         var dom = App.dom;
         s.remainingSeconds = s.timeLimitMin * 60;
         s.timerExpired = false;
+        announcedMilestones = {};
         dom.qTimer.style.display = '';
         dom.qTimer.classList.remove('is-warning', 'is-danger');
         dom.timerText.textContent = App.formatTime(s.remainingSeconds);

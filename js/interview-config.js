@@ -74,4 +74,11 @@ var InterviewApp = {
         if (avg >= 1.5) return 1;
         return 0;
     },
+
+    announce: function (text) {
+        var el = document.getElementById('srAnnounce');
+        if (!el) return;
+        el.textContent = '';
+        setTimeout(function () { el.textContent = text; }, 50);
+    },
 };

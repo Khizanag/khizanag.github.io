@@ -87,41 +87,8 @@
         </div>
 
         <div class="setup__section">
-            <p class="setup__label">Mode</p>
-            <div class="mode-toggle" id="modeToggle">
-                <button class="mode-toggle__btn is-active" data-mode="time">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    Time Limit
-                </button>
-                <button class="mode-toggle__btn" data-mode="count">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                    Fixed Count
-                </button>
-            </div>
-        </div>
-
-        <div class="setup__section">
             <p class="setup__label">Interview Plan <span class="setup__label-value" id="planTotal">60 min</span></p>
             <div class="plan" id="planList"></div>
-        </div>
-
-        <div class="setup__section" id="sectionTime" style="display:none">
-            <p class="setup__label">Interview Duration <span class="setup__label-value" id="timeDisplay">15 min</span></p>
-            <div class="time-slider">
-                <span class="time-slider__label">5</span>
-                <input type="range" class="time-slider__input" id="timeSlider" min="5" max="120" step="5" value="15">
-                <span class="time-slider__label">120</span>
-            </div>
-        </div>
-
-        <div class="setup__section" id="sectionCount" style="display:none">
-            <p class="setup__label">Number of Questions</p>
-            <div class="stepper">
-                <button class="stepper__btn" id="stepperMinus" aria-label="Decrease">−</button>
-                <span class="stepper__value" id="stepperValue">10</span>
-                <button class="stepper__btn" id="stepperPlus" aria-label="Increase">+</button>
-                <span class="stepper__hint">5 – 30 questions</span>
-            </div>
         </div>
 
         <div class="setup__start">
@@ -149,6 +116,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <span id="timerText">15:00</span>
             </span>
+            <button class="btn-pause" id="btnPause" style="display:none" aria-label="Pause/Continue timer">
+                <svg class="btn-pause__pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                <svg class="btn-pause__play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
             <button class="btn-fullscreen" id="btnFullscreen" aria-label="Toggle fullscreen">
                 <svg class="btn-fullscreen__expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 <svg class="btn-fullscreen__collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
@@ -167,10 +138,18 @@
             <div class="q-intro__icon">👋</div>
             <h2 class="q-intro__title">Introduction</h2>
             <p class="q-intro__text">Get to know the candidate. Discuss their background, experience, and what they're looking for.</p>
+            <textarea class="q-phase-notes" id="introNotes" placeholder="Notes about the candidate (background, experience, impressions)..." rows="4"></textarea>
             <button class="q-intro__skip" id="btnSkipIntro">
                 Continue to Questions
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
+        </div>
+
+        <div class="q-wrapup" id="qWrapup" style="display:none">
+            <div class="q-intro__icon">🤝</div>
+            <h2 class="q-intro__title">Wrap-up</h2>
+            <p class="q-intro__text">Summarise your impressions, discuss next steps, and answer any questions the candidate may have.</p>
+            <textarea class="q-phase-notes" id="wrapupNotes" placeholder="Final notes, impressions, next steps..." rows="4"></textarea>
         </div>
 
         <div class="q-card">
@@ -263,6 +242,16 @@
             </div>
         </div>
 
+        <div class="results__notes" id="resultsIntroNotes" style="display:none">
+            <p class="results__breakdown-title">Introduction Notes</p>
+            <p class="results__notes-text" id="resultsIntroText"></p>
+        </div>
+
+        <div class="results__notes" id="resultsWrapupNotes" style="display:none">
+            <p class="results__breakdown-title">Wrap-up Notes</p>
+            <p class="results__notes-text" id="resultsWrapupText"></p>
+        </div>
+
         <div class="results__topic-breakdown">
             <p class="results__breakdown-title">Topic Knowledge</p>
             <div id="topicBreakdown"></div>
@@ -279,7 +268,6 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Download Report
             </button>
-            <a href="index.html" class="btn-secondary">Back to Portfolio</a>
         </div>
     </div>
 </main>

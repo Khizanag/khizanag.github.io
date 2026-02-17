@@ -222,6 +222,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+.setup__label--fold .setup__label-value {
+    margin-left: auto;
+}
+
 .setup__fold-chevron {
     color: var(--color-gray-500);
     transition: transform 0.3s var(--ease-smooth);

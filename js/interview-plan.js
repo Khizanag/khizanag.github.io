@@ -6,6 +6,14 @@
     var MAX_TIME = 60;
     var PLAN_KEY = 'ios-interview-plan';
 
+    var PHASE_DESCRIPTIONS = {
+        intro: 'Warm up the conversation. Learn about the candidate\u2019s background, current role, career goals, and motivation for the position.',
+        theory: 'Assess conceptual knowledge across selected topics. Questions adapt in difficulty based on previous answers.',
+        code: 'Present code snippets and challenge the candidate to analyse, debug, or predict output. Tests practical reading skills.',
+        live: 'Ask the candidate to write code on a shared screen or whiteboard. Evaluate problem-solving approach, not just the final answer.',
+        wrapup: 'Summarise your impressions, answer the candidate\u2019s questions, and outline next steps in the hiring process.',
+    };
+
     var DEFAULT_PHASES = [
         { id: 'intro', name: 'Introduction', time: 5, locked: true },
         { id: 'theory', name: 'Theory', time: 25, locked: false },
@@ -70,6 +78,7 @@
             var el = document.createElement('div');
             el.className = 'plan__phase' + (phase.locked ? ' plan__phase--locked' : ' plan__phase--draggable');
             el.dataset.index = i;
+            if (PHASE_DESCRIPTIONS[phase.id]) el.title = PHASE_DESCRIPTIONS[phase.id];
 
             var leftIcon = phase.locked ? LOCK_SVG : '<div class="plan__grip">' + GRIP_SVG + '</div>';
 
@@ -200,6 +209,7 @@
             el.className = 'plan__phase' + (phase.locked ? ' plan__phase--locked' : ' plan__phase--draggable');
             if (i === activeIndex) el.classList.add('plan__phase--placeholder');
             el.dataset.index = i;
+            if (PHASE_DESCRIPTIONS[phase.id]) el.title = PHASE_DESCRIPTIONS[phase.id];
 
             var leftIcon = phase.locked ? LOCK_SVG : '<div class="plan__grip">' + GRIP_SVG + '</div>';
 
@@ -283,6 +293,7 @@
             el.className = 'q-phases__item';
             el.dataset.phaseId = phase.id;
             el.textContent = phase.name;
+            if (PHASE_DESCRIPTIONS[phase.id]) el.title = PHASE_DESCRIPTIONS[phase.id];
             container.appendChild(el);
         });
     };

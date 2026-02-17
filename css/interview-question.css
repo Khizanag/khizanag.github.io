@@ -162,6 +162,72 @@
     transform: scale(1.04);
 }
 
+/* --- Wrap-up overlay --- */
+.q-wrapup {
+    text-align: center;
+    padding: 60px 32px;
+    margin-bottom: 32px;
+}
+
+/* --- Phase notes textarea --- */
+.q-phase-notes {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto 28px;
+    padding: 14px 16px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-gray-200);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.25s;
+}
+
+.q-phase-notes::placeholder {
+    color: var(--color-gray-500);
+}
+
+.q-phase-notes:focus {
+    outline: none;
+    border-color: rgba(41, 151, 255, 0.4);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* --- Pause button --- */
+.btn-pause {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: transparent;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-pause:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-gray-200);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.btn-pause__play { display: none; }
+.btn-pause.is-paused .btn-pause__pause { display: none; }
+.btn-pause.is-paused .btn-pause__play { display: block; }
+
+.q-timer.is-paused {
+    opacity: 0.5;
+}
+
 /* --- Skip section button --- */
 .btn-skip-section {
     display: inline-flex;
@@ -332,6 +398,7 @@
     line-height: 1.65;
     color: var(--color-gray-400);
     font-weight: 300;
+    white-space: pre-line;
 }
 
 .q-reveal__text--hint {

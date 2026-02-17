@@ -24,4 +24,6 @@
     .q-phases__item { font-size: 10px; padding: 5px 2px; }
     .q-card__pre { padding: 16px 18px; }
     .q-card__pre code { font-size: 12px; }
+    .q-intro, .q-wrapup { padding: 40px 20px; }
+    .q-phase-notes { max-width: 100%; }
 }

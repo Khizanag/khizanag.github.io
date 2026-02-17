@@ -14,16 +14,8 @@
 
         // Setup
         d.topicGrid = document.getElementById('topicGrid');
-        d.stepperValue = document.getElementById('stepperValue');
-        d.stepperMinus = document.getElementById('stepperMinus');
-        d.stepperPlus = document.getElementById('stepperPlus');
         d.btnStart = document.getElementById('btnStart');
         d.validationHint = document.getElementById('validationHint');
-        d.modeToggle = document.getElementById('modeToggle');
-        d.sectionTime = document.getElementById('sectionTime');
-        d.sectionCount = document.getElementById('sectionCount');
-        d.timeSlider = document.getElementById('timeSlider');
-        d.timeDisplay = document.getElementById('timeDisplay');
         d.interviewerInput = document.getElementById('interviewerInput');
         d.nameInput = document.getElementById('nameInput');
         d.btnToggleAll = document.getElementById('btnToggleAll');
@@ -54,10 +46,14 @@
         d.btnNext = document.getElementById('btnNext');
         d.btnPrev = document.getElementById('btnPrev');
         d.btnEnd = document.getElementById('btnEnd');
+        d.btnPause = document.getElementById('btnPause');
         d.btnFullscreen = document.getElementById('btnFullscreen');
         d.btnSkipSection = document.getElementById('btnSkipSection');
         d.btnSkipIntro = document.getElementById('btnSkipIntro');
         d.qIntro = document.getElementById('qIntro');
+        d.qWrapup = document.getElementById('qWrapup');
+        d.introNotes = document.getElementById('introNotes');
+        d.wrapupNotes = document.getElementById('wrapupNotes');
         d.qCard = document.querySelector('.q-card');
         d.qRating = document.querySelector('.rating');
         d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
@@ -91,18 +87,17 @@
     App.updatePhaseUI = function () {
         var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
         var isIntro = phaseId === 'intro';
+        var isWrapup = phaseId === 'wrapup';
+        var isOverlay = isIntro || isWrapup;
         var isLast = App.isLastPhase ? App.isLastPhase() : true;
 
         dom.qIntro.style.display = isIntro ? '' : 'none';
-        dom.qCard.style.display = isIntro ? 'none' : '';
-        dom.qRating.style.display = isIntro ? 'none' : '';
+        dom.qWrapup.style.display = isWrapup ? '' : 'none';
+        dom.qCard.style.display = isOverlay ? 'none' : '';
+        dom.qRating.style.display = isOverlay ? 'none' : '';
 
-        // Show skip section button when not on last phase (time mode only)
-        if (s.interviewMode === 'time' && !isLast) {
-            dom.btnSkipSection.style.display = '';
-        } else {
-            dom.btnSkipSection.style.display = 'none';
-        }
+        // Show skip section button when not on last phase
+        dom.btnSkipSection.style.display = !isLast ? '' : 'none';
     };
 
     // ===========================================================
@@ -112,14 +107,9 @@
     App.displayQuestion = function (index) {
         var q = s.sessionQuestions[index];
 
-        if (s.interviewMode === 'count') {
-            dom.progressFill.style.width = ((index) / s.questionCount * 100) + '%';
-            dom.progressText.textContent = (index + 1) + ' / ' + s.questionCount;
-        } else {
-            var elapsed = s.timeLimitMin * 60 - s.remainingSeconds;
-            dom.progressFill.style.width = Math.min((elapsed / (s.timeLimitMin * 60)) * 100, 100) + '%';
-            dom.progressText.textContent = 'Q' + (index + 1);
-        }
+        var elapsed = s.timeLimitMin * 60 - s.remainingSeconds;
+        dom.progressFill.style.width = Math.min((elapsed / (s.timeLimitMin * 60)) * 100, 100) + '%';
+        dom.progressText.textContent = 'Q' + (index + 1);
 
         var isCodeChallenge = q.topic === 'code-challenge';
         dom.qTopic.textContent = isCodeChallenge ? 'CODE CHALLENGE' : q.topic.toUpperCase();
@@ -150,11 +140,7 @@
         dom.ratingDesc.textContent = '';
         dom.btnNext.disabled = true;
 
-        if (s.interviewMode === 'count') {
-            dom.btnNext.textContent = index < s.questionCount - 1 ? 'Next Question' : 'See Results';
-        } else {
-            dom.btnNext.textContent = s.timerExpired ? 'See Results' : 'Next Question';
-        }
+        dom.btnNext.textContent = s.timerExpired ? 'See Results' : 'Next Question';
 
         // Show prev button only if not on the first question
         dom.btnPrev.style.display = index > 0 ? '' : 'none';
@@ -250,12 +236,6 @@
         }
     }
 
-    function updateStepper() {
-        dom.stepperValue.textContent = s.questionCount;
-        dom.stepperMinus.disabled = s.questionCount <= App.MIN_Q;
-        dom.stepperPlus.disabled = s.questionCount >= App.MAX_Q;
-    }
-
     function selectAllTopics() {
         s.selectedTopics = [];
         dom.allChips.forEach(function (c) {
@@ -287,24 +267,6 @@
             dom.topicFoldBody.classList.toggle('is-open');
         });
 
-        // Mode toggle
-        dom.modeToggle.addEventListener('click', function (e) {
-            var btn = e.target.closest('.mode-toggle__btn');
-            if (!btn) return;
-            s.interviewMode = btn.dataset.mode;
-            dom.modeToggle.querySelectorAll('.mode-toggle__btn').forEach(function (b) {
-                b.classList.toggle('is-active', b.dataset.mode === s.interviewMode);
-            });
-            dom.sectionTime.style.display = 'none';
-            dom.sectionCount.style.display = s.interviewMode === 'count' ? '' : 'none';
-        });
-
-        // Time slider
-        dom.timeSlider.addEventListener('input', function () {
-            s.timeLimitMin = parseInt(dom.timeSlider.value, 10);
-            dom.timeDisplay.textContent = s.timeLimitMin + ' min';
-        });
-
         // Topic selection
         dom.topicGrid.addEventListener('click', function (e) {
             var chip = e.target.closest('.topic-chip');
@@ -316,14 +278,6 @@
                 s.selectedTopics = s.selectedTopics.filter(function (t) { return t !== chip.dataset.topic; });
             }
             updateStartButton();
-        });
-
-        // Count stepper
-        dom.stepperMinus.addEventListener('click', function () {
-            if (s.questionCount > App.MIN_Q) { s.questionCount -= 5; updateStepper(); }
-        });
-        dom.stepperPlus.addEventListener('click', function () {
-            if (s.questionCount < App.MAX_Q) { s.questionCount += 5; updateStepper(); }
         });
 
         // Select All / Clear All
@@ -380,14 +334,7 @@
             s.ratings.push(s.currentRating);
             s.currentQ++;
 
-            var shouldEnd = false;
-            if (s.interviewMode === 'count' && s.currentQ >= s.questionCount) {
-                shouldEnd = true;
-            } else if (s.interviewMode === 'time' && s.timerExpired) {
-                shouldEnd = true;
-            }
-
-            if (shouldEnd) {
+            if (s.timerExpired) {
                 App.stopTimer();
                 App.showResults();
                 return;
@@ -436,6 +383,10 @@
             s.currentRating = 0;
             s.ratings = [];
             s.sessionQuestions = [];
+            s.introNotes = '';
+            s.wrapupNotes = '';
+            dom.introNotes.value = '';
+            dom.wrapupNotes.value = '';
             App.stopTimer();
 
             var pool = QUESTION_BANK.filter(function (q) {
@@ -449,14 +400,9 @@
             s.sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
 
             dom.qInterviewee.textContent = s.intervieweeName;
-
-            if (s.interviewMode === 'time') {
-                dom.qTimer.style.display = '';
-                App.startTimer();
-            } else {
-                dom.qTimer.style.display = 'none';
-            }
-
+            dom.qTimer.style.display = '';
+            dom.btnPause.style.display = '';
+            App.startTimer();
             dom.btnEnd.style.display = '';
             App.showScreen('screen-question');
             App.renderPhaseIndicator();
@@ -465,8 +411,19 @@
             App.saveSession();
         });
 
+        // Notes input handlers
+        dom.introNotes.addEventListener('input', function () {
+            s.introNotes = dom.introNotes.value;
+            App.saveSession();
+        });
+        dom.wrapupNotes.addEventListener('input', function () {
+            s.wrapupNotes = dom.wrapupNotes.value;
+            App.saveSession();
+        });
+
         // Skip to next section
         dom.btnSkipSection.addEventListener('click', function () {
+            if (!confirm('Skip to the next section?')) return;
             App.skipToNextPhase();
             App.updatePhaseUI();
         });
@@ -494,6 +451,12 @@
             App.downloadReport();
         });
 
+        // Pause / Continue
+        dom.btnPause.addEventListener('click', function () {
+            App.togglePause();
+            dom.btnPause.classList.toggle('is-paused', s.timerPaused);
+        });
+
         // Fullscreen
         dom.btnFullscreen.addEventListener('click', function () {
             if (document.fullscreenElement || document.webkitFullscreenElement) {
@@ -516,7 +479,11 @@
             App.stopTimer();
             App.clearSession();
             s.intervieweeName = '';
+            s.introNotes = '';
+            s.wrapupNotes = '';
             dom.nameInput.value = '';
+            dom.introNotes.value = '';
+            dom.wrapupNotes.value = '';
             App.showScreen('screen-setup');
         });
     }
@@ -541,7 +508,6 @@
             }
         } catch (e) { /* */ }
     }
-    updateStepper();
     updateStartButton();
 
 })(InterviewApp);

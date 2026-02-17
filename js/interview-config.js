@@ -49,6 +49,9 @@ var InterviewApp = {
         ratings: [],
         sessionQuestions: [],
         phases: null,
+        timerPaused: false,
+        introNotes: '',
+        wrapupNotes: '',
     },
 
     dom: {},

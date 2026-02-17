@@ -234,6 +234,23 @@
     color: var(--color-green);
 }
 
+/* --- Notes display --- */
+.results__notes {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius-lg);
+    padding: 32px;
+    margin-bottom: 16px;
+}
+
+.results__notes-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-gray-400);
+    font-weight: 300;
+    white-space: pre-line;
+}
+
 /* --- Topic knowledge breakdown --- */
 .results__topic-breakdown {
     background: rgba(255, 255, 255, 0.04);

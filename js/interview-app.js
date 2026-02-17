@@ -90,6 +90,12 @@
         d.btnFeedbackCancel = document.getElementById('btnFeedbackCancel');
         d.feedbackRatingBtns = Array.prototype.slice.call(d.feedbackRating.querySelectorAll('.modal__rating-btn'));
 
+        // Phase toast
+        d.phaseToast = document.getElementById('phaseToast');
+        d.phaseToastIcon = document.getElementById('phaseToastIcon');
+        d.phaseToastTitle = document.getElementById('phaseToastTitle');
+        d.phaseToastDetail = document.getElementById('phaseToastDetail');
+
         // Live Coding
         d.lcTopic = document.getElementById('lcTopic');
         d.lcDifficulty = document.getElementById('lcDifficulty');
@@ -122,6 +128,66 @@
     // ===========================================================
 
     var prevPhaseId = null;
+    var phaseQuestionStart = 0;
+    var phaseRatingStart = 0;
+
+    var PHASE_ICONS = {
+        intro: '👋',
+        theory: '📖',
+        code: '💻',
+        live: '🧑‍💻',
+        wrapup: '🏁'
+    };
+
+    var toastTimer = null;
+
+    function showPhaseToast(fromPhaseId, toPhaseId) {
+        if (!fromPhaseId || !s.phases) return;
+
+        var fromName = '';
+        var toName = '';
+        for (var i = 0; i < s.phases.length; i++) {
+            if (s.phases[i].id === fromPhaseId) fromName = s.phases[i].name;
+            if (s.phases[i].id === toPhaseId) toName = s.phases[i].name;
+        }
+        if (!fromName) return;
+
+        var questionsInPhase = s.ratings.length - phaseRatingStart;
+        var icon = PHASE_ICONS[toPhaseId] || '➡️';
+        var title = fromName + ' completed';
+        var detail = '';
+
+        if (fromPhaseId === 'intro') {
+            detail = 'Moving to ' + toName;
+        } else if (fromPhaseId === 'wrapup') {
+            detail = 'Finishing interview';
+        } else if (questionsInPhase > 0) {
+            var sum = 0;
+            for (var r = phaseRatingStart; r < s.ratings.length; r++) {
+                sum += s.ratings[r];
+            }
+            var avg = (sum / questionsInPhase).toFixed(1);
+            detail = questionsInPhase + ' question' + (questionsInPhase !== 1 ? 's' : '') +
+                ' rated, avg ' + avg + '/5';
+            if (toName) detail += ' — Moving to ' + toName;
+        } else {
+            detail = 'No questions rated';
+            if (toName) detail += ' — Moving to ' + toName;
+        }
+
+        dom.phaseToastIcon.textContent = icon;
+        dom.phaseToastTitle.textContent = title;
+        dom.phaseToastDetail.textContent = detail;
+
+        if (toastTimer) clearTimeout(toastTimer);
+        dom.phaseToast.classList.add('is-visible');
+        toastTimer = setTimeout(function () {
+            dom.phaseToast.classList.remove('is-visible');
+        }, 3500);
+
+        phaseQuestionStart = s.currentQ;
+        phaseRatingStart = s.ratings.length;
+    }
 
     App.updatePhaseUI = function () {
         var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
@@ -131,11 +197,17 @@
         var isNonQuestionOverlay = isIntro || isWrapup;
         var isLast = App.isLastPhase ? App.isLastPhase() : true;
 
-        // Auto-pick live coding question when entering the live phase
+        // Detect phase transitions
         // Set prevPhaseId BEFORE displayQuestion to prevent infinite recursion
         // (displayQuestion -> updatePhaseUI -> displayQuestion ...)
-        var enteringLive = isLive && prevPhaseId !== 'live';
+        var oldPhase = prevPhaseId;
+        var phaseChanged = phaseId && oldPhase && phaseId !== oldPhase;
+        var enteringLive = isLive && oldPhase !== 'live';
         prevPhaseId = phaseId;
+
+        if (phaseChanged) {
+            showPhaseToast(oldPhase, phaseId);
+        }
 
         if (enteringLive) {
             var lcQ = pickLiveCodingQuestion(1);

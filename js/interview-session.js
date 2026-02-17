@@ -11,16 +11,17 @@
                 interviewerName: s.interviewerName,
                 intervieweeName: s.intervieweeName,
                 selectedTopics: s.selectedTopics,
-                interviewMode: s.interviewMode,
                 timeLimitMin: s.timeLimitMin,
-                questionCount: s.questionCount,
                 currentQ: s.currentQ,
                 currentRating: s.currentRating,
                 ratings: s.ratings,
                 sessionQuestions: s.sessionQuestions,
                 remainingSeconds: s.remainingSeconds,
                 timerExpired: s.timerExpired,
+                timerPaused: s.timerPaused,
                 phases: s.phases,
+                introNotes: s.introNotes,
+                wrapupNotes: s.wrapupNotes,
                 hintRevealed: dom.hintReveal.classList.contains('is-open'),
                 answerRevealed: dom.answerReveal.classList.contains('is-open'),
                 timestamp: Date.now(),
@@ -67,9 +68,8 @@
         s.interviewerName = data.interviewerName || '';
         s.intervieweeName = data.intervieweeName;
         s.selectedTopics = data.selectedTopics.filter(function (t) { return t !== 'code-challenge'; });
-        s.interviewMode = data.interviewMode || 'time';
+        s.interviewMode = 'time';
         s.timeLimitMin = data.timeLimitMin || 15;
-        s.questionCount = data.questionCount || 10;
         s.currentQ = data.currentQ;
         s.currentRating = data.currentRating || 0;
         s.ratings = data.ratings;
@@ -79,6 +79,8 @@
         if (Array.isArray(data.phases) && data.phases.length > 0) {
             s.phases = data.phases;
         }
+        s.introNotes = data.introNotes || '';
+        s.wrapupNotes = data.wrapupNotes || '';
 
         // Restore setup screen UI
         dom.interviewerInput.value = s.interviewerName;
@@ -86,24 +88,20 @@
         dom.allChips.forEach(function (c) {
             c.classList.toggle('is-selected', s.selectedTopics.indexOf(c.dataset.topic) !== -1);
         });
-        dom.modeToggle.querySelectorAll('.mode-toggle__btn').forEach(function (b) {
-            b.classList.toggle('is-active', b.dataset.mode === s.interviewMode);
-        });
-        dom.sectionTime.style.display = 'none';
-        dom.sectionCount.style.display = s.interviewMode === 'count' ? '' : 'none';
-        dom.timeSlider.value = s.timeLimitMin;
-        dom.timeDisplay.textContent = s.timeLimitMin + ' min';
-        dom.stepperValue.textContent = s.questionCount;
 
         dom.qInterviewee.textContent = s.intervieweeName;
 
         // Timer & End button
         dom.btnEnd.style.display = '';
-        if (s.interviewMode === 'time') {
-            dom.qTimer.style.display = '';
-            App.resumeTimer();
+        dom.qTimer.style.display = '';
+        dom.btnPause.style.display = '';
+        if (data.timerPaused) {
+            s.timerPaused = true;
+            dom.btnPause.classList.add('is-paused');
+            dom.qTimer.classList.add('is-paused');
+            dom.timerText.textContent = App.formatTime(s.remainingSeconds);
         } else {
-            dom.qTimer.style.display = 'none';
+            App.resumeTimer();
         }
 
         App.renderPlan();
@@ -130,6 +128,10 @@
             dom.answerReveal.classList.add('is-open');
             dom.btnAnswer.textContent = 'Hide Answer';
         }
+
+        // Restore notes
+        dom.introNotes.value = s.introNotes;
+        dom.wrapupNotes.value = s.wrapupNotes;
 
         return true;
     };

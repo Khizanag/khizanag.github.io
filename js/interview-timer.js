@@ -88,4 +88,28 @@
         }
     };
 
+    App.pauseTimer = function () {
+        if (s.timerPaused || s.timerExpired) return;
+        s.timerPaused = true;
+        App.stopTimer();
+        App.dom.qTimer.classList.add('is-paused');
+        App.saveSession();
+    };
+
+    App.continueTimer = function () {
+        if (!s.timerPaused || s.timerExpired) return;
+        s.timerPaused = false;
+        App.dom.qTimer.classList.remove('is-paused');
+        s.timerInterval = setInterval(App.onTimerTick, 1000);
+        App.saveSession();
+    };
+
+    App.togglePause = function () {
+        if (s.timerPaused) {
+            App.continueTimer();
+        } else {
+            App.pauseTimer();
+        }
+    };
+
 })(InterviewApp);

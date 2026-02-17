@@ -27,6 +27,17 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - Current split: `interview-base.css`, `interview-setup.css`, `interview-question.css`, `interview-results.css`, `interview-responsive.css`
 - When adding new styles, place them in the appropriate file by screen
 
+## Question Bank Rules
+- Answers in `js/questions.js` should use `\n` line breaks to separate distinct concepts
+- Lists of items should use `\n- ` prefix for each item
+- Short answers (1-2 sentences) stay as single lines
+- Comparisons should separate each item with `\n`
+- CSS uses `white-space: pre-line` to render the line breaks
+
+## Workflow
+- After completing each task, commit and push immediately before starting the next task
+- Keep commits focused — one feature/fix per commit
+
 ## Deployment
 - GitHub Pages serves from the `master` branch root
 - Any push to `master` triggers automatic deployment

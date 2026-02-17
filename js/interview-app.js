@@ -1302,6 +1302,12 @@
     bindEvents();
     App.initPlan();
 
+    // Theme toggle
+    document.getElementById('btnTheme').addEventListener('click', function () {
+        var isLight = document.documentElement.classList.toggle('theme-light');
+        try { localStorage.setItem('ios-interview-theme', isLight ? 'light' : 'dark'); } catch (e) { /* */ }
+    });
+
     var restored = App.restoreSession();
     if (!restored) {
         selectAllTopics();

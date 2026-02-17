@@ -379,17 +379,24 @@
         dom.qHint.textContent = q.hint;
         dom.qAnswer.textContent = q.answer;
 
-        // Reset reveals
-        dom.hintReveal.classList.remove('is-open');
-        dom.answerReveal.classList.remove('is-open');
-        dom.btnHint.textContent = 'Show Hint';
-        dom.btnAnswer.textContent = 'Show Answer';
+        // Reset or auto-reveal hints in practice mode
+        if (s.practiceMode) {
+            dom.hintReveal.classList.add('is-open');
+            dom.answerReveal.classList.add('is-open');
+            dom.btnHint.textContent = 'Hide Hint';
+            dom.btnAnswer.textContent = 'Hide Answer';
+        } else {
+            dom.hintReveal.classList.remove('is-open');
+            dom.answerReveal.classList.remove('is-open');
+            dom.btnHint.textContent = 'Show Hint';
+            dom.btnAnswer.textContent = 'Show Answer';
+        }
 
         // Reset rating
         s.currentRating = 0;
         dom.allStars.forEach(function (star) { star.classList.remove('is-active'); });
         dom.ratingDesc.textContent = '';
-        dom.btnNext.disabled = true;
+        dom.btnNext.disabled = s.practiceMode ? false : true;
 
         var nextLabel = q._liveCoding ? 'Next Problem' : 'Next Question';
         dom.btnNext.textContent = nextLabel;
@@ -574,14 +581,18 @@
 
     function updateStartButton() {
         var hasTopics = s.selectedTopics.length > 0;
-        var hasNames = s.interviewerName.length > 0 && s.intervieweeName.length > 0;
+        var hasNames = s.practiceMode
+            ? s.intervieweeName.length > 0
+            : s.interviewerName.length > 0 && s.intervieweeName.length > 0;
         var allSelected = s.selectedTopics.length === dom.allChips.length;
         dom.btnStart.disabled = !(hasTopics && hasNames);
         dom.btnToggleAll.textContent = allSelected ? 'Clear All' : 'Select All';
         updateTopicSummary();
 
         if (!hasNames) {
-            dom.validationHint.textContent = 'Enter both participant names to begin';
+            dom.validationHint.textContent = s.practiceMode
+                ? 'Enter your name to begin'
+                : 'Enter both participant names to begin';
         } else if (!hasTopics) {
             dom.validationHint.textContent = 'Select at least one topic to begin';
         } else {
@@ -603,6 +614,29 @@
     // ===========================================================
 
     function bindEvents() {
+        // Mode toggle (interview vs self-study)
+        var btnModeInterview = document.getElementById('btnModeInterview');
+        var btnModePractice = document.getElementById('btnModePractice');
+        var planSection = document.getElementById('planSection');
+        var interviewerField = dom.interviewerInput.closest('.setup__name-field');
+
+        function setMode(mode) {
+            s.practiceMode = mode === 'practice';
+            btnModeInterview.classList.toggle('is-active', !s.practiceMode);
+            btnModePractice.classList.toggle('is-active', s.practiceMode);
+            planSection.style.display = s.practiceMode ? 'none' : '';
+            interviewerField.style.display = s.practiceMode ? 'none' : '';
+            if (s.practiceMode) {
+                s.interviewerName = 'Self-Study';
+            } else {
+                s.interviewerName = dom.interviewerInput.value.trim();
+            }
+            updateStartButton();
+        }
+
+        btnModeInterview.addEventListener('click', function () { setMode('interview'); });
+        btnModePractice.addEventListener('click', function () { setMode('practice'); });
+
         // Name inputs
         dom.interviewerInput.addEventListener('input', function () {
             s.interviewerName = dom.interviewerInput.value.trim();
@@ -679,11 +713,11 @@
         }
 
         function goNextQuestion() {
-            if (s.currentRating === 0) return;
-            s.ratings.push(s.currentRating);
+            if (!s.practiceMode && s.currentRating === 0) return;
+            s.ratings.push(s.currentRating || 0);
             s.currentQ++;
 
-            if (s.timerExpired) {
+            if (!s.practiceMode && s.timerExpired) {
                 App.stopTimer();
                 App.showResults();
                 return;
@@ -783,7 +817,10 @@
 
         // Start interview
         dom.btnStart.addEventListener('click', function () {
-            if (s.selectedTopics.length === 0 || !s.interviewerName || !s.intervieweeName) return;
+            var validNames = s.practiceMode
+                ? s.intervieweeName
+                : (s.interviewerName && s.intervieweeName);
+            if (s.selectedTopics.length === 0 || !validNames) return;
 
             s.currentQ = 0;
             s.currentRating = 0;
@@ -806,12 +843,29 @@
             s.sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
 
             dom.qInterviewee.textContent = s.intervieweeName;
-            dom.qTimer.style.display = '';
-            App.startTimer();
-            dom.btnEnd.style.display = '';
+
+            if (s.practiceMode) {
+                // Self-study: no timer, no phases
+                dom.qTimer.style.display = 'none';
+                dom.btnEnd.style.display = '';
+                dom.btnEnd.innerHTML =
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> See Results';
+                dom.btnSkipSection.style.display = 'none';
+                s.remainingSeconds = 0;
+                s.timerExpired = false;
+                document.documentElement.classList.add('is-practice');
+            } else {
+                dom.qTimer.style.display = '';
+                App.startTimer();
+                dom.btnEnd.style.display = '';
+                document.documentElement.classList.remove('is-practice');
+            }
+
             App.showScreen('screen-question');
-            App.renderPhaseIndicator();
-            App.updatePhaseIndicator();
+            if (!s.practiceMode) {
+                App.renderPhaseIndicator();
+                App.updatePhaseIndicator();
+            }
             App.displayQuestion(0);
             App.saveSession();
         });
@@ -1222,6 +1276,7 @@
             dom.nameInput.value = '';
             dom.introNotes.value = '';
             dom.wrapupNotes.value = '';
+            document.documentElement.classList.remove('is-practice');
             App.renderHistory();
             App.showScreen('screen-setup');
         });

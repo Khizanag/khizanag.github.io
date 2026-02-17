@@ -61,6 +61,7 @@ var InterviewApp = {
         introNotes: '',
         wrapupNotes: '',
         lcHintsRevealed: 0,
+        practiceMode: false,
     },
 
     dom: {},

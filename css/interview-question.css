@@ -684,6 +684,19 @@
 .is-presenter .q-wrapup__finish { display: none !important; }
 .is-presenter .q-card__level { display: none !important; }
 
+/* --- Practice / Self-Study mode --- */
+.is-practice .q-phases { display: none !important; }
+.is-practice .btn-skip-section { display: none !important; }
+.is-practice .btn-presenter { display: none !important; }
+.is-practice .btn-popout { display: none !important; }
+.is-practice .btn-end {
+    border-color: var(--color-green-a30);
+    color: var(--color-green);
+}
+.is-practice .q-note { display: none !important; }
+.is-practice .q-intro { display: none !important; }
+.is-practice .q-wrapup { display: none !important; }
+
 /* --- Skip section button --- */
 .btn-skip-section {
     display: inline-flex;

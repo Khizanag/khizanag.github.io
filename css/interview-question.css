@@ -1004,6 +1004,29 @@
     height: 16px;
 }
 
+.rating__skip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 20px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a10);
+    background: transparent;
+    color: var(--color-gray-500);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    letter-spacing: -0.01em;
+}
+
+.rating__skip:hover {
+    border-color: var(--color-orange-a30);
+    color: var(--color-orange);
+    background: var(--color-orange-a8);
+}
+
 /* --- Fullscreen icon toggle --- */
 .btn-fullscreen__collapse { display: none; }
 .is-fullscreen .btn-fullscreen__expand { display: none; }

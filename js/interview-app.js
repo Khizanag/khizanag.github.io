@@ -44,6 +44,7 @@
         d.ratingStars = document.getElementById('ratingStars');
         d.ratingDesc = document.getElementById('ratingDesc');
         d.btnNext = document.getElementById('btnNext');
+        d.btnSkip = document.getElementById('btnSkip');
         d.btnPrev = document.getElementById('btnPrev');
         d.btnEnd = document.getElementById('btnEnd');
         d.btnPause = document.getElementById('btnPause');
@@ -626,6 +627,25 @@
             window.scrollTo(0, 0);
         }
 
+        function skipQuestion() {
+            s.sessionQuestions[s.currentQ].skipped = true;
+            s.ratings.push(0);
+            s.currentQ++;
+
+            if (s.timerExpired) {
+                App.stopTimer();
+                App.showResults();
+                return;
+            }
+
+            var nextQ = pickNextQuestion();
+            s.sessionQuestions.push(nextQ);
+            App.displayQuestion(s.currentQ);
+            App.saveSession();
+            App.syncPopup();
+            window.scrollTo(0, 0);
+        }
+
         // Expose for popup
         App.setRating = setRating;
         App.goNextQuestion = goNextQuestion;
@@ -653,6 +673,9 @@
 
         // Next question
         dom.btnNext.addEventListener('click', goNextQuestion);
+
+        // Skip question
+        dom.btnSkip.addEventListener('click', skipQuestion);
 
         // Previous question
         dom.btnPrev.addEventListener('click', function () {

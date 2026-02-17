@@ -34,7 +34,17 @@
             return;
         }
 
-        var avg = s.ratings.reduce(function (a, b) { return a + b; }, 0) / s.ratings.length;
+        // Calculate averages excluding skipped questions
+        var ratedSum = 0;
+        var ratedCount = 0;
+        var skippedCount = 0;
+        s.sessionQuestions.forEach(function (q, i) {
+            if (i >= s.ratings.length) return;
+            if (q.skipped) { skippedCount++; return; }
+            ratedSum += s.ratings[i];
+            ratedCount++;
+        });
+        var avg = ratedCount > 0 ? ratedSum / ratedCount : 0;
         var levelIndex = App.getLevelIndex(avg);
 
         var uniqueTopics = [];
@@ -47,8 +57,8 @@
         document.getElementById('levelName').style.color = App.LEVEL_COLORS[levelIndex];
         document.getElementById('resultsSubtitle').textContent = App.LEVEL_DESCS[levelIndex];
         dom.resultsInterviewee.textContent = s.intervieweeName + ' \u2014 interviewed by ' + s.interviewerName;
-        document.getElementById('statAvg').textContent = avg.toFixed(1);
-        document.getElementById('statTotal').textContent = s.ratings.length;
+        document.getElementById('statAvg').textContent = ratedCount > 0 ? avg.toFixed(1) : '\u2014';
+        document.getElementById('statTotal').textContent = ratedCount + (skippedCount > 0 ? ' (' + skippedCount + ' skipped)' : '');
         document.getElementById('statTopics').textContent = uniqueTopics.length;
 
         var ring = document.getElementById('levelRing');
@@ -62,18 +72,24 @@
         s.sessionQuestions.forEach(function (q, i) {
             if (i >= s.ratings.length) return;
             var row = document.createElement('div');
-            row.className = 'results__row';
+            row.className = 'results__row' + (q.skipped ? ' results__row--skipped' : '');
 
-            var starsHtml = '';
-            for (var star = 1; star <= 5; star++) {
-                var cls = star <= s.ratings[i] ? 'results__row-star--filled' : 'results__row-star--empty';
-                starsHtml += '<svg class="results__row-star ' + cls + '" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+            if (q.skipped) {
+                row.innerHTML =
+                    '<span class="results__row-num">' + (i + 1) + '</span>' +
+                    '<span class="results__row-q">' + q.question + '</span>' +
+                    '<span class="results__row-badge">Skipped</span>';
+            } else {
+                var starsHtml = '';
+                for (var star = 1; star <= 5; star++) {
+                    var cls = star <= s.ratings[i] ? 'results__row-star--filled' : 'results__row-star--empty';
+                    starsHtml += '<svg class="results__row-star ' + cls + '" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+                }
+                row.innerHTML =
+                    '<span class="results__row-num">' + (i + 1) + '</span>' +
+                    '<span class="results__row-q">' + q.question + '</span>' +
+                    '<span class="results__row-stars">' + starsHtml + '</span>';
             }
-
-            row.innerHTML =
-                '<span class="results__row-num">' + (i + 1) + '</span>' +
-                '<span class="results__row-q">' + q.question + '</span>' +
-                '<span class="results__row-stars">' + starsHtml + '</span>';
 
             if (q.notes && q.notes.trim()) {
                 var noteEl = document.createElement('p');
@@ -112,7 +128,7 @@
     function getTopicStats() {
         var topics = {};
         s.sessionQuestions.forEach(function (q, i) {
-            if (i >= s.ratings.length) return;
+            if (i >= s.ratings.length || q.skipped) return;
             var key = q.topic;
             if (!topics[key]) topics[key] = { count: 0, total: 0 };
             topics[key].count++;
@@ -245,7 +261,8 @@
             if (i >= s.ratings.length) return;
             var topicLabel = App.TOPIC_LABELS[q.topic] || q.topic;
             var levelLabel = App.LEVEL_LABELS[q.level];
-            lines.push('#' + (i + 1) + '  ' + topicLabel + ' | ' + levelLabel + ' | ' + stars(s.ratings[i]));
+            var ratingStr = q.skipped ? 'SKIPPED' : stars(s.ratings[i]);
+            lines.push('#' + (i + 1) + '  ' + topicLabel + ' | ' + levelLabel + ' | ' + ratingStr);
             lines.push('    ' + q.question);
             if (q.code) {
                 lines.push('');

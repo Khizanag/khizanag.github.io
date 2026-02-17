@@ -515,6 +515,8 @@
         document.getElementById('btnRestart').addEventListener('click', function () {
             App.stopTimer();
             App.clearSession();
+            s.intervieweeName = '';
+            dom.nameInput.value = '';
             App.showScreen('screen-setup');
         });
     }

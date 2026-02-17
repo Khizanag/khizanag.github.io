@@ -74,10 +74,11 @@
             var row = document.createElement('div');
             row.className = 'results__row' + (q.skipped ? ' results__row--skipped' : '');
 
+            var esc = App.escapeHtml;
             if (q.skipped) {
                 row.innerHTML =
                     '<span class="results__row-num">' + (i + 1) + '</span>' +
-                    '<span class="results__row-q">' + q.question + '</span>' +
+                    '<span class="results__row-q">' + esc(q.question) + '</span>' +
                     '<span class="results__row-badge">Skipped</span>';
             } else {
                 var starsHtml = '';
@@ -87,7 +88,7 @@
                 }
                 row.innerHTML =
                     '<span class="results__row-num">' + (i + 1) + '</span>' +
-                    '<span class="results__row-q">' + q.question + '</span>' +
+                    '<span class="results__row-q">' + esc(q.question) + '</span>' +
                     '<span class="results__row-stars">' + starsHtml + '</span>';
             }
 
@@ -145,6 +146,7 @@
             return (topics[b].total / topics[b].count) - (topics[a].total / topics[a].count);
         });
 
+        var esc = App.escapeHtml;
         keys.forEach(function (key) {
             var t = topics[key];
             var avg = t.total / t.count;
@@ -156,8 +158,8 @@
             row.className = 'results__topic-row';
             row.innerHTML =
                 '<div class="results__topic-info">' +
-                    '<span class="results__topic-name">' + label + '</span>' +
-                    '<span class="results__topic-meta">' + t.count + 'q \u00B7 ' + avg.toFixed(1) + ' avg \u00B7 ' + App.LEVEL_LABELS[levelIdx] + '</span>' +
+                    '<span class="results__topic-name">' + esc(label) + '</span>' +
+                    '<span class="results__topic-meta">' + t.count + 'q \u00B7 ' + avg.toFixed(1) + ' avg \u00B7 ' + esc(App.LEVEL_LABELS[levelIdx]) + '</span>' +
                 '</div>' +
                 '<div class="results__topic-bar">' +
                     '<div class="results__topic-fill" style="width:' + pct + '%;background:' + App.LEVEL_COLORS[levelIdx] + '"></div>' +

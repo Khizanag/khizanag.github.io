@@ -582,6 +582,33 @@
 .is-presenter .lc-solution { display: none !important; }
 .is-presenter .lc-tips { display: none !important; }
 
+/* --- Per-question notes --- */
+.q-note {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-white-a8);
+    background: var(--color-white-a3);
+    color: var(--color-gray-200);
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 0.25s;
+    margin-bottom: 16px;
+}
+
+.q-note::placeholder {
+    color: var(--color-gray-500);
+}
+
+.q-note:focus {
+    outline: none;
+    border-color: var(--color-blue-a40);
+    background: var(--color-white-a6);
+}
+
 /* --- Phase notes textarea --- */
 .q-phase-notes {
     display: block;

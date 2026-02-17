@@ -119,6 +119,7 @@
 .results__row {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 12px;
     padding: 10px 0;
     border-bottom: 1px solid var(--color-white-a6);
@@ -156,6 +157,16 @@
 
 .results__row-star--filled { color: var(--color-yellow); }
 .results__row-star--empty  { color: var(--color-white-a10); }
+
+.results__row-notes {
+    width: 100%;
+    font-size: 12px;
+    color: var(--color-gray-500);
+    font-style: italic;
+    line-height: 1.5;
+    padding-left: 36px;
+    margin-top: -4px;
+}
 
 /* --- Actions --- */
 .results__actions {

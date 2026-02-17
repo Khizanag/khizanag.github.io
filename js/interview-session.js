@@ -66,7 +66,7 @@
         // Restore state
         s.interviewerName = data.interviewerName || '';
         s.intervieweeName = data.intervieweeName;
-        s.selectedTopics = data.selectedTopics;
+        s.selectedTopics = data.selectedTopics.filter(function (t) { return t !== 'code-challenge'; });
         s.interviewMode = data.interviewMode || 'time';
         s.timeLimitMin = data.timeLimitMin || 15;
         s.questionCount = data.questionCount || 10;

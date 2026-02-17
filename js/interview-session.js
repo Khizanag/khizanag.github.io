@@ -139,6 +139,7 @@
             s.presenterMode = true;
             document.documentElement.classList.add('is-presenter');
             dom.btnPresenter.classList.add('is-active');
+            dom.btnPopout.style.display = '';
         }
 
         return true;

@@ -49,6 +49,7 @@
         d.btnPause = document.getElementById('btnPause');
         d.btnFullscreen = document.getElementById('btnFullscreen');
         d.btnPresenter = document.getElementById('btnPresenter');
+        d.btnPopout = document.getElementById('btnPopout');
         d.btnSkipSection = document.getElementById('btnSkipSection');
         d.btnSkipIntro = document.getElementById('btnSkipIntro');
         d.qIntro = document.getElementById('qIntro');
@@ -309,6 +310,41 @@
             App.saveSession();
         });
 
+        // ---- Shared rating helpers ----
+        function setRating(value) {
+            s.currentRating = value;
+            dom.allStars.forEach(function (st, i) {
+                st.classList.toggle('is-active', i < value);
+            });
+            dom.ratingDesc.textContent = App.RATING_LABELS[value];
+            dom.btnNext.disabled = value === 0;
+            App.saveSession();
+            App.syncPopup();
+        }
+
+        function goNextQuestion() {
+            if (s.currentRating === 0) return;
+            s.ratings.push(s.currentRating);
+            s.currentQ++;
+
+            if (s.timerExpired) {
+                App.stopTimer();
+                App.showResults();
+                return;
+            }
+
+            var nextQ = pickNextQuestion();
+            s.sessionQuestions.push(nextQ);
+            App.displayQuestion(s.currentQ);
+            App.saveSession();
+            App.syncPopup();
+            window.scrollTo(0, 0);
+        }
+
+        // Expose for popup
+        App.setRating = setRating;
+        App.goNextQuestion = goNextQuestion;
+
         // Star rating
         dom.ratingStars.addEventListener('mouseover', function (e) {
             var star = e.target.closest('.rating__star');
@@ -327,32 +363,11 @@
             var star = e.target.closest('.rating__star');
             if (!star) return;
             var tapped = parseInt(star.dataset.value, 10);
-            s.currentRating = tapped === s.currentRating ? 0 : tapped;
-            dom.allStars.forEach(function (st, i) {
-                st.classList.toggle('is-active', i < s.currentRating);
-            });
-            dom.ratingDesc.textContent = App.RATING_LABELS[s.currentRating];
-            dom.btnNext.disabled = s.currentRating === 0;
-            App.saveSession();
+            setRating(tapped === s.currentRating ? 0 : tapped);
         });
 
         // Next question
-        dom.btnNext.addEventListener('click', function () {
-            s.ratings.push(s.currentRating);
-            s.currentQ++;
-
-            if (s.timerExpired) {
-                App.stopTimer();
-                App.showResults();
-                return;
-            }
-
-            var nextQ = pickNextQuestion();
-            s.sessionQuestions.push(nextQ);
-            App.displayQuestion(s.currentQ);
-            App.saveSession();
-            window.scrollTo(0, 0);
-        });
+        dom.btnNext.addEventListener('click', goNextQuestion);
 
         // Previous question
         dom.btnPrev.addEventListener('click', function () {
@@ -513,7 +528,95 @@
             s.presenterMode = !s.presenterMode;
             document.documentElement.classList.toggle('is-presenter', s.presenterMode);
             dom.btnPresenter.classList.toggle('is-active', s.presenterMode);
+            dom.btnPopout.style.display = s.presenterMode ? '' : 'none';
             App.saveSession();
+        });
+
+        // ---- Keyboard shortcuts (1-5 to rate, Enter to advance) ----
+        document.addEventListener('keydown', function (e) {
+            var screen = document.getElementById('screen-question');
+            if (!screen || !screen.classList.contains('is-active')) return;
+            // Ignore if typing in a textarea
+            if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+
+            var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
+            var isOverlay = phaseId === 'intro' || phaseId === 'wrapup' || phaseId === 'live';
+            if (isOverlay) return;
+
+            var key = e.key;
+            if (key >= '1' && key <= '5') {
+                e.preventDefault();
+                var val = parseInt(key, 10);
+                setRating(val === s.currentRating ? 0 : val);
+            } else if (key === 'Enter' && s.currentRating > 0) {
+                e.preventDefault();
+                goNextQuestion();
+            }
+        });
+
+        // ---- Rating popup window ----
+        var ratingPopup = null;
+
+        App.openRatingPopup = function () {
+            if (ratingPopup && !ratingPopup.closed) {
+                ratingPopup.focus();
+                return;
+            }
+            var w = 340, h = 260;
+            var left = window.screenX + window.outerWidth - w - 40;
+            var top = window.screenY + 80;
+            ratingPopup = window.open('', 'interviewRating',
+                'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top +
+                ',resizable=no,menubar=no,toolbar=no,status=no');
+            App.syncPopup();
+        };
+
+        App.syncPopup = function () {
+            if (!ratingPopup || ratingPopup.closed) return;
+            var q = s.sessionQuestions[s.currentQ];
+            var qLabel = q ? 'Q' + (s.currentQ + 1) + ': ' + q.question.substring(0, 60) + (q.question.length > 60 ? '...' : '') : '';
+            var doc = ratingPopup.document;
+            doc.open();
+            doc.write(
+                '<!DOCTYPE html><html><head><meta charset="utf-8">' +
+                '<title>Rate</title>' +
+                '<style>' +
+                'body{margin:0;padding:20px;background:#1d1d1f;color:#f5f5f7;font-family:-apple-system,sans-serif;text-align:center;user-select:none}' +
+                '.q{font-size:12px;color:#86868b;margin-bottom:16px;line-height:1.4;min-height:34px}' +
+                '.stars{display:flex;justify-content:center;gap:8px;margin-bottom:8px}' +
+                '.star{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);cursor:pointer;font-size:18px;color:#6e6e73;transition:all .15s}' +
+                '.star:hover{border-color:rgba(255,214,10,0.4);background:rgba(255,214,10,0.08);transform:scale(1.1)}' +
+                '.star.on{border-color:#ffd60a;background:rgba(255,214,10,0.15);color:#ffd60a}' +
+                '.desc{font-size:12px;color:#6e6e73;margin-bottom:14px;min-height:18px}' +
+                '.next{padding:10px 28px;border-radius:980px;border:none;background:#2997ff;color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}' +
+                '.next:disabled{opacity:0.35;cursor:not-allowed}' +
+                '.next:not(:disabled):hover{background:#3ba0ff;transform:scale(1.04)}' +
+                '.hint{font-size:11px;color:#424245;margin-top:14px}' +
+                '</style></head><body>' +
+                '<p class="q">' + qLabel.replace(/</g, '&lt;') + '</p>' +
+                '<div class="stars">' +
+                [1,2,3,4,5].map(function (v) {
+                    return '<button class="star' + (v <= s.currentRating ? ' on' : '') + '" onclick="r(' + v + ')">\u2605</button>';
+                }).join('') +
+                '</div>' +
+                '<p class="desc">' + (App.RATING_LABELS[s.currentRating] || '') + '</p>' +
+                '<button class="next" onclick="n()"' + (s.currentRating === 0 ? ' disabled' : '') + '>Next \u2192</button>' +
+                '<p class="hint">Keys: 1\u20135 to rate, Enter to advance</p>' +
+                '<script>' +
+                'function r(v){window.opener.InterviewApp.setRating(v===window.opener.InterviewApp.state.currentRating?0:v)}' +
+                'function n(){window.opener.InterviewApp.goNextQuestion()}' +
+                'document.addEventListener("keydown",function(e){' +
+                'if(e.key>="1"&&e.key<="5"){e.preventDefault();var v=parseInt(e.key);r(v)}' +
+                'else if(e.key==="Enter"){e.preventDefault();n()}' +
+                '})' +
+                '<\/script></body></html>'
+            );
+            doc.close();
+        };
+
+        // Popout rating window
+        dom.btnPopout.addEventListener('click', function () {
+            App.openRatingPopup();
         });
 
         // Restart

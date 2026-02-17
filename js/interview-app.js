@@ -898,31 +898,43 @@
             var levelLabel = App.LEVEL_LABELS[q.level] || 'Level ' + q.level;
             var category = dom.reportCategory.value;
             var details = dom.reportDetails.value.trim();
+            var isLc = q._liveCoding;
 
-            var subject = '[Question Report] ' + topicLabel + ' \u2014 ' + q.question.substring(0, 60);
-            var body = 'QUESTION REPORT\n' +
-                '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n' +
-                'Topic: ' + topicLabel + '\n' +
-                'Level: ' + levelLabel + '\n' +
-                'Question: ' + q.question + '\n';
+            var subject = '[Question Report] ' + topicLabel + ' - ' + (isLc ? q._lcData.title : q.question).substring(0, 60);
 
+            var lines = [];
+            lines.push('Question Report');
+            lines.push('');
+            lines.push('QUESTION');
+            lines.push('  Title:    ' + (isLc ? q._lcData.title : q.question));
+            lines.push('  Topic:    ' + topicLabel);
+            lines.push('  Level:    ' + levelLabel);
+            if (isLc && q._lcData.difficulty) {
+                lines.push('  Difficulty: ' + q._lcData.difficulty);
+            }
             if (q.code) {
-                body += '\nCode:\n' + q.code + '\n';
+                lines.push('');
+                lines.push('CODE SNIPPET');
+                q.code.split('\n').forEach(function (line) {
+                    lines.push('  ' + line);
+                });
             }
-
-            body += '\nCategory: ' + category + '\n';
-
+            lines.push('');
+            lines.push('REPORT');
+            lines.push('  Category: ' + category);
             if (details) {
-                body += '\nDetails:\n' + details + '\n';
+                lines.push('  Details:  ' + details);
             }
-
-            body += '\n\u2500\u2500\u2500\n' +
-                'Reported from iOS Interview Tool\n' +
-                'Session: ' + (s.intervieweeName || 'N/A') + ' | ' + new Date().toLocaleDateString();
+            lines.push('');
+            lines.push('SESSION');
+            lines.push('  Interviewee:  ' + (s.intervieweeName || 'N/A'));
+            lines.push('  Interviewer:  ' + (s.interviewerName || 'N/A'));
+            lines.push('  Date:         ' + new Date().toLocaleDateString());
+            lines.push('  Question #:   ' + (s.currentQ + 1) + ' of ' + s.sessionQuestions.length);
 
             window.location.href = 'mailto:' + REPORT_EMAIL +
                 '?subject=' + encodeURIComponent(subject) +
-                '&body=' + encodeURIComponent(body);
+                '&body=' + encodeURIComponent(lines.join('\n'));
 
             hideModal(dom.modalReport);
         });
@@ -957,26 +969,28 @@
             var details = dom.feedbackDetails.value.trim();
 
             var subject = '[Interview Tool Feedback] ' + category;
-            var body = 'TOOL FEEDBACK\n' +
-                '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n' +
-                'Category: ' + category + '\n';
 
+            var lines = [];
+            lines.push('Tool Feedback');
+            lines.push('');
+            lines.push('FEEDBACK');
+            lines.push('  Category: ' + category);
             if (feedbackScore > 0) {
-                body += 'Satisfaction: ' + feedbackScore + '/5\n';
+                lines.push('  Rating:   ' + feedbackScore + ' / 5');
             }
-
             if (details) {
-                body += '\nDetails:\n' + details + '\n';
+                lines.push('  Details:  ' + details);
             }
-
-            body += '\n\u2500\u2500\u2500\n' +
-                'Session info: ' + (s.intervieweeName || 'N/A') + ' | ' +
-                new Date().toLocaleDateString() + ' | ' +
-                s.ratings.length + ' questions';
+            lines.push('');
+            lines.push('SESSION');
+            lines.push('  Interviewee:  ' + (s.intervieweeName || 'N/A'));
+            lines.push('  Interviewer:  ' + (s.interviewerName || 'N/A'));
+            lines.push('  Date:         ' + new Date().toLocaleDateString());
+            lines.push('  Questions:    ' + s.ratings.length + ' completed');
 
             window.location.href = 'mailto:' + REPORT_EMAIL +
                 '?subject=' + encodeURIComponent(subject) +
-                '&body=' + encodeURIComponent(body);
+                '&body=' + encodeURIComponent(lines.join('\n'));
 
             hideModal(dom.modalFeedback);
         });

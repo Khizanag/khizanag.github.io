@@ -15,7 +15,7 @@
     font-size: 11px;
     padding: 6px 4px;
     border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: var(--color-white-a4);
     color: var(--color-gray-500);
     transition: all 0.4s var(--ease-smooth);
     white-space: nowrap;
@@ -24,12 +24,12 @@
 }
 
 .q-phases__item.is-done {
-    background-color: rgba(48, 209, 88, 0.1);
+    background-color: var(--color-green-a10);
     color: var(--color-green);
 }
 
 .q-phases__item.is-active {
-    background-color: rgba(41, 151, 255, 0.15);
+    background-color: var(--color-blue-a15);
     color: var(--color-blue);
     font-weight: 500;
 }
@@ -44,7 +44,7 @@
 .q-progress__bar {
     flex: 1;
     height: 4px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-white-a8);
     border-radius: 2px;
     overflow: hidden;
 }
@@ -85,21 +85,21 @@
     white-space: nowrap;
     padding: 4px 12px;
     border-radius: var(--border-radius-pill);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
     transition: color 0.3s, border-color 0.3s, background 0.3s;
 }
 
 .q-timer.is-warning {
     color: var(--color-orange);
-    border-color: rgba(255, 159, 10, 0.3);
-    background: rgba(255, 159, 10, 0.08);
+    border-color: var(--color-orange-a30);
+    background: var(--color-orange-a8);
 }
 
 .q-timer.is-danger {
     color: var(--color-red);
-    border-color: rgba(255, 69, 58, 0.3);
-    background: rgba(255, 69, 58, 0.08);
+    border-color: var(--color-red-a30);
+    background: var(--color-red-a8);
     animation: timer-pulse 1s ease infinite;
 }
 
@@ -191,8 +191,8 @@
     color: var(--color-gray-400);
     padding: 12px 16px;
     border-radius: var(--border-radius-sm);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a6);
 }
 
 /* --- Phase notes textarea --- */
@@ -203,8 +203,8 @@
     margin: 0 auto 28px;
     padding: 14px 16px;
     border-radius: var(--border-radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-white-a10);
+    background: var(--color-white-a4);
     color: var(--color-gray-200);
     font-family: var(--font-body);
     font-size: 14px;
@@ -219,8 +219,8 @@
 
 .q-phase-notes:focus {
     outline: none;
-    border-color: rgba(41, 151, 255, 0.4);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--color-blue-a40);
+    background: var(--color-white-a6);
 }
 
 /* --- Pause button --- */
@@ -232,7 +232,7 @@
     height: 30px;
     padding: 0;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-white-a8);
     background-color: transparent;
     color: var(--color-gray-500);
     cursor: pointer;
@@ -241,9 +241,9 @@
 }
 
 .btn-pause:hover {
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-white-a15);
     color: var(--color-gray-200);
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: var(--color-white-a6);
 }
 
 .btn-pause__play { display: none; }
@@ -261,7 +261,7 @@
     gap: 5px;
     padding: 4px 12px;
     border-radius: var(--border-radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-white-a8);
     background-color: transparent;
     color: var(--color-gray-500);
     font-family: var(--font-mono);
@@ -274,15 +274,15 @@
 }
 
 .btn-skip-section:hover {
-    border-color: rgba(59, 130, 246, 0.3);
+    border-color: var(--color-blue-a30);
     color: var(--color-blue);
-    background-color: rgba(59, 130, 246, 0.06);
+    background-color: var(--color-blue-a6);
 }
 
 /* --- Question card --- */
 .q-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
     border-radius: var(--border-radius-lg);
     padding: 40px;
     margin-bottom: 24px;
@@ -303,7 +303,7 @@
     letter-spacing: 0.08em;
     color: var(--color-blue);
     padding: 5px 12px;
-    background: rgba(41, 151, 255, 0.1);
+    background: var(--color-blue-a10);
     border-radius: var(--border-radius-pill);
 }
 
@@ -315,12 +315,12 @@
     border-radius: var(--border-radius-pill);
 }
 
-.q-card__level--intern   { background: rgba(90, 200, 250, 0.12); color: var(--color-teal); }
-.q-card__level--junior   { background: rgba(48, 209, 88, 0.12);  color: var(--color-green); }
-.q-card__level--middle   { background: rgba(255, 159, 10, 0.12); color: var(--color-orange); }
-.q-card__level--senior   { background: rgba(191, 90, 242, 0.12); color: var(--color-purple); }
-.q-card__level--lead     { background: rgba(255, 55, 95, 0.12);  color: var(--color-pink); }
-.q-card__level--staff    { background: rgba(255, 214, 10, 0.12); color: var(--color-yellow); }
+.q-card__level--intern   { background: var(--color-teal-a12); color: var(--color-teal); }
+.q-card__level--junior   { background: var(--color-green-a12);  color: var(--color-green); }
+.q-card__level--middle   { background: var(--color-orange-a12); color: var(--color-orange); }
+.q-card__level--senior   { background: var(--color-purple-a12); color: var(--color-purple); }
+.q-card__level--lead     { background: var(--color-pink-a12);  color: var(--color-pink); }
+.q-card__level--staff    { background: var(--color-yellow-a12); color: var(--color-yellow); }
 
 .q-card__question {
     font-family: var(--font-display);
@@ -334,15 +334,15 @@
 /* --- Code challenge topic tag --- */
 .q-card__topic--code {
     color: var(--color-purple);
-    background: rgba(191, 90, 242, 0.1);
+    background: var(--color-purple-a10);
 }
 
 /* --- Code block --- */
 .q-card__code {
     margin-top: 20px;
     border-radius: var(--border-radius-sm);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-white-a3);
+    border: 1px solid var(--color-white-a8);
     overflow: hidden;
 }
 
@@ -381,7 +381,7 @@
     align-items: center;
     gap: 8px;
     background: none;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-white-a10);
     color: var(--color-gray-400);
     font-family: var(--font-body);
     font-size: 13px;
@@ -394,9 +394,9 @@
 }
 
 .q-reveal__btn:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--color-white-a20);
     color: var(--color-gray-200);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-white-a4);
 }
 
 .q-reveal__btn svg {
@@ -441,8 +441,8 @@
 
 /* --- Star rating --- */
 .rating {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
     border-radius: var(--border-radius-lg);
     padding: 32px 40px;
     text-align: center;
@@ -467,8 +467,8 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-a10);
+    background: var(--color-white-a3);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -478,14 +478,14 @@
 }
 
 .rating__star.is-hovered {
-    border-color: rgba(255, 214, 10, 0.4);
-    background: rgba(255, 214, 10, 0.08);
+    border-color: var(--color-yellow-a40);
+    background: var(--color-yellow-a8);
     transform: scale(1.1);
 }
 
 .rating__star.is-active {
     border-color: var(--color-yellow);
-    background: rgba(255, 214, 10, 0.15);
+    background: var(--color-yellow-a15);
     color: var(--color-yellow);
 }
 
@@ -515,7 +515,7 @@
     gap: 6px;
     padding: 12px 24px;
     border-radius: var(--border-radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--color-white-a12);
     background: transparent;
     color: var(--color-gray-400);
     font-family: var(--font-display);
@@ -527,9 +527,9 @@
 }
 
 .rating__prev:hover {
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: var(--color-white-a25);
     color: var(--color-gray-200);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-white-a4);
 }
 
 .rating__prev svg {
@@ -580,7 +580,7 @@
     height: 30px;
     padding: 0;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-white-a8);
     background-color: transparent;
     color: var(--color-gray-500);
     cursor: pointer;
@@ -589,9 +589,9 @@
 }
 
 .btn-fullscreen:hover {
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-white-a15);
     color: var(--color-gray-200);
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: var(--color-white-a6);
 }
 
 .btn-fullscreen__collapse {
@@ -613,7 +613,7 @@
     gap: 5px;
     padding: 4px 12px;
     border-radius: var(--border-radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--color-white-a8);
     background-color: transparent;
     color: var(--color-gray-500);
     font-family: var(--font-mono);
@@ -626,7 +626,7 @@
 }
 
 .btn-end:hover {
-    border-color: rgba(255, 69, 58, 0.3);
+    border-color: var(--color-red-a30);
     color: var(--color-red);
-    background-color: rgba(255, 69, 58, 0.06);
+    background-color: var(--color-red-a6);
 }

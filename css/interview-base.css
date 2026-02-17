@@ -22,6 +22,63 @@
     --color-yellow: #ffd60a;
     --color-red: #ff453a;
 
+    /* Alpha palette — white (dark-theme surfaces & borders) */
+    --color-white-a2:  rgba(255, 255, 255, 0.02);
+    --color-white-a3:  rgba(255, 255, 255, 0.03);
+    --color-white-a4:  rgba(255, 255, 255, 0.04);
+    --color-white-a6:  rgba(255, 255, 255, 0.06);
+    --color-white-a8:  rgba(255, 255, 255, 0.08);
+    --color-white-a10: rgba(255, 255, 255, 0.10);
+    --color-white-a12: rgba(255, 255, 255, 0.12);
+    --color-white-a15: rgba(255, 255, 255, 0.15);
+    --color-white-a20: rgba(255, 255, 255, 0.20);
+    --color-white-a25: rgba(255, 255, 255, 0.25);
+
+    /* Alpha palette — black */
+    --color-black-a40: rgba(0, 0, 0, 0.40);
+    --color-black-a80: rgba(0, 0, 0, 0.80);
+
+    /* Alpha palette — blue */
+    --color-blue-a6:  rgba(41, 151, 255, 0.06);
+    --color-blue-a10: rgba(41, 151, 255, 0.10);
+    --color-blue-a12: rgba(41, 151, 255, 0.12);
+    --color-blue-a15: rgba(41, 151, 255, 0.15);
+    --color-blue-a20: rgba(41, 151, 255, 0.20);
+    --color-blue-a25: rgba(41, 151, 255, 0.25);
+    --color-blue-a30: rgba(41, 151, 255, 0.30);
+    --color-blue-a40: rgba(41, 151, 255, 0.40);
+
+    /* Alpha palette — green */
+    --color-green-a10: rgba(48, 209, 88, 0.10);
+    --color-green-a12: rgba(48, 209, 88, 0.12);
+    --color-green-a30: rgba(48, 209, 88, 0.30);
+
+    /* Alpha palette — yellow */
+    --color-yellow-a8:  rgba(255, 214, 10, 0.08);
+    --color-yellow-a12: rgba(255, 214, 10, 0.12);
+    --color-yellow-a15: rgba(255, 214, 10, 0.15);
+    --color-yellow-a40: rgba(255, 214, 10, 0.40);
+
+    /* Alpha palette — orange */
+    --color-orange-a8:  rgba(255, 159, 10, 0.08);
+    --color-orange-a12: rgba(255, 159, 10, 0.12);
+    --color-orange-a30: rgba(255, 159, 10, 0.30);
+
+    /* Alpha palette — red */
+    --color-red-a6:  rgba(255, 69, 58, 0.06);
+    --color-red-a8:  rgba(255, 69, 58, 0.08);
+    --color-red-a30: rgba(255, 69, 58, 0.30);
+
+    /* Alpha palette — purple */
+    --color-purple-a10: rgba(191, 90, 242, 0.10);
+    --color-purple-a12: rgba(191, 90, 242, 0.12);
+
+    /* Alpha palette — teal */
+    --color-teal-a12: rgba(90, 200, 250, 0.12);
+
+    /* Alpha palette — pink */
+    --color-pink-a12: rgba(255, 55, 95, 0.12);
+
     --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -63,7 +120,7 @@ body {
 }
 
 ::selection {
-    background: rgba(41, 151, 255, 0.3);
+    background: var(--color-blue-a30);
     color: inherit;
 }
 
@@ -104,10 +161,10 @@ body {
     right: 0;
     z-index: 100;
     height: var(--nav-height);
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--color-black-a80);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--color-white-a8);
 }
 
 .nav__inner {

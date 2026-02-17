@@ -27,7 +27,7 @@
     .q-timer { font-size: 12px; height: 28px; }
     .q-timer .btn-pause { width: 28px; }
     .q-progress__icons > button { width: 28px; height: 28px; }
-    .btn-skip-section, .btn-end { font-size: 11px; padding: 5px 10px; }
+    .btn-skip-section, .btn-end { font-size: 11px; height: 28px; padding: 0 10px; }
     .q-card__pre { padding: 16px 18px; }
     .q-card__pre code { font-size: 12px; }
     .q-intro, .q-wrapup { padding: 40px 20px; }

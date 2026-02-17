@@ -343,6 +343,29 @@
     background-color: var(--color-blue-a10);
 }
 
+/* --- Popout rating button --- */
+.btn-popout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid var(--color-white-a8);
+    background-color: transparent;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-popout:hover {
+    border-color: var(--color-blue-a30);
+    color: var(--color-blue);
+    background-color: var(--color-blue-a10);
+}
+
 /* --- Presenter mode: hide sensitive UI --- */
 .is-presenter .rating { display: none !important; }
 .is-presenter .q-reveal { display: none !important; }

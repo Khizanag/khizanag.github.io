@@ -64,11 +64,19 @@
     font-weight: 500;
 }
 
+/* --- Progress header (two rows) --- */
 .q-progress {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+/* Row 1: full-width progress bar + Q counter */
+.q-progress__track {
+    display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 32px;
+    gap: 12px;
 }
 
 .q-progress__bar {
@@ -88,9 +96,18 @@
 
 .q-progress__text {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 500;
     color: var(--color-gray-500);
     white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Row 2: toolbar controls */
+.q-progress__toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .q-interviewee {
@@ -101,9 +118,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 160px;
+    max-width: 180px;
+    margin-right: auto;
 }
 
+/* --- Timer pill with integrated pause --- */
 .q-timer {
     display: inline-flex;
     align-items: center;
@@ -113,11 +132,34 @@
     font-weight: 500;
     color: var(--color-gray-400);
     white-space: nowrap;
-    padding: 4px 12px;
+    padding: 0 0 0 10px;
+    height: 32px;
     border-radius: var(--border-radius-pill);
     background: var(--color-white-a4);
     border: 1px solid var(--color-white-a8);
+    overflow: hidden;
     transition: color 0.3s, border-color 0.3s, background 0.3s;
+}
+
+.q-timer .btn-pause {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 100%;
+    padding: 0;
+    border: none;
+    border-left: 1px solid var(--color-white-a8);
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    margin-left: 6px;
+    transition: background 0.2s;
+}
+
+.q-timer .btn-pause:hover {
+    background: var(--color-white-a8);
 }
 
 .q-timer.is-warning {
@@ -136,6 +178,49 @@
 @keyframes timer-pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.6; }
+}
+
+/* --- Icon button group --- */
+.q-progress__icons {
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid var(--color-white-a8);
+    overflow: hidden;
+}
+
+.q-progress__icons > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.2s var(--ease-smooth);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.q-progress__icons > button:not(:first-child) {
+    border-left: 1px solid var(--color-white-a8);
+}
+
+.q-progress__icons > button[style*="display: none"] + button,
+.q-progress__icons > button[style*="display:none"] + button {
+    border-left: none;
+}
+
+.q-progress__icons > button:hover {
+    background: var(--color-white-a6);
+    color: var(--color-gray-200);
+}
+
+.q-progress__icons .btn-presenter.is-active {
+    background: var(--color-blue-a10);
+    color: var(--color-blue);
 }
 
 /* --- Introduction overlay --- */
@@ -279,29 +364,7 @@
     transform: scale(1.04);
 }
 
-/* --- Pause button --- */
-.btn-pause {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 8px;
-    border: 1px solid var(--color-white-a8);
-    background-color: transparent;
-    color: var(--color-gray-500);
-    cursor: pointer;
-    transition: all 0.25s var(--ease-smooth);
-    -webkit-tap-highlight-color: transparent;
-}
-
-.btn-pause:hover {
-    border-color: var(--color-white-a15);
-    color: var(--color-gray-200);
-    background-color: var(--color-white-a6);
-}
-
+/* --- Pause icon toggle --- */
 .btn-pause__play { display: none; }
 .btn-pause.is-paused .btn-pause__pause { display: none; }
 .btn-pause.is-paused .btn-pause__play { display: block; }
@@ -310,61 +373,10 @@
     opacity: 0.5;
 }
 
-/* --- Presenter mode button --- */
-.btn-presenter {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 8px;
-    border: 1px solid var(--color-white-a8);
-    background-color: transparent;
-    color: var(--color-gray-500);
-    cursor: pointer;
-    transition: all 0.25s var(--ease-smooth);
-    -webkit-tap-highlight-color: transparent;
-}
-
-.btn-presenter:hover {
-    border-color: var(--color-white-a15);
-    color: var(--color-gray-200);
-    background-color: var(--color-white-a6);
-}
-
+/* --- Presenter icon toggle --- */
 .btn-presenter__on { display: none; }
 .btn-presenter.is-active .btn-presenter__off { display: none; }
 .btn-presenter.is-active .btn-presenter__on { display: block; }
-
-.btn-presenter.is-active {
-    border-color: var(--color-blue-a30);
-    color: var(--color-blue);
-    background-color: var(--color-blue-a10);
-}
-
-/* --- Popout rating button --- */
-.btn-popout {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 8px;
-    border: 1px solid var(--color-white-a8);
-    background-color: transparent;
-    color: var(--color-gray-500);
-    cursor: pointer;
-    transition: all 0.25s var(--ease-smooth);
-    -webkit-tap-highlight-color: transparent;
-}
-
-.btn-popout:hover {
-    border-color: var(--color-blue-a30);
-    color: var(--color-blue);
-    background-color: var(--color-blue-a10);
-}
 
 /* --- Presenter mode: hide sensitive UI --- */
 .is-presenter .rating { display: none !important; }
@@ -377,13 +389,13 @@
 .btn-skip-section {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 4px 12px;
+    gap: 4px;
+    padding: 6px 12px;
     border-radius: var(--border-radius-pill);
     border: 1px solid var(--color-white-a8);
     background-color: transparent;
     color: var(--color-gray-500);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
@@ -690,52 +702,22 @@
     height: 16px;
 }
 
-/* --- Fullscreen button --- */
-.btn-fullscreen {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    border-radius: 8px;
-    border: 1px solid var(--color-white-a8);
-    background-color: transparent;
-    color: var(--color-gray-500);
-    cursor: pointer;
-    transition: all 0.25s var(--ease-smooth);
-    -webkit-tap-highlight-color: transparent;
-}
+/* --- Fullscreen icon toggle --- */
+.btn-fullscreen__collapse { display: none; }
+.is-fullscreen .btn-fullscreen__expand { display: none; }
+.is-fullscreen .btn-fullscreen__collapse { display: block; }
 
-.btn-fullscreen:hover {
-    border-color: var(--color-white-a15);
-    color: var(--color-gray-200);
-    background-color: var(--color-white-a6);
-}
-
-.btn-fullscreen__collapse {
-    display: none;
-}
-
-.is-fullscreen .btn-fullscreen__expand {
-    display: none;
-}
-
-.is-fullscreen .btn-fullscreen__collapse {
-    display: block;
-}
-
-/* --- End interview button (inline with progress bar) --- */
+/* --- End interview button --- */
 .btn-end {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 4px 12px;
+    gap: 4px;
+    padding: 6px 12px;
     border-radius: var(--border-radius-pill);
     border: 1px solid var(--color-white-a8);
     background-color: transparent;
     color: var(--color-gray-500);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;

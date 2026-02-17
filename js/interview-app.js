@@ -52,6 +52,7 @@
         d.btnSkipIntro = document.getElementById('btnSkipIntro');
         d.qIntro = document.getElementById('qIntro');
         d.qWrapup = document.getElementById('qWrapup');
+        d.qLiveCoding = document.getElementById('qLiveCoding');
         d.introNotes = document.getElementById('introNotes');
         d.wrapupNotes = document.getElementById('wrapupNotes');
         d.qCard = document.querySelector('.q-card');
@@ -88,11 +89,13 @@
         var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
         var isIntro = phaseId === 'intro';
         var isWrapup = phaseId === 'wrapup';
-        var isOverlay = isIntro || isWrapup;
+        var isLive = phaseId === 'live';
+        var isOverlay = isIntro || isWrapup || isLive;
         var isLast = App.isLastPhase ? App.isLastPhase() : true;
 
         dom.qIntro.style.display = isIntro ? '' : 'none';
         dom.qWrapup.style.display = isWrapup ? '' : 'none';
+        dom.qLiveCoding.style.display = isLive ? '' : 'none';
         dom.qCard.style.display = isOverlay ? 'none' : '';
         dom.qRating.style.display = isOverlay ? 'none' : '';
 
@@ -312,9 +315,11 @@
             dom.allStars.forEach(function (st, i) {
                 st.classList.toggle('is-hovered', i < hoverValue);
             });
+            dom.ratingDesc.textContent = App.RATING_LABELS[hoverValue];
         });
         dom.ratingStars.addEventListener('mouseleave', function () {
             dom.allStars.forEach(function (st) { st.classList.remove('is-hovered'); });
+            dom.ratingDesc.textContent = s.currentRating > 0 ? App.RATING_LABELS[s.currentRating] : '';
         });
         dom.ratingStars.addEventListener('click', function (e) {
             var star = e.target.closest('.rating__star');
@@ -425,7 +430,23 @@
         dom.btnSkipSection.addEventListener('click', function () {
             if (!confirm('Skip to the next section?')) return;
             App.skipToNextPhase();
+            // Generate a new question matching the new phase
+            var newPhaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
+            if (newPhaseId === 'theory' || newPhaseId === 'code') {
+                if (s.currentRating > 0) {
+                    s.ratings.push(s.currentRating);
+                    s.currentQ++;
+                }
+                var nextQ = pickNextQuestion();
+                if (s.currentQ >= s.sessionQuestions.length) {
+                    s.sessionQuestions.push(nextQ);
+                } else {
+                    s.sessionQuestions[s.currentQ] = nextQ;
+                }
+                App.displayQuestion(s.currentQ);
+            }
             App.updatePhaseUI();
+            App.saveSession();
         });
 
         // Skip intro (same as skip section)

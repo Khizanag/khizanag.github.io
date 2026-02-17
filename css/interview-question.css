@@ -169,6 +169,32 @@
     margin-bottom: 32px;
 }
 
+/* --- Live coding overlay --- */
+.q-livecoding {
+    text-align: center;
+    padding: 60px 32px;
+    margin-bottom: 32px;
+}
+
+.q-livecoding__tips {
+    max-width: 440px;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.q-livecoding__tip {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-gray-400);
+    padding: 12px 16px;
+    border-radius: var(--border-radius-sm);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 /* --- Phase notes textarea --- */
 .q-phase-notes {
     display: block;

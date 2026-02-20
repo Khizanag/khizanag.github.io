@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/interview-setup.css">
     <link rel="stylesheet" href="css/interview-question.css">
     <link rel="stylesheet" href="css/interview-results.css">
+    <link rel="stylesheet" href="css/interview-bank.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -132,6 +133,13 @@
             </button>
         </div>
         <p class="setup__validation" id="validationHint">Enter both participant names to begin</p>
+
+        <div style="text-align:center; margin-top:16px;">
+            <button class="btn-browse" id="btnBrowse">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Browse Question Bank
+            </button>
+        </div>
 
         <div class="setup__section history-section" id="historySection" style="display:none">
             <p class="setup__label">
@@ -499,6 +507,78 @@
 </main>
 
 <!-- ==========================================
+     QUESTION BANK SCREEN
+     ========================================== -->
+<main class="screen" id="screen-bank">
+    <div class="container">
+        <button class="bank__back" id="bankBack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+        </button>
+
+        <div class="bank__header">
+            <h1 class="bank__title">Question Bank</h1>
+            <p class="bank__subtitle">Browse, search, and filter all interview questions</p>
+        </div>
+
+        <div class="bank__search-wrap">
+            <svg class="bank__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="bank__search" id="bankSearch" placeholder="Search questions, hints, answers..." autocomplete="off" spellcheck="false">
+            <button class="bank__search-clear" id="bankSearchClear" aria-label="Clear search">&times;</button>
+        </div>
+
+        <div class="bank__filters">
+            <div class="bank__filter-row">
+                <span class="bank__filter-label">Level</span>
+                <div class="bank__filter-pills" id="bankLevelPills">
+                    <button class="bank__pill bank__pill--intern" data-level="0">Intern</button>
+                    <button class="bank__pill bank__pill--junior" data-level="1">Junior</button>
+                    <button class="bank__pill bank__pill--middle" data-level="2">Middle</button>
+                    <button class="bank__pill bank__pill--senior" data-level="3">Senior</button>
+                    <button class="bank__pill bank__pill--lead" data-level="4">Lead</button>
+                    <button class="bank__pill bank__pill--staff" data-level="5">Staff</button>
+                </div>
+            </div>
+            <div class="bank__filter-row">
+                <span class="bank__filter-label">Status</span>
+                <div class="bank__filter-pills" id="bankStatusPills">
+                    <button class="bank__pill bank__pill--fav" data-status="favorites">Favorites</button>
+                    <button class="bank__pill bank__pill--blocked" data-status="blacklisted">Blacklisted</button>
+                </div>
+            </div>
+            <div class="bank__filter-row">
+                <span class="bank__filter-label">Topic</span>
+                <div class="bank__filter-pills" id="bankTopicPills"></div>
+            </div>
+        </div>
+
+        <div class="bank__toolbar">
+            <div class="bank__count" id="bankCount"></div>
+            <div class="bank__sort">
+                <span class="bank__sort-label">Sort:</span>
+                <select class="bank__sort-select" id="bankSort">
+                    <option value="topic-asc">Topic A-Z</option>
+                    <option value="level-asc">Easiest first</option>
+                    <option value="level-desc">Hardest first</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="bank__list" id="bankList"></div>
+
+        <div class="bank__empty" id="bankEmpty" style="display:none">
+            <div class="bank__empty-icon">🔍</div>
+            <div class="bank__empty-title">No questions found</div>
+            <div class="bank__empty-text">Try adjusting your search or filters</div>
+        </div>
+
+        <div class="bank__load-more" id="bankLoadMore" style="display:none">
+            <button class="bank__load-btn" id="bankLoadBtn">Show More</button>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
      SCRIPTS
      ========================================== -->
 <script src="js/questions.js"></script>
@@ -513,5 +593,6 @@
 <script src="js/interview-results.js"></script>
 <script src="js/interview-history.js"></script>
 <script src="js/interview-app.js"></script>
+<script src="js/interview-bank.js"></script>
 </body>
 </html>

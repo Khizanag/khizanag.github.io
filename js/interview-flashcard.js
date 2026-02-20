@@ -13,6 +13,14 @@
         try { localStorage.setItem(SR_KEY, JSON.stringify(data)); } catch (e) { /* */ }
     }
 
+    function saveSREntryToCloud(qid, cardData) {
+        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+            // Hash the question ID to make it a valid Firestore doc ID
+            var hashedId = qid.replace(/[\/\.#\$\[\]]/g, '_').substring(0, 200);
+            window.FirebaseService.saveSREntry(hashedId, cardData);
+        }
+    }
+
     function loadStreak() {
         try {
             var raw = localStorage.getItem(STREAK_KEY);
@@ -23,6 +31,10 @@
 
     function saveStreak(data) {
         try { localStorage.setItem(STREAK_KEY, JSON.stringify(data)); } catch (e) { /* */ }
+        // Dual-write to Firestore
+        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+            window.FirebaseService.saveStreak(data);
+        }
     }
 
     function todayStr() {
@@ -203,15 +215,17 @@
 
         var newInterval = ease === 'again' ? intervals.again : Math.max(intervals[ease], (existing.interval || intervals[ease]) * multiplier);
 
-        sr[qid] = {
+        var cardData = {
             ease: ease,
             reviews: (existing.reviews || 0) + 1,
             lastReview: now,
             nextReview: now + newInterval,
             interval: newInterval,
         };
+        sr[qid] = cardData;
 
         saveSR(sr);
+        saveSREntryToCloud(qid, cardData);
         fc.results[ease]++;
         fc.results.total++;
         fc.index++;

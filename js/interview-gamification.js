@@ -43,6 +43,10 @@
 
     function saveData(data) {
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) { /* */ }
+        // Dual-write to Firestore
+        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+            window.FirebaseService.saveGamification(data);
+        }
     }
 
     // ---- XP & Level calculation ----

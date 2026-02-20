@@ -12,6 +12,18 @@
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch (e) { /* */ }
     }
 
+    function saveCustomToCloud(question) {
+        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+            window.FirebaseService.saveCustomQuestion(question);
+        }
+    }
+
+    function deleteCustomFromCloud(questionId) {
+        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+            window.FirebaseService.deleteCustomQuestion(questionId);
+        }
+    }
+
     function escapeHtml(text) {
         return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
@@ -164,11 +176,12 @@
                     custom[i].code = code;
                     custom[i].topic = topic;
                     custom[i].level = level;
+                    saveCustomToCloud(custom[i]);
                     break;
                 }
             }
         } else {
-            custom.push({
+            var newQ = {
                 id: 'cq-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6),
                 platform: App.state.platform,
                 topic: topic,
@@ -177,7 +190,9 @@
                 hint: hint,
                 answer: answer,
                 code: code,
-            });
+            };
+            custom.push(newQ);
+            saveCustomToCloud(newQ);
         }
 
         saveCustom(custom);
@@ -191,6 +206,7 @@
         var custom = loadCustom();
         custom = custom.filter(function (q) { return q.id !== id; });
         saveCustom(custom);
+        deleteCustomFromCloud(id);
         injectCustomQuestions();
         renderList();
     }

@@ -1396,11 +1396,239 @@
     }
 
     // ===========================================================
+    //  AUTH SCREEN BINDINGS
+    // ===========================================================
+
+    function bindAuthEvents() {
+        var authMode = 'signin';
+
+        // Tab switching
+        var tabSignIn = document.getElementById('authTabSignIn');
+        var tabSignUp = document.getElementById('authTabSignUp');
+        var nameField = document.getElementById('authNameField');
+        var submitBtn = document.getElementById('authSubmitBtn');
+        var errorEl = document.getElementById('authError');
+
+        function setAuthMode(mode) {
+            authMode = mode;
+            tabSignIn.classList.toggle('is-active', mode === 'signin');
+            tabSignUp.classList.toggle('is-active', mode === 'signup');
+            nameField.style.display = mode === 'signup' ? '' : 'none';
+            submitBtn.textContent = mode === 'signup' ? 'Create Account' : 'Sign In';
+            errorEl.classList.remove('is-visible');
+        }
+
+        tabSignIn.addEventListener('click', function () { setAuthMode('signin'); });
+        tabSignUp.addEventListener('click', function () { setAuthMode('signup'); });
+
+        function showAuthError(msg) {
+            errorEl.textContent = msg;
+            errorEl.classList.add('is-visible');
+        }
+
+        // Google sign in
+        document.getElementById('authGoogleBtn').addEventListener('click', function () {
+            if (!window.FirebaseService) { showAuthError('Firebase not loaded yet. Please wait.'); return; }
+            errorEl.classList.remove('is-visible');
+            window.FirebaseService.signInWithGoogle().catch(function (err) {
+                if (err.code !== 'auth/popup-closed-by-user') {
+                    showAuthError(err.message || 'Google sign-in failed');
+                }
+            });
+        });
+
+        // Email form
+        document.getElementById('authForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!window.FirebaseService) { showAuthError('Firebase not loaded yet. Please wait.'); return; }
+            errorEl.classList.remove('is-visible');
+            var email = document.getElementById('authEmail').value.trim();
+            var password = document.getElementById('authPassword').value;
+            var name = document.getElementById('authName').value.trim();
+
+            if (!email || !password) { showAuthError('Email and password are required.'); return; }
+
+            submitBtn.disabled = true;
+            var promise;
+            if (authMode === 'signup') {
+                if (password.length < 6) { showAuthError('Password must be at least 6 characters.'); submitBtn.disabled = false; return; }
+                promise = window.FirebaseService.signUpWithEmail(email, password, name);
+            } else {
+                promise = window.FirebaseService.signInWithEmail(email, password);
+            }
+
+            promise.then(function () {
+                submitBtn.disabled = false;
+            }).catch(function (err) {
+                submitBtn.disabled = false;
+                var msg = err.message || 'Authentication failed';
+                if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+                    msg = 'Invalid email or password.';
+                } else if (err.code === 'auth/email-already-in-use') {
+                    msg = 'An account with this email already exists.';
+                } else if (err.code === 'auth/invalid-email') {
+                    msg = 'Please enter a valid email address.';
+                }
+                showAuthError(msg);
+            });
+        });
+
+        // Guest
+        document.getElementById('authGuestBtn').addEventListener('click', function () {
+            if (window.FirebaseService) {
+                window.FirebaseService.continueAsGuest();
+            } else {
+                // Firebase not loaded yet — proceed as guest anyway
+                proceedToSetup(null);
+            }
+        });
+
+        // Sign out from nav
+        document.getElementById('navSignOut').addEventListener('click', function () {
+            if (window.FirebaseService) {
+                window.FirebaseService.signOut();
+            }
+        });
+    }
+
+    // ===========================================================
+    //  NAV PROFILE WIDGET
+    // ===========================================================
+
+    function updateNavProfile(user) {
+        var navUser = document.getElementById('navUser');
+        var avatarEl = document.getElementById('navUserAvatar');
+        var nameEl = document.getElementById('navUserName');
+
+        if (user) {
+            navUser.classList.add('is-visible');
+            nameEl.textContent = user.displayName || user.email || '';
+            if (user.photoURL) {
+                var img = document.createElement('img');
+                img.className = 'nav__user-avatar';
+                img.src = user.photoURL;
+                img.alt = 'Avatar';
+                img.referrerPolicy = 'no-referrer';
+                avatarEl.replaceWith(img);
+            } else {
+                var initials = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+                avatarEl.textContent = initials;
+            }
+        } else {
+            navUser.classList.remove('is-visible');
+        }
+    }
+
+    // ===========================================================
+    //  INIT FLOW
+    // ===========================================================
+
+    function proceedToSetup(cloudData) {
+        // Merge cloud data into localStorage if available
+        if (cloudData) {
+            if (cloudData.history && cloudData.history.length > 0) {
+                try {
+                    var localHistory = [];
+                    var rawH = localStorage.getItem('ios-interview-history');
+                    if (rawH) localHistory = JSON.parse(rawH) || [];
+                    // Merge: cloud entries not in local by id
+                    var localIds = {};
+                    localHistory.forEach(function (h) { localIds[h.id] = true; });
+                    cloudData.history.forEach(function (h) {
+                        if (!localIds[h.id]) localHistory.push(h);
+                    });
+                    localHistory.sort(function (a, b) {
+                        return new Date(b.date) - new Date(a.date);
+                    });
+                    localStorage.setItem('ios-interview-history', JSON.stringify(localHistory.slice(0, 50)));
+                } catch (e) { /* */ }
+            }
+
+            if (cloudData.gamification) {
+                try {
+                    var local = localStorage.getItem('ios-interview-gamification');
+                    var localData = local ? JSON.parse(local) : null;
+                    // Use whichever has more XP
+                    if (!localData || cloudData.gamification.xp > (localData.xp || 0)) {
+                        localStorage.setItem('ios-interview-gamification', JSON.stringify(cloudData.gamification));
+                    }
+                } catch (e) { /* */ }
+            }
+
+            if (cloudData.sr && Object.keys(cloudData.sr).length > 0) {
+                try {
+                    var localSR = {};
+                    var rawSR = localStorage.getItem('ios-interview-sr');
+                    if (rawSR) localSR = JSON.parse(rawSR) || {};
+                    // Merge: use whichever has more recent lastReview
+                    for (var key in cloudData.sr) {
+                        if (!localSR[key] || (cloudData.sr[key].lastReview > (localSR[key].lastReview || 0))) {
+                            localSR[key] = cloudData.sr[key];
+                        }
+                    }
+                    localStorage.setItem('ios-interview-sr', JSON.stringify(localSR));
+                } catch (e) { /* */ }
+            }
+
+            if (cloudData.streak) {
+                try {
+                    var localStreak = {};
+                    var rawStreak = localStorage.getItem('ios-interview-streak');
+                    if (rawStreak) localStreak = JSON.parse(rawStreak) || {};
+                    if (!localStreak.lastDate || cloudData.streak.lastDate >= localStreak.lastDate) {
+                        localStorage.setItem('ios-interview-streak', JSON.stringify(cloudData.streak));
+                    }
+                } catch (e) { /* */ }
+            }
+
+            if (cloudData.customQuestions && cloudData.customQuestions.length > 0) {
+                try {
+                    var localCQ = [];
+                    var rawCQ = localStorage.getItem('interview-custom-questions');
+                    if (rawCQ) localCQ = JSON.parse(rawCQ) || [];
+                    var localCQIds = {};
+                    localCQ.forEach(function (q) { localCQIds[q.id] = true; });
+                    cloudData.customQuestions.forEach(function (q) {
+                        if (!localCQIds[q.id]) localCQ.push(q);
+                    });
+                    localStorage.setItem('interview-custom-questions', JSON.stringify(localCQ));
+                } catch (e) { /* */ }
+            }
+        }
+
+        initApp();
+    }
+
+    function initApp() {
+        // Restore saved platform and render dynamic topics
+        var savedPlatform;
+        try { savedPlatform = localStorage.getItem(App.PLATFORM_KEY); } catch (e) { /* */ }
+        switchPlatform(savedPlatform && App.PLATFORMS[savedPlatform] ? savedPlatform : 'ios');
+
+        var restored = App.restoreSession();
+        if (!restored) {
+            selectAllTopics();
+            // Restore cached interviewer name
+            try {
+                var cachedName = localStorage.getItem(INTERVIEWER_KEY);
+                if (cachedName) {
+                    s.interviewerName = cachedName;
+                    dom.interviewerInput.value = cachedName;
+                }
+            } catch (e) { /* */ }
+        }
+        updateStartButton();
+        App.renderHistory();
+        App.showScreen('screen-setup');
+    }
+
+    // ===========================================================
     //  INIT
     // ===========================================================
 
     initDom();
     bindEvents();
+    bindAuthEvents();
     App.initPlan();
 
     // Theme toggle
@@ -1409,28 +1637,66 @@
         try { localStorage.setItem('ios-interview-theme', isLight ? 'light' : 'dark'); } catch (e) { /* */ }
     });
 
-    // Restore saved platform and render dynamic topics
-    var savedPlatform;
-    try { savedPlatform = localStorage.getItem(App.PLATFORM_KEY); } catch (e) { /* */ }
-    switchPlatform(savedPlatform && App.PLATFORMS[savedPlatform] ? savedPlatform : 'ios');
-
-    var restored = App.restoreSession();
-    if (!restored) {
-        selectAllTopics();
-        // Restore cached interviewer name
-        try {
-            var cachedName = localStorage.getItem(INTERVIEWER_KEY);
-            if (cachedName) {
-                s.interviewerName = cachedName;
-                dom.interviewerInput.value = cachedName;
-            }
-        } catch (e) { /* */ }
-    }
-    updateStartButton();
-    App.renderHistory();
-
     // Expose functions for templates module
     App.renderTopicChips = renderTopicChips;
     App.updateUI = updateStartButton;
+
+    // Show loading state
+    var authLoading = document.getElementById('authLoading');
+    var authFormArea = document.getElementById('authFormArea');
+    authLoading.classList.add('is-visible');
+    authFormArea.classList.add('is-hidden');
+
+    // Listen for auth state changes
+    var authResolved = false;
+    document.addEventListener('firebase:authchange', function (e) {
+        var user = e.detail.user;
+        var isGuest = e.detail.isGuest;
+
+        authLoading.classList.remove('is-visible');
+        authFormArea.classList.remove('is-hidden');
+
+        if (user) {
+            updateNavProfile(user);
+            // Load cloud data then proceed
+            if (window.FirebaseService && window.FirebaseService.loadAllUserData) {
+                window.FirebaseService.loadAllUserData().then(function (data) {
+                    if (!authResolved) {
+                        authResolved = true;
+                        proceedToSetup(data);
+                    }
+                }).catch(function () {
+                    if (!authResolved) {
+                        authResolved = true;
+                        proceedToSetup(null);
+                    }
+                });
+            } else {
+                if (!authResolved) {
+                    authResolved = true;
+                    proceedToSetup(null);
+                }
+            }
+        } else if (isGuest) {
+            updateNavProfile(null);
+            if (!authResolved) {
+                authResolved = true;
+                proceedToSetup(null);
+            }
+        } else {
+            // Signed out — return to auth screen
+            updateNavProfile(null);
+            authResolved = false;
+            App.showScreen('screen-auth');
+        }
+    });
+
+    // Fallback: if Firebase module fails to load, allow guest access after timeout
+    setTimeout(function () {
+        if (!authResolved && !window.FirebaseService) {
+            authLoading.classList.remove('is-visible');
+            authFormArea.classList.remove('is-hidden');
+        }
+    }, 3000);
 
 })(InterviewApp);

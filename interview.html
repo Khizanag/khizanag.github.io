@@ -55,9 +55,35 @@
 <main class="screen is-active" id="screen-setup">
     <div class="container">
         <div class="setup__header">
-            <div class="setup__icon" aria-hidden="true">🎯</div>
-            <h1 class="setup__title">iOS Interview</h1>
-            <p class="setup__subtitle">Adaptive questioning that adjusts difficulty in real time. Assess developer knowledge from fundamentals to system design.</p>
+            <div class="setup__icon" aria-hidden="true" id="setupIcon">🎯</div>
+            <h1 class="setup__title" id="setupTitle">iOS Interview</h1>
+            <p class="setup__subtitle" id="setupSubtitle">Adaptive questioning that adjusts difficulty in real time. Assess developer knowledge from fundamentals to system design.</p>
+        </div>
+
+        <div class="setup__section">
+            <p class="setup__label">Platform</p>
+            <div class="platform-selector" id="platformSelector">
+                <button class="platform-selector__btn is-active" data-platform="ios">
+                    <span class="platform-selector__icon">🍏</span>
+                    <span class="platform-selector__name">iOS / Swift</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="android">
+                    <span class="platform-selector__icon">🤖</span>
+                    <span class="platform-selector__name">Android / Kotlin</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="frontend">
+                    <span class="platform-selector__icon">🌐</span>
+                    <span class="platform-selector__name">Frontend / Web</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="backend">
+                    <span class="platform-selector__icon">⚙️</span>
+                    <span class="platform-selector__name">Backend</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="behavioral">
+                    <span class="platform-selector__icon">🧠</span>
+                    <span class="platform-selector__name">Behavioral</span>
+                </button>
+            </div>
         </div>
 
         <div class="setup__section">
@@ -83,30 +109,7 @@
                 <div class="setup__fold-actions">
                     <button class="setup__label-action" id="btnToggleAll">Clear All</button>
                 </div>
-                <div class="setup__topics" id="topicGrid">
-                <button class="topic-chip" data-topic="swift">Swift Language</button>
-                <button class="topic-chip" data-topic="swiftui">SwiftUI</button>
-                <button class="topic-chip" data-topic="observation">Observation Framework</button>
-                <button class="topic-chip" data-topic="uikit">UIKit</button>
-                <button class="topic-chip" data-topic="combine">Combine</button>
-                <button class="topic-chip" data-topic="concurrency">Concurrency</button>
-                <button class="topic-chip" data-topic="architecture">Architecture & Patterns</button>
-                <button class="topic-chip" data-topic="di">Dependency Injection</button>
-                <button class="topic-chip" data-topic="testing">Unit Testing</button>
-                <button class="topic-chip" data-topic="ui-testing">UI Testing</button>
-                <button class="topic-chip" data-topic="snapshot-testing">Snapshot Testing</button>
-                <button class="topic-chip" data-topic="swiftdata">SwiftData</button>
-                <button class="topic-chip" data-topic="coredata">Core Data</button>
-                <button class="topic-chip" data-topic="persistence">Data Persistence</button>
-                <button class="topic-chip" data-topic="memory">Memory Management</button>
-                <button class="topic-chip" data-topic="networking">Networking</button>
-                <button class="topic-chip" data-topic="performance">Performance</button>
-                <button class="topic-chip" data-topic="lifecycle">App Lifecycle</button>
-                <button class="topic-chip" data-topic="security">Security</button>
-                <button class="topic-chip" data-topic="accessibility">Accessibility</button>
-                <button class="topic-chip" data-topic="cicd">CI/CD & Tools</button>
-                <button class="topic-chip" data-topic="system-design">System Design</button>
-                </div>
+                <div class="setup__topics" id="topicGrid"></div>
             </div>
         </div>
 
@@ -824,7 +827,7 @@
                             <span class="fc__card-level" id="fcCardLevel"></span>
                         </div>
                         <div class="fc__card-question" id="fcCardQuestion"></div>
-                        <div class="fc__card-flip-hint">Tap or press Space to reveal answer</div>
+                        <div class="fc__card-flip-hint">Tap or press Space to see hint</div>
                     </div>
 
                     <div class="fc__card-face fc__card-back">
@@ -833,10 +836,19 @@
                             <div class="fc__card-hint-label">Hint</div>
                             <div class="fc__card-hint-text" id="fcHintText"></div>
                         </div>
-                        <div class="fc__card-answer-label">Answer</div>
-                        <div class="fc__card-answer-text" id="fcAnswerText"></div>
-                        <div id="fcCardCode" style="display:none; margin-top:16px;">
-                            <div class="bank__detail-code"><pre class="q-card__pre"><code id="fcCodeContent"></code></pre></div>
+                        <div class="fc__reveal-answer-wrap" id="fcRevealWrap">
+                            <p class="fc__reveal-prompt">Take a moment to think with the hint above, then reveal the answer.</p>
+                            <button class="fc__reveal-btn" id="fcRevealBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                Reveal Answer
+                            </button>
+                        </div>
+                        <div id="fcAnswerSection" style="display:none">
+                            <div class="fc__card-answer-label">Answer</div>
+                            <div class="fc__card-answer-text" id="fcAnswerText"></div>
+                            <div id="fcCardCode" style="display:none; margin-top:16px;">
+                                <div class="bank__detail-code"><pre class="q-card__pre"><code id="fcCodeContent"></code></pre></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1042,6 +1054,10 @@
      SCRIPTS
      ========================================== -->
 <script src="js/questions.js"></script>
+<script src="js/questions-android.js"></script>
+<script src="js/questions-frontend.js"></script>
+<script src="js/questions-backend.js"></script>
+<script src="js/questions-behavioral.js"></script>
 <script src="js/live-coding-easy-medium.js"></script>
 <script src="js/live-coding-hard-expert.js"></script>
 <script src="js/live-coding-questions.js"></script>

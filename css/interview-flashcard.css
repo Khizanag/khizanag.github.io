@@ -275,6 +275,57 @@
     flex: 1;
 }
 
+/* --- Reveal answer button --- */
+.fc__reveal-answer-wrap {
+    text-align: center;
+    padding: 20px 0;
+    margin: 12px 0;
+    border-top: 1px dashed var(--color-white-a10);
+}
+
+.fc__reveal-prompt {
+    font-size: 13px;
+    color: var(--color-gray-500);
+    font-weight: 300;
+    margin-bottom: 14px;
+    font-style: italic;
+}
+
+.fc__reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-pill);
+    border: 1.5px solid var(--color-green-a30);
+    background: var(--color-green-a10);
+    color: var(--color-green);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+}
+
+.fc__reveal-btn:hover {
+    background: var(--color-green-a20);
+    border-color: var(--color-green);
+    transform: scale(1.04);
+}
+
+.fc__reveal-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- No-hint back: when question has no hint --- */
+.fc__no-hint-msg {
+    font-size: 13px;
+    color: var(--color-gray-500);
+    font-style: italic;
+    padding: 8px 0 12px;
+}
+
 /* --- Self-rating buttons --- */
 .fc__rating {
     display: flex;

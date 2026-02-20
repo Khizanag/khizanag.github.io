@@ -62,6 +62,7 @@
         deck: [],
         index: 0,
         flipped: false,
+        answerRevealed: false,
         results: { again: 0, hard: 0, good: 0, easy: 0, total: 0 },
     };
 
@@ -70,8 +71,9 @@
         var now = Date.now();
         var pool = [];
 
-        for (var i = 0; i < QUESTION_BANK.length; i++) {
-            var q = QUESTION_BANK[i];
+        var bank = App.getQuestionBank();
+        for (var i = 0; i < bank.length; i++) {
+            var q = bank[i];
             if (fc.topics.length > 0 && fc.topics.indexOf(q.topic) === -1) continue;
             if (fc.levels.length > 0 && fc.levels.indexOf(q.level) === -1) continue;
 
@@ -124,11 +126,18 @@
             '<span class="fc__card-level bank__item-level--' + levelName + '">' + escapeHtml(levelLabel) + '</span>';
 
         var hintArea = document.getElementById('fcCardHint');
+        var revealWrap = document.getElementById('fcRevealWrap');
+        var answerSection = document.getElementById('fcAnswerSection');
+
         if (q.hint) {
             hintArea.style.display = '';
             document.getElementById('fcHintText').textContent = q.hint;
+            revealWrap.style.display = '';
+            answerSection.style.display = 'none';
         } else {
             hintArea.style.display = 'none';
+            revealWrap.style.display = 'none';
+            answerSection.style.display = '';
         }
 
         document.getElementById('fcAnswerText').textContent = q.answer;
@@ -142,6 +151,7 @@
         }
 
         fc.flipped = false;
+        fc.answerRevealed = false;
         document.getElementById('fcCard').classList.remove('is-flipped');
 
         var pct = (fc.index / fc.deck.length) * 100;
@@ -151,11 +161,21 @@
         document.getElementById('fcRating').style.display = 'none';
     }
 
+    function revealAnswer() {
+        fc.answerRevealed = true;
+        document.getElementById('fcRevealWrap').style.display = 'none';
+        document.getElementById('fcAnswerSection').style.display = '';
+        document.getElementById('fcRating').style.display = '';
+    }
+
     function flipCard() {
         fc.flipped = !fc.flipped;
         document.getElementById('fcCard').classList.toggle('is-flipped', fc.flipped);
         if (fc.flipped) {
-            document.getElementById('fcRating').style.display = '';
+            var q = fc.deck[fc.index];
+            if (!q.hint) {
+                document.getElementById('fcRating').style.display = '';
+            }
         }
     }
 
@@ -295,10 +315,17 @@
         // Flip card
         document.getElementById('fcCard').addEventListener('click', function (e) {
             if (e.target.closest('.fc__rate-btn')) return;
+            if (e.target.closest('.fc__reveal-btn')) return;
             flipCard();
         });
 
-        // Keyboard: Space to flip, 1-4 to rate
+        // Reveal answer button
+        document.getElementById('fcRevealBtn').addEventListener('click', function (e) {
+            e.stopPropagation();
+            revealAnswer();
+        });
+
+        // Keyboard: Space to flip/reveal, 1-4 to rate
         document.addEventListener('keydown', function (e) {
             var screen = document.getElementById('screen-flashcard');
             if (!screen || !screen.classList.contains('is-active')) return;
@@ -307,8 +334,17 @@
 
             if (e.key === ' ' || e.key === 'Enter') {
                 e.preventDefault();
-                if (!fc.flipped) flipCard();
-            } else if (fc.flipped) {
+                if (!fc.flipped) {
+                    flipCard();
+                } else if (fc.flipped && !fc.answerRevealed && fc.deck[fc.index] && fc.deck[fc.index].hint) {
+                    revealAnswer();
+                }
+            } else if (fc.flipped && fc.answerRevealed) {
+                if (e.key === '1') { e.preventDefault(); rateCard('again'); }
+                else if (e.key === '2') { e.preventDefault(); rateCard('hard'); }
+                else if (e.key === '3') { e.preventDefault(); rateCard('good'); }
+                else if (e.key === '4') { e.preventDefault(); rateCard('easy'); }
+            } else if (fc.flipped && !fc.deck[fc.index].hint) {
                 if (e.key === '1') { e.preventDefault(); rateCard('again'); }
                 else if (e.key === '2') { e.preventDefault(); rateCard('hard'); }
                 else if (e.key === '3') { e.preventDefault(); rateCard('good'); }
@@ -343,7 +379,17 @@
         document.getElementById('btnFlashcard').addEventListener('click', function () {
             fc.topics = [];
             fc.levels = [];
-            document.querySelectorAll('#fcTopicPills .fc__config-pill, #fcLevelPills .fc__config-pill').forEach(function (p) {
+            // Rebuild topic pills for current platform
+            var pillHtml = '';
+            var pillTopics = Object.keys(App.TOPIC_LABELS).sort(function (a, b) {
+                return App.TOPIC_LABELS[a].localeCompare(App.TOPIC_LABELS[b]);
+            });
+            pillTopics.forEach(function (t) {
+                if (t === 'live-coding' || t === 'code-challenge') return;
+                pillHtml += '<button class="fc__config-pill" data-topic="' + escapeHtml(t) + '">' + escapeHtml(App.TOPIC_LABELS[t]) + '</button>';
+            });
+            topicContainer.innerHTML = pillHtml;
+            document.querySelectorAll('#fcLevelPills .fc__config-pill').forEach(function (p) {
                 p.classList.remove('is-active');
             });
             showConfig();

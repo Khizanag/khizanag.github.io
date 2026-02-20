@@ -29,9 +29,10 @@
     }
 
     function getAllTopics() {
+        var bank = App.getQuestionBank();
         var topics = {};
-        for (var i = 0; i < QUESTION_BANK.length; i++) {
-            topics[QUESTION_BANK[i].topic] = true;
+        for (var i = 0; i < bank.length; i++) {
+            topics[bank[i].topic] = true;
         }
         var keys = Object.keys(topics);
         keys.sort(function (a, b) {
@@ -50,9 +51,10 @@
         var levels = bankState.levels;
         var status = bankState.status;
 
+        var bank = App.getQuestionBank();
         var results = [];
-        for (var i = 0; i < QUESTION_BANK.length; i++) {
-            var q = QUESTION_BANK[i];
+        for (var i = 0; i < bank.length; i++) {
+            var q = bank[i];
             var qid = questionId(q);
 
             if (topics.length > 0 && topics.indexOf(q.topic) === -1) continue;
@@ -181,7 +183,7 @@
 
     function updateCount() {
         var el = document.getElementById('bankCount');
-        el.innerHTML = '<strong>' + bankState.filtered.length + '</strong> of ' + QUESTION_BANK.length + ' questions';
+        el.innerHTML = '<strong>' + bankState.filtered.length + '</strong> of ' + App.getQuestionBank().length + ' questions';
     }
 
     function updateEmptyState() {
@@ -306,6 +308,9 @@
             searchInput.value = '';
             clearBtn.classList.remove('is-visible');
             document.getElementById('bankSort').value = 'topic-asc';
+
+            // Rebuild topic filters for current platform
+            buildTopicFilters();
             var allPills = document.querySelectorAll('#screen-bank .bank__pill');
             for (var i = 0; i < allPills.length; i++) allPills[i].classList.remove('is-active');
 

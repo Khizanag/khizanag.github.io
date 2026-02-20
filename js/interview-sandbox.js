@@ -6,6 +6,15 @@
     var solutionVisible = false;
     var timerInterval = null;
     var timerStart = null;
+    var selectedLanguage = 'javascript';
+
+    var LANGUAGES = {
+        javascript: { name: 'JavaScript', executable: true, template: '// Write your JavaScript solution here\n\nfunction solve() {\n    \n}\n' },
+        typescript: { name: 'TypeScript', executable: false, template: '// Write your TypeScript solution here\n// (execution not available — compare with reference solution)\n\nfunction solve(): void {\n    \n}\n' },
+        swift:      { name: 'Swift', executable: false, template: '// Write your Swift solution here\n// (execution not available — compare with reference solution)\n\nfunc solve() {\n    \n}\n' },
+        kotlin:     { name: 'Kotlin', executable: false, template: '// Write your Kotlin solution here\n// (execution not available — compare with reference solution)\n\nfun solve() {\n    \n}\n' },
+        python:     { name: 'Python', executable: false, template: '# Write your Python solution here\n# (execution not available — compare with reference solution)\n\ndef solve():\n    pass\n' },
+    };
 
     function escapeHtml(text) {
         return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -13,6 +22,23 @@
 
     function getBank() {
         return typeof LIVE_CODING_BANK !== 'undefined' ? LIVE_CODING_BANK : [];
+    }
+
+    function updateLanguageStatus() {
+        var lang = LANGUAGES[selectedLanguage];
+        var statusEl = document.getElementById('sbLangStatus');
+        var runBtn = document.getElementById('sbRunBtn');
+        if (lang.executable) {
+            statusEl.textContent = 'Execution available';
+            statusEl.className = 'sandbox__lang-status sandbox__lang-status--available';
+            runBtn.disabled = false;
+            runBtn.title = '';
+        } else {
+            statusEl.textContent = 'Execution not available — compare with solution';
+            statusEl.className = 'sandbox__lang-status sandbox__lang-status--unavailable';
+            runBtn.disabled = false;
+            runBtn.title = 'Will show a note about execution availability';
+        }
     }
 
     function populateSelector() {
@@ -80,16 +106,10 @@
         hintText.id = 'sbHintText';
         hintsArea.appendChild(hintText);
 
-        // Editor — provide starter template
+        // Editor — provide starter template based on selected language
         var editor = document.getElementById('sbEditor');
-        var platform = App.state.platform;
-        if (platform === 'frontend') {
-            editor.value = '// Write your JavaScript solution here\n\nfunction solve() {\n    \n}\n';
-        } else if (platform === 'android') {
-            editor.value = '// Write your Kotlin solution here\n\nfun solve() {\n    \n}\n';
-        } else {
-            editor.value = '// Write your Swift solution here\n\nfunc solve() {\n    \n}\n';
-        }
+        var lang = LANGUAGES[selectedLanguage];
+        editor.value = lang ? lang.template : LANGUAGES.javascript.template;
 
         // Clear output
         var output = document.getElementById('sbOutput');
@@ -141,13 +161,13 @@
 
         var code = document.getElementById('sbEditor').value;
         var output = document.getElementById('sbOutput');
-        var platform = App.state.platform;
+        var lang = LANGUAGES[selectedLanguage];
 
-        if (platform === 'frontend') {
+        if (lang && lang.executable) {
             // Actually execute JavaScript
+            var originalLog = console.log;
             try {
                 var logs = [];
-                var originalLog = console.log;
                 console.log = function () {
                     var args = Array.prototype.slice.call(arguments);
                     logs.push(args.map(function (a) {
@@ -176,10 +196,11 @@
                 output.className = 'sandbox__output sandbox__output--error';
             }
         } else {
-            // For Swift/Kotlin — can't execute, show a message
-            output.textContent = 'Code execution is available for JavaScript (Frontend platform).\n\n' +
-                'For ' + (platform === 'android' ? 'Kotlin' : 'Swift') + ', review your solution and compare with the reference solution below.';
-            output.className = 'sandbox__output';
+            var langName = lang ? lang.name : selectedLanguage;
+            output.textContent = langName + ' execution is not available in the browser.\n\n' +
+                'You can still write your solution here, then toggle the reference solution below to compare your approach.\n\n' +
+                'Tip: Only JavaScript can be executed directly. For other languages, use this as a scratchpad.';
+            output.className = 'sandbox__output sandbox__output--error';
         }
     }
 
@@ -244,7 +265,27 @@
         document.getElementById('btnSandbox').addEventListener('click', function () {
             populateSelector();
             document.getElementById('sbProblemArea').classList.remove('is-active');
+            // Default language based on platform
+            var platformLangMap = { ios: 'swift', android: 'kotlin', frontend: 'javascript', backend: 'javascript', behavioral: 'javascript' };
+            selectedLanguage = platformLangMap[App.state.platform] || 'javascript';
+            document.getElementById('sbLangSelect').value = selectedLanguage;
+            updateLanguageStatus();
             App.showScreen('screen-sandbox');
+        });
+
+        // Language selector
+        document.getElementById('sbLangSelect').addEventListener('change', function () {
+            selectedLanguage = this.value;
+            updateLanguageStatus();
+            // Update editor template if problem is loaded
+            if (currentProblem) {
+                var editor = document.getElementById('sbEditor');
+                var lang = LANGUAGES[selectedLanguage];
+                editor.value = lang ? lang.template : LANGUAGES.javascript.template;
+                var output = document.getElementById('sbOutput');
+                output.textContent = 'Output will appear here...';
+                output.className = 'sandbox__output';
+            }
         });
 
         // Problem selector

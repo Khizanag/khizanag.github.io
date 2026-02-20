@@ -1385,4 +1385,8 @@
     updateStartButton();
     App.renderHistory();
 
+    // Expose functions for templates module
+    App.renderTopicChips = renderTopicChips;
+    App.updateUI = updateStartButton;
+
 })(InterviewApp);

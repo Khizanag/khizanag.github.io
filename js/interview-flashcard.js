@@ -227,6 +227,10 @@
         document.getElementById('fcResHard').textContent = fc.results.hard;
         document.getElementById('fcResAgain').textContent = fc.results.again;
         document.getElementById('fcResStreak').textContent = streak.count + ' day' + (streak.count !== 1 ? 's' : '');
+
+        // Award flashcard XP
+        var totalCards = fc.results.good + fc.results.easy + fc.results.hard + fc.results.again;
+        if (App.awardFlashcardXP && totalCards > 0) App.awardFlashcardXP(totalCards);
     }
 
     function showConfig() {

@@ -163,11 +163,22 @@
     }
 
     function runCode() {
-        if (!currentProblem) return;
-
-        var code = document.getElementById('sbEditor').value;
         var output = document.getElementById('sbOutput');
+
+        if (!currentProblem) {
+            output.textContent = 'Select a problem first.';
+            output.className = 'sandbox__output sandbox__output--error';
+            return;
+        }
+
+        var code = document.getElementById('sbEditor').value.trim();
         var lang = LANGUAGES[selectedLanguage];
+
+        if (!code) {
+            output.textContent = 'Write some code first, then tap Run.';
+            output.className = 'sandbox__output sandbox__output--error';
+            return;
+        }
 
         if (lang && lang.executable) {
             // Actually execute JavaScript
@@ -192,7 +203,7 @@
                     if (out) out += '\n';
                     out += '=> ' + (typeof result === 'object' ? JSON.stringify(result, null, 2) : String(result));
                 }
-                if (!out) out = '(no output)';
+                if (!out) out = 'Program finished with no output.\n\nTip: Use console.log() to print values, or return a value from solve().';
 
                 output.textContent = out;
                 output.className = 'sandbox__output';
@@ -203,9 +214,7 @@
             }
         } else {
             var langName = lang ? lang.name : selectedLanguage;
-            output.textContent = langName + ' execution is not available in the browser.\n\n' +
-                'You can still write your solution here, then toggle the reference solution below to compare your approach.\n\n' +
-                'Tip: Only JavaScript can be executed directly. For other languages, use this as a scratchpad.';
+            output.textContent = langName + ' cannot be executed in the browser.\n\nOnly JavaScript is executable here. For ' + langName + ', use the editor as a scratchpad and compare your approach with the reference solution.';
             output.className = 'sandbox__output sandbox__output--error';
         }
     }

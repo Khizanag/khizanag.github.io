@@ -65,6 +65,8 @@
     color: var(--color-gray-400);
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    min-width: 80px;
+    flex-shrink: 0;
 }
 
 .sandbox__picker-select {

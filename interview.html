@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/interview-bank.css">
     <link rel="stylesheet" href="css/interview-analytics.css">
     <link rel="stylesheet" href="css/interview-flashcard.css">
+    <link rel="stylesheet" href="css/interview-guide.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -140,6 +141,10 @@
             <button class="btn-browse" id="btnBrowse">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 Browse Questions
+            </button>
+            <button class="btn-guide" id="btnGuide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                Interview Guide
             </button>
             <button class="btn-flashcard" id="btnFlashcard">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -517,6 +522,244 @@
 </main>
 
 <!-- ==========================================
+     INTERVIEW PREP GUIDE
+     ========================================== -->
+<main class="screen" id="screen-guide">
+    <div class="container">
+        <button class="guide__back" id="guideBack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+        </button>
+
+        <div class="guide__header">
+            <h1 class="guide__title">Interview Guide</h1>
+            <p class="guide__subtitle">How to conduct effective, fair, and structured technical interviews</p>
+        </div>
+
+        <div class="guide__toc">
+            <p class="guide__toc-title">Contents</p>
+            <a class="guide__toc-link" href="#guide-before">1. Before the Interview</a>
+            <a class="guide__toc-link" href="#guide-structure">2. Interview Structure</a>
+            <a class="guide__toc-link" href="#guide-intro">3. Introduction Phase</a>
+            <a class="guide__toc-link" href="#guide-technical">4. Technical Questions</a>
+            <a class="guide__toc-link" href="#guide-coding">5. Live Coding</a>
+            <a class="guide__toc-link" href="#guide-scoring">6. Scoring & Rating</a>
+            <a class="guide__toc-link" href="#guide-bias">7. Avoiding Bias</a>
+            <a class="guide__toc-link" href="#guide-wrapup">8. Wrap-up & Next Steps</a>
+            <a class="guide__toc-link" href="#guide-dos-donts">9. Do's & Don'ts</a>
+        </div>
+
+        <!-- 1. Before the Interview -->
+        <div class="guide__section" id="guide-before">
+            <h2 class="guide__section-title">
+                <span>1. Before the Interview</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <div class="guide__checklist">
+                    <div class="guide__check-item">Review the candidate's resume and note specific areas to explore</div>
+                    <div class="guide__check-item">Select topics relevant to the role (not just your personal expertise)</div>
+                    <div class="guide__check-item">Prepare the interview plan (adjust phases and timing)</div>
+                    <div class="guide__check-item">Test your setup: timer, questions loaded, quiet room</div>
+                    <div class="guide__check-item">Review the scoring rubric so ratings are consistent</div>
+                    <div class="guide__check-item">Clear 10-15 extra minutes for notes after the interview</div>
+                </div>
+                <div class="guide__tip">
+                    <div class="guide__tip-header"><span class="guide__tip-icon">💡</span><span class="guide__tip-label">Tip</span></div>
+                    <p>Customize the topic selection based on the role. A junior iOS developer doesn't need System Design questions, and a senior architect should get fewer basics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Interview Structure -->
+        <div class="guide__section" id="guide-structure">
+            <h2 class="guide__section-title">
+                <span>2. Interview Structure</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <p class="guide__text">A well-structured interview has distinct phases. The default plan is optimized for 60-minute interviews:</p>
+                <div class="guide__checklist">
+                    <div class="guide__check-item"><strong>Introduction (5 min)</strong> — Build rapport, set expectations</div>
+                    <div class="guide__check-item"><strong>Theory (25 min)</strong> — Conceptual questions, adaptive difficulty</div>
+                    <div class="guide__check-item"><strong>Code Questions (10 min)</strong> — Code reading, output prediction</div>
+                    <div class="guide__check-item"><strong>Live Coding (15 min)</strong> — Problem solving, communication</div>
+                    <div class="guide__check-item"><strong>Wrap-up (5 min)</strong> — Candidate questions, next steps</div>
+                </div>
+                <div class="guide__tip">
+                    <div class="guide__tip-header"><span class="guide__tip-icon">💡</span><span class="guide__tip-label">Tip</span></div>
+                    <p>You can reorder and adjust phase durations in the Interview Plan section. For shorter interviews, consider dropping one phase entirely rather than rushing all of them.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Introduction Phase -->
+        <div class="guide__section" id="guide-intro">
+            <h2 class="guide__section-title">
+                <span>3. Introduction Phase</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <p class="guide__text">The first few minutes set the tone. A nervous candidate won't perform their best.</p>
+                <div class="guide__script">
+                    <div class="guide__script-line"><span class="guide__script-speaker">You:</span> "Hi [name], thanks for taking the time. I'm [your name], [your role]. Before we start, let me explain how this will work..."</div>
+                    <div class="guide__script-line"><span class="guide__script-speaker">You:</span> "We'll start with some conversation about your background, then move into technical questions and a coding exercise. Feel free to think aloud — I'm interested in your thought process, not just the answer."</div>
+                    <div class="guide__script-line"><span class="guide__script-speaker">You:</span> "There are no trick questions. If something is unclear, just ask. Ready?"</div>
+                </div>
+                <div class="guide__warning">
+                    <div class="guide__tip-header"><span class="guide__tip-icon">⚠️</span><span class="guide__tip-label">Watch out</span></div>
+                    <p>Don't skip the introduction to "save time." A 2-minute warm-up can improve the quality of the entire remaining interview.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Technical Questions -->
+        <div class="guide__section" id="guide-technical">
+            <h2 class="guide__section-title">
+                <span>4. Technical Questions</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <p class="guide__text">The tool automatically adjusts difficulty based on previous answers. Your job is to:</p>
+                <div class="guide__checklist">
+                    <div class="guide__check-item">Read the question clearly — don't paraphrase or add hints</div>
+                    <div class="guide__check-item">Give the candidate time to think (10-15 seconds of silence is OK)</div>
+                    <div class="guide__check-item">Use the hint button if they're stuck — note whether it helped</div>
+                    <div class="guide__check-item">Ask follow-up questions: "Can you elaborate?" or "What would happen if...?"</div>
+                    <div class="guide__check-item">Rate immediately after each question while it's fresh</div>
+                    <div class="guide__check-item">Skip questions that don't fit — it's OK to skip</div>
+                </div>
+                <div class="guide__tip">
+                    <div class="guide__tip-header"><span class="guide__tip-icon">💡</span><span class="guide__tip-label">Tip</span></div>
+                    <p>If a candidate gives a partial answer, probe deeper: "You mentioned X — can you explain why that matters?" This helps distinguish 3-star from 4-star answers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Live Coding -->
+        <div class="guide__section" id="guide-coding">
+            <h2 class="guide__section-title">
+                <span>5. Live Coding</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <p class="guide__text">Live coding tests problem-solving, communication, and practical ability. It's not about writing perfect code.</p>
+                <div class="guide__checklist">
+                    <div class="guide__check-item">Encourage thinking aloud — silence during coding is a red flag</div>
+                    <div class="guide__check-item">Offer hints progressively if they're stuck (use the hint buttons)</div>
+                    <div class="guide__check-item">Note how they respond to hints — do they course-correct quickly?</div>
+                    <div class="guide__check-item">Ask about edge cases: "What if the input is empty?"</div>
+                    <div class="guide__check-item">Ask about time/space complexity after they finish</div>
+                    <div class="guide__check-item">It's OK if they don't finish — process matters more than completion</div>
+                </div>
+                <div class="guide__warning">
+                    <div class="guide__tip-header"><span class="guide__tip-icon">⚠️</span><span class="guide__tip-label">Watch out</span></div>
+                    <p>Never let a candidate struggle in silence for more than 2 minutes. Either offer a hint or move on. Prolonged silence creates anxiety and doesn't provide useful signal.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Scoring & Rating -->
+        <div class="guide__section" id="guide-scoring">
+            <h2 class="guide__section-title">
+                <span>6. Scoring & Rating</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <p class="guide__text">Consistent scoring across interviews is critical. Use this calibration guide:</p>
+                <div class="guide__checklist">
+                    <div class="guide__check-item"><strong>1 — No answer:</strong> Couldn't respond at all, or gave a completely wrong answer</div>
+                    <div class="guide__check-item"><strong>2 — Weak:</strong> Vague, mostly incorrect, shows fundamental gaps</div>
+                    <div class="guide__check-item"><strong>3 — Partial:</strong> Knows the concept but missed key details or nuances</div>
+                    <div class="guide__check-item"><strong>4 — Good:</strong> Solid answer with minor gaps, demonstrates clear understanding</div>
+                    <div class="guide__check-item"><strong>5 — Perfect:</strong> Comprehensive answer, could explain it to others, production-ready knowledge</div>
+                </div>
+                <div class="guide__tip">
+                    <div class="guide__tip-header"><span class="guide__tip-icon">💡</span><span class="guide__tip-label">Calibration tip</span></div>
+                    <p>Most answers should fall between 2-4. If you're giving mostly 5s, you may be too lenient. If mostly 1-2s, the difficulty level may be too high for the candidate — consider adjusting topics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Avoiding Bias -->
+        <div class="guide__section" id="guide-bias">
+            <h2 class="guide__section-title">
+                <span>7. Avoiding Bias</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <div class="guide__checklist">
+                    <div class="guide__check-item"><strong>Halo Effect:</strong> Don't let one great answer inflate all subsequent ratings</div>
+                    <div class="guide__check-item"><strong>Horn Effect:</strong> Don't let one poor answer deflate everything after</div>
+                    <div class="guide__check-item"><strong>Similarity Bias:</strong> Don't rate higher because the candidate reminds you of yourself</div>
+                    <div class="guide__check-item"><strong>Anchoring:</strong> Rate each question independently — don't compare to the last candidate</div>
+                    <div class="guide__check-item"><strong>Confirmation Bias:</strong> Don't look for evidence to confirm your first impression</div>
+                    <div class="guide__check-item"><strong>Pressure Discount:</strong> Remember that interview pressure affects performance — a nervous 4 might be a calm 5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Wrap-up -->
+        <div class="guide__section" id="guide-wrapup">
+            <h2 class="guide__section-title">
+                <span>8. Wrap-up & Next Steps</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <div class="guide__script">
+                    <div class="guide__script-line"><span class="guide__script-speaker">You:</span> "Thanks for your answers! Do you have any questions about the role, the team, or our tech stack?"</div>
+                    <div class="guide__script-line"><span class="guide__script-speaker">You:</span> "Here's what happens next: [explain your hiring timeline]. You should hear back within [X days]."</div>
+                    <div class="guide__script-line"><span class="guide__script-speaker">You:</span> "It was great talking with you. Thanks again for your time!"</div>
+                </div>
+                <div class="guide__tip">
+                    <div class="guide__tip-header"><span class="guide__tip-icon">💡</span><span class="guide__tip-label">Tip</span></div>
+                    <p>Always let the candidate ask questions. Their questions reveal their priorities and engagement level. This is also valuable signal.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. Do's & Don'ts -->
+        <div class="guide__section" id="guide-dos-donts">
+            <h2 class="guide__section-title">
+                <span>9. Do's & Don'ts</span>
+                <svg class="guide__section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+            </h2>
+            <div class="guide__section-body">
+                <div class="guide__columns">
+                    <div class="guide__do">
+                        <div class="guide__do-header"><span class="guide__do-icon">✓</span><span class="guide__do-label">Do</span></div>
+                        <ul class="guide__do-list">
+                            <li>Be warm and encouraging throughout</li>
+                            <li>Give the candidate time to think</li>
+                            <li>Ask follow-up questions to probe deeper</li>
+                            <li>Take notes on specific answers</li>
+                            <li>Rate each question immediately</li>
+                            <li>Use the full 1-5 scale, not just 3-5</li>
+                            <li>Explain the format upfront</li>
+                            <li>Let them ask questions at the end</li>
+                        </ul>
+                    </div>
+                    <div class="guide__dont">
+                        <div class="guide__dont-header"><span class="guide__dont-icon">✗</span><span class="guide__dont-label">Don't</span></div>
+                        <ul class="guide__dont-list">
+                            <li>Interrupt while they're answering</li>
+                            <li>Show frustration at wrong answers</li>
+                            <li>Ask trick questions or gotchas</li>
+                            <li>Compare candidates out loud</li>
+                            <li>Skip the introduction phase</li>
+                            <li>Let them struggle in silence too long</li>
+                            <li>Give hints that reveal the answer</li>
+                            <li>Make the interview feel adversarial</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- ==========================================
      FLASHCARD / CANDIDATE MODE
      ========================================== -->
 <main class="screen" id="screen-flashcard">
@@ -813,5 +1056,6 @@
 <script src="js/interview-flashcard.js"></script>
 <script src="js/interview-analytics.js"></script>
 <script src="js/interview-bank.js"></script>
+<script src="js/interview-guide.js"></script>
 </body>
 </html>

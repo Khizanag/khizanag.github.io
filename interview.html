@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/interview-analytics.css">
     <link rel="stylesheet" href="css/interview-flashcard.css">
     <link rel="stylesheet" href="css/interview-guide.css">
+    <link rel="stylesheet" href="css/interview-templates.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -58,6 +59,16 @@
             <div class="setup__icon" aria-hidden="true" id="setupIcon">🎯</div>
             <h1 class="setup__title" id="setupTitle">iOS Interview</h1>
             <p class="setup__subtitle" id="setupSubtitle">Adaptive questioning that adjusts difficulty in real time. Assess developer knowledge from fundamentals to system design.</p>
+        </div>
+
+        <div class="templates__section">
+            <div class="templates__header">
+                <span class="templates__label">Quick Start Templates</span>
+                <button class="templates__toggle" id="btnToggleTemplates">Hide</button>
+            </div>
+            <div id="templateBody">
+                <div class="templates__grid" id="templateGrid"></div>
+            </div>
         </div>
 
         <div class="setup__section">
@@ -1073,5 +1084,6 @@
 <script src="js/interview-analytics.js"></script>
 <script src="js/interview-bank.js"></script>
 <script src="js/interview-guide.js"></script>
+<script src="js/interview-templates.js"></script>
 </body>
 </html>

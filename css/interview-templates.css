@@ -1,0 +1,136 @@
+/* ============================================
+   INTERVIEW TEMPLATES / PRESETS
+   ============================================ */
+
+.templates__section {
+    margin-bottom: 40px;
+}
+
+.templates__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.templates__label {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+    letter-spacing: -0.01em;
+}
+
+.templates__toggle {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--color-blue);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.templates__toggle:hover {
+    opacity: 0.7;
+}
+
+.templates__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+}
+
+.template-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 18px;
+    border-radius: var(--border-radius-md);
+    border: 1.5px solid var(--color-white-a8);
+    background: var(--color-white-a3);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    text-align: left;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.template-card:hover {
+    border-color: var(--color-white-a20);
+    background: var(--color-white-a6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--color-black-a10);
+}
+
+.template-card__top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.template-card__icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.template-card__name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray-100);
+    letter-spacing: -0.01em;
+}
+
+.template-card__desc {
+    font-size: 12px;
+    color: var(--color-gray-500);
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+.template-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+}
+
+.template-card__tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-pill);
+    background: var(--color-white-a8);
+    color: var(--color-gray-400);
+}
+
+.template-card__tag--platform {
+    background: var(--color-blue-a10);
+    color: var(--color-blue);
+}
+
+.template-card__tag--time {
+    background: var(--color-green-a10);
+    color: var(--color-green);
+}
+
+.template-card__tag--topics {
+    background: var(--color-purple-a10);
+    color: var(--color-purple);
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+    .templates__grid {
+        grid-template-columns: 1fr;
+    }
+    .template-card {
+        padding: 14px 16px;
+    }
+}

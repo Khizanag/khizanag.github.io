@@ -91,20 +91,27 @@
         // Description
         document.getElementById('sbProblemDesc').textContent = currentProblem.question;
 
-        // Hints
+        // Hints — each hint gets its own button + card pair
         var hintsArea = document.getElementById('sbHints');
         hintsArea.innerHTML = '';
         for (var i = 0; i < currentProblem.hints.length; i++) {
+            var hintGroup = document.createElement('div');
+            hintGroup.className = 'sandbox__hint-group';
+            hintGroup.dataset.index = i;
+
             var btn = document.createElement('button');
             btn.className = 'sandbox__hint-btn';
             btn.textContent = 'Hint ' + (i + 1);
             btn.dataset.index = i;
-            hintsArea.appendChild(btn);
+            hintGroup.appendChild(btn);
+
+            var card = document.createElement('div');
+            card.className = 'sandbox__hint-card';
+            card.textContent = currentProblem.hints[i];
+            hintGroup.appendChild(card);
+
+            hintsArea.appendChild(hintGroup);
         }
-        var hintText = document.createElement('div');
-        hintText.className = 'sandbox__hint-text';
-        hintText.id = 'sbHintText';
-        hintsArea.appendChild(hintText);
 
         // Editor — provide starter template based on selected language
         var editor = document.getElementById('sbEditor');
@@ -140,20 +147,19 @@
         if (!currentProblem) return;
         hintsRevealed = Math.max(hintsRevealed, index + 1);
 
-        // Update buttons
-        var btns = document.querySelectorAll('#sbHints .sandbox__hint-btn');
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].classList.toggle('is-revealed', i < hintsRevealed);
+        // Show each hint group up to the revealed count
+        var groups = document.querySelectorAll('#sbHints .sandbox__hint-group');
+        for (var i = 0; i < groups.length; i++) {
+            var btn = groups[i].querySelector('.sandbox__hint-btn');
+            var card = groups[i].querySelector('.sandbox__hint-card');
+            if (i < hintsRevealed) {
+                btn.classList.add('is-revealed');
+                card.classList.add('is-visible');
+            } else {
+                btn.classList.remove('is-revealed');
+                card.classList.remove('is-visible');
+            }
         }
-
-        // Show hint text
-        var text = '';
-        for (var j = 0; j < hintsRevealed && j < currentProblem.hints.length; j++) {
-            text += (j + 1) + '. ' + currentProblem.hints[j] + '\n';
-        }
-        var hintEl = document.getElementById('sbHintText');
-        hintEl.textContent = text.trim();
-        hintEl.classList.add('is-visible');
     }
 
     function runCode() {

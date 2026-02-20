@@ -238,8 +238,13 @@
     color: var(--color-gray-200);
 }
 
-.sandbox__hint-text {
-    width: 100%;
+.sandbox__hint-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sandbox__hint-card {
     font-size: 13px;
     color: var(--color-orange);
     line-height: 1.5;
@@ -250,7 +255,7 @@
     display: none;
 }
 
-.sandbox__hint-text.is-visible {
+.sandbox__hint-card.is-visible {
     display: block;
 }
 

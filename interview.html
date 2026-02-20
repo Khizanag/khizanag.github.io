@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/interview-results.css">
     <link rel="stylesheet" href="css/interview-bank.css">
     <link rel="stylesheet" href="css/interview-analytics.css">
+    <link rel="stylesheet" href="css/interview-flashcard.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -139,6 +140,10 @@
             <button class="btn-browse" id="btnBrowse">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 Browse Questions
+            </button>
+            <button class="btn-flashcard" id="btnFlashcard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Flashcards
             </button>
             <button class="btn-analytics" id="btnAnalytics">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -512,6 +517,149 @@
 </main>
 
 <!-- ==========================================
+     FLASHCARD / CANDIDATE MODE
+     ========================================== -->
+<main class="screen" id="screen-flashcard">
+    <div class="container">
+        <button class="fc__back" id="fcBack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+        </button>
+
+        <div class="fc__header">
+            <h1 class="fc__title">Flashcard Study</h1>
+            <p class="fc__subtitle">Spaced repetition — questions you struggle with come back sooner</p>
+        </div>
+
+        <!-- Config view -->
+        <div id="fcConfigView">
+            <div style="text-align:center">
+                <div class="fc__streak" id="fcStreak" style="display:none"></div>
+                <p class="fc__subtitle" id="fcDueCount" style="display:none;margin-bottom:24px"></p>
+            </div>
+
+            <div class="fc__config">
+                <div class="fc__config-row">
+                    <span class="fc__config-label">Topics</span>
+                    <div class="fc__config-pills" id="fcTopicPills"></div>
+                </div>
+                <div class="fc__config-row">
+                    <span class="fc__config-label">Level</span>
+                    <div class="fc__config-pills" id="fcLevelPills">
+                        <button class="fc__config-pill" data-level="0">Intern</button>
+                        <button class="fc__config-pill" data-level="1">Junior</button>
+                        <button class="fc__config-pill" data-level="2">Middle</button>
+                        <button class="fc__config-pill" data-level="3">Senior</button>
+                        <button class="fc__config-pill" data-level="4">Lead</button>
+                        <button class="fc__config-pill" data-level="5">Staff</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fc__start-row">
+                <button class="fc__btn-start" id="fcBtnStart">
+                    Start Study Session
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Card view -->
+        <div id="fcCardView" style="display:none">
+            <div class="fc__progress-bar">
+                <div class="fc__progress-track">
+                    <div class="fc__progress-fill" id="fcProgressFill" style="width:0%"></div>
+                </div>
+                <span class="fc__progress-text" id="fcProgressText">1 / 30</span>
+            </div>
+
+            <div class="fc__card-wrap">
+                <div class="fc__card" id="fcCard">
+                    <div class="fc__card-face fc__card-front">
+                        <div class="fc__card-meta">
+                            <span class="fc__card-topic" id="fcCardTopic"></span>
+                            <span class="fc__card-level" id="fcCardLevel"></span>
+                        </div>
+                        <div class="fc__card-question" id="fcCardQuestion"></div>
+                        <div class="fc__card-flip-hint">Tap or press Space to reveal answer</div>
+                    </div>
+
+                    <div class="fc__card-face fc__card-back">
+                        <div class="fc__card-meta" id="fcBackMeta"></div>
+                        <div id="fcCardHint">
+                            <div class="fc__card-hint-label">Hint</div>
+                            <div class="fc__card-hint-text" id="fcHintText"></div>
+                        </div>
+                        <div class="fc__card-answer-label">Answer</div>
+                        <div class="fc__card-answer-text" id="fcAnswerText"></div>
+                        <div id="fcCardCode" style="display:none; margin-top:16px;">
+                            <div class="bank__detail-code"><pre class="q-card__pre"><code id="fcCodeContent"></code></pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fc__rating" id="fcRating" style="display:none">
+                <button class="fc__rate-btn fc__rate-btn--again" data-ease="again">
+                    <span class="fc__rate-emoji">😵</span>
+                    <span class="fc__rate-label">Again</span>
+                    <span class="fc__rate-desc">Review soon</span>
+                </button>
+                <button class="fc__rate-btn fc__rate-btn--hard" data-ease="hard">
+                    <span class="fc__rate-emoji">😓</span>
+                    <span class="fc__rate-label">Hard</span>
+                    <span class="fc__rate-desc">10 min</span>
+                </button>
+                <button class="fc__rate-btn fc__rate-btn--good" data-ease="good">
+                    <span class="fc__rate-emoji">😊</span>
+                    <span class="fc__rate-label">Good</span>
+                    <span class="fc__rate-desc">1 day</span>
+                </button>
+                <button class="fc__rate-btn fc__rate-btn--easy" data-ease="easy">
+                    <span class="fc__rate-emoji">🤩</span>
+                    <span class="fc__rate-label">Easy</span>
+                    <span class="fc__rate-desc">4 days</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results view -->
+        <div id="fcResultsView" style="display:none">
+            <div class="fc__results">
+                <div class="fc__results-icon">🎉</div>
+                <div class="fc__results-title">Session Complete!</div>
+                <div class="fc__results-subtitle">Great work! Here's how you did:</div>
+
+                <div class="fc__results-stats">
+                    <div class="fc__results-stat">
+                        <div class="fc__results-stat-value" id="fcResGood" style="color:var(--color-green)">0</div>
+                        <div class="fc__results-stat-label">Knew It</div>
+                    </div>
+                    <div class="fc__results-stat">
+                        <div class="fc__results-stat-value" id="fcResHard" style="color:var(--color-orange)">0</div>
+                        <div class="fc__results-stat-label">Struggled</div>
+                    </div>
+                    <div class="fc__results-stat">
+                        <div class="fc__results-stat-value" id="fcResAgain" style="color:var(--color-red)">0</div>
+                        <div class="fc__results-stat-label">Need Review</div>
+                    </div>
+                </div>
+
+                <div class="fc__results-stat" style="margin-bottom:24px;">
+                    <div class="fc__results-stat-value" id="fcResStreak" style="color:var(--color-orange)">0</div>
+                    <div class="fc__results-stat-label">Practice Streak</div>
+                </div>
+
+                <div class="fc__results-actions">
+                    <button class="btn-restart" id="fcBtnStudyAgain">Study Again</button>
+                    <button class="btn-download" id="fcBtnBackSetup" style="border-color:var(--color-white-a12);color:var(--color-gray-200)">Back to Setup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
      ANALYTICS DASHBOARD
      ========================================== -->
 <main class="screen" id="screen-analytics">
@@ -662,6 +810,7 @@
 <script src="js/interview-results.js"></script>
 <script src="js/interview-history.js"></script>
 <script src="js/interview-app.js"></script>
+<script src="js/interview-flashcard.js"></script>
 <script src="js/interview-analytics.js"></script>
 <script src="js/interview-bank.js"></script>
 </body>

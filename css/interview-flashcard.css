@@ -1,0 +1,460 @@
+/* ============================================
+   FLASHCARD / CANDIDATE MODE
+   ============================================ */
+
+.fc__header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.fc__title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+}
+
+.fc__subtitle {
+    font-size: 15px;
+    color: var(--color-gray-400);
+    font-weight: 300;
+}
+
+/* --- Config section --- */
+.fc__config {
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
+    border-radius: var(--border-radius-lg);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+}
+
+.fc__config-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.fc__config-row:last-child {
+    margin-bottom: 0;
+}
+
+.fc__config-label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    min-width: 72px;
+}
+
+.fc__config-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.fc__config-pill {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid var(--color-white-a10);
+    background: var(--color-white-a3);
+    color: var(--color-gray-400);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--border-radius-pill);
+    cursor: pointer;
+    transition: all 0.2s var(--ease-smooth);
+    user-select: none;
+}
+
+.fc__config-pill:hover {
+    border-color: var(--color-white-a20);
+    background: var(--color-white-a8);
+}
+
+.fc__config-pill.is-active {
+    border-color: var(--color-blue);
+    background: var(--color-blue-a15);
+    color: var(--color-blue);
+}
+
+.fc__start-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.fc__btn-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 36px;
+    border-radius: var(--border-radius-pill);
+    border: none;
+    background: var(--color-blue);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+}
+
+.fc__btn-start:hover {
+    background: var(--color-blue-hover);
+    transform: scale(1.04);
+}
+
+.fc__btn-start:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- Flashcard view --- */
+.fc__progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.fc__progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--color-white-a8);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.fc__progress-fill {
+    height: 100%;
+    background: var(--color-blue);
+    border-radius: 2px;
+    transition: width 0.5s var(--ease-out-expo);
+}
+
+.fc__progress-text {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-400);
+    white-space: nowrap;
+}
+
+.fc__card-wrap {
+    perspective: 1200px;
+    margin-bottom: 24px;
+}
+
+.fc__card {
+    position: relative;
+    min-height: 300px;
+    transition: transform 0.6s var(--ease-smooth);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.fc__card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.fc__card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--color-white-a8);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.fc__card-front {
+    background: var(--color-white-a4);
+    border-top: 3px solid var(--color-blue);
+}
+
+.fc__card-back {
+    background: var(--color-white-a4);
+    border-top: 3px solid var(--color-green);
+    transform: rotateY(180deg);
+    overflow-y: auto;
+}
+
+.fc__card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.fc__card-topic {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-blue);
+    padding: 3px 10px;
+    background: var(--color-blue-a10);
+    border-radius: var(--border-radius-pill);
+}
+
+.fc__card-level {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: var(--border-radius-pill);
+}
+
+.fc__card-question {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: var(--color-gray-50);
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.fc__card-flip-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--color-gray-500);
+    margin-top: 16px;
+}
+
+.fc__card-answer-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-green);
+    margin-bottom: 12px;
+}
+
+.fc__card-hint-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-orange);
+    margin-bottom: 6px;
+    margin-top: 16px;
+}
+
+.fc__card-hint-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-gray-400);
+    font-weight: 300;
+    white-space: pre-line;
+    border-left: 2px solid var(--color-orange);
+    padding-left: 14px;
+    margin-bottom: 16px;
+}
+
+.fc__card-answer-text {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-gray-300);
+    font-weight: 300;
+    white-space: pre-line;
+    flex: 1;
+}
+
+/* --- Self-rating buttons --- */
+.fc__rating {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.fc__rate-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 14px 20px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-white-a10);
+    background: var(--color-white-a3);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    flex: 1;
+    max-width: 140px;
+}
+
+.fc__rate-btn:hover {
+    border-color: var(--color-white-a20);
+    background: var(--color-white-a8);
+    transform: translateY(-2px);
+}
+
+.fc__rate-emoji {
+    font-size: 24px;
+}
+
+.fc__rate-label {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+}
+
+.fc__rate-desc {
+    font-size: 10px;
+    color: var(--color-gray-500);
+}
+
+.fc__rate-btn--again:hover  { border-color: var(--color-red-a30);    background: var(--color-red-a6); }
+.fc__rate-btn--hard:hover   { border-color: var(--color-orange-a30); background: var(--color-orange-a8); }
+.fc__rate-btn--good:hover   { border-color: var(--color-green-a30);  background: var(--color-green-a10); }
+.fc__rate-btn--easy:hover   { border-color: var(--color-blue-a30);   background: var(--color-blue-a10); }
+
+/* --- Session results --- */
+.fc__results {
+    text-align: center;
+    padding: 48px 32px;
+}
+
+.fc__results-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+}
+
+.fc__results-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+}
+
+.fc__results-subtitle {
+    font-size: 15px;
+    color: var(--color-gray-400);
+    font-weight: 300;
+    margin-bottom: 32px;
+}
+
+.fc__results-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.fc__results-stat {
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+}
+
+.fc__results-stat-value {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.fc__results-stat-label {
+    font-size: 11px;
+    color: var(--color-gray-500);
+}
+
+.fc__results-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* --- Streak counter --- */
+.fc__streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--border-radius-pill);
+    background: var(--color-orange-a8);
+    border: 1px solid var(--color-orange-a30);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-orange);
+    margin-bottom: 24px;
+}
+
+/* --- Back button --- */
+.fc__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding: 8px 16px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a10);
+    background: transparent;
+    color: var(--color-gray-400);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.fc__back:hover {
+    border-color: var(--color-blue-a30);
+    color: var(--color-blue);
+    background: var(--color-blue-a6);
+}
+
+.fc__back svg { width: 14px; height: 14px; }
+
+/* --- Flashcard button on setup --- */
+.btn-flashcard {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a12);
+    background: transparent;
+    color: var(--color-gray-200);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+}
+
+.btn-flashcard:hover {
+    background: var(--color-orange-a8);
+    border-color: var(--color-orange-a30);
+    color: var(--color-orange);
+    transform: scale(1.04);
+}
+
+.btn-flashcard svg { width: 16px; height: 16px; }
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+    .fc__config { padding: 20px; }
+    .fc__card-face { padding: 28px; }
+    .fc__card { min-height: 260px; }
+    .fc__rating { flex-wrap: wrap; }
+    .fc__rate-btn { padding: 12px 14px; }
+    .fc__results-stats { grid-template-columns: 1fr; }
+}

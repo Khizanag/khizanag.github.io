@@ -1,0 +1,257 @@
+/* ============================================
+   GAMIFICATION — XP, LEVELS, ACHIEVEMENTS
+   ============================================ */
+
+/* --- XP Bar (shown on setup screen) --- */
+.xp-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-white-a8);
+    background: var(--color-white-a3);
+}
+
+.xp-bar__level {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-blue), var(--color-purple));
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.xp-bar__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.xp-bar__label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+    margin-bottom: 4px;
+}
+
+.xp-bar__track {
+    height: 6px;
+    background: var(--color-white-a8);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 2px;
+}
+
+.xp-bar__fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--color-blue), var(--color-purple));
+    transition: width 0.8s var(--ease-out-expo);
+}
+
+.xp-bar__text {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-gray-500);
+}
+
+.xp-bar__streak {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    padding-left: 12px;
+    border-left: 1px solid var(--color-white-a8);
+}
+
+.xp-bar__streak-value {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-orange);
+}
+
+.xp-bar__streak-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* --- XP Toast (after earning XP) --- */
+.xp-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: var(--border-radius-md);
+    background: linear-gradient(135deg, var(--color-blue-a30), var(--color-purple-a10));
+    border: 1px solid var(--color-blue-a30);
+    color: var(--color-gray-100);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.4s var(--ease-out-expo);
+    pointer-events: none;
+}
+
+.xp-toast.is-visible {
+    transform: translateX(0);
+}
+
+.xp-toast__amount {
+    color: var(--color-blue);
+    font-weight: 700;
+}
+
+/* --- Achievement Unlock Toast --- */
+.achievement-toast {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: var(--border-radius-md);
+    background: linear-gradient(135deg, var(--color-yellow-a10, rgba(255, 214, 10, 0.1)), var(--color-orange-a8));
+    border: 1px solid var(--color-yellow-a30, rgba(255, 214, 10, 0.3));
+    color: var(--color-gray-100);
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.4s var(--ease-out-expo);
+    pointer-events: none;
+}
+
+.achievement-toast.is-visible {
+    transform: translateX(0);
+}
+
+.achievement-toast__icon {
+    font-size: 28px;
+}
+
+.achievement-toast__body {
+    display: flex;
+    flex-direction: column;
+}
+
+.achievement-toast__label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.achievement-toast__name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* --- Achievements Grid (in analytics or dedicated view) --- */
+.achievements__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.achievement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 12px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-white-a8);
+    background: var(--color-white-a3);
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.achievement--locked {
+    opacity: 0.35;
+    filter: grayscale(1);
+}
+
+.achievement--unlocked {
+    border-color: var(--color-yellow-a30, rgba(255, 214, 10, 0.3));
+    background: var(--color-yellow-a10, rgba(255, 214, 10, 0.05));
+}
+
+.achievement__icon {
+    font-size: 32px;
+}
+
+.achievement__name {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+}
+
+.achievement__desc {
+    font-size: 11px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+}
+
+/* --- Results XP Summary --- */
+.results__xp-summary {
+    text-align: center;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-blue-a30);
+    background: var(--color-blue-a6);
+}
+
+.results__xp-earned {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-blue);
+    margin-bottom: 4px;
+}
+
+.results__xp-label {
+    font-size: 13px;
+    color: var(--color-gray-400);
+}
+
+.results__xp-breakdown {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.results__xp-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-gray-500);
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+    .xp-bar { flex-wrap: wrap; }
+    .xp-bar__streak { border-left: none; padding-left: 0; padding-top: 8px; border-top: 1px solid var(--color-white-a8); flex-direction: row; gap: 8px; width: 100%; justify-content: center; }
+    .achievements__grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+    .xp-toast, .achievement-toast { right: 12px; left: 12px; transform: translateY(-120%); }
+    .xp-toast.is-visible, .achievement-toast.is-visible { transform: translateY(0); }
+}

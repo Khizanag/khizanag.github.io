@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/interview-templates.css">
     <link rel="stylesheet" href="css/interview-custom.css">
     <link rel="stylesheet" href="css/interview-sandbox.css">
+    <link rel="stylesheet" href="css/interview-gamification.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -34,6 +35,10 @@
 
 <!-- Screen reader live region for announcements -->
 <div id="srAnnounce" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- XP & Achievement Toasts -->
+<div class="xp-toast" id="xpToast"></div>
+<div class="achievement-toast" id="achievementToast"></div>
 
 <!-- ==========================================
      NAVIGATION
@@ -62,6 +67,8 @@
             <h1 class="setup__title" id="setupTitle">iOS Interview</h1>
             <p class="setup__subtitle" id="setupSubtitle">Adaptive questioning that adjusts difficulty in real time. Assess developer knowledge from fundamentals to system design.</p>
         </div>
+
+        <div id="xpBarContainer"></div>
 
         <div class="templates__section">
             <div class="templates__header">
@@ -480,6 +487,8 @@
                 <div class="results__stat-label">Avg Time / Question</div>
             </div>
         </div>
+
+        <div class="results__xp-summary" id="resultsXpSummary" style="display:none"></div>
 
         <div class="results__notes" id="resultsIntroNotes" style="display:none">
             <p class="results__breakdown-title">Introduction Notes</p>
@@ -994,6 +1003,11 @@
                 <div class="analytics__card-title"><span class="analytics__card-icon">👤</span> Interviewer Stats</div>
                 <div class="analytics__interviewers" id="anInterviewers"></div>
             </div>
+
+            <div class="analytics__card">
+                <div class="analytics__card-title"><span class="analytics__card-icon">🏆</span> Achievements</div>
+                <div class="achievements__grid" id="achievementsGrid"></div>
+            </div>
         </div>
 
         <div class="analytics__empty" id="anEmpty" style="display:none">
@@ -1276,5 +1290,6 @@
 <script src="js/interview-templates.js"></script>
 <script src="js/interview-custom.js"></script>
 <script src="js/interview-sandbox.js"></script>
+<script src="js/interview-gamification.js"></script>
 </body>
 </html>

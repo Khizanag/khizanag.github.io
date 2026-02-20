@@ -32,6 +32,10 @@
         App.stopTimer();
         App.clearSession();
 
+        // Reset XP summary
+        var xpSummary = document.getElementById('resultsXpSummary');
+        if (xpSummary) xpSummary.style.display = 'none';
+
         // Guard: no rated questions
         if (s.ratings.length === 0) {
             document.getElementById('levelEmoji').textContent = '\u{1F937}';
@@ -158,6 +162,9 @@
 
         // Save to history
         App.saveToHistory();
+
+        // Award XP (gamification)
+        if (App.awardInterviewXP) App.awardInterviewXP();
 
         App.showScreen('screen-results');
     };

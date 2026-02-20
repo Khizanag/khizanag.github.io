@@ -224,6 +224,7 @@
                     '<span class="xp-bar__streak-value">' + data.streak + '</span>' +
                     '<span class="xp-bar__streak-label">Day Streak</span>' +
                 '</div>' +
+                '<button class="xp-bar__help" id="xpHelpBtn" aria-label="What is this?" title="What is this?">?</button>' +
             '</div>';
     }
 
@@ -351,10 +352,72 @@
         renderXpBar();
     };
 
+    // ---- Gamification Guide Modal ----
+    function openGuideModal() {
+        var modal = document.getElementById('gmModal');
+        if (!modal) return;
+
+        // Populate achievements list with current unlock status
+        var data = loadData();
+        var listEl = document.getElementById('gmAchievementsList');
+        if (listEl) {
+            var html = '';
+            for (var i = 0; i < ACHIEVEMENTS.length; i++) {
+                var a = ACHIEVEMENTS[i];
+                var unlocked = data.achievements.indexOf(a.id) !== -1;
+                html += '<div class="gm-ach-row' + (unlocked ? ' gm-ach-row--unlocked' : '') + '">';
+                html += '<span class="gm-ach-row__icon">' + a.icon + '</span>';
+                html += '<span class="gm-ach-row__name">' + a.name + '</span>';
+                html += '<span class="gm-ach-row__desc">' + a.desc + '</span>';
+                if (unlocked) {
+                    html += '<span class="gm-ach-row__check">&#10003;</span>';
+                }
+                html += '</div>';
+            }
+            listEl.innerHTML = html;
+        }
+
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeGuideModal() {
+        var modal = document.getElementById('gmModal');
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+    }
+
     // Init
     function init() {
         renderXpBar();
         renderAchievements();
+
+        // Modal close button
+        var closeBtn = document.getElementById('gmModalClose');
+        if (closeBtn) closeBtn.addEventListener('click', closeGuideModal);
+
+        // Click overlay to close
+        var overlay = document.getElementById('gmModal');
+        if (overlay) {
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closeGuideModal();
+            });
+        }
+
+        // Escape to close
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay && overlay.classList.contains('is-open')) {
+                closeGuideModal();
+            }
+        });
+
+        // Help button — delegated because XP bar re-renders
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('#xpHelpBtn')) {
+                openGuideModal();
+            }
+        });
     }
 
     // Re-render XP bar when returning to setup

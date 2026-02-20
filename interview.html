@@ -40,6 +40,111 @@
 <div class="xp-toast" id="xpToast"></div>
 <div class="achievement-toast" id="achievementToast"></div>
 
+<!-- Gamification Guide Modal -->
+<div class="gm-modal-overlay" id="gmModal">
+    <div class="gm-modal">
+        <button class="gm-modal__close" id="gmModalClose" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
+        <div class="gm-modal__header">
+            <span class="gm-modal__icon">🎮</span>
+            <h2 class="gm-modal__title">Your Progress System</h2>
+            <p class="gm-modal__subtitle">Track your growth, earn XP, unlock achievements, and level up as you practice.</p>
+        </div>
+
+        <div class="gm-modal__body">
+            <!-- How it works -->
+            <section class="gm-section">
+                <h3 class="gm-section__title">How It Works</h3>
+                <p class="gm-section__text">Every time you conduct an interview, review flashcards, or practice in the sandbox, you earn <strong>XP (experience points)</strong>. As your XP grows, you level up and unlock new titles. It's a simple way to stay motivated and see how far you've come.</p>
+            </section>
+
+            <!-- XP Bar explained -->
+            <section class="gm-section">
+                <h3 class="gm-section__title">The XP Bar</h3>
+                <div class="gm-section__text">
+                    <div class="gm-bar-diagram">
+                        <span class="gm-bar-diagram__level">1</span>
+                        <span class="gm-bar-diagram__label">Title &middot; Level</span>
+                        <span class="gm-bar-diagram__track"><span class="gm-bar-diagram__fill"></span></span>
+                        <span class="gm-bar-diagram__xp">XP / 500</span>
+                        <span class="gm-bar-diagram__streak">Streak</span>
+                    </div>
+                    <ul class="gm-list">
+                        <li><strong>Level badge</strong> — your current level number</li>
+                        <li><strong>Title</strong> — your rank (Beginner, Apprentice, etc.)</li>
+                        <li><strong>Progress bar</strong> — fill it up to reach the next level</li>
+                        <li><strong>Day streak</strong> — consecutive days of practice</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Earning XP -->
+            <section class="gm-section">
+                <h3 class="gm-section__title">Earning XP</h3>
+                <div class="gm-section__text">
+                    <div class="gm-xp-grid">
+                        <div class="gm-xp-card">
+                            <span class="gm-xp-card__icon">📋</span>
+                            <span class="gm-xp-card__title">Interviews</span>
+                            <span class="gm-xp-card__detail">10 XP per question</span>
+                            <span class="gm-xp-card__detail">+ quality bonus (avg rating &times; 5)</span>
+                            <span class="gm-xp-card__detail">+ topic variety bonus (5 per topic)</span>
+                            <span class="gm-xp-card__detail">+ speed bonus (faster = more XP)</span>
+                        </div>
+                        <div class="gm-xp-card">
+                            <span class="gm-xp-card__icon">🃏</span>
+                            <span class="gm-xp-card__title">Flashcards</span>
+                            <span class="gm-xp-card__detail">3 XP per card reviewed</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Levels -->
+            <section class="gm-section">
+                <h3 class="gm-section__title">Levels &amp; Titles</h3>
+                <p class="gm-section__text">You need <strong>500 XP</strong> per level. Your title evolves as you progress:</p>
+                <div class="gm-levels-table">
+                    <div class="gm-levels-row"><span class="gm-levels-range">1 – 2</span><span class="gm-levels-name">Beginner</span></div>
+                    <div class="gm-levels-row"><span class="gm-levels-range">3 – 4</span><span class="gm-levels-name">Apprentice</span></div>
+                    <div class="gm-levels-row"><span class="gm-levels-range">5 – 6</span><span class="gm-levels-name">Intermediate</span></div>
+                    <div class="gm-levels-row"><span class="gm-levels-range">7 – 9</span><span class="gm-levels-name">Advanced</span></div>
+                    <div class="gm-levels-row"><span class="gm-levels-range">10 – 14</span><span class="gm-levels-name">Expert</span></div>
+                    <div class="gm-levels-row"><span class="gm-levels-range">15 – 19</span><span class="gm-levels-name">Master</span></div>
+                    <div class="gm-levels-row gm-levels-row--legendary"><span class="gm-levels-range">20+</span><span class="gm-levels-name">Legendary</span></div>
+                </div>
+            </section>
+
+            <!-- Achievements -->
+            <section class="gm-section">
+                <h3 class="gm-section__title">Achievements</h3>
+                <p class="gm-section__text">Unlock badges by hitting milestones. Here's every achievement you can earn:</p>
+                <div class="gm-achievements-list" id="gmAchievementsList"></div>
+            </section>
+
+            <!-- Streaks -->
+            <section class="gm-section">
+                <h3 class="gm-section__title">Daily Streaks</h3>
+                <p class="gm-section__text">Practice on consecutive days to build your streak. Any activity counts — interviews, flashcards, or sandbox sessions. Miss a day and the streak resets to 1. A strong streak also helps you unlock the <em>On Fire</em> and <em>Diamond Streak</em> achievements.</p>
+            </section>
+
+            <!-- Tips -->
+            <section class="gm-section">
+                <h3 class="gm-section__title">Tips to Level Up Faster</h3>
+                <ul class="gm-tips">
+                    <li>Cover multiple topics in one interview for the <strong>topic variety bonus</strong></li>
+                    <li>Give thoughtful ratings — higher average rating means more <strong>quality XP</strong></li>
+                    <li>Answer quickly for the <strong>speed bonus</strong> (under 60s average)</li>
+                    <li>Review flashcards daily — it builds your streak <em>and</em> earns steady XP</li>
+                    <li>Try different platforms (iOS, Android, Frontend, Backend) for the <strong>Polyglot</strong> achievement</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+
 <!-- ==========================================
      NAVIGATION
      ========================================== -->

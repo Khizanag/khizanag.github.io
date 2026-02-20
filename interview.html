@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/interview-flashcard.css">
     <link rel="stylesheet" href="css/interview-guide.css">
     <link rel="stylesheet" href="css/interview-templates.css">
+    <link rel="stylesheet" href="css/interview-custom.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -167,6 +168,10 @@
             <button class="btn-analytics" id="btnAnalytics">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                 Analytics
+            </button>
+            <button class="btn-custom" id="btnCustom">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                Custom Questions
             </button>
         </div>
 
@@ -1062,6 +1067,104 @@
 </main>
 
 <!-- ==========================================
+     CUSTOM QUESTIONS
+     ========================================== -->
+<main class="screen" id="screen-custom">
+    <div class="container">
+        <button class="custom__back" id="customBack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+        </button>
+
+        <div class="custom__header">
+            <div class="custom__title-area">
+                <h1 class="custom__title">Custom Questions</h1>
+                <span class="custom__count" id="customCount">0 custom</span>
+            </div>
+            <div class="custom__actions">
+                <button class="custom__btn" id="customBtnShowIO">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    Import / Export
+                </button>
+                <button class="custom__btn custom__btn--primary" id="customBtnAdd">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add Question
+                </button>
+            </div>
+        </div>
+
+        <!-- Import/Export area -->
+        <div class="custom__io-area" id="customIOArea">
+            <textarea class="custom__io-textarea" id="customIOText" placeholder="Paste JSON here to import, or click Export to see current questions..."></textarea>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="custom__btn custom__btn--primary" id="customBtnImport">Import</button>
+                <button class="custom__btn" id="customBtnExport">Export Current</button>
+            </div>
+        </div>
+
+        <!-- Question list -->
+        <div class="custom__list" id="customList"></div>
+
+        <!-- Empty state -->
+        <div class="custom__empty" id="customEmpty" style="display:none">
+            <div class="custom__empty-icon">📝</div>
+            <div class="custom__empty-title">No custom questions yet</div>
+            <div class="custom__empty-desc">Add your own questions to tailor interviews to your team's specific needs and knowledge areas.</div>
+            <button class="custom__btn custom__btn--primary" id="customEmptyAdd">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add Your First Question
+            </button>
+        </div>
+
+        <!-- Add/Edit Modal -->
+        <div class="modal-overlay" id="customModal" style="display:none">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="customModalTitle">
+                <h3 class="modal__title" id="customModalTitle">Add Custom Question</h3>
+                <div class="custom__form" id="customForm" data-edit-id="">
+                    <div class="custom__field">
+                        <label class="custom__field-label" for="cqQuestion">Question *</label>
+                        <textarea class="custom__field-textarea" id="cqQuestion" placeholder="Enter the interview question..." rows="3"></textarea>
+                    </div>
+                    <div class="custom__field">
+                        <label class="custom__field-label" for="cqHint">Hint</label>
+                        <input type="text" class="custom__field-input" id="cqHint" placeholder="Optional hint to guide the candidate...">
+                    </div>
+                    <div class="custom__field">
+                        <label class="custom__field-label" for="cqAnswer">Answer *</label>
+                        <textarea class="custom__field-textarea" id="cqAnswer" placeholder="Enter the expected answer..." rows="4"></textarea>
+                    </div>
+                    <div class="custom__field">
+                        <label class="custom__field-label" for="cqCode">Code Snippet</label>
+                        <textarea class="custom__field-textarea" id="cqCode" placeholder="Optional code example..." rows="3" style="font-family:var(--font-mono);font-size:12px;"></textarea>
+                    </div>
+                    <div class="custom__field-row">
+                        <div class="custom__field">
+                            <label class="custom__field-label" for="cqTopic">Topic</label>
+                            <select class="custom__field-select" id="cqTopic"></select>
+                        </div>
+                        <div class="custom__field">
+                            <label class="custom__field-label" for="cqLevel">Level</label>
+                            <select class="custom__field-select" id="cqLevel">
+                                <option value="0">Intern</option>
+                                <option value="1" selected>Junior</option>
+                                <option value="2">Middle</option>
+                                <option value="3">Senior</option>
+                                <option value="4">Lead</option>
+                                <option value="5">Staff</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+                        <button class="custom__btn" id="customBtnCancel">Cancel</button>
+                        <button class="custom__btn custom__btn--primary" id="customBtnSave">Save Question</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
      SCRIPTS
      ========================================== -->
 <script src="js/questions.js"></script>
@@ -1085,5 +1188,6 @@
 <script src="js/interview-bank.js"></script>
 <script src="js/interview-guide.js"></script>
 <script src="js/interview-templates.js"></script>
+<script src="js/interview-custom.js"></script>
 </body>
 </html>

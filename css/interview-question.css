@@ -103,6 +103,20 @@
     flex-shrink: 0;
 }
 
+.q-progress__qtimer {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-pill);
+    background: var(--color-white-a4);
+    transition: color 0.3s;
+}
+
 /* Row 2: toolbar controls */
 .q-progress__toolbar {
     display: flex;

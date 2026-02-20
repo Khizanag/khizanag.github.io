@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/interview-guide.css">
     <link rel="stylesheet" href="css/interview-templates.css">
     <link rel="stylesheet" href="css/interview-custom.css">
+    <link rel="stylesheet" href="css/interview-sandbox.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -172,6 +173,10 @@
             <button class="btn-custom" id="btnCustom">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
                 Custom Questions
+            </button>
+            <button class="btn-sandbox" id="btnSandbox">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                Code Sandbox
             </button>
         </div>
 
@@ -1170,6 +1175,82 @@
 </main>
 
 <!-- ==========================================
+     LIVE CODING SANDBOX
+     ========================================== -->
+<main class="screen" id="screen-sandbox">
+    <div class="container">
+        <button class="sandbox__back" id="sbBack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+        </button>
+
+        <div class="sandbox__header">
+            <h1 class="sandbox__title">Code Sandbox</h1>
+            <p class="sandbox__subtitle">Practice solving coding problems with an interactive editor</p>
+        </div>
+
+        <div class="sandbox__picker">
+            <span class="sandbox__picker-label">Problem</span>
+            <select class="sandbox__picker-select" id="sbProblemSelect">
+                <option value="">Choose a problem...</option>
+            </select>
+            <button class="sandbox__picker-btn sandbox__picker-btn--random" id="sbRandomBtn">Random</button>
+        </div>
+
+        <div class="sandbox__problem" id="sbProblemArea">
+            <div class="sandbox__problem-header">
+                <h2 class="sandbox__problem-title" id="sbProblemTitle"></h2>
+                <span class="sandbox__problem-badge" id="sbDiffBadge"></span>
+                <span class="sandbox__problem-badge sandbox__problem-badge--easy" id="sbTopicBadge" style="background:var(--color-white-a8);color:var(--color-gray-300);"></span>
+                <span class="sandbox__timer" id="sbTimer">0:00</span>
+            </div>
+
+            <div class="sandbox__problem-desc" id="sbProblemDesc"></div>
+
+            <div class="sandbox__hints" id="sbHints"></div>
+
+            <div class="sandbox__editor-wrap">
+                <div class="sandbox__editor-pane">
+                    <div class="sandbox__editor-label">
+                        Your Code
+                        <span style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--color-gray-600)">Ctrl+Enter to run</span>
+                    </div>
+                    <textarea class="sandbox__editor" id="sbEditor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+                </div>
+                <div class="sandbox__editor-pane">
+                    <div class="sandbox__editor-label">Output</div>
+                    <div class="sandbox__output" id="sbOutput">Output will appear here...</div>
+                </div>
+            </div>
+
+            <div class="sandbox__actions">
+                <button class="sandbox__run-btn" id="sbRunBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Run
+                </button>
+                <button class="sandbox__action-btn" id="sbResetBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                    Reset
+                </button>
+                <button class="sandbox__action-btn" id="sbSolutionBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    Toggle Solution
+                </button>
+            </div>
+
+            <div class="sandbox__solution" id="sbSolution">
+                <div class="sandbox__solution-title">Reference Solution</div>
+                <div class="sandbox__solution-complexity" id="sbComplexity"></div>
+                <div class="sandbox__solution-code">
+                    <pre class="q-card__pre"><code id="sbSolutionCode"></code></pre>
+                </div>
+                <p class="sandbox__solution-explanation" id="sbExplanation"></p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
      SCRIPTS
      ========================================== -->
 <script src="js/questions.js"></script>
@@ -1194,5 +1275,6 @@
 <script src="js/interview-guide.js"></script>
 <script src="js/interview-templates.js"></script>
 <script src="js/interview-custom.js"></script>
+<script src="js/interview-sandbox.js"></script>
 </body>
 </html>

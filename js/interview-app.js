@@ -353,7 +353,45 @@
     }
     App.escapeHtml = escapeHtml;
 
+    // ===========================================================
+    //  PER-QUESTION TIMER
+    // ===========================================================
+
+    var questionStartTime = null;
+    var questionTimerInterval = null;
+
+    function startQuestionTimer() {
+        questionStartTime = Date.now();
+        clearInterval(questionTimerInterval);
+        var el = document.getElementById('qQuestionTimer');
+        if (!el) return;
+        el.textContent = '0:00';
+        el.style.display = '';
+        questionTimerInterval = setInterval(function () {
+            if (!questionStartTime) return;
+            var sec = Math.floor((Date.now() - questionStartTime) / 1000);
+            var m = Math.floor(sec / 60);
+            var ss = sec % 60;
+            el.textContent = m + ':' + (ss < 10 ? '0' : '') + ss;
+        }, 1000);
+    }
+
+    function stopQuestionTimer() {
+        if (questionStartTime) {
+            var q = s.sessionQuestions[s.currentQ];
+            if (q) {
+                q._timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
+            }
+        }
+        questionStartTime = null;
+        clearInterval(questionTimerInterval);
+    }
+
     App.displayQuestion = function (index) {
+        // Stop previous question timer and start new one
+        if (index > 0 || questionStartTime) stopQuestionTimer();
+        startQuestionTimer();
+
         var q = s.sessionQuestions[index];
 
         var elapsed = s.timeLimitMin * 60 - s.remainingSeconds;
@@ -770,6 +808,7 @@
 
         function goNextQuestion() {
             if (!s.practiceMode && s.currentRating === 0) return;
+            stopQuestionTimer();
             s.ratings.push(s.currentRating || 0);
             s.currentQ++;
 
@@ -788,6 +827,7 @@
         }
 
         function skipQuestion() {
+            stopQuestionTimer();
             s.sessionQuestions[s.currentQ].skipped = true;
             s.ratings.push(0);
             s.currentQ++;
@@ -989,12 +1029,14 @@
         // Timer expiry modal handlers
         document.getElementById('btnTimeUpInclude').addEventListener('click', function () {
             document.getElementById('modalTimeUp').style.display = 'none';
+            stopQuestionTimer();
             if (s.currentRating > 0) s.ratings.push(s.currentRating);
             App.stopTimer();
             App.showResults();
         });
         document.getElementById('btnTimeUpDiscard').addEventListener('click', function () {
             document.getElementById('modalTimeUp').style.display = 'none';
+            stopQuestionTimer();
             s.sessionQuestions.splice(s.currentQ, 1);
             App.stopTimer();
             App.showResults();
@@ -1008,6 +1050,7 @@
                 qCount + ' rated question' + (qCount !== 1 ? 's' : '') + '. ' +
                 'The current question will be ' + (s.currentRating > 0 ? 'included.' : 'discarded (not yet rated).');
             if (!confirm(msg)) return;
+            stopQuestionTimer();
             if (s.currentRating > 0) {
                 s.ratings.push(s.currentRating);
             } else {
@@ -1019,6 +1062,7 @@
 
         // Finish interview from wrap-up (no confirmation needed — it's the last section)
         dom.btnFinish.addEventListener('click', function () {
+            stopQuestionTimer();
             if (s.currentRating > 0) {
                 s.ratings.push(s.currentRating);
             } else {

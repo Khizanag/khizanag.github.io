@@ -3,6 +3,30 @@
 
     var s = App.state;
 
+    function formatDuration(seconds) {
+        if (!seconds || seconds <= 0) return '\u2014';
+        var m = Math.floor(seconds / 60);
+        var ss = seconds % 60;
+        if (m > 0) return m + ':' + (ss < 10 ? '0' : '') + ss;
+        return ss + 's';
+    }
+
+    function getTimeStats() {
+        var times = [];
+        s.sessionQuestions.forEach(function (q, i) {
+            if (i >= s.ratings.length || q.skipped) return;
+            if (q._timeSpent && q._timeSpent > 0) times.push(q._timeSpent);
+        });
+        if (times.length === 0) return { avgTime: 0, totalTime: 0, fastest: 0, slowest: 0 };
+        var total = times.reduce(function (a, b) { return a + b; }, 0);
+        return {
+            avgTime: Math.round(total / times.length),
+            totalTime: total,
+            fastest: Math.min.apply(null, times),
+            slowest: Math.max.apply(null, times),
+        };
+    }
+
     App.showResults = function () {
         var dom = App.dom;
         App.stopTimer();
@@ -61,6 +85,13 @@
         document.getElementById('statTotal').textContent = ratedCount + (skippedCount > 0 ? ' (' + skippedCount + ' skipped)' : '');
         document.getElementById('statTopics').textContent = uniqueTopics.length;
 
+        // Time stats
+        var timeStats = getTimeStats();
+        var statTimeEl = document.getElementById('statAvgTime');
+        if (statTimeEl) {
+            statTimeEl.textContent = timeStats.avgTime > 0 ? formatDuration(timeStats.avgTime) : '\u2014';
+        }
+
         var ring = document.getElementById('levelRing');
         var pct = Math.round((avg / 5) * 100);
         ring.style.setProperty('--ring-color', App.LEVEL_COLORS[levelIndex]);
@@ -75,10 +106,13 @@
             row.className = 'results__row' + (q.skipped ? ' results__row--skipped' : '');
 
             var esc = App.escapeHtml;
+            var timeHtml = q._timeSpent ? '<span class="results__row-time">' + formatDuration(q._timeSpent) + '</span>' : '';
+
             if (q.skipped) {
                 row.innerHTML =
                     '<span class="results__row-num">' + (i + 1) + '</span>' +
                     '<span class="results__row-q">' + esc(q.question) + '</span>' +
+                    timeHtml +
                     '<span class="results__row-badge">Skipped</span>';
             } else {
                 var starsHtml = '';
@@ -89,6 +123,7 @@
                 row.innerHTML =
                     '<span class="results__row-num">' + (i + 1) + '</span>' +
                     '<span class="results__row-q">' + esc(q.question) + '</span>' +
+                    timeHtml +
                     '<span class="results__row-stars">' + starsHtml + '</span>';
             }
 
@@ -267,7 +302,8 @@
             var topicLabel = App.TOPIC_LABELS[q.topic] || q.topic;
             var levelLabel = App.LEVEL_LABELS[q.level];
             var ratingStr = q.skipped ? 'SKIPPED' : stars(s.ratings[i]);
-            lines.push('#' + (i + 1) + '  ' + topicLabel + ' | ' + levelLabel + ' | ' + ratingStr);
+            var timeStr = q._timeSpent ? ' | ' + formatDuration(q._timeSpent) : '';
+            lines.push('#' + (i + 1) + '  ' + topicLabel + ' | ' + levelLabel + ' | ' + ratingStr + timeStr);
             lines.push('    ' + q.question);
             if (q.code) {
                 lines.push('');

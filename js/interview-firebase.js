@@ -24,14 +24,14 @@ import {
 } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js';
 
 // ---- Firebase Config ----
-// Replace with your own Firebase project config
 const firebaseConfig = {
-    apiKey: 'AIzaSyD_REPLACE_ME',
-    authDomain: 'your-project.firebaseapp.com',
-    projectId: 'your-project',
-    storageBucket: 'your-project.firebasestorage.app',
-    messagingSenderId: '000000000000',
-    appId: '1:000000000000:web:0000000000000000',
+    apiKey: 'AIzaSyCcIAtNyuWdZJzxFC3VgTOCyWYlQ5U6hLo',
+    authDomain: 'ainterviewer-3fc32.firebaseapp.com',
+    projectId: 'ainterviewer-3fc32',
+    storageBucket: 'ainterviewer-3fc32.firebasestorage.app',
+    messagingSenderId: '677661573704',
+    appId: '1:677661573704:web:56aa9c1e2e65481c7d8e7d',
+    measurementId: 'G-QBWFSPMWLZ',
 };
 
 const app = initializeApp(firebaseConfig);

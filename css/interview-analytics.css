@@ -1,0 +1,429 @@
+/* ============================================
+   ANALYTICS DASHBOARD
+   ============================================ */
+
+.analytics__header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.analytics__title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+}
+
+.analytics__subtitle {
+    font-size: 15px;
+    color: var(--color-gray-400);
+    font-weight: 300;
+}
+
+/* --- Summary stats --- */
+.analytics__summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.analytics__stat {
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    text-align: center;
+}
+
+.analytics__stat-value {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+}
+
+.analytics__stat-label {
+    font-size: 11px;
+    color: var(--color-gray-500);
+    letter-spacing: 0.02em;
+}
+
+/* --- Chart cards --- */
+.analytics__card {
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
+    border-radius: var(--border-radius-lg);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+}
+
+.analytics__card-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.analytics__card-icon {
+    font-size: 16px;
+}
+
+/* --- Trend chart (SVG) --- */
+.analytics__trend {
+    position: relative;
+    height: 200px;
+    margin-bottom: 8px;
+}
+
+.analytics__trend-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.analytics__trend-grid-line {
+    stroke: var(--color-white-a6);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.analytics__trend-line {
+    fill: none;
+    stroke: var(--color-blue);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.analytics__trend-area {
+    fill: var(--color-blue-a10);
+}
+
+.analytics__trend-dot {
+    fill: var(--color-blue);
+    stroke: var(--color-black);
+    stroke-width: 2;
+    cursor: pointer;
+    transition: r 0.2s;
+}
+
+.analytics__trend-dot:hover {
+    r: 6;
+}
+
+.analytics__trend-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    fill: var(--color-gray-500);
+}
+
+.analytics__trend-y-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    fill: var(--color-gray-500);
+}
+
+.analytics__trend-tooltip {
+    position: absolute;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-white-a15);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.analytics__trend-tooltip.is-visible {
+    opacity: 1;
+}
+
+.analytics__trend-tooltip-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-gray-50);
+    margin-bottom: 4px;
+}
+
+.analytics__trend-tooltip-detail {
+    color: var(--color-gray-400);
+    font-family: var(--font-mono);
+    font-size: 11px;
+}
+
+/* --- Topic heatmap --- */
+.analytics__heatmap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.analytics__heat-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.analytics__heat-label {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-gray-200);
+    min-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.analytics__heat-bar-track {
+    flex: 1;
+    height: 24px;
+    background: var(--color-white-a4);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.analytics__heat-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.8s var(--ease-out-expo);
+    min-width: 2px;
+}
+
+.analytics__heat-bar-value {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+}
+
+.analytics__heat-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-gray-500);
+    min-width: 32px;
+    text-align: right;
+}
+
+/* --- Level distribution --- */
+.analytics__levels {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 16px;
+    height: 180px;
+    padding-top: 20px;
+}
+
+.analytics__level-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 80px;
+}
+
+.analytics__level-bar-wrap {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.analytics__level-bar {
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.8s var(--ease-out-expo);
+    min-height: 4px;
+    position: relative;
+}
+
+.analytics__level-bar-count {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+}
+
+.analytics__level-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--color-gray-400);
+    white-space: nowrap;
+}
+
+/* --- Interviewer stats --- */
+.analytics__interviewers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.analytics__interviewer-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--color-white-a3);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-white-a6);
+}
+
+.analytics__interviewer-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+    min-width: 120px;
+}
+
+.analytics__interviewer-stats {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.analytics__interviewer-stat {
+    text-align: center;
+}
+
+.analytics__interviewer-stat-val {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray-50);
+}
+
+.analytics__interviewer-stat-label {
+    font-size: 10px;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* --- Empty analytics --- */
+.analytics__empty {
+    text-align: center;
+    padding: 80px 32px;
+}
+
+.analytics__empty-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.analytics__empty-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    margin-bottom: 8px;
+}
+
+.analytics__empty-text {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    font-weight: 300;
+    max-width: 360px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* --- Back button (shared) --- */
+.analytics__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding: 8px 16px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a10);
+    background: transparent;
+    color: var(--color-gray-400);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.analytics__back:hover {
+    border-color: var(--color-blue-a30);
+    color: var(--color-blue);
+    background: var(--color-blue-a6);
+}
+
+.analytics__back svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* --- Analytics button on setup --- */
+.btn-analytics {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a12);
+    background: transparent;
+    color: var(--color-gray-200);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    letter-spacing: -0.01em;
+}
+
+.btn-analytics:hover {
+    background: var(--color-green-a10);
+    border-color: var(--color-green-a30);
+    color: var(--color-green);
+    transform: scale(1.04);
+}
+
+.btn-analytics svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .analytics__summary { grid-template-columns: repeat(2, 1fr); }
+    .analytics__card { padding: 24px 20px; }
+}
+
+@media (max-width: 640px) {
+    .analytics__summary { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .analytics__stat { padding: 16px; }
+    .analytics__stat-value { font-size: 20px; }
+    .analytics__heat-label { min-width: 100px; font-size: 12px; }
+    .analytics__heat-bar-track { height: 20px; }
+    .analytics__levels { gap: 8px; }
+    .analytics__interviewer-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .analytics__interviewer-name { min-width: auto; }
+}

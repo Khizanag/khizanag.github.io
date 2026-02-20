@@ -64,6 +64,11 @@
         var history = loadHistory();
         history.unshift(entry);
         saveHistory(history);
+
+        // Dual-write to Firestore
+        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+            window.FirebaseService.saveHistoryEntry(entry);
+        }
     };
 
     App.renderHistory = function () {
@@ -129,6 +134,10 @@
             if (!confirm('Delete this interview record?')) return;
             var h = loadHistory().filter(function (entry) { return entry.id !== id; });
             saveHistory(h);
+            // Dual-delete from Firestore
+            if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+                window.FirebaseService.deleteHistoryEntry(id);
+            }
             App.renderHistory();
         });
 

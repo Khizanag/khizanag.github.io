@@ -501,40 +501,41 @@
             // Fallback to code challenge if no live coding bank
         }
 
+        var bank = App.getQuestionBank();
         var pool;
 
         if (codePhase) {
-            pool = QUESTION_BANK.filter(function (q) {
+            pool = bank.filter(function (q) {
                 return q.topic === 'code-challenge' && q.level === targetLevel;
             });
             // Try adjacent levels for code challenges
             for (var co = 1; pool.length === 0 && co <= 2; co++) {
-                pool = QUESTION_BANK.filter(function (q) {
+                pool = bank.filter(function (q) {
                     return q.topic === 'code-challenge' &&
                         (q.level === targetLevel + co || q.level === targetLevel - co);
                 });
             }
             if (pool.length === 0) {
-                pool = QUESTION_BANK.filter(function (q) {
+                pool = bank.filter(function (q) {
                     return q.topic === 'code-challenge';
                 });
             }
         } else {
             var topic = s.selectedTopics[Math.floor(Math.random() * s.selectedTopics.length)];
-            pool = QUESTION_BANK.filter(function (q) {
+            pool = bank.filter(function (q) {
                 return q.topic === topic && q.topic !== 'code-challenge' && q.level === targetLevel;
             });
 
             // Try all selected topics at same level
             if (pool.length === 0) {
-                pool = QUESTION_BANK.filter(function (q) {
+                pool = bank.filter(function (q) {
                     return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === targetLevel;
                 });
             }
 
             // Try adjacent levels ±1, ±2
             for (var offset = 1; pool.length === 0 && offset <= 2; offset++) {
-                pool = QUESTION_BANK.filter(function (q) {
+                pool = bank.filter(function (q) {
                     return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' &&
                         (q.level === targetLevel + offset || q.level === targetLevel - offset);
                 });
@@ -542,7 +543,7 @@
 
             // Final fallback: any level from selected topics
             if (pool.length === 0) {
-                pool = QUESTION_BANK.filter(function (q) {
+                pool = bank.filter(function (q) {
                     return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
                 });
             }
@@ -617,6 +618,43 @@
         updateStartButton();
     }
 
+    function renderTopicChips() {
+        var topics = App.TOPIC_LABELS;
+        var html = '';
+        var keys = Object.keys(topics).sort(function (a, b) {
+            return topics[a].localeCompare(topics[b]);
+        });
+        for (var i = 0; i < keys.length; i++) {
+            html += '<button class="topic-chip" data-topic="' + keys[i] + '">' + topics[keys[i]] + '</button>';
+        }
+        dom.topicGrid.innerHTML = html;
+        dom.allChips = Array.prototype.slice.call(dom.topicGrid.querySelectorAll('.topic-chip'));
+    }
+
+    function switchPlatform(platformId) {
+        App.switchPlatform(platformId);
+        s.platform = platformId;
+
+        // Update platform buttons
+        var btns = document.querySelectorAll('.platform-selector__btn');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.toggle('is-active', btns[i].dataset.platform === platformId);
+        }
+
+        // Update header
+        var config = App.getPlatformConfig();
+        var titleEl = document.getElementById('setupTitle');
+        var subtitleEl = document.getElementById('setupSubtitle');
+        var iconEl = document.getElementById('setupIcon');
+        if (titleEl) titleEl.textContent = config.name + ' Interview';
+        if (subtitleEl) subtitleEl.textContent = config.subtitle;
+        if (iconEl) iconEl.textContent = config.icon;
+
+        // Rebuild topic chips
+        renderTopicChips();
+        selectAllTopics();
+    }
+
     // ===========================================================
     //  EVENT BINDING
     // ===========================================================
@@ -644,6 +682,16 @@
 
         btnModeInterview.addEventListener('click', function () { setMode('interview'); });
         btnModePractice.addEventListener('click', function () { setMode('practice'); });
+
+        // Platform selector
+        var platformSelector = document.getElementById('platformSelector');
+        if (platformSelector) {
+            platformSelector.addEventListener('click', function (e) {
+                var btn = e.target.closest('.platform-selector__btn');
+                if (!btn || !btn.dataset.platform) return;
+                switchPlatform(btn.dataset.platform);
+            });
+        }
 
         // Name inputs
         dom.interviewerInput.addEventListener('input', function () {
@@ -840,11 +888,12 @@
             dom.wrapupNotes.value = '';
             App.stopTimer();
 
-            var pool = QUESTION_BANK.filter(function (q) {
+            var startBank = App.getQuestionBank();
+            var pool = startBank.filter(function (q) {
                 return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === 2;
             });
             if (pool.length === 0) {
-                pool = QUESTION_BANK.filter(function (q) {
+                pool = startBank.filter(function (q) {
                     return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
                 });
             }
@@ -1315,6 +1364,11 @@
         var isLight = document.documentElement.classList.toggle('theme-light');
         try { localStorage.setItem('ios-interview-theme', isLight ? 'light' : 'dark'); } catch (e) { /* */ }
     });
+
+    // Restore saved platform and render dynamic topics
+    var savedPlatform;
+    try { savedPlatform = localStorage.getItem(App.PLATFORM_KEY); } catch (e) { /* */ }
+    switchPlatform(savedPlatform && App.PLATFORMS[savedPlatform] ? savedPlatform : 'ios');
 
     var restored = App.restoreSession();
     if (!restored) {

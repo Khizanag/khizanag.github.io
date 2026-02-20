@@ -12,6 +12,8 @@
     .lc-card { padding: 32px; }
     .q-card { padding: 32px; }
     .rating { padding: 28px 28px; }
+    .platform-selector { gap: 6px; }
+    .platform-selector__btn { padding: 10px 14px; font-size: 13px; }
 }
 
 /* ============================================
@@ -21,6 +23,10 @@
     .setup__header { margin-bottom: 36px; }
     .setup__icon { width: 52px; height: 52px; font-size: 24px; border-radius: 14px; }
     .topic-chip { font-size: 13px; padding: 8px 14px; }
+    .platform-selector { gap: 4px; }
+    .platform-selector__btn { padding: 8px 10px; font-size: 12px; flex: 1; justify-content: center; text-align: center; }
+    .platform-selector__icon { font-size: 16px; }
+    .platform-selector__name { font-size: 11px; }
     .stepper__value { font-size: 28px; }
     .q-card { padding: 28px; }
     .rating { padding: 24px 20px; }

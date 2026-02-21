@@ -208,6 +208,7 @@
     function renderXpBar() {
         var container = document.getElementById('xpBarContainer');
         if (!container) return;
+        if (!App.isFeatureEnabled('gamification')) { container.style.display = 'none'; return; }
 
         var data = loadData();
         var level = getLevel(data.xp);

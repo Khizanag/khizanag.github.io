@@ -633,6 +633,8 @@
             : s.interviewerName.length > 0 && s.intervieweeName.length > 0;
         var allSelected = s.selectedTopics.length === dom.allChips.length;
         dom.btnStart.disabled = !(hasTopics && hasNames);
+        var btnCreateLive = document.getElementById('btnCreateLive');
+        if (btnCreateLive) btnCreateLive.disabled = !(hasTopics && hasNames);
         dom.btnToggleAll.textContent = allSelected ? 'Clear All' : 'Select All';
         updateTopicSummary();
 
@@ -778,11 +780,13 @@
             dom.hintReveal.classList.toggle('is-open');
             dom.btnHint.textContent = dom.hintReveal.classList.contains('is-open') ? 'Hide Hint' : 'Show Hint';
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
         });
         dom.btnAnswer.addEventListener('click', function () {
             dom.answerReveal.classList.toggle('is-open');
             dom.btnAnswer.textContent = dom.answerReveal.classList.contains('is-open') ? 'Hide Answer' : 'Show Answer';
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
         });
 
         // Live coding solution toggle
@@ -803,6 +807,7 @@
             dom.ratingDesc.textContent = App.RATING_LABELS[value];
             dom.btnNext.disabled = value === 0;
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
             App.syncPopup();
         }
 
@@ -822,6 +827,7 @@
             s.sessionQuestions.push(nextQ);
             App.displayQuestion(s.currentQ);
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
             App.syncPopup();
             window.scrollTo(0, 0);
         }
@@ -842,6 +848,7 @@
             s.sessionQuestions.push(nextQ);
             App.displayQuestion(s.currentQ);
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
             App.syncPopup();
             window.scrollTo(0, 0);
         }
@@ -971,15 +978,18 @@
         dom.introNotes.addEventListener('input', function () {
             s.introNotes = dom.introNotes.value;
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
         });
         dom.wrapupNotes.addEventListener('input', function () {
             s.wrapupNotes = dom.wrapupNotes.value;
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
         });
         dom.qNote.addEventListener('input', function () {
             var q = s.sessionQuestions[s.currentQ];
             if (q) q.notes = dom.qNote.value;
             App.saveSession();
+            if (App.syncLiveState) App.syncLiveState();
         });
 
         // Skip to next section
@@ -1057,6 +1067,7 @@
                 s.sessionQuestions.splice(s.currentQ, 1);
             }
             App.stopTimer();
+            if (App.syncLiveState) App.syncLiveState();
             App.showResults();
         });
 
@@ -1069,6 +1080,7 @@
                 s.sessionQuestions.splice(s.currentQ, 1);
             }
             App.stopTimer();
+            if (App.syncLiveState) App.syncLiveState();
             App.showResults();
         });
 
@@ -1393,6 +1405,123 @@
         modalCompare.addEventListener('click', function (e) {
             if (e.target === modalCompare) modalCompare.style.display = 'none';
         });
+
+        // ---- Live Session Buttons ----
+        var btnCreateLive = document.getElementById('btnCreateLive');
+        var btnJoinLive = document.getElementById('btnJoinLive');
+        var modalJoin = document.getElementById('modalJoin');
+        var joinError = document.getElementById('joinError');
+
+        if (btnCreateLive) {
+            btnCreateLive.addEventListener('click', function () {
+                if (btnCreateLive.disabled) return;
+                App.createLiveSession();
+            });
+        }
+
+        if (btnJoinLive) {
+            btnJoinLive.addEventListener('click', function () {
+                if (modalJoin) {
+                    modalJoin.style.display = '';
+                    if (joinError) joinError.classList.remove('is-visible');
+                    document.getElementById('joinCodeInput').value = '';
+                    document.getElementById('joinNameInput').value = '';
+                    document.getElementById('joinCodeInput').focus();
+                }
+            });
+        }
+
+        // Join modal submit
+        var btnJoinSubmit = document.getElementById('btnJoinSubmit');
+        if (btnJoinSubmit) {
+            btnJoinSubmit.addEventListener('click', function () {
+                var code = document.getElementById('joinCodeInput').value.trim();
+                var name = document.getElementById('joinNameInput').value.trim();
+                var role = document.getElementById('joinRoleSelect').value;
+                if (!code) {
+                    if (joinError) { joinError.textContent = 'Please enter a session code.'; joinError.classList.add('is-visible'); }
+                    return;
+                }
+                if (!name) {
+                    if (joinError) { joinError.textContent = 'Please enter your name.'; joinError.classList.add('is-visible'); }
+                    return;
+                }
+                App.joinLiveSession(code, name, role);
+            });
+        }
+
+        // Join modal cancel
+        var btnJoinCancel = document.getElementById('btnJoinCancel');
+        if (btnJoinCancel) {
+            btnJoinCancel.addEventListener('click', function () {
+                if (modalJoin) modalJoin.style.display = 'none';
+            });
+        }
+
+        // Join modal backdrop close + Escape
+        if (modalJoin) {
+            modalJoin.addEventListener('click', function (e) {
+                if (e.target === modalJoin) modalJoin.style.display = 'none';
+            });
+        }
+
+        // Join code auto-uppercase
+        var joinCodeInput = document.getElementById('joinCodeInput');
+        if (joinCodeInput) {
+            joinCodeInput.addEventListener('input', function () {
+                joinCodeInput.value = joinCodeInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            });
+        }
+
+        // Lobby: copy code
+        var btnCopyCode = document.getElementById('btnCopyCode');
+        if (btnCopyCode) {
+            btnCopyCode.addEventListener('click', function () {
+                var code = document.getElementById('lobbyCode').textContent;
+                navigator.clipboard.writeText(code).then(function () {
+                    btnCopyCode.classList.add('is-copied');
+                    var original = btnCopyCode.innerHTML;
+                    btnCopyCode.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+                    setTimeout(function () {
+                        btnCopyCode.classList.remove('is-copied');
+                        btnCopyCode.innerHTML = original;
+                    }, 2000);
+                });
+            });
+        }
+
+        // Lobby: start interview (host only)
+        var btnLobbyStart = document.getElementById('btnLobbyStart');
+        if (btnLobbyStart) {
+            btnLobbyStart.addEventListener('click', function () {
+                if (!App.isLiveHost() || !App.live.code) return;
+                FirebaseService.updateLiveStatus(App.live.code, 'active').then(function () {
+                    // Trigger normal start logic
+                    dom.btnStart.click();
+                });
+            });
+        }
+
+        // Lobby: cancel session
+        var btnLobbyCancel = document.getElementById('btnLobbyCancel');
+        if (btnLobbyCancel) {
+            btnLobbyCancel.addEventListener('click', function () {
+                if (confirm('Cancel this live session? All participants will be disconnected.')) {
+                    App.cancelLiveSession();
+                }
+            });
+        }
+
+        // Restart button: cleanup live session if active
+        var btnRestart = document.getElementById('btnRestart');
+        if (btnRestart) {
+            var originalRestart = btnRestart.onclick;
+            btnRestart.addEventListener('click', function () {
+                if (App.isLiveSession()) {
+                    App.cleanupLive();
+                }
+            });
+        }
     }
 
     // ===========================================================

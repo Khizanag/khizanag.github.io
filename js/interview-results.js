@@ -166,6 +166,34 @@
         // Award XP (gamification)
         if (App.awardInterviewXP) App.awardInterviewXP();
 
+        // Push results to live session participants
+        if (App.isLiveSession && App.isLiveSession() && App.isLiveHost && App.isLiveHost()) {
+            var liveQuestions = s.sessionQuestions.map(function (q, i) {
+                return {
+                    question: q.question,
+                    topic: q.topic,
+                    level: q.level,
+                    skipped: q.skipped || false,
+                    rating: i < s.ratings.length ? s.ratings[i] : 0,
+                    notes: q.notes || '',
+                    _timeSpent: q._timeSpent || 0,
+                };
+            });
+            var topicStats = getTopicStats();
+            FirebaseService.setLiveResults(App.live.code, {
+                avg: avg,
+                levelIndex: levelIndex,
+                ratedCount: ratedCount,
+                skippedCount: skippedCount,
+                questions: liveQuestions,
+                topicStats: topicStats,
+                notes: {
+                    intro: s.introNotes || '',
+                    wrapup: s.wrapupNotes || '',
+                },
+            });
+        }
+
         App.showScreen('screen-results');
     };
 

@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/interview-sandbox.css">
     <link rel="stylesheet" href="css/interview-gamification.css">
     <link rel="stylesheet" href="css/interview-profile.css">
+    <link rel="stylesheet" href="css/interview-live.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -322,8 +323,48 @@
                 Start Interview
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
+            <div class="setup__live-actions">
+                <button class="btn-live-create" id="btnCreateLive" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    Create Live Session
+                </button>
+                <button class="btn-live-join" id="btnJoinLive">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                    Join Session
+                </button>
+            </div>
         </div>
         <p class="setup__validation" id="validationHint">Enter both participant names to begin</p>
+
+        <!-- Join Session Modal -->
+        <div class="modal-overlay" id="modalJoin" style="display:none">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalJoinTitle">
+                <h3 class="modal__title" id="modalJoinTitle">Join Live Session</h3>
+                <div class="modal__error" id="joinError"></div>
+                <div class="modal__field">
+                    <label class="modal__label" for="joinCodeInput">Session Code</label>
+                    <input class="live-code-input" id="joinCodeInput" type="text" maxlength="6" placeholder="ABC123" autocomplete="off" autocorrect="off" spellcheck="false">
+                </div>
+                <div class="modal__field">
+                    <label class="modal__label" for="joinNameInput">Your Name</label>
+                    <input class="modal__input" id="joinNameInput" type="text" placeholder="Enter your name..." autocomplete="name">
+                </div>
+                <div class="modal__field">
+                    <label class="modal__label" for="joinRoleSelect">Your Role</label>
+                    <select class="modal__select" id="joinRoleSelect">
+                        <option value="candidate">Candidate</option>
+                        <option value="spectator">Spectator (Observer)</option>
+                    </select>
+                </div>
+                <div class="modal__actions">
+                    <button class="modal__btn modal__btn--primary" id="btnJoinSubmit">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                        Join
+                    </button>
+                    <button class="modal__btn modal__btn--secondary" id="btnJoinCancel">Cancel</button>
+                </div>
+            </div>
+        </div>
 
         <div style="text-align:center; margin-top:16px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
             <button class="btn-browse" id="btnBrowse">
@@ -374,6 +415,49 @@
 </main>
 
 <!-- ==========================================
+     LOBBY SCREEN (Live Session)
+     ========================================== -->
+<main class="screen" id="screen-lobby">
+    <div class="container">
+        <div class="lobby__header">
+            <div class="lobby__icon">📡</div>
+            <h1 class="lobby__title">Live Session</h1>
+            <p class="lobby__subtitle" id="lobbySubtitle">Waiting for participants to join...</p>
+        </div>
+
+        <div class="lobby__code-block">
+            <span class="lobby__code-label">Session Code</span>
+            <div class="lobby__code" id="lobbyCode"></div>
+            <br>
+            <button class="lobby__copy-btn" id="btnCopyCode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy Code
+            </button>
+        </div>
+
+        <div class="lobby__config" id="lobbyConfig">
+            <p class="lobby__config-title">Session Configuration</p>
+            <div id="lobbyConfigRows"></div>
+        </div>
+
+        <div class="lobby__participants">
+            <p class="lobby__participants-title">Participants</p>
+            <div class="lobby__participant-list" id="lobbyParticipantList"></div>
+        </div>
+
+        <div class="lobby__actions" id="lobbyActions">
+            <button class="lobby__start-btn" id="btnLobbyStart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Start Interview
+            </button>
+            <button class="lobby__cancel-btn" id="btnLobbyCancel">Cancel</button>
+        </div>
+
+        <p class="lobby__waiting" id="lobbyWaiting" style="display:none">Waiting for the host to start the interview...</p>
+    </div>
+</main>
+
+<!-- ==========================================
      QUESTION SCREEN (Step 2)
      ========================================== -->
 <main class="screen" id="screen-question">
@@ -387,6 +471,11 @@
                 <span class="q-progress__qtimer" id="qQuestionTimer" title="Time on current question">0:00</span>
             </div>
             <div class="q-progress__toolbar">
+                <span class="live-indicator" id="liveIndicator">
+                    <span class="live-indicator__dot"></span>
+                    LIVE
+                    <span class="live-indicator__count" id="liveParticipantCount"></span>
+                </span>
                 <span class="q-interviewee" id="qInterviewee"></span>
                 <span class="q-timer" id="qTimer" role="timer" aria-label="Interview timer" style="display:none">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -1522,6 +1611,7 @@
 <script src="js/interview-results.js"></script>
 <script src="js/interview-history.js"></script>
 <script src="js/interview-app.js"></script>
+<script src="js/interview-live.js"></script>
 <script src="js/interview-flashcard.js"></script>
 <script src="js/interview-analytics.js"></script>
 <script src="js/interview-bank.js"></script>

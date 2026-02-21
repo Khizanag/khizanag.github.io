@@ -1477,7 +1477,9 @@
         var btnCopyCode = document.getElementById('btnCopyCode');
         if (btnCopyCode) {
             btnCopyCode.addEventListener('click', function () {
-                var code = document.getElementById('lobbyCode').textContent;
+                var codeEl = document.getElementById('lobbyCode');
+                var code = codeEl ? codeEl.textContent : '';
+                if (!code) return;
                 navigator.clipboard.writeText(code).then(function () {
                     btnCopyCode.classList.add('is-copied');
                     var original = btnCopyCode.innerHTML;
@@ -1486,6 +1488,15 @@
                         btnCopyCode.classList.remove('is-copied');
                         btnCopyCode.innerHTML = original;
                     }, 2000);
+                }).catch(function () {
+                    // Fallback: select the code text for manual copy
+                    if (codeEl) {
+                        var range = document.createRange();
+                        range.selectNodeContents(codeEl);
+                        var sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                    }
                 });
             });
         }
@@ -1495,9 +1506,11 @@
         if (btnLobbyStart) {
             btnLobbyStart.addEventListener('click', function () {
                 if (!App.isLiveHost() || !App.live.code) return;
+                btnLobbyStart.disabled = true;
                 FirebaseService.updateLiveStatus(App.live.code, 'active').then(function () {
-                    // Trigger normal start logic
-                    dom.btnStart.click();
+                    if (dom.btnStart) dom.btnStart.click();
+                }).catch(function () {
+                    btnLobbyStart.disabled = false;
                 });
             });
         }
@@ -1515,9 +1528,8 @@
         // Restart button: cleanup live session if active
         var btnRestart = document.getElementById('btnRestart');
         if (btnRestart) {
-            var originalRestart = btnRestart.onclick;
             btnRestart.addEventListener('click', function () {
-                if (App.isLiveSession()) {
+                if (App.isLiveSession && App.isLiveSession()) {
                     App.cleanupLive();
                 }
             });

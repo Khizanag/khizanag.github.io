@@ -340,10 +340,10 @@
         <div class="modal-overlay" id="modalJoin" style="display:none">
             <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalJoinTitle">
                 <h3 class="modal__title" id="modalJoinTitle">Join Live Session</h3>
-                <div class="modal__error" id="joinError"></div>
+                <div class="modal__error" id="joinError" role="alert"></div>
                 <div class="modal__field">
                     <label class="modal__label" for="joinCodeInput">Session Code</label>
-                    <input class="live-code-input" id="joinCodeInput" type="text" maxlength="6" placeholder="ABC123" autocomplete="off" autocorrect="off" spellcheck="false">
+                    <input class="live-code-input" id="joinCodeInput" type="text" maxlength="6" placeholder="ABC123" autocomplete="off" autocorrect="off" spellcheck="false" aria-describedby="joinError">
                 </div>
                 <div class="modal__field">
                     <label class="modal__label" for="joinNameInput">Your Name</label>
@@ -442,7 +442,7 @@
 
         <div class="lobby__participants">
             <p class="lobby__participants-title">Participants</p>
-            <div class="lobby__participant-list" id="lobbyParticipantList"></div>
+            <div class="lobby__participant-list" id="lobbyParticipantList" role="list" aria-live="polite"></div>
         </div>
 
         <div class="lobby__actions" id="lobbyActions">

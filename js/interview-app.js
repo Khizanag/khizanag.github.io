@@ -1629,6 +1629,15 @@
     //  INIT FLOW
     // ===========================================================
 
+    var USER_DATA_KEYS = [
+        'ios-interview-history',
+        'ios-interview-gamification',
+        'ios-interview-sr',
+        'interview-custom-questions',
+        'ios-interview-streak',
+    ];
+    var LAST_UID_KEY = 'ios-interview-uid';
+
     function cloudHasData(cloudData) {
         if (!cloudData) return false;
         if (cloudData.history && cloudData.history.length > 0) return true;
@@ -1639,86 +1648,53 @@
         return false;
     }
 
-    function localHasData() {
-        try {
-            var h = localStorage.getItem('ios-interview-history');
-            if (h && JSON.parse(h).length > 0) return true;
-        } catch (e) { /* */ }
-        try {
-            var g = localStorage.getItem('ios-interview-gamification');
-            if (g && JSON.parse(g).xp > 0) return true;
-        } catch (e) { /* */ }
-        return false;
+    function clearLocalUserData() {
+        USER_DATA_KEYS.forEach(function (key) {
+            try { localStorage.removeItem(key); } catch (e) { /* */ }
+        });
     }
 
-    function uploadLocalToCloud() {
-        if (!window.FirebaseService || !window.FirebaseService.isCloudAvailable()) return;
+    function writeCloudToLocal(cloudData) {
         try {
-            var rawH = localStorage.getItem('ios-interview-history');
-            if (rawH) {
-                var history = JSON.parse(rawH) || [];
-                history.forEach(function (entry) {
-                    window.FirebaseService.saveHistoryEntry(entry);
-                });
+            if (cloudData.history) {
+                localStorage.setItem('ios-interview-history', JSON.stringify(cloudData.history.slice(0, 50)));
             }
-        } catch (e) { /* */ }
-        try {
-            var rawG = localStorage.getItem('ios-interview-gamification');
-            if (rawG) {
-                var gamification = JSON.parse(rawG);
-                if (gamification) window.FirebaseService.saveGamification(gamification);
+            if (cloudData.gamification) {
+                localStorage.setItem('ios-interview-gamification', JSON.stringify(cloudData.gamification));
             }
-        } catch (e) { /* */ }
-        try {
-            var rawSR = localStorage.getItem('ios-interview-sr');
-            if (rawSR) {
-                var sr = JSON.parse(rawSR) || {};
-                for (var key in sr) {
-                    window.FirebaseService.saveSREntry(key, sr[key]);
-                }
+            if (cloudData.sr) {
+                localStorage.setItem('ios-interview-sr', JSON.stringify(cloudData.sr));
             }
-        } catch (e) { /* */ }
-        try {
-            var rawCQ = localStorage.getItem('interview-custom-questions');
-            if (rawCQ) {
-                var cq = JSON.parse(rawCQ) || [];
-                cq.forEach(function (q) {
-                    window.FirebaseService.saveCustomQuestion(q);
-                });
+            if (cloudData.customQuestions) {
+                localStorage.setItem('interview-custom-questions', JSON.stringify(cloudData.customQuestions));
             }
-        } catch (e) { /* */ }
-        try {
-            var rawStreak = localStorage.getItem('ios-interview-streak');
-            if (rawStreak) {
-                var streak = JSON.parse(rawStreak);
-                if (streak) window.FirebaseService.saveStreak(streak);
+            if (cloudData.streak) {
+                localStorage.setItem('ios-interview-streak', JSON.stringify(cloudData.streak));
             }
         } catch (e) { /* */ }
     }
 
-    function proceedToSetup(cloudData) {
+    function proceedToSetup(cloudData, user) {
+        var currentUid = user ? user.uid : null;
+        var lastUid = null;
+        try { lastUid = localStorage.getItem(LAST_UID_KEY); } catch (e) { /* */ }
+
+        var sameUser = currentUid && lastUid && currentUid === lastUid;
+
+        // Store current UID for future comparisons
+        if (currentUid) {
+            try { localStorage.setItem(LAST_UID_KEY, currentUid); } catch (e) { /* */ }
+        }
+
         if (cloudHasData(cloudData)) {
-            // Cloud is source of truth — overwrite localStorage
-            try {
-                if (cloudData.history) {
-                    localStorage.setItem('ios-interview-history', JSON.stringify(cloudData.history.slice(0, 50)));
-                }
-                if (cloudData.gamification) {
-                    localStorage.setItem('ios-interview-gamification', JSON.stringify(cloudData.gamification));
-                }
-                if (cloudData.sr) {
-                    localStorage.setItem('ios-interview-sr', JSON.stringify(cloudData.sr));
-                }
-                if (cloudData.customQuestions) {
-                    localStorage.setItem('interview-custom-questions', JSON.stringify(cloudData.customQuestions));
-                }
-                if (cloudData.streak) {
-                    localStorage.setItem('ios-interview-streak', JSON.stringify(cloudData.streak));
-                }
-            } catch (e) { /* */ }
-        } else if (localHasData()) {
-            // Cloud empty, local has data — first-time migration
-            uploadLocalToCloud();
+            // Cloud is source of truth — always overwrite localStorage
+            if (!sameUser) clearLocalUserData();
+            writeCloudToLocal(cloudData);
+        } else if (sameUser) {
+            // Same user, cloud empty — keep existing localStorage cache
+        } else {
+            // Different user (or first sign-in) with empty cloud — clear stale data
+            clearLocalUserData();
         }
 
         initApp();
@@ -1786,21 +1762,16 @@
         if (user) {
             // User is signed in (real or anonymous) — stay on loading, go to setup
             updateNavProfile(user);
+            if (authResolved) return;
+            authResolved = true;
             if (window.FirebaseService && window.FirebaseService.loadAllUserData) {
                 window.FirebaseService.loadAllUserData().then(function (data) {
-                    if (!authResolved) {
-                        authResolved = true;
-                        proceedToSetup(data);
-                    }
+                    proceedToSetup(data, user);
                 }).catch(function () {
-                    if (!authResolved) {
-                        authResolved = true;
-                        proceedToSetup(null);
-                    }
+                    proceedToSetup(null, user);
                 });
-            } else if (!authResolved) {
-                authResolved = true;
-                proceedToSetup(null);
+            } else {
+                proceedToSetup(null, user);
             }
         } else {
             // Signed out — show auth form

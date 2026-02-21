@@ -3,6 +3,9 @@
 
     var s = App.state;
     var dom = App.dom;
+    var SYNC_DEBOUNCE_MS = 300;
+    var HOST_SYNC_INTERVAL_MS = 5000;
+    var MAX_CLOCK_SKEW_SECONDS = 30;
 
     // ---- Live session state ----
 
@@ -14,7 +17,6 @@
         syncInterval: null,
         timerInterval: null,
         localRemaining: 0,
-        syncTimer: null,
         participantUid: null,
     };
 
@@ -28,11 +30,30 @@
         return App.live.role === 'host';
     };
 
+    // ---- Toast notification (replaces alert) ----
+
+    function showLiveToast(message, isError) {
+        var existing = document.getElementById('liveToast');
+        if (existing) existing.remove();
+
+        var toast = document.createElement('div');
+        toast.id = 'liveToast';
+        toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+            'padding:12px 24px;border-radius:12px;font-family:Inter,sans-serif;font-size:14px;' +
+            'font-weight:500;z-index:9999;animation:lobbyJoin 0.3s ease-out;max-width:90vw;text-align:center;' +
+            (isError
+                ? 'background:rgba(255,59,48,0.95);color:#fff;'
+                : 'background:rgba(50,50,50,0.95);color:#f5f5f7;');
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(function () { if (toast.parentNode) toast.remove(); }, 4000);
+    }
+
     // ---- Create live session ----
 
     App.createLiveSession = function () {
         if (!FirebaseService.isCloudAvailable()) {
-            alert('Please sign in to create a live session.');
+            showLiveToast('Please sign in to create a live session.', true);
             return;
         }
 
@@ -53,7 +74,7 @@
             showLobby(code, config, true);
             startListening(code);
         }).catch(function (err) {
-            alert('Failed to create session: ' + err.message);
+            showLiveToast('Failed to create session: ' + (err.message || 'Unknown error'), true);
         });
     };
 
@@ -77,7 +98,9 @@
                 ? FirebaseService.currentUser.uid
                 : ('guest-' + Date.now());
 
-            document.getElementById('modalJoin').style.display = 'none';
+            var modal = document.getElementById('modalJoin');
+            if (modal) modal.style.display = 'none';
+            if (joinBtn) joinBtn.disabled = false;
 
             if (result.data.status === 'active') {
                 enterActiveSession(result.data);
@@ -86,7 +109,7 @@
             }
             startListening(code);
         }).catch(function (err) {
-            showJoinError(err.message);
+            showJoinError(err.message || 'Failed to join session.');
             if (joinBtn) joinBtn.disabled = false;
         });
     };
@@ -94,19 +117,21 @@
     // ---- Lobby rendering ----
 
     function showLobby(code, config, isHost) {
-        document.getElementById('lobbyCode').textContent = code;
+        var codeEl = document.getElementById('lobbyCode');
+        if (codeEl) codeEl.textContent = code;
         renderLobbyConfig(config);
 
         var actions = document.getElementById('lobbyActions');
         var waiting = document.getElementById('lobbyWaiting');
+        var subtitle = document.getElementById('lobbySubtitle');
         if (isHost) {
-            actions.style.display = '';
-            waiting.style.display = 'none';
-            document.getElementById('lobbySubtitle').textContent = 'Share the code with participants to join.';
+            if (actions) actions.style.display = '';
+            if (waiting) waiting.style.display = 'none';
+            if (subtitle) subtitle.textContent = 'Share the code with participants to join.';
         } else {
-            actions.style.display = 'none';
-            waiting.style.display = '';
-            document.getElementById('lobbySubtitle').textContent = 'Waiting for the host to start the interview...';
+            if (actions) actions.style.display = 'none';
+            if (waiting) waiting.style.display = '';
+            if (subtitle) subtitle.textContent = 'Waiting for the host to start the interview...';
         }
 
         App.showScreen('screen-lobby');
@@ -114,6 +139,7 @@
 
     function renderLobbyConfig(config) {
         var rows = document.getElementById('lobbyConfigRows');
+        if (!rows) return;
         var html = '';
         var platformLabel = config.platform ? config.platform.charAt(0).toUpperCase() + config.platform.slice(1) : 'iOS';
         html += '<div class="lobby__config-row"><span class="lobby__config-key">Platform</span><span class="lobby__config-value">' + escapeHtml(platformLabel) + '</span></div>';
@@ -129,6 +155,7 @@
 
     function renderLobbyParticipants(participants) {
         var list = document.getElementById('lobbyParticipantList');
+        if (!list) return;
         if (!participants) { list.innerHTML = ''; return; }
 
         var html = '';
@@ -138,14 +165,15 @@
             var initial = (p.name || '?').charAt(0).toUpperCase();
             var avatarContent = p.photoURL
                 ? '<img src="' + escapeHtml(p.photoURL) + '" alt="">'
-                : initial;
-            var badgeClass = 'lobby__badge lobby__badge--' + (p.role || 'spectator');
-            var roleLabel = (p.role || 'spectator').charAt(0).toUpperCase() + (p.role || 'spectator').slice(1);
+                : escapeHtml(initial);
+            var roleName = p.role || 'spectator';
+            var badgeClass = 'lobby__badge lobby__badge--' + roleName;
+            var roleLabel = roleName.charAt(0).toUpperCase() + roleName.slice(1);
 
-            html += '<div class="lobby__participant">' +
+            html += '<div class="lobby__participant" role="listitem">' +
                 '<div class="lobby__participant-avatar">' + avatarContent + '</div>' +
                 '<span class="lobby__participant-name">' + escapeHtml(p.name || 'Anonymous') + '</span>' +
-                '<span class="' + badgeClass + '">' + roleLabel + '</span>' +
+                '<span class="' + badgeClass + '">' + escapeHtml(roleLabel) + '</span>' +
                 '</div>';
         });
         list.innerHTML = html;
@@ -153,6 +181,9 @@
         // Update live indicator count
         var countEl = document.getElementById('liveParticipantCount');
         if (countEl) countEl.textContent = uids.length;
+
+        // Announce participant changes for screen readers
+        if (App.announce) App.announce(uids.length + ' participant' + (uids.length !== 1 ? 's' : '') + ' in session');
     }
 
     // ---- Listener ----
@@ -176,12 +207,7 @@
         } else if (data.status === 'ended' && prevStatus !== 'ended') {
             onSessionEnded(data);
         } else if (data.status === 'active' && !App.isLiveHost()) {
-            applyRemoteLiveState(data.live);
-        }
-
-        // Session deleted/cancelled
-        if (data.status === 'lobby' && prevStatus === 'lobby') {
-            // Still in lobby, just update participants
+            if (data.live) applyRemoteLiveState(data.live);
         }
     }
 
@@ -195,10 +221,8 @@
         if (indicator) indicator.classList.add('is-active');
 
         if (App.isLiveHost()) {
-            // Host starts normal interview flow — sync state periodically
             startHostSync();
         } else {
-            // Participant enters role-specific view
             applyRoleCSS(App.live.role);
             setupParticipantView(data);
         }
@@ -216,14 +240,12 @@
     function setupParticipantView(data) {
         var config = data.config || {};
 
-        // Set basic state from config
         s.intervieweeName = config.intervieweeName || '';
         s.interviewerName = config.interviewerName || '';
         s.selectedTopics = config.topics || [];
         s.timeLimitMin = config.timeLimitMin || 60;
         s.phases = config.phases || [];
 
-        // Initialize session state
         s.currentQ = 0;
         s.currentRating = 0;
         s.ratings = [];
@@ -234,7 +256,6 @@
 
         App.showScreen('screen-question');
 
-        // Apply the current live state if available
         if (data.live && data.live.questionText) {
             applyRemoteLiveState(data.live);
         }
@@ -247,7 +268,7 @@
     App.syncLiveState = function () {
         if (!App.isLiveSession() || !App.isLiveHost()) return;
         if (syncDebounceTimer) clearTimeout(syncDebounceTimer);
-        syncDebounceTimer = setTimeout(doSyncLiveState, 300);
+        syncDebounceTimer = setTimeout(doSyncLiveState, SYNC_DEBOUNCE_MS);
     };
 
     function doSyncLiveState() {
@@ -295,8 +316,7 @@
         if (App.live.syncInterval) clearInterval(App.live.syncInterval);
         App.live.syncInterval = setInterval(function () {
             doSyncLiveState();
-        }, 5000);
-        // Initial sync
+        }, HOST_SYNC_INTERVAL_MS);
         doSyncLiveState();
     }
 
@@ -309,7 +329,7 @@
         // Update question display
         if (d.qText) d.qText.textContent = remote.questionText || '';
         if (d.qTopic) {
-            var isCode = remote.questionTopic === 'code-challenge';
+            var isCode = (remote.questionTopic || '') === 'code-challenge';
             d.qTopic.textContent = isCode ? 'CODE CHALLENGE' : (remote.questionTopic || '').toUpperCase();
             d.qTopic.className = 'q-card__topic' + (isCode ? ' q-card__topic--code' : '');
         }
@@ -354,8 +374,10 @@
         // Progress bar
         if (d.progressFill && remote.remainingSeconds !== undefined) {
             var total = s.timeLimitMin * 60;
-            var elapsed = total - remote.remainingSeconds;
-            d.progressFill.style.width = Math.min((elapsed / total) * 100, 100) + '%';
+            if (total > 0) {
+                var elapsed = total - remote.remainingSeconds;
+                d.progressFill.style.width = Math.min((elapsed / total) * 100, 100) + '%';
+            }
         }
 
         // Timer interpolation
@@ -371,9 +393,13 @@
     function startTimerInterpolation(remaining, isRunning, timestamp) {
         if (App.live.timerInterval) clearInterval(App.live.timerInterval);
 
-        // Calculate lag
-        var lag = timestamp ? Math.max(0, Math.floor((Date.now() - timestamp) / 1000)) : 0;
-        App.live.localRemaining = Math.max(0, remaining - (isRunning ? lag : 0));
+        // Calculate lag with a cap to handle clock skew
+        var lag = 0;
+        if (timestamp && isRunning) {
+            lag = Math.floor((Date.now() - timestamp) / 1000);
+            lag = Math.max(0, Math.min(lag, MAX_CLOCK_SKEW_SECONDS));
+        }
+        App.live.localRemaining = Math.max(0, remaining - lag);
 
         var d = App.dom;
         if (d.qTimer) d.qTimer.style.display = '';
@@ -385,6 +411,7 @@
                 updateParticipantTimer();
                 if (App.live.localRemaining <= 0) {
                     clearInterval(App.live.timerInterval);
+                    App.live.timerInterval = null;
                 }
             }, 1000);
         }
@@ -396,13 +423,12 @@
             d.timerText.textContent = App.formatTime(App.live.localRemaining);
         }
 
-        // Timer warning/danger classes
         if (d.qTimer) {
             var total = s.timeLimitMin * 60;
             d.qTimer.classList.remove('is-warning', 'is-danger');
             if (App.live.localRemaining <= 60) {
                 d.qTimer.classList.add('is-danger');
-            } else if (App.live.localRemaining <= total * 0.2) {
+            } else if (total > 0 && App.live.localRemaining <= total * 0.2) {
                 d.qTimer.classList.add('is-warning');
             }
         }
@@ -411,42 +437,51 @@
     // ---- Session ended ----
 
     function onSessionEnded(data) {
-        if (App.isLiveHost()) return; // Host handles results normally
+        if (App.isLiveHost()) return;
 
         if (data.results) {
             showParticipantResults(data.results, App.live.role);
         } else {
-            alert('The interview has ended.');
+            showLiveToast('The interview has ended.', false);
             cleanupLive();
             App.showScreen('screen-setup');
         }
     }
 
     function showParticipantResults(results, role) {
-        var d = App.dom;
+        if (!results) return;
 
         // Set basic result info
         if (results.avg !== undefined) {
             var levelIndex = App.getLevelIndex(results.avg);
-            document.getElementById('levelEmoji').textContent = App.LEVEL_EMOJIS[levelIndex];
-            document.getElementById('levelName').textContent = App.LEVEL_LABELS[levelIndex];
-            document.getElementById('levelName').style.color = App.LEVEL_COLORS[levelIndex];
-            document.getElementById('resultsSubtitle').textContent = App.LEVEL_DESCS[levelIndex];
-
+            var emojiEl = document.getElementById('levelEmoji');
+            var nameEl = document.getElementById('levelName');
+            var subtitleEl = document.getElementById('resultsSubtitle');
             var ring = document.getElementById('levelRing');
-            var pct = Math.round((results.avg / 5) * 100);
-            ring.style.setProperty('--ring-color', App.LEVEL_COLORS[levelIndex]);
-            ring.style.setProperty('--ring-pct', pct);
+            var avgEl = document.getElementById('statAvg');
 
-            document.getElementById('statAvg').textContent = results.avg.toFixed(1);
+            if (emojiEl) emojiEl.textContent = App.LEVEL_EMOJIS[levelIndex];
+            if (nameEl) {
+                nameEl.textContent = App.LEVEL_LABELS[levelIndex];
+                nameEl.style.color = App.LEVEL_COLORS[levelIndex];
+            }
+            if (subtitleEl) subtitleEl.textContent = App.LEVEL_DESCS[levelIndex];
+            if (ring) {
+                var pct = Math.round((results.avg / 5) * 100);
+                ring.style.setProperty('--ring-color', App.LEVEL_COLORS[levelIndex]);
+                ring.style.setProperty('--ring-pct', pct);
+            }
+            if (avgEl) avgEl.textContent = results.avg.toFixed(1);
         }
 
         if (results.ratedCount !== undefined) {
             var totalText = results.ratedCount + '';
             if (results.skippedCount > 0) totalText += ' (' + results.skippedCount + ' skipped)';
-            document.getElementById('statTotal').textContent = totalText;
+            var totalEl = document.getElementById('statTotal');
+            if (totalEl) totalEl.textContent = totalText;
         }
 
+        var d = App.dom;
         if (d.resultsInterviewee) {
             d.resultsInterviewee.textContent = s.intervieweeName + ' — interviewed by ' + s.interviewerName;
         }
@@ -454,77 +489,84 @@
         // For spectators, render full breakdown
         if (role === 'spectator' && results.questions) {
             var list = document.getElementById('breakdownList');
-            list.innerHTML = '';
-            results.questions.forEach(function (q, i) {
-                var row = document.createElement('div');
-                row.className = 'results__row' + (q.skipped ? ' results__row--skipped' : '');
-                if (q.skipped) {
-                    row.innerHTML = '<span class="results__row-num">' + (i + 1) + '</span>' +
-                        '<span class="results__row-q">' + escapeHtml(q.question) + '</span>' +
-                        '<span class="results__row-badge">Skipped</span>';
-                } else {
-                    var stars = '';
-                    for (var st = 1; st <= 5; st++) {
-                        var cls = st <= q.rating ? 'results__row-star--filled' : 'results__row-star--empty';
-                        stars += '<svg class="results__row-star ' + cls + '" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+            if (list) {
+                list.innerHTML = '';
+                results.questions.forEach(function (q, i) {
+                    var row = document.createElement('div');
+                    row.className = 'results__row' + (q.skipped ? ' results__row--skipped' : '');
+                    if (q.skipped) {
+                        row.innerHTML = '<span class="results__row-num">' + (i + 1) + '</span>' +
+                            '<span class="results__row-q">' + escapeHtml(q.question) + '</span>' +
+                            '<span class="results__row-badge">Skipped</span>';
+                    } else {
+                        var stars = '';
+                        for (var st = 1; st <= 5; st++) {
+                            var cls = st <= q.rating ? 'results__row-star--filled' : 'results__row-star--empty';
+                            stars += '<svg class="results__row-star ' + cls + '" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+                        }
+                        row.innerHTML = '<span class="results__row-num">' + (i + 1) + '</span>' +
+                            '<span class="results__row-q">' + escapeHtml(q.question) + '</span>' +
+                            '<span class="results__row-stars">' + stars + '</span>';
                     }
-                    row.innerHTML = '<span class="results__row-num">' + (i + 1) + '</span>' +
-                        '<span class="results__row-q">' + escapeHtml(q.question) + '</span>' +
-                        '<span class="results__row-stars">' + stars + '</span>';
-                }
-                list.appendChild(row);
-            });
+                    list.appendChild(row);
+                });
+            }
         }
 
         // Topic stats for spectators
         if (role === 'spectator' && results.topicStats) {
             var container = document.getElementById('topicBreakdown');
-            container.innerHTML = '';
-            var keys = Object.keys(results.topicStats);
-            keys.forEach(function (key) {
-                var t = results.topicStats[key];
-                var avg = t.total / t.count;
-                var label = App.TOPIC_LABELS[key] || key;
-                var lvlIdx = App.getLevelIndex(avg);
-                var pctTopic = Math.round((avg / 5) * 100);
-                var row = document.createElement('div');
-                row.className = 'results__topic-row';
-                row.innerHTML =
-                    '<div class="results__topic-info">' +
-                        '<span class="results__topic-name">' + escapeHtml(label) + '</span>' +
-                        '<span class="results__topic-meta">' + t.count + 'q · ' + avg.toFixed(1) + ' avg · ' + escapeHtml(App.LEVEL_LABELS[lvlIdx]) + '</span>' +
-                    '</div>' +
-                    '<div class="results__topic-bar">' +
-                        '<div class="results__topic-fill" style="width:' + pctTopic + '%;background:' + App.LEVEL_COLORS[lvlIdx] + '"></div>' +
-                    '</div>';
-                container.appendChild(row);
-            });
+            if (container) {
+                container.innerHTML = '';
+                var keys = Object.keys(results.topicStats);
+                keys.forEach(function (key) {
+                    var t = results.topicStats[key];
+                    var avg = t.total / t.count;
+                    var label = App.TOPIC_LABELS[key] || key;
+                    var lvlIdx = App.getLevelIndex(avg);
+                    var pctTopic = Math.round((avg / 5) * 100);
+                    var topicRow = document.createElement('div');
+                    topicRow.className = 'results__topic-row';
+                    topicRow.innerHTML =
+                        '<div class="results__topic-info">' +
+                            '<span class="results__topic-name">' + escapeHtml(label) + '</span>' +
+                            '<span class="results__topic-meta">' + t.count + 'q · ' + avg.toFixed(1) + ' avg · ' + escapeHtml(App.LEVEL_LABELS[lvlIdx]) + '</span>' +
+                        '</div>' +
+                        '<div class="results__topic-bar">' +
+                            '<div class="results__topic-fill" style="width:' + pctTopic + '%;background:' + App.LEVEL_COLORS[lvlIdx] + '"></div>' +
+                        '</div>';
+                    container.appendChild(topicRow);
+                });
+            }
         }
 
         // Notes for spectators
         if (role === 'spectator' && results.notes) {
             var introNE = document.getElementById('resultsIntroNotes');
             var wrapupNE = document.getElementById('resultsWrapupNotes');
-            if (results.notes.intro) {
-                introNE.style.display = '';
-                document.getElementById('resultsIntroText').textContent = results.notes.intro;
-            } else {
-                introNE.style.display = 'none';
+            if (introNE) {
+                introNE.style.display = results.notes.intro ? '' : 'none';
+                if (results.notes.intro) {
+                    var introText = document.getElementById('resultsIntroText');
+                    if (introText) introText.textContent = results.notes.intro;
+                }
             }
-            if (results.notes.wrapup) {
-                wrapupNE.style.display = '';
-                document.getElementById('resultsWrapupText').textContent = results.notes.wrapup;
-            } else {
-                wrapupNE.style.display = 'none';
+            if (wrapupNE) {
+                wrapupNE.style.display = results.notes.wrapup ? '' : 'none';
+                if (results.notes.wrapup) {
+                    var wrapupText = document.getElementById('resultsWrapupText');
+                    if (wrapupText) wrapupText.textContent = results.notes.wrapup;
+                }
             }
         }
 
-        // Candidate minimal: just show level + avg + question count
-        document.getElementById('statTopics').textContent = results.topicStats
-            ? Object.keys(results.topicStats).length
-            : '—';
+        var topicsEl = document.getElementById('statTopics');
+        if (topicsEl) {
+            topicsEl.textContent = results.topicStats
+                ? Object.keys(results.topicStats).length
+                : '—';
+        }
 
-        // Hide restart button for participants — show "Back to Setup"
         var restartBtn = document.getElementById('btnRestart');
         if (restartBtn) restartBtn.textContent = 'Back to Setup';
 
@@ -551,10 +593,8 @@
             syncDebounceTimer = null;
         }
 
-        // Remove role CSS classes
         document.documentElement.classList.remove('is-live-candidate', 'is-live-spectator');
 
-        // Hide live indicator
         var indicator = document.getElementById('liveIndicator');
         if (indicator) indicator.classList.remove('is-active');
 

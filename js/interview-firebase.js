@@ -410,6 +410,21 @@ async function deleteLiveSession(code) {
     } catch (e) { notifyWriteError('live-delete'); }
 }
 
+// ---- Feature Flags ----
+
+async function loadFeatureFlags() {
+    try {
+        var snap = await getDoc(doc(db, 'config', 'features'));
+        return snap.exists() ? snap.data() : {};
+    } catch (e) { return {}; }
+}
+
+function subscribeFeatureFlags(callback) {
+    return onSnapshot(doc(db, 'config', 'features'), function (snap) {
+        callback(snap.exists() ? snap.data() : {});
+    });
+}
+
 // ---- Public API ----
 
 window.FirebaseService = {
@@ -450,6 +465,10 @@ window.FirebaseService = {
     setLiveResults: setLiveResults,
     subscribeLiveSession: subscribeLiveSession,
     deleteLiveSession: deleteLiveSession,
+
+    // Feature Flags
+    loadFeatureFlags: loadFeatureFlags,
+    subscribeFeatureFlags: subscribeFeatureFlags,
 
     // Helpers
     isCloudAvailable: isCloudAvailable,

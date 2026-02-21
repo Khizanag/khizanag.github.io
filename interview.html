@@ -234,9 +234,9 @@
             <p class="setup__subtitle" id="setupSubtitle">Adaptive questioning that adjusts difficulty in real time. Assess developer knowledge from fundamentals to system design.</p>
         </div>
 
-        <div id="xpBarContainer"></div>
+        <div id="xpBarContainer" data-feature="gamification"></div>
 
-        <div class="templates__section">
+        <div class="templates__section" data-feature="templates">
             <div class="templates__header">
                 <span class="templates__label">Quick Start Templates</span>
                 <button class="templates__toggle" id="btnToggleTemplates">Hide</button>
@@ -323,7 +323,7 @@
                 Start Interview
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
-            <div class="setup__live-actions">
+            <div class="setup__live-actions" data-feature="liveSessions">
                 <button class="btn-live-create" id="btnCreateLive" disabled>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                     Create Live Session
@@ -367,27 +367,27 @@
         </div>
 
         <div style="text-align:center; margin-top:16px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
-            <button class="btn-browse" id="btnBrowse">
+            <button class="btn-browse" id="btnBrowse" data-feature="questionBank">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 Browse Questions
             </button>
-            <button class="btn-guide" id="btnGuide">
+            <button class="btn-guide" id="btnGuide" data-feature="interviewGuide">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                 Interview Guide
             </button>
-            <button class="btn-flashcard" id="btnFlashcard">
+            <button class="btn-flashcard" id="btnFlashcard" data-feature="flashcards">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 Flashcards
             </button>
-            <button class="btn-analytics" id="btnAnalytics">
+            <button class="btn-analytics" id="btnAnalytics" data-feature="analytics">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                 Analytics
             </button>
-            <button class="btn-custom" id="btnCustom">
+            <button class="btn-custom" id="btnCustom" data-feature="customQuestions">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
                 Custom Questions
             </button>
-            <button class="btn-sandbox" id="btnSandbox">
+            <button class="btn-sandbox" id="btnSandbox" data-feature="sandbox">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 Code Sandbox
             </button>
@@ -1595,6 +1595,7 @@
      SCRIPTS
      ========================================== -->
 <script type="module" src="js/interview-firebase.js"></script>
+<script src="js/interview-features.js"></script>
 <script src="js/questions.js"></script>
 <script src="js/questions-android.js"></script>
 <script src="js/questions-frontend.js"></script>

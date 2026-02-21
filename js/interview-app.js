@@ -1838,6 +1838,7 @@
             clearLocalUserData();
         }
 
+        App.applyFeatureFlags();
         initApp();
     }
 
@@ -1905,6 +1906,7 @@
             updateNavProfile(user);
             if (authResolved) return;
             authResolved = true;
+            App.initFeatureFlags();
             if (window.FirebaseService && window.FirebaseService.loadAllUserData) {
                 window.FirebaseService.loadAllUserData().then(function (data) {
                     proceedToSetup(data, user);

@@ -35,8 +35,10 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - CSS uses `white-space: pre-line` to render the line breaks
 
 ## Workflow
-- After completing each task, commit and push immediately before starting the next task
+- **One commit per task** — when you finish a task, immediately create a separate commit and push before starting the next task
+- Never batch multiple unrelated tasks into a single commit
 - Keep commits focused — one feature/fix per commit
+- If a user request contains multiple tasks, complete each one with its own commit+push cycle
 
 ## Deployment
 - GitHub Pages serves from the `master` branch root

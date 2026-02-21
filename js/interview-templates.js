@@ -104,9 +104,7 @@
         },
     ];
 
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    var escapeHtml = App.escapeHtml;
 
     function buildTemplateCards() {
         var container = document.getElementById('templateGrid');

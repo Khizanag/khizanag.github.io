@@ -2,9 +2,13 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebas
 import {
     getAuth,
     onAuthStateChanged,
+    signInAnonymously,
     signInWithPopup,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    linkWithPopup,
+    linkWithCredential,
+    EmailAuthProvider,
     signOut as firebaseSignOut,
     GoogleAuthProvider,
     updateProfile,
@@ -24,6 +28,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js';
 
 // ---- Firebase Config ----
+
 const firebaseConfig = {
     apiKey: 'AIzaSyCcIAtNyuWdZJzxFC3VgTOCyWYlQ5U6hLo',
     authDomain: 'ainterviewer-3fc32.firebaseapp.com',
@@ -38,7 +43,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Enable offline persistence (best-effort)
 try {
     enableIndexedDbPersistence(db).catch(function () { /* multi-tab or unsupported */ });
 } catch (e) { /* */ }
@@ -46,19 +50,31 @@ try {
 const googleProvider = new GoogleAuthProvider();
 
 // ---- Internal state ----
+
 let _currentUser = null;
-let _isGuest = false;
+
+// ---- Notification helpers ----
+
+function notifyWriteError(context) {
+    document.dispatchEvent(new CustomEvent('firebase:writeerror', {
+        detail: { context: context },
+    }));
+}
+
+function dispatchAuthChange(user) {
+    document.dispatchEvent(new CustomEvent('firebase:authchange', {
+        detail: { user: user },
+    }));
+}
 
 // ---- Auth methods ----
 
 async function signInWithGoogle() {
-    const result = await signInWithPopup(auth, googleProvider);
-    return result.user;
+    return (await signInWithPopup(auth, googleProvider)).user;
 }
 
 async function signInWithEmail(email, password) {
-    const result = await signInWithEmailAndPassword(auth, email, password);
-    return result.user;
+    return (await signInWithEmailAndPassword(auth, email, password)).user;
 }
 
 async function signUpWithEmail(email, password, displayName) {
@@ -66,7 +82,6 @@ async function signUpWithEmail(email, password, displayName) {
     if (displayName) {
         await updateProfile(result.user, { displayName: displayName });
     }
-    // Create user profile document
     await setDoc(doc(db, 'users', result.user.uid), {
         email: email,
         displayName: displayName || '',
@@ -76,42 +91,65 @@ async function signUpWithEmail(email, password, displayName) {
     return result.user;
 }
 
+async function continueAsGuest() {
+    return (await signInAnonymously(auth)).user;
+}
+
 async function signOutUser() {
-    _isGuest = false;
     await firebaseSignOut(auth);
 }
 
-function continueAsGuest() {
-    _isGuest = true;
-    _currentUser = null;
-    document.dispatchEvent(new CustomEvent('firebase:authchange', {
-        detail: { user: null, isGuest: true },
-    }));
+// ---- Account linking (anonymous → real account) ----
+
+async function linkGoogle() {
+    if (!_currentUser || !_currentUser.isAnonymous) return null;
+    const result = await linkWithPopup(_currentUser, googleProvider);
+    await setDoc(doc(db, 'users', result.user.uid), {
+        email: result.user.email || '',
+        displayName: result.user.displayName || '',
+        photoURL: result.user.photoURL || '',
+        createdAt: new Date().toISOString(),
+    }, { merge: true });
+    return result.user;
+}
+
+async function linkEmail(email, password, displayName) {
+    if (!_currentUser || !_currentUser.isAnonymous) return null;
+    const credential = EmailAuthProvider.credential(email, password);
+    const result = await linkWithCredential(_currentUser, credential);
+    if (displayName) {
+        await updateProfile(result.user, { displayName: displayName });
+    }
+    await setDoc(doc(db, 'users', result.user.uid), {
+        email: email,
+        displayName: displayName || '',
+        photoURL: '',
+        createdAt: new Date().toISOString(),
+    }, { merge: true });
+    return result.user;
 }
 
 // ---- Auth state listener ----
+
 onAuthStateChanged(auth, function (user) {
     _currentUser = user;
-    if (user) {
-        _isGuest = false;
-        // Ensure profile doc exists
+    if (user && !user.isAnonymous) {
         setDoc(doc(db, 'users', user.uid), {
             email: user.email || '',
             displayName: user.displayName || '',
             photoURL: user.photoURL || '',
-            createdAt: new Date().toISOString(),
-        }, { merge: true }).catch(function () { /* */ });
+            lastSignIn: new Date().toISOString(),
+        }, { merge: true }).catch(function () {
+            notifyWriteError('user-profile');
+        });
     }
-    document.dispatchEvent(new CustomEvent('firebase:authchange', {
-        detail: { user: user, isGuest: _isGuest },
-    }));
+    dispatchAuthChange(user);
 });
 
 // ---- Firestore helpers ----
 
-function userDoc(path) {
-    if (!_currentUser) return null;
-    return doc(db, 'users', _currentUser.uid, ...path.split('/'));
+function isCloudAvailable() {
+    return !!_currentUser;
 }
 
 function userCollection(path) {
@@ -119,61 +157,88 @@ function userCollection(path) {
     return collection(db, 'users', _currentUser.uid, ...path.split('/'));
 }
 
-function isCloudAvailable() {
-    return _currentUser && !_isGuest;
+function userDocRef(subpath) {
+    return doc(db, 'users', _currentUser.uid, ...subpath.split('/'));
 }
 
-// ---- History CRUD ----
+function generateDocId(entry) {
+    return entry.id || entry._docId || (Date.now() + '-' + Math.random().toString(36).substr(2, 6));
+}
 
-async function loadHistory() {
-    if (!isCloudAvailable()) return [];
+function cleanEntry(entry) {
+    var data = Object.assign({}, entry);
+    delete data._docId;
+    return data;
+}
+
+async function readDoc(subpath, fallback) {
+    if (!isCloudAvailable()) return fallback;
     try {
-        const q = query(
-            userCollection('history'),
-            orderBy('date', 'desc'),
-            limit(50),
-        );
+        const snap = await getDoc(userDocRef(subpath));
+        return snap.exists() ? snap.data() : fallback;
+    } catch (e) { return fallback; }
+}
+
+async function writeDoc(subpath, data, errorContext) {
+    if (!isCloudAvailable()) return;
+    try {
+        await setDoc(userDocRef(subpath), data);
+    } catch (e) { notifyWriteError(errorContext); }
+}
+
+async function removeDoc(subpath, errorContext) {
+    if (!isCloudAvailable()) return;
+    try {
+        await deleteDoc(userDocRef(subpath));
+    } catch (e) { notifyWriteError(errorContext); }
+}
+
+async function readCollection(path, fallback, opts) {
+    if (!isCloudAvailable()) return fallback;
+    try {
+        var ref = userCollection(path);
+        var q = opts ? query(ref, ...opts) : ref;
         const snap = await getDocs(q);
         return snap.docs.map(function (d) {
             var data = d.data();
             data._docId = d.id;
             return data;
         });
-    } catch (e) { return []; }
+    } catch (e) { return fallback; }
 }
 
-async function saveHistoryEntry(entry) {
-    if (!isCloudAvailable()) return;
-    try {
-        var docId = entry.id || entry._docId || (Date.now() + '-' + Math.random().toString(36).substr(2, 6));
-        var data = Object.assign({}, entry);
-        delete data._docId;
-        await setDoc(doc(db, 'users', _currentUser.uid, 'history', docId), data);
-    } catch (e) { /* fire-and-forget */ }
-}
+// ---- User Profile ----
 
-async function deleteHistoryEntry(entryId) {
-    if (!isCloudAvailable()) return;
-    try {
-        await deleteDoc(doc(db, 'users', _currentUser.uid, 'history', entryId));
-    } catch (e) { /* */ }
-}
-
-// ---- Gamification CRUD ----
-
-async function loadGamification() {
+async function loadUserProfile() {
     if (!isCloudAvailable()) return null;
     try {
-        const snap = await getDoc(doc(db, 'users', _currentUser.uid, 'gamification', 'data'));
+        const snap = await getDoc(doc(db, 'users', _currentUser.uid));
         return snap.exists() ? snap.data() : null;
     } catch (e) { return null; }
 }
 
-async function saveGamification(data) {
-    if (!isCloudAvailable()) return;
-    try {
-        await setDoc(doc(db, 'users', _currentUser.uid, 'gamification', 'data'), data);
-    } catch (e) { /* */ }
+// ---- History CRUD ----
+
+function loadHistory() {
+    return readCollection('history', [], [orderBy('date', 'desc'), limit(50)]);
+}
+
+function saveHistoryEntry(entry) {
+    return writeDoc('history/' + generateDocId(entry), cleanEntry(entry), 'history');
+}
+
+function deleteHistoryEntry(entryId) {
+    return removeDoc('history/' + entryId, 'history-delete');
+}
+
+// ---- Gamification CRUD ----
+
+function loadGamification() {
+    return readDoc('gamification/data', null);
+}
+
+function saveGamification(data) {
+    return writeDoc('gamification/data', data, 'gamification');
 }
 
 // ---- Spaced Repetition CRUD ----
@@ -183,66 +248,37 @@ async function loadSR() {
     try {
         const snap = await getDocs(userCollection('sr'));
         var result = {};
-        snap.forEach(function (d) {
-            result[d.id] = d.data();
-        });
+        snap.forEach(function (d) { result[d.id] = d.data(); });
         return result;
     } catch (e) { return {}; }
 }
 
-async function saveSREntry(hashedId, data) {
-    if (!isCloudAvailable()) return;
-    try {
-        await setDoc(doc(db, 'users', _currentUser.uid, 'sr', hashedId), data);
-    } catch (e) { /* */ }
+function saveSREntry(hashedId, data) {
+    return writeDoc('sr/' + hashedId, data, 'sr');
 }
 
 // ---- Custom Questions CRUD ----
 
-async function loadCustomQuestions() {
-    if (!isCloudAvailable()) return [];
-    try {
-        const snap = await getDocs(userCollection('customQuestions'));
-        return snap.docs.map(function (d) {
-            var data = d.data();
-            data._docId = d.id;
-            return data;
-        });
-    } catch (e) { return []; }
+function loadCustomQuestions() {
+    return readCollection('customQuestions', []);
 }
 
-async function saveCustomQuestion(question) {
-    if (!isCloudAvailable()) return;
-    try {
-        var docId = question.id || question._docId || (Date.now() + '-' + Math.random().toString(36).substr(2, 6));
-        var data = Object.assign({}, question);
-        delete data._docId;
-        await setDoc(doc(db, 'users', _currentUser.uid, 'customQuestions', docId), data);
-    } catch (e) { /* */ }
+function saveCustomQuestion(question) {
+    return writeDoc('customQuestions/' + generateDocId(question), cleanEntry(question), 'custom-questions');
 }
 
-async function deleteCustomQuestion(questionId) {
-    if (!isCloudAvailable()) return;
-    try {
-        await deleteDoc(doc(db, 'users', _currentUser.uid, 'customQuestions', questionId));
-    } catch (e) { /* */ }
+function deleteCustomQuestion(questionId) {
+    return removeDoc('customQuestions/' + questionId, 'custom-questions-delete');
 }
 
 // ---- Flashcard Streak CRUD ----
 
-async function loadStreak() {
-    if (!isCloudAvailable()) return null;
-    try {
-        const snap = await getDoc(doc(db, 'users', _currentUser.uid, 'streak', 'flashcard'));
-        return snap.exists() ? snap.data() : null;
-    } catch (e) { return null; }
+function loadStreak() {
+    return readDoc('streak/flashcard', null);
 }
 
-async function saveStreak(data) {
-    if (!isCloudAvailable()) return;
-    try {
-        await setDoc(doc(db, 'users', _currentUser.uid, 'streak', 'flashcard'), data);
-    } catch (e) { /* */ }
+function saveStreak(data) {
+    return writeDoc('streak/flashcard', data, 'streak');
 }
 
 // ---- Load all user data in parallel ----
@@ -265,7 +301,7 @@ async function loadAllUserData() {
 
 window.FirebaseService = {
     get currentUser() { return _currentUser; },
-    get isGuest() { return _isGuest; },
+    get isAnonymous() { return _currentUser ? _currentUser.isAnonymous : false; },
 
     // Auth
     signInWithGoogle: signInWithGoogle,
@@ -273,8 +309,11 @@ window.FirebaseService = {
     signUpWithEmail: signUpWithEmail,
     signOut: signOutUser,
     continueAsGuest: continueAsGuest,
+    linkGoogle: linkGoogle,
+    linkEmail: linkEmail,
 
     // Data
+    loadUserProfile: loadUserProfile,
     loadAllUserData: loadAllUserData,
     loadHistory: loadHistory,
     saveHistoryEntry: saveHistoryEntry,

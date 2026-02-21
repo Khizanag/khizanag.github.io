@@ -1,19 +1,10 @@
 (function (App) {
     'use strict';
 
-    var HISTORY_KEY = 'ios-interview-history';
+    var escapeHtml = App.escapeHtml;
 
     function loadHistory() {
-        try {
-            var raw = localStorage.getItem(HISTORY_KEY);
-            if (!raw) return [];
-            var arr = JSON.parse(raw);
-            return Array.isArray(arr) ? arr : [];
-        } catch (e) { return []; }
-    }
-
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        return App.loadLocalHistory();
     }
 
     function renderSummary(history) {

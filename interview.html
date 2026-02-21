@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/interview-custom.css">
     <link rel="stylesheet" href="css/interview-sandbox.css">
     <link rel="stylesheet" href="css/interview-gamification.css">
+    <link rel="stylesheet" href="css/interview-profile.css">
     <link rel="stylesheet" href="css/interview-responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -157,9 +158,10 @@
         </a>
         <span class="nav__title">iOS Interview</span>
         <div class="nav__user" id="navUser">
-            <div class="nav__user-avatar nav__user-avatar--placeholder" id="navUserAvatar"></div>
-            <span class="nav__user-name" id="navUserName"></span>
-            <button class="nav__signout-btn" id="navSignOut">Sign Out</button>
+            <button class="nav__user-btn" id="navProfileBtn">
+                <div class="nav__user-avatar nav__user-avatar--placeholder" id="navUserAvatar"></div>
+                <span class="nav__user-name" id="navUserName"></span>
+            </button>
         </div>
         <button class="nav__theme-toggle" id="btnTheme" aria-label="Toggle light/dark mode">
             <svg class="nav__theme-icon--dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -212,9 +214,9 @@
 
             <div class="auth__guest-section">
                 <button class="auth__guest-btn" id="authGuestBtn">
-                    Continue without account
+                    Continue as Guest
                 </button>
-                <p class="auth__guest-hint">Data will be saved locally only</p>
+                <p class="auth__guest-hint">Sign up later to keep your data permanently</p>
             </div>
         </div>
     </div>
@@ -1435,6 +1437,67 @@
                 </div>
                 <p class="sandbox__solution-explanation" id="sbExplanation"></p>
             </div>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
+     PROFILE SCREEN
+     ========================================== -->
+<main class="screen" id="screen-profile">
+    <div class="profile">
+        <button class="profile__back" id="profileBack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+        </button>
+
+        <div class="profile__header">
+            <div class="profile__avatar profile__avatar--placeholder" id="profileAvatar"></div>
+            <h1 class="profile__name" id="profileName"></h1>
+            <p class="profile__email" id="profileEmail"></p>
+            <p class="profile__joined" id="profileJoined"></p>
+        </div>
+
+        <div class="profile__stats" id="profileStats">
+            <div class="profile__stat">
+                <span class="profile__stat-icon">📋</span>
+                <span class="profile__stat-value" id="profileInterviews">0</span>
+                <span class="profile__stat-label">Interviews</span>
+            </div>
+            <div class="profile__stat">
+                <span class="profile__stat-icon">❓</span>
+                <span class="profile__stat-value" id="profileQuestions">0</span>
+                <span class="profile__stat-label">Questions</span>
+            </div>
+            <div class="profile__stat">
+                <span class="profile__stat-icon">⭐</span>
+                <span class="profile__stat-value" id="profileXP">0</span>
+                <span class="profile__stat-label">XP</span>
+            </div>
+            <div class="profile__stat">
+                <span class="profile__stat-icon">🏅</span>
+                <span class="profile__stat-value" id="profileLevel">1</span>
+                <span class="profile__stat-label">Level</span>
+            </div>
+            <div class="profile__stat">
+                <span class="profile__stat-icon">🔥</span>
+                <span class="profile__stat-value" id="profileStreak">0</span>
+                <span class="profile__stat-label">Streak</span>
+            </div>
+            <div class="profile__stat">
+                <span class="profile__stat-icon">🏆</span>
+                <span class="profile__stat-value" id="profileAchievements">0</span>
+                <span class="profile__stat-label">Achievements</span>
+            </div>
+        </div>
+
+        <div class="profile__guest" id="profileGuest">
+            <p class="profile__guest-text">You're in guest mode. Create an account to sync your progress across devices and never lose your data.</p>
+            <button class="profile__guest-btn" id="profileCreateAccount">Create Account</button>
+        </div>
+
+        <div class="profile__actions" id="profileActions">
+            <button class="profile__signout-btn" id="profileSignOut">Sign Out</button>
         </div>
     </div>
 </main>

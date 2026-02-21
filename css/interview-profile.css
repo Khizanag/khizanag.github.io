@@ -1,0 +1,227 @@
+/* ==========================================
+   PROFILE SCREEN
+   ========================================== */
+
+.profile {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+}
+
+/* ---- Back button ---- */
+
+.profile__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--color-white-a8);
+    background: transparent;
+    color: var(--color-gray-400);
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.profile__back:hover {
+    border-color: var(--color-blue-a30);
+    color: var(--color-blue);
+    background: var(--color-blue-a6);
+}
+
+.profile__back svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ---- Header ---- */
+
+.profile__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.profile__avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid var(--color-white-a12);
+    object-fit: cover;
+    background: var(--color-white-a8);
+    margin-bottom: 14px;
+}
+
+.profile__avatar--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-gray-300);
+    background: var(--color-white-a8);
+}
+
+.profile__name {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-gray-100);
+    margin: 0 0 4px;
+}
+
+.profile__email {
+    font-size: 13px;
+    color: var(--color-gray-500);
+    margin: 0 0 6px;
+    word-break: break-all;
+}
+
+.profile__joined {
+    font-size: 12px;
+    color: var(--color-gray-600);
+    margin: 0;
+}
+
+/* ---- Stats grid ---- */
+
+.profile__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.profile__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 10px;
+    border-radius: 14px;
+    border: 1px solid var(--color-white-a8);
+    background: var(--color-white-a4);
+}
+
+.profile__stat-icon {
+    font-size: 20px;
+}
+
+.profile__stat-value {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-gray-100);
+}
+
+.profile__stat-label {
+    font-size: 11px;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* ---- Guest mode prompt ---- */
+
+.profile__guest {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 14px;
+    border: 1px dashed var(--color-white-a12);
+    background: var(--color-white-a4);
+    text-align: center;
+}
+
+.profile__guest.is-visible {
+    display: flex;
+}
+
+.profile__guest-text {
+    font-size: 13px;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.profile__guest-btn {
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    background: var(--color-blue);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.profile__guest-btn:hover {
+    background: var(--color-blue-hover);
+    transform: translateY(-1px);
+}
+
+/* ---- Actions ---- */
+
+.profile__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile__signout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--color-red-a30);
+    background: var(--color-red-a6);
+    color: var(--color-red);
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.profile__signout-btn:hover {
+    background: var(--color-red-a8);
+    border-color: var(--color-red);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 480px) {
+    .profile {
+        padding: 24px 16px 48px;
+    }
+
+    .profile__stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile__avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .profile__name {
+        font-size: 20px;
+    }
+}

@@ -13,20 +13,18 @@
     }
 
     function saveCustomToCloud(question) {
-        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+        if (window.FirebaseService) {
             window.FirebaseService.saveCustomQuestion(question);
         }
     }
 
     function deleteCustomFromCloud(questionId) {
-        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+        if (window.FirebaseService) {
             window.FirebaseService.deleteCustomQuestion(questionId);
         }
     }
 
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    var escapeHtml = App.escapeHtml;
 
     // Inject custom questions into the active question bank
     function injectCustomQuestions() {

@@ -24,9 +24,7 @@
         return q.topic + '::' + q.question.substring(0, 80);
     }
 
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    var escapeHtml = App.escapeHtml;
 
     function getAllTopics() {
         var bank = App.getQuestionBank();

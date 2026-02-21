@@ -72,6 +72,7 @@
         App.updatePhaseIndicator();
         if (App.updatePhaseUI) App.updatePhaseUI();
         App.saveSession();
+        if (App.syncLiveState) App.syncLiveState();
     };
 
     App.startTimer = function () {

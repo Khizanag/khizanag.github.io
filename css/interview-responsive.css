@@ -14,6 +14,12 @@
     .rating { padding: 28px 28px; }
     .platform-selector { gap: 6px; }
     .platform-selector__btn { padding: 10px 14px; font-size: 13px; }
+
+    /* Lobby */
+    .lobby__config-row { flex-direction: column; gap: 2px; }
+    .lobby__config-value { text-align: left; }
+    .lobby__actions { flex-direction: column; align-items: center; }
+    .setup__live-actions { flex-direction: column; align-items: center; }
 }
 
 /* ============================================
@@ -69,6 +75,18 @@
     .history__card-stats { flex-wrap: wrap; gap: 10px; }
     .compare__table { font-size: 12px; }
     .compare__table th, .compare__table td { padding: 8px 10px; }
+
+    /* Lobby mobile */
+    .lobby__code { font-size: clamp(24px, 7vw, 36px); letter-spacing: 5px; padding: 12px 20px; }
+    .lobby__header { margin-bottom: 24px; }
+    .lobby__config { padding: 16px 18px; }
+    .lobby__participant-list { gap: 6px; }
+    .lobby__participant { padding: 8px 12px; }
+    .lobby__start-btn { width: 100%; justify-content: center; }
+    .lobby__cancel-btn { width: 100%; justify-content: center; }
+    .setup__live-actions { flex-direction: column; align-items: stretch; }
+    .btn-live-create, .btn-live-join { justify-content: center; }
+    .live-code-input { font-size: 20px; letter-spacing: 4px; }
 }
 
 /* ============================================

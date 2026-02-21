@@ -1,0 +1,475 @@
+/* ============================================
+   LIVE SESSION — Lobby Screen
+   ============================================ */
+
+.lobby__header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.lobby__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: rgba(255, 59, 48, 0.12);
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.lobby__title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 6px;
+}
+
+.lobby__subtitle {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.lobby__code-block {
+    text-align: center;
+    margin: 0 auto 32px;
+    max-width: 400px;
+}
+
+.lobby__code-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+}
+
+.lobby__code {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(28px, 8vw, 48px);
+    font-weight: 600;
+    letter-spacing: 8px;
+    color: var(--text-primary);
+    padding: 16px 32px;
+    border: 2px dashed var(--border-secondary);
+    border-radius: 14px;
+    background: var(--bg-card);
+    user-select: all;
+}
+
+.lobby__copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 8px 16px;
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.lobby__copy-btn:hover {
+    background: var(--bg-hover);
+    color: var(--accent);
+}
+
+.lobby__copy-btn.is-copied {
+    color: #30d158;
+    border-color: #30d158;
+}
+
+/* Config summary card */
+.lobby__config {
+    border: 1px solid var(--border-primary);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    background: var(--bg-card);
+}
+
+.lobby__config-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    margin: 0 0 12px;
+}
+
+.lobby__config-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.lobby__config-key {
+    color: var(--text-tertiary);
+}
+
+.lobby__config-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Participant list */
+.lobby__participants {
+    margin-bottom: 32px;
+}
+
+.lobby__participants-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    margin: 0 0 12px;
+}
+
+.lobby__participant-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lobby__participant {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    animation: lobbyJoin 0.3s ease-out;
+}
+
+@keyframes lobbyJoin {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lobby__participant-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    overflow: hidden;
+}
+
+.lobby__participant-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lobby__participant-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.lobby__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lobby__badge--host {
+    background: rgba(0, 122, 255, 0.12);
+    color: #007aff;
+}
+
+.lobby__badge--candidate {
+    background: rgba(255, 149, 0, 0.12);
+    color: #ff9500;
+}
+
+.lobby__badge--spectator {
+    background: rgba(88, 86, 214, 0.12);
+    color: #5856d6;
+}
+
+/* Lobby actions */
+.lobby__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.lobby__start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 12px;
+    background: #ff3b30;
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.lobby__start-btn:hover { background: #e0332b; }
+.lobby__start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.lobby__cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 24px;
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.lobby__cancel-btn:hover { background: var(--bg-hover); }
+
+.lobby__waiting {
+    text-align: center;
+    padding: 24px;
+    font-size: 14px;
+    color: var(--text-tertiary);
+}
+
+/* ============================================
+   LIVE SESSION — Setup Buttons
+   ============================================ */
+
+.setup__live-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.btn-live-create,
+.btn-live-join {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: 1.5px solid var(--border-primary);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-live-create:hover,
+.btn-live-join:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0, 122, 255, 0.06);
+}
+
+.btn-live-create:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.btn-live-create:disabled:hover {
+    border-color: var(--border-primary);
+    color: var(--text-secondary);
+    background: transparent;
+}
+
+/* ============================================
+   LIVE SESSION — Live Indicator
+   ============================================ */
+
+.live-indicator {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(255, 59, 48, 0.12);
+    font-size: 11px;
+    font-weight: 700;
+    color: #ff3b30;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.live-indicator.is-active {
+    display: inline-flex;
+}
+
+.live-indicator__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff3b30;
+    animation: livePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+.live-indicator__count {
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* ============================================
+   LIVE SESSION — Join Modal
+   ============================================ */
+
+.live-code-input {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 6px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    border: 2px solid var(--border-secondary);
+    border-radius: 12px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.live-code-input:focus {
+    border-color: var(--accent);
+}
+
+.live-code-input::placeholder {
+    letter-spacing: 2px;
+    font-size: 16px;
+    opacity: 0.4;
+}
+
+.modal__input {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border-secondary);
+    border-radius: 10px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.modal__input:focus {
+    border-color: var(--accent);
+}
+
+.modal__field {
+    margin-bottom: 14px;
+}
+
+.modal__error {
+    display: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.modal__error.is-visible {
+    display: block;
+}
+
+/* ============================================
+   LIVE SESSION — Candidate Mode
+   ============================================ */
+
+.is-live-candidate .q-progress__icons,
+.is-live-candidate .btn-end,
+.is-live-candidate .btn-skip-section,
+.is-live-candidate .q-note,
+.is-live-candidate .q-phase-notes,
+.is-live-candidate .btn-pause,
+.is-live-candidate .q-reveal__btn,
+.is-live-candidate .rating,
+.is-live-candidate .rating__nav,
+.is-live-candidate .q-intro,
+.is-live-candidate .q-wrapup {
+    display: none !important;
+}
+
+/* Candidate results: minimal view */
+.is-live-candidate .results__breakdown,
+.is-live-candidate .results__notes,
+.is-live-candidate .results__topic-breakdown,
+.is-live-candidate .btn-download,
+.is-live-candidate .btn-print,
+.is-live-candidate .btn-feedback,
+.is-live-candidate #resultsXpSummary {
+    display: none !important;
+}
+
+/* ============================================
+   LIVE SESSION — Spectator Mode
+   ============================================ */
+
+.is-live-spectator .rating__star {
+    pointer-events: none;
+}
+
+.is-live-spectator .rating__nav,
+.is-live-spectator .btn-end,
+.is-live-spectator .btn-skip-section,
+.is-live-spectator .btn-pause,
+.is-live-spectator .btn-presenter,
+.is-live-spectator .btn-popout,
+.is-live-spectator .btn-fullscreen,
+.is-live-spectator .q-note,
+.is-live-spectator .q-phase-notes,
+.is-live-spectator .q-reveal__btn,
+.is-live-spectator .q-intro__skip,
+.is-live-spectator .q-wrapup__finish,
+.is-live-spectator .btn-download,
+.is-live-spectator .btn-print,
+.is-live-spectator .btn-feedback,
+.is-live-spectator #resultsXpSummary {
+    display: none !important;
+}

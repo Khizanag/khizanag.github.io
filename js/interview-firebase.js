@@ -19,11 +19,14 @@ import {
     getDoc,
     setDoc,
     deleteDoc,
+    updateDoc,
+    deleteField,
     collection,
     getDocs,
     query,
     orderBy,
     limit,
+    onSnapshot,
     enableIndexedDbPersistence,
 } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js';
 
@@ -297,6 +300,116 @@ async function loadAllUserData() {
     } catch (e) { return null; }
 }
 
+// ---- Live Sessions ----
+
+var SESSION_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+
+function generateSessionCode() {
+    var code = '';
+    for (var i = 0; i < 6; i++) {
+        code += SESSION_CHARS.charAt(Math.floor(Math.random() * SESSION_CHARS.length));
+    }
+    return code;
+}
+
+function liveSessionRef(code) {
+    return doc(db, 'liveSessions', code);
+}
+
+async function createLiveSession(config) {
+    if (!_currentUser) throw new Error('Not authenticated');
+    var code;
+    var attempts = 0;
+    while (attempts < 10) {
+        code = generateSessionCode();
+        var existing = await getDoc(liveSessionRef(code));
+        if (!existing.exists()) break;
+        attempts++;
+    }
+    if (attempts >= 10) throw new Error('Could not generate unique session code');
+
+    var participant = {};
+    participant[_currentUser.uid] = {
+        name: _currentUser.displayName || 'Host',
+        role: 'host',
+        joinedAt: new Date().toISOString(),
+        photoURL: _currentUser.photoURL || '',
+    };
+
+    await setDoc(liveSessionRef(code), {
+        hostUid: _currentUser.uid,
+        status: 'lobby',
+        createdAt: new Date().toISOString(),
+        config: config,
+        participants: participant,
+        live: {},
+        results: null,
+    });
+    return code;
+}
+
+async function joinLiveSession(code, name, role) {
+    var snap = await getDoc(liveSessionRef(code));
+    if (!snap.exists()) throw new Error('Session not found');
+    var data = snap.data();
+    if (data.status === 'ended') throw new Error('Session has already ended');
+
+    var uid = _currentUser ? _currentUser.uid : ('guest-' + Date.now());
+    var update = {};
+    update['participants.' + uid] = {
+        name: name,
+        role: role,
+        joinedAt: new Date().toISOString(),
+        photoURL: _currentUser ? (_currentUser.photoURL || '') : '',
+    };
+    await updateDoc(liveSessionRef(code), update);
+    return { uid: uid, data: data };
+}
+
+async function leaveLiveSession(code) {
+    if (!_currentUser) return;
+    var update = {};
+    update['participants.' + _currentUser.uid] = deleteField();
+    try {
+        await updateDoc(liveSessionRef(code), update);
+    } catch (e) { /* session may already be deleted */ }
+}
+
+async function updateLiveState(code, liveState) {
+    try {
+        await updateDoc(liveSessionRef(code), { live: liveState });
+    } catch (e) { notifyWriteError('live-state'); }
+}
+
+async function updateLiveStatus(code, status) {
+    try {
+        await updateDoc(liveSessionRef(code), { status: status });
+    } catch (e) { notifyWriteError('live-status'); }
+}
+
+async function setLiveResults(code, results) {
+    try {
+        await updateDoc(liveSessionRef(code), {
+            results: results,
+            status: 'ended',
+        });
+    } catch (e) { notifyWriteError('live-results'); }
+}
+
+function subscribeLiveSession(code, callback) {
+    return onSnapshot(liveSessionRef(code), function (snap) {
+        if (snap.exists()) {
+            callback(snap.data());
+        }
+    });
+}
+
+async function deleteLiveSession(code) {
+    try {
+        await deleteDoc(liveSessionRef(code));
+    } catch (e) { notifyWriteError('live-delete'); }
+}
+
 // ---- Public API ----
 
 window.FirebaseService = {
@@ -327,6 +440,16 @@ window.FirebaseService = {
     deleteCustomQuestion: deleteCustomQuestion,
     loadStreak: loadStreak,
     saveStreak: saveStreak,
+
+    // Live Sessions
+    createLiveSession: createLiveSession,
+    joinLiveSession: joinLiveSession,
+    leaveLiveSession: leaveLiveSession,
+    updateLiveState: updateLiveState,
+    updateLiveStatus: updateLiveStatus,
+    setLiveResults: setLiveResults,
+    subscribeLiveSession: subscribeLiveSession,
+    deleteLiveSession: deleteLiveSession,
 
     // Helpers
     isCloudAvailable: isCloudAvailable,

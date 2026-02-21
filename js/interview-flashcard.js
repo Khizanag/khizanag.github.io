@@ -14,8 +14,7 @@
     }
 
     function saveSREntryToCloud(qid, cardData) {
-        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
-            // Hash the question ID to make it a valid Firestore doc ID
+        if (window.FirebaseService) {
             var hashedId = qid.replace(/[\/\.#\$\[\]]/g, '_').substring(0, 200);
             window.FirebaseService.saveSREntry(hashedId, cardData);
         }
@@ -31,8 +30,7 @@
 
     function saveStreak(data) {
         try { localStorage.setItem(STREAK_KEY, JSON.stringify(data)); } catch (e) { /* */ }
-        // Dual-write to Firestore
-        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+        if (window.FirebaseService) {
             window.FirebaseService.saveStreak(data);
         }
     }
@@ -64,9 +62,7 @@
         return q.topic + '::' + q.question.substring(0, 80);
     }
 
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    var escapeHtml = App.escapeHtml;
 
     var fc = {
         topics: [],

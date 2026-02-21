@@ -292,26 +292,35 @@
 .nav__user-name {
     font-size: 12px;
     color: var(--color-gray-400);
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.nav__signout-btn {
-    padding: 4px 10px;
-    border-radius: 6px;
-    border: 1px solid var(--color-white-a8);
-    background: transparent;
-    color: var(--color-gray-500);
-    font-size: 11px;
+.nav__user-btn {
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px 4px 4px;
+    border-radius: 20px;
+    border: 1px solid var(--color-white-a10);
+    background: var(--color-white-a4);
+    color: var(--color-gray-400);
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1;
     cursor: pointer;
+    outline: none;
     transition: all 0.2s;
 }
 
-.nav__signout-btn:hover {
-    color: var(--color-gray-300);
+.nav__user-btn:hover {
+    background: var(--color-white-a8);
     border-color: var(--color-white-a20);
+}
+
+.nav__user-btn:focus-visible {
+    border-color: var(--color-blue);
 }
 
 /* ---- Auth screen hidden during loading ---- */

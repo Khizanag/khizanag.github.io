@@ -13,6 +13,8 @@
         } catch (e) { return []; }
     }
 
+    App.loadLocalHistory = loadHistory;
+
     function saveHistory(entries) {
         try {
             localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(0, MAX_ENTRIES)));
@@ -65,8 +67,7 @@
         history.unshift(entry);
         saveHistory(history);
 
-        // Dual-write to Firestore
-        if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+        if (window.FirebaseService) {
             window.FirebaseService.saveHistoryEntry(entry);
         }
     };
@@ -134,8 +135,7 @@
             if (!confirm('Delete this interview record?')) return;
             var h = loadHistory().filter(function (entry) { return entry.id !== id; });
             saveHistory(h);
-            // Dual-delete from Firestore
-            if (window.FirebaseService && !window.FirebaseService.isGuest && window.FirebaseService.currentUser) {
+            if (window.FirebaseService) {
                 window.FirebaseService.deleteHistoryEntry(id);
             }
             App.renderHistory();
@@ -144,89 +144,71 @@
         // Compare checkbox handlers
         container.addEventListener('change', function (e) {
             if (!e.target.classList.contains('history__compare-cb')) return;
-            var checked = container.querySelectorAll('.history__compare-cb:checked');
-            if (checked.length > 2) {
-                e.target.checked = false;
-                return;
-            }
+            var count = container.querySelectorAll('.history__compare-cb:checked').length;
             var compareBtn = document.getElementById('btnCompare');
             if (compareBtn) {
-                compareBtn.style.display = checked.length === 2 ? '' : 'none';
+                compareBtn.style.display = count >= 2 ? '' : 'none';
+                compareBtn.textContent = 'Compare ' + count + ' Selected';
             }
         });
     };
 
+    // ---- Comparison table helpers ----
+
+    function buildCompareRow(label, entries, cellFn) {
+        var html = '<tr><td>' + label + '</td>';
+        entries.forEach(function (e) { html += '<td>' + cellFn(e) + '</td>'; });
+        return html + '</tr>';
+    }
+
     App.showComparison = function () {
         var container = document.getElementById('historyList');
         var checked = container.querySelectorAll('.history__compare-cb:checked');
-        if (checked.length !== 2) return;
+        if (checked.length < 2) return;
 
         var history = loadHistory();
-        var ids = [checked[0].dataset.id, checked[1].dataset.id];
+        var ids = Array.prototype.map.call(checked, function (cb) { return cb.dataset.id; });
         var entries = ids.map(function (id) {
             return history.find(function (e) { return e.id === id; });
         }).filter(Boolean);
 
-        if (entries.length !== 2) return;
+        if (entries.length < 2) return;
 
         var modal = document.getElementById('modalCompare');
         var body = document.getElementById('compareBody');
         if (!modal || !body) return;
 
         var esc = App.escapeHtml;
-        var html = '<table class="compare__table">';
-        html += '<thead><tr><th></th>';
+        var html = '<table class="compare__table"><thead><tr><th></th>';
         entries.forEach(function (e) {
             html += '<th>' + esc(e.intervieweeName) + '</th>';
         });
         html += '</tr></thead><tbody>';
 
-        // Date
-        html += '<tr><td>Date</td>';
-        entries.forEach(function (e) {
-            html += '<td>' + new Date(e.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + '</td>';
+        html += buildCompareRow('Date', entries, function (e) {
+            return new Date(e.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         });
-        html += '</tr>';
-
-        // Level
-        html += '<tr><td>Assessment</td>';
-        entries.forEach(function (e) {
-            html += '<td style="color:' + App.LEVEL_COLORS[e.levelIndex] + '">' + App.LEVEL_EMOJIS[e.levelIndex] + ' ' + esc(App.LEVEL_LABELS[e.levelIndex]) + '</td>';
+        html += buildCompareRow('Assessment', entries, function (e) {
+            return '<span style="color:' + App.LEVEL_COLORS[e.levelIndex] + '">' +
+                App.LEVEL_EMOJIS[e.levelIndex] + ' ' + esc(App.LEVEL_LABELS[e.levelIndex]) + '</span>';
         });
-        html += '</tr>';
-
-        // Average
-        html += '<tr><td>Avg Rating</td>';
-        entries.forEach(function (e) {
-            html += '<td>' + e.avg.toFixed(1) + '/5</td>';
+        html += buildCompareRow('Avg Rating', entries, function (e) {
+            return e.avg.toFixed(1) + '/5';
         });
-        html += '</tr>';
-
-        // Questions
-        html += '<tr><td>Questions</td>';
-        entries.forEach(function (e) {
-            html += '<td>' + e.ratedCount + '</td>';
+        html += buildCompareRow('Questions', entries, function (e) {
+            return String(e.ratedCount);
         });
-        html += '</tr>';
 
-        // Topic comparison
+        // Topic rows
         var allTopics = {};
         entries.forEach(function (e) {
             e.topics.forEach(function (t) { allTopics[t.topic] = true; });
         });
-
         Object.keys(allTopics).forEach(function (topic) {
-            var label = App.TOPIC_LABELS[topic] || topic;
-            html += '<tr><td>' + esc(label) + '</td>';
-            entries.forEach(function (e) {
+            html += buildCompareRow(esc(App.TOPIC_LABELS[topic] || topic), entries, function (e) {
                 var t = e.topics.find(function (x) { return x.topic === topic; });
-                if (t) {
-                    html += '<td>' + t.avg.toFixed(1) + '/5 (' + t.count + 'q)</td>';
-                } else {
-                    html += '<td class="compare__na">-</td>';
-                }
+                return t ? t.avg.toFixed(1) + '/5 (' + t.count + 'q)' : '<span class="compare__na">-</span>';
             });
-            html += '</tr>';
         });
 
         html += '</tbody></table>';

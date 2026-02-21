@@ -16,9 +16,7 @@
         python:     { name: 'Python', executable: false, template: '# Write your Python solution here\n# (execution not available — compare with reference solution)\n\ndef solve():\n    pass\n' },
     };
 
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    var escapeHtml = App.escapeHtml;
 
     function getBank() {
         return typeof LIVE_CODING_BANK !== 'undefined' ? LIVE_CODING_BANK : [];

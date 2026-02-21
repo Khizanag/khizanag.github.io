@@ -1473,21 +1473,20 @@
             });
         });
 
-        // Guest
+        // Guest (anonymous sign-in)
         document.getElementById('authGuestBtn').addEventListener('click', function () {
-            if (window.FirebaseService) {
-                window.FirebaseService.continueAsGuest();
-            } else {
-                // Firebase not loaded yet — proceed as guest anyway
-                proceedToSetup(null);
-            }
+            if (!window.FirebaseService) { showAuthError('Firebase not loaded yet. Please wait.'); return; }
+            errorEl.classList.remove('is-visible');
+            window.FirebaseService.continueAsGuest().catch(function (err) {
+                showAuthError(err.message || 'Could not continue as guest');
+            });
         });
 
-        // Sign out from nav
-        document.getElementById('navSignOut').addEventListener('click', function () {
-            if (window.FirebaseService) {
-                window.FirebaseService.signOut();
-            }
+        // Profile from nav
+        document.getElementById('navProfileBtn').addEventListener('click', function () {
+            var user = window.FirebaseService ? window.FirebaseService.currentUser : null;
+            renderProfile(user);
+            App.showScreen('screen-profile');
         });
     }
 
@@ -1500,100 +1499,226 @@
         var avatarEl = document.getElementById('navUserAvatar');
         var nameEl = document.getElementById('navUserName');
 
-        if (user) {
-            navUser.classList.add('is-visible');
-            nameEl.textContent = user.displayName || user.email || '';
+        if (!user) {
+            navUser.classList.remove('is-visible');
+            return;
+        }
+
+        navUser.classList.add('is-visible');
+
+        if (user.isAnonymous) {
+            nameEl.textContent = 'Guest';
+            avatarEl.textContent = '?';
+            return;
+        }
+
+        nameEl.textContent = user.displayName || user.email || '';
+        if (user.photoURL) {
+            var img = document.createElement('img');
+            img.className = 'nav__user-avatar';
+            img.src = user.photoURL;
+            img.alt = 'Avatar';
+            img.referrerPolicy = 'no-referrer';
+            avatarEl.replaceWith(img);
+        } else {
+            var initials = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+            avatarEl.textContent = initials;
+        }
+    }
+
+    // ===========================================================
+    //  PROFILE
+    // ===========================================================
+
+    function renderProfile(user) {
+        var avatarEl = document.getElementById('profileAvatar');
+        var nameEl = document.getElementById('profileName');
+        var emailEl = document.getElementById('profileEmail');
+        var joinedEl = document.getElementById('profileJoined');
+        var guestEl = document.getElementById('profileGuest');
+        var actionsEl = document.getElementById('profileActions');
+        var isAnon = !user || user.isAnonymous;
+
+        if (!isAnon) {
+            nameEl.textContent = user.displayName || 'User';
+            emailEl.textContent = user.email || '';
+
             if (user.photoURL) {
                 var img = document.createElement('img');
-                img.className = 'nav__user-avatar';
+                img.className = 'profile__avatar';
                 img.src = user.photoURL;
                 img.alt = 'Avatar';
                 img.referrerPolicy = 'no-referrer';
                 avatarEl.replaceWith(img);
             } else {
-                var initials = (user.displayName || user.email || '?').charAt(0).toUpperCase();
-                avatarEl.textContent = initials;
+                avatarEl.textContent = (user.displayName || user.email || '?').charAt(0).toUpperCase();
             }
+
+            joinedEl.textContent = '';
+            if (window.FirebaseService) {
+                window.FirebaseService.loadUserProfile().then(function (profile) {
+                    if (profile && profile.createdAt) {
+                        joinedEl.textContent = 'Joined ' + new Date(profile.createdAt).toLocaleDateString('en-US', {
+                            month: 'long',
+                            year: 'numeric',
+                        });
+                    }
+                }).catch(function () { /* */ });
+            }
+
+            guestEl.classList.remove('is-visible');
+            actionsEl.style.display = '';
         } else {
-            navUser.classList.remove('is-visible');
+            nameEl.textContent = 'Guest';
+            emailEl.textContent = 'Not signed in';
+            joinedEl.textContent = '';
+            avatarEl.textContent = '?';
+            guestEl.classList.add('is-visible');
+            actionsEl.style.display = 'none';
         }
+
+        renderProfileStats();
+    }
+
+    function renderProfileStats() {
+        var gData = { xp: 0, totalInterviews: 0, totalQuestions: 0, streak: 0, achievements: [] };
+        try {
+            var raw = localStorage.getItem('ios-interview-gamification');
+            if (raw) gData = JSON.parse(raw) || gData;
+        } catch (e) { /* */ }
+
+        var XP_PER_LEVEL = 500;
+        document.getElementById('profileInterviews').textContent = gData.totalInterviews || 0;
+        document.getElementById('profileQuestions').textContent = gData.totalQuestions || 0;
+        document.getElementById('profileXP').textContent = gData.xp || 0;
+        document.getElementById('profileLevel').textContent = Math.floor((gData.xp || 0) / XP_PER_LEVEL) + 1;
+        document.getElementById('profileStreak').textContent = gData.streak || 0;
+        document.getElementById('profileAchievements').textContent = (gData.achievements || []).length;
+    }
+
+    function bindProfileEvents() {
+        document.getElementById('profileBack').addEventListener('click', function () {
+            App.showScreen('screen-setup');
+        });
+
+        document.getElementById('profileSignOut').addEventListener('click', function () {
+            if (window.FirebaseService) {
+                window.FirebaseService.signOut();
+            }
+        });
+
+        document.getElementById('profileCreateAccount').addEventListener('click', function () {
+            if (!window.FirebaseService) return;
+            // Link anonymous account to Google
+            window.FirebaseService.linkGoogle().then(function (user) {
+                if (user) {
+                    renderProfile(user);
+                    updateNavProfile(user);
+                }
+            }).catch(function (err) {
+                if (err.code === 'auth/credential-already-in-use') {
+                    alert('This account is already linked to another user. Please sign out and sign in directly.');
+                } else if (err.code !== 'auth/popup-closed-by-user') {
+                    alert(err.message || 'Could not link account');
+                }
+            });
+        });
     }
 
     // ===========================================================
     //  INIT FLOW
     // ===========================================================
 
+    function cloudHasData(cloudData) {
+        if (!cloudData) return false;
+        if (cloudData.history && cloudData.history.length > 0) return true;
+        if (cloudData.gamification && cloudData.gamification.xp > 0) return true;
+        if (cloudData.sr && Object.keys(cloudData.sr).length > 0) return true;
+        if (cloudData.customQuestions && cloudData.customQuestions.length > 0) return true;
+        if (cloudData.streak && cloudData.streak.lastDate) return true;
+        return false;
+    }
+
+    function localHasData() {
+        try {
+            var h = localStorage.getItem('ios-interview-history');
+            if (h && JSON.parse(h).length > 0) return true;
+        } catch (e) { /* */ }
+        try {
+            var g = localStorage.getItem('ios-interview-gamification');
+            if (g && JSON.parse(g).xp > 0) return true;
+        } catch (e) { /* */ }
+        return false;
+    }
+
+    function uploadLocalToCloud() {
+        if (!window.FirebaseService || !window.FirebaseService.isCloudAvailable()) return;
+        try {
+            var rawH = localStorage.getItem('ios-interview-history');
+            if (rawH) {
+                var history = JSON.parse(rawH) || [];
+                history.forEach(function (entry) {
+                    window.FirebaseService.saveHistoryEntry(entry);
+                });
+            }
+        } catch (e) { /* */ }
+        try {
+            var rawG = localStorage.getItem('ios-interview-gamification');
+            if (rawG) {
+                var gamification = JSON.parse(rawG);
+                if (gamification) window.FirebaseService.saveGamification(gamification);
+            }
+        } catch (e) { /* */ }
+        try {
+            var rawSR = localStorage.getItem('ios-interview-sr');
+            if (rawSR) {
+                var sr = JSON.parse(rawSR) || {};
+                for (var key in sr) {
+                    window.FirebaseService.saveSREntry(key, sr[key]);
+                }
+            }
+        } catch (e) { /* */ }
+        try {
+            var rawCQ = localStorage.getItem('interview-custom-questions');
+            if (rawCQ) {
+                var cq = JSON.parse(rawCQ) || [];
+                cq.forEach(function (q) {
+                    window.FirebaseService.saveCustomQuestion(q);
+                });
+            }
+        } catch (e) { /* */ }
+        try {
+            var rawStreak = localStorage.getItem('ios-interview-streak');
+            if (rawStreak) {
+                var streak = JSON.parse(rawStreak);
+                if (streak) window.FirebaseService.saveStreak(streak);
+            }
+        } catch (e) { /* */ }
+    }
+
     function proceedToSetup(cloudData) {
-        // Merge cloud data into localStorage if available
-        if (cloudData) {
-            if (cloudData.history && cloudData.history.length > 0) {
-                try {
-                    var localHistory = [];
-                    var rawH = localStorage.getItem('ios-interview-history');
-                    if (rawH) localHistory = JSON.parse(rawH) || [];
-                    // Merge: cloud entries not in local by id
-                    var localIds = {};
-                    localHistory.forEach(function (h) { localIds[h.id] = true; });
-                    cloudData.history.forEach(function (h) {
-                        if (!localIds[h.id]) localHistory.push(h);
-                    });
-                    localHistory.sort(function (a, b) {
-                        return new Date(b.date) - new Date(a.date);
-                    });
-                    localStorage.setItem('ios-interview-history', JSON.stringify(localHistory.slice(0, 50)));
-                } catch (e) { /* */ }
-            }
-
-            if (cloudData.gamification) {
-                try {
-                    var local = localStorage.getItem('ios-interview-gamification');
-                    var localData = local ? JSON.parse(local) : null;
-                    // Use whichever has more XP
-                    if (!localData || cloudData.gamification.xp > (localData.xp || 0)) {
-                        localStorage.setItem('ios-interview-gamification', JSON.stringify(cloudData.gamification));
-                    }
-                } catch (e) { /* */ }
-            }
-
-            if (cloudData.sr && Object.keys(cloudData.sr).length > 0) {
-                try {
-                    var localSR = {};
-                    var rawSR = localStorage.getItem('ios-interview-sr');
-                    if (rawSR) localSR = JSON.parse(rawSR) || {};
-                    // Merge: use whichever has more recent lastReview
-                    for (var key in cloudData.sr) {
-                        if (!localSR[key] || (cloudData.sr[key].lastReview > (localSR[key].lastReview || 0))) {
-                            localSR[key] = cloudData.sr[key];
-                        }
-                    }
-                    localStorage.setItem('ios-interview-sr', JSON.stringify(localSR));
-                } catch (e) { /* */ }
-            }
-
-            if (cloudData.streak) {
-                try {
-                    var localStreak = {};
-                    var rawStreak = localStorage.getItem('ios-interview-streak');
-                    if (rawStreak) localStreak = JSON.parse(rawStreak) || {};
-                    if (!localStreak.lastDate || cloudData.streak.lastDate >= localStreak.lastDate) {
-                        localStorage.setItem('ios-interview-streak', JSON.stringify(cloudData.streak));
-                    }
-                } catch (e) { /* */ }
-            }
-
-            if (cloudData.customQuestions && cloudData.customQuestions.length > 0) {
-                try {
-                    var localCQ = [];
-                    var rawCQ = localStorage.getItem('interview-custom-questions');
-                    if (rawCQ) localCQ = JSON.parse(rawCQ) || [];
-                    var localCQIds = {};
-                    localCQ.forEach(function (q) { localCQIds[q.id] = true; });
-                    cloudData.customQuestions.forEach(function (q) {
-                        if (!localCQIds[q.id]) localCQ.push(q);
-                    });
-                    localStorage.setItem('interview-custom-questions', JSON.stringify(localCQ));
-                } catch (e) { /* */ }
-            }
+        if (cloudHasData(cloudData)) {
+            // Cloud is source of truth — overwrite localStorage
+            try {
+                if (cloudData.history) {
+                    localStorage.setItem('ios-interview-history', JSON.stringify(cloudData.history.slice(0, 50)));
+                }
+                if (cloudData.gamification) {
+                    localStorage.setItem('ios-interview-gamification', JSON.stringify(cloudData.gamification));
+                }
+                if (cloudData.sr) {
+                    localStorage.setItem('ios-interview-sr', JSON.stringify(cloudData.sr));
+                }
+                if (cloudData.customQuestions) {
+                    localStorage.setItem('interview-custom-questions', JSON.stringify(cloudData.customQuestions));
+                }
+                if (cloudData.streak) {
+                    localStorage.setItem('ios-interview-streak', JSON.stringify(cloudData.streak));
+                }
+            } catch (e) { /* */ }
+        } else if (localHasData()) {
+            // Cloud empty, local has data — first-time migration
+            uploadLocalToCloud();
         }
 
         initApp();
@@ -1629,6 +1754,7 @@
     initDom();
     bindEvents();
     bindAuthEvents();
+    bindProfileEvents();
     App.initPlan();
 
     // Theme toggle
@@ -1641,24 +1767,25 @@
     App.renderTopicChips = renderTopicChips;
     App.updateUI = updateStartButton;
 
-    // Show loading state
+    // Show loading state while checking auth
     var authLoading = document.getElementById('authLoading');
     var authFormArea = document.getElementById('authFormArea');
     authLoading.classList.add('is-visible');
     authFormArea.classList.add('is-hidden');
 
-    // Listen for auth state changes
     var authResolved = false;
-    document.addEventListener('firebase:authchange', function (e) {
-        var user = e.detail.user;
-        var isGuest = e.detail.isGuest;
 
+    function showAuthForm() {
         authLoading.classList.remove('is-visible');
         authFormArea.classList.remove('is-hidden');
+    }
+
+    document.addEventListener('firebase:authchange', function (e) {
+        var user = e.detail.user;
 
         if (user) {
+            // User is signed in (real or anonymous) — stay on loading, go to setup
             updateNavProfile(user);
-            // Load cloud data then proceed
             if (window.FirebaseService && window.FirebaseService.loadAllUserData) {
                 window.FirebaseService.loadAllUserData().then(function (data) {
                     if (!authResolved) {
@@ -1671,31 +1798,23 @@
                         proceedToSetup(null);
                     }
                 });
-            } else {
-                if (!authResolved) {
-                    authResolved = true;
-                    proceedToSetup(null);
-                }
-            }
-        } else if (isGuest) {
-            updateNavProfile(null);
-            if (!authResolved) {
+            } else if (!authResolved) {
                 authResolved = true;
                 proceedToSetup(null);
             }
         } else {
-            // Signed out — return to auth screen
+            // Signed out — show auth form
             updateNavProfile(null);
             authResolved = false;
+            showAuthForm();
             App.showScreen('screen-auth');
         }
     });
 
-    // Fallback: if Firebase module fails to load, allow guest access after timeout
+    // Fallback: if Firebase module fails to load, show auth form after timeout
     setTimeout(function () {
         if (!authResolved && !window.FirebaseService) {
-            authLoading.classList.remove('is-visible');
-            authFormArea.classList.remove('is-hidden');
+            showAuthForm();
         }
     }, 3000);
 

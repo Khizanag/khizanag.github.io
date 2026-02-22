@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview History — Giga Khizanishvili</title>
+    <meta name="description" content="Browse, search, and filter your full interview history with detailed per-entry views.">
+    <meta name="author" content="Giga Khizanishvili">
+    <meta name="theme-color" content="#000000">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/interview-base.css">
+    <link rel="stylesheet" href="css/interview-history-page.css">
+    <script>
+    (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
+    </script>
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav">
+    <div class="nav__inner">
+        <a href="interview.html" class="nav__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Interview
+        </a>
+        <span class="nav__title">Interview History</span>
+        <button class="nav__theme-toggle" id="btnTheme" aria-label="Toggle light/dark mode">
+            <svg class="nav__theme-icon--dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="nav__theme-icon--light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="hp-main">
+    <div class="container">
+
+        <!-- Stats Bar -->
+        <div class="hp-stats" id="hpStats">
+            <div class="hp-stat-card">
+                <span class="hp-stat-card__value" id="statTotal">0</span>
+                <span class="hp-stat-card__label">Interviews</span>
+            </div>
+            <div class="hp-stat-card">
+                <span class="hp-stat-card__value" id="statAvg">—</span>
+                <span class="hp-stat-card__label">Avg Rating</span>
+            </div>
+            <div class="hp-stat-card">
+                <span class="hp-stat-card__value" id="statBestLevel">—</span>
+                <span class="hp-stat-card__label">Best Level</span>
+            </div>
+            <div class="hp-stat-card">
+                <span class="hp-stat-card__value" id="statQuestions">0</span>
+                <span class="hp-stat-card__label">Questions</span>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="hp-toolbar">
+            <div class="hp-search-wrap">
+                <svg class="hp-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="hp-search" id="hpSearch" placeholder="Search by name..." autocomplete="off">
+            </div>
+            <select class="hp-select" id="hpSort">
+                <option value="date-desc">Newest First</option>
+                <option value="date-asc">Oldest First</option>
+                <option value="rating-desc">Highest Rating</option>
+                <option value="rating-asc">Lowest Rating</option>
+                <option value="name-asc">Name A–Z</option>
+                <option value="name-desc">Name Z–A</option>
+            </select>
+            <select class="hp-select" id="hpFilterLevel">
+                <option value="all">All Levels</option>
+                <option value="0">Intern</option>
+                <option value="1">Junior</option>
+                <option value="2">Middle</option>
+                <option value="3">Senior</option>
+                <option value="4">Lead</option>
+                <option value="5">Staff</option>
+            </select>
+        </div>
+
+        <!-- History Grid -->
+        <div class="hp-grid" id="hpGrid"></div>
+
+        <!-- Empty State -->
+        <div class="hp-empty" id="hpEmpty" style="display:none">
+            <div class="hp-empty__icon">📋</div>
+            <h2 class="hp-empty__title">No interviews yet</h2>
+            <p class="hp-empty__text">Complete your first interview to see it here.</p>
+            <a href="interview.html" class="hp-empty__link">Start an Interview</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- Detail Modal -->
+<div class="hp-modal-overlay" id="hpModal" style="display:none">
+    <div class="hp-modal" role="dialog" aria-modal="true" aria-labelledby="hpModalTitle">
+        <button class="hp-modal__close" id="hpModalClose" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="hp-modal__header">
+            <h3 class="hp-modal__title" id="hpModalTitle"></h3>
+            <span class="hp-modal__date" id="hpModalDate"></span>
+        </div>
+        <div class="hp-modal__body" id="hpModalBody"></div>
+        <div class="hp-modal__footer">
+            <button class="hp-modal__btn hp-modal__btn--danger" id="hpModalDelete">Delete Entry</button>
+            <button class="hp-modal__btn hp-modal__btn--secondary" id="hpModalDone">Done</button>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase -->
+<script type="module" src="js/interview-firebase.js"></script>
+<!-- History Page Logic -->
+<script src="js/interview-history-page.js"></script>
+
+</body>
+</html>

@@ -30,6 +30,7 @@
     App.showResults = function () {
         var dom = App.dom;
         App.stopTimer();
+        if (App._stopQuestionTimer) App._stopQuestionTimer();
         App.clearSession();
 
         // Reset XP summary

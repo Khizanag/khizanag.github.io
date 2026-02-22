@@ -275,7 +275,7 @@
 
     function displayLiveCodingQuestion(q) {
         var lc = q._lcData;
-        s.lcHintsRevealed = 0;
+        s.lcHintsRevealed = q._lcHintsRevealed || 0;
 
         // Topic & difficulty badges
         dom.lcTopic.textContent = lc.topic.toUpperCase().replace(/-/g, ' ');
@@ -330,6 +330,7 @@
 
         // Reveal up to and including the clicked index
         s.lcHintsRevealed = Math.max(s.lcHintsRevealed, index + 1);
+        q._lcHintsRevealed = s.lcHintsRevealed;
 
         // Update buttons
         var btns = dom.lcHintButtons.querySelectorAll('.lc-hints__btn');
@@ -383,7 +384,9 @@
         }
         questionStartTime = null;
         clearInterval(questionTimerInterval);
+        questionTimerInterval = null;
     }
+    App._stopQuestionTimer = stopQuestionTimer;
 
     App.displayQuestion = function (index) {
         // Stop previous question timer and start new one

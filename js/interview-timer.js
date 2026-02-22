@@ -34,6 +34,7 @@
             s.timerExpired = true;
             clearInterval(s.timerInterval);
             s.timerInterval = null;
+            if (App._stopQuestionTimer) App._stopQuestionTimer();
             dom.timerText.textContent = '0:00';
             dom.progressFill.style.width = '100%';
             dom.qTimer.classList.remove('is-warning');

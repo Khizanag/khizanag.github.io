@@ -282,19 +282,23 @@
         }
 
         // Restore content sections if they were replaced by "no data" message
-        restoreContentSections(content);
+        var wasRestored = restoreContentSections(content);
 
         renderSummary(history);
         renderTrendChart(history);
         renderTopicHeatmap(history);
         renderLevelDistribution(history);
         renderInterviewerStats(history);
+
+        if (wasRestored && typeof App.renderAchievements === 'function') {
+            App.renderAchievements();
+        }
     }
 
     function restoreContentSections(content) {
         // If content was replaced with a "no data" message, restore the original sections
-        if (!document.getElementById('anSumInterviews')) {
-            content.innerHTML =
+        if (document.getElementById('anSumInterviews')) return false;
+        content.innerHTML =
                 '<div class="analytics__summary">' +
                     '<div class="analytics__stat"><div class="analytics__stat-value" id="anSumInterviews">0</div><div class="analytics__stat-label">Interviews</div></div>' +
                     '<div class="analytics__stat"><div class="analytics__stat-value" id="anSumQuestions">0</div><div class="analytics__stat-label">Questions Asked</div></div>' +
@@ -306,7 +310,7 @@
                 '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83d\udcca</span> Assessment Distribution</div><div class="analytics__levels" id="anLevels"></div></div>' +
                 '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83d\udc64</span> Interviewer Stats</div><div class="analytics__interviewers" id="anInterviewers"></div></div>' +
                 '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83c\udfc6</span> Achievements</div><div class="achievements__grid" id="achievementsGrid"></div></div>';
-        }
+        return true;
     }
 
     // Back
@@ -316,6 +320,12 @@
 
     // Open analytics from setup
     document.getElementById('btnAnalytics').addEventListener('click', function () {
+        // Reset filter to "All Time" when opening
+        currentRange = 'all';
+        var pills = document.querySelectorAll('.analytics__filter-pill');
+        pills.forEach(function (p) {
+            p.classList.toggle('is-active', p.dataset.range === 'all');
+        });
         renderDashboard();
         App.showScreen('screen-analytics');
     });

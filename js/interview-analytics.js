@@ -2,9 +2,21 @@
     'use strict';
 
     var escapeHtml = App.escapeHtml;
+    var currentRange = 'all';
 
     function loadHistory() {
         return App.loadLocalHistory();
+    }
+
+    function filterByRange(history, range) {
+        if (range === 'all') return history;
+        var days = parseInt(range, 10);
+        var cutoff = new Date();
+        cutoff.setDate(cutoff.getDate() - days);
+        var cutoffISO = cutoff.toISOString().slice(0, 10);
+        return history.filter(function (h) {
+            return h.date >= cutoffISO;
+        });
     }
 
     function renderSummary(history) {
@@ -245,25 +257,56 @@
         container.innerHTML = html;
     }
 
-    function renderDashboard() {
-        var history = loadHistory();
+    function renderDashboard(range) {
+        if (range !== undefined) currentRange = range;
+        var allHistory = loadHistory();
+        var history = filterByRange(allHistory, currentRange);
         var content = document.getElementById('anContent');
         var empty = document.getElementById('anEmpty');
+        var filters = document.getElementById('anFilters');
 
-        if (history.length === 0) {
+        if (allHistory.length === 0) {
             content.style.display = 'none';
+            filters.style.display = 'none';
             empty.style.display = '';
             return;
         }
 
+        filters.style.display = '';
         content.style.display = '';
         empty.style.display = 'none';
+
+        if (history.length === 0) {
+            content.innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--color-gray-500);font-size:14px;">No interviews in this time period.</div>';
+            return;
+        }
+
+        // Restore content sections if they were replaced by "no data" message
+        restoreContentSections(content);
 
         renderSummary(history);
         renderTrendChart(history);
         renderTopicHeatmap(history);
         renderLevelDistribution(history);
         renderInterviewerStats(history);
+    }
+
+    function restoreContentSections(content) {
+        // If content was replaced with a "no data" message, restore the original sections
+        if (!document.getElementById('anSumInterviews')) {
+            content.innerHTML =
+                '<div class="analytics__summary">' +
+                    '<div class="analytics__stat"><div class="analytics__stat-value" id="anSumInterviews">0</div><div class="analytics__stat-label">Interviews</div></div>' +
+                    '<div class="analytics__stat"><div class="analytics__stat-value" id="anSumQuestions">0</div><div class="analytics__stat-label">Questions Asked</div></div>' +
+                    '<div class="analytics__stat"><div class="analytics__stat-value" id="anSumAvg">\u2014</div><div class="analytics__stat-label">Avg Score</div></div>' +
+                    '<div class="analytics__stat"><div class="analytics__stat-value" id="anSumTopics">0</div><div class="analytics__stat-label">Topics Covered</div></div>' +
+                '</div>' +
+                '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83d\udcc8</span> Score Trend</div><div class="analytics__trend" id="anTrend"></div></div>' +
+                '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83c\udfaf</span> Topic Performance</div><div class="analytics__heatmap" id="anHeatmap"></div></div>' +
+                '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83d\udcca</span> Assessment Distribution</div><div class="analytics__levels" id="anLevels"></div></div>' +
+                '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83d\udc64</span> Interviewer Stats</div><div class="analytics__interviewers" id="anInterviewers"></div></div>' +
+                '<div class="analytics__card"><div class="analytics__card-title"><span class="analytics__card-icon">\ud83c\udfc6</span> Achievements</div><div class="achievements__grid" id="achievementsGrid"></div></div>';
+        }
     }
 
     // Back
@@ -275,6 +318,17 @@
     document.getElementById('btnAnalytics').addEventListener('click', function () {
         renderDashboard();
         App.showScreen('screen-analytics');
+    });
+
+    // Time filter pills
+    document.getElementById('anFilters').addEventListener('click', function (e) {
+        var pill = e.target.closest('.analytics__filter-pill');
+        if (!pill) return;
+        var range = pill.dataset.range;
+        var pills = document.querySelectorAll('.analytics__filter-pill');
+        pills.forEach(function (p) { p.classList.remove('is-active'); });
+        pill.classList.add('is-active');
+        renderDashboard(range);
     });
 
     // Escape goes back

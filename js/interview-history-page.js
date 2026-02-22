@@ -77,8 +77,32 @@
         return Object.keys(map).map(function (k) { return map[k]; });
     }
 
+    function showSkeletonCards(count) {
+        var html = '';
+        for (var i = 0; i < count; i++) {
+            html += '<div class="hp-card hp-card--skeleton">';
+            html += '<div class="hp-card__header"><div class="hp-card__info">';
+            html += '<div class="skeleton skeleton--text"></div>';
+            html += '<div class="skeleton skeleton--text-short"></div>';
+            html += '</div><div class="skeleton skeleton--badge"></div></div>';
+            html += '<div class="hp-card__body"><div class="skeleton skeleton--bar"></div></div>';
+            html += '<div style="display:flex;gap:6px;margin-top:12px">';
+            html += '<span class="skeleton skeleton--chip"></span>';
+            html += '<span class="skeleton skeleton--chip"></span>';
+            html += '<span class="skeleton skeleton--chip"></span>';
+            html += '</div></div>';
+        }
+        dom.grid.innerHTML = html;
+        dom.grid.style.display = '';
+    }
+
     function loadData() {
         allEntries = loadFromLocalStorage();
+
+        if (allEntries.length === 0) {
+            showSkeletonCards(3);
+        }
+
         applyFilters();
 
         if (window.FirebaseService && window.FirebaseService.currentUser) {
@@ -173,7 +197,8 @@
             var pct = Math.round((entry.avg / 5) * 100);
             var barColor = ratingColor(entry.avg);
 
-            html += '<div class="hp-card" data-idx="' + idx + '">';
+            var delay = Math.min(idx * 30, 300);
+            html += '<div class="hp-card" data-idx="' + idx + '" style="animation-delay:' + delay + 'ms">';
             html += '<div class="hp-card__header">';
             html += '<div class="hp-card__info">';
             html += '<span class="hp-card__name">' + escapeHtml(entry.intervieweeName || 'Unnamed') + '</span>';
@@ -381,9 +406,13 @@
     }
 
     function closeDetail() {
-        dom.modal.style.display = 'none';
-        document.body.style.overflow = '';
-        currentDetailEntry = null;
+        dom.modal.classList.add('is-closing');
+        setTimeout(function () {
+            dom.modal.style.display = 'none';
+            dom.modal.classList.remove('is-closing');
+            document.body.style.overflow = '';
+            currentDetailEntry = null;
+        }, 200);
     }
 
     function deleteEntry() {

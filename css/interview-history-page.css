@@ -168,7 +168,13 @@
     border-radius: var(--border-radius-sm);
     padding: 20px 24px;
     cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.2s, background 0.2s, opacity 0.3s, transform 0.3s;
+    animation: hp-card-in 0.3s var(--ease-out-expo) both;
+}
+
+@keyframes hp-card-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .hp-card:hover {
@@ -296,6 +302,22 @@
 }
 
 /* ============================================
+   SKELETON CARDS
+   ============================================ */
+.hp-card--skeleton {
+    pointer-events: none;
+    padding: 20px 24px;
+}
+
+.hp-card--skeleton .hp-card__header {
+    margin-bottom: 12px;
+}
+
+.hp-card--skeleton .hp-card__body {
+    margin-bottom: 12px;
+}
+
+/* ============================================
    EMPTY STATE
    ============================================ */
 .hp-empty {
@@ -355,6 +377,16 @@
     justify-content: center;
     padding: 24px;
     animation: hp-fade-in 0.2s ease;
+    transition: opacity 0.2s ease;
+}
+
+.hp-modal-overlay.is-closing {
+    opacity: 0;
+}
+
+.hp-modal-overlay.is-closing .hp-modal {
+    transform: scale(0.96) translateY(10px);
+    opacity: 0;
 }
 
 @keyframes hp-fade-in {
@@ -372,6 +404,7 @@
     overflow-y: auto;
     position: relative;
     animation: hp-modal-in 0.25s var(--ease-out-expo);
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .theme-light .hp-modal {

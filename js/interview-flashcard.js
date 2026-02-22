@@ -10,7 +10,7 @@
     }
 
     function saveSR(data) {
-        try { localStorage.setItem(SR_KEY, JSON.stringify(data)); } catch (e) { /* */ }
+        try { localStorage.setItem(SR_KEY, JSON.stringify(data)); } catch (e) { InterviewUtils.logError('flashcard:saveSR', e); }
     }
 
     function saveSREntryToCloud(qid, cardData) {
@@ -29,7 +29,7 @@
     }
 
     function saveStreak(data) {
-        try { localStorage.setItem(STREAK_KEY, JSON.stringify(data)); } catch (e) { /* */ }
+        try { localStorage.setItem(STREAK_KEY, JSON.stringify(data)); } catch (e) { InterviewUtils.logError('flashcard:saveStreak', e); }
         if (window.FirebaseService) {
             window.FirebaseService.saveStreak(data);
         }

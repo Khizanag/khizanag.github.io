@@ -253,6 +253,8 @@
 
     // ---- Public API ----
 
+    App.renderAchievements = renderAchievements;
+
     // Called after interview results
     App.awardInterviewXP = function () {
         var s = App.state;

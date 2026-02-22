@@ -399,3 +399,113 @@ body {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ============================================
+   KEYBOARD SHORTCUTS OVERLAY
+   ============================================ */
+.shortcuts-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0, 0, 0, 0.60);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: hp-fade-in 0.15s ease;
+}
+
+.shortcuts-modal {
+    background: #1c1c1e;
+    border: 1px solid var(--color-white-a10);
+    border-radius: var(--border-radius-md);
+    width: 100%;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.theme-light .shortcuts-modal {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.shortcuts-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 0;
+}
+
+.shortcuts-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-gray-100);
+}
+
+.shortcuts-close {
+    appearance: none;
+    background: var(--color-white-a8);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-gray-400);
+    transition: all 0.2s;
+}
+
+.shortcuts-close:hover {
+    background: var(--color-white-a15);
+    color: var(--color-gray-200);
+}
+
+.shortcuts-body {
+    padding: 20px 24px 24px;
+}
+
+.shortcuts-group {
+    margin-bottom: 16px;
+}
+
+.shortcuts-group:last-child { margin-bottom: 0; }
+
+.shortcuts-group-title {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+.shortcuts-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--color-gray-300);
+}
+
+.shortcuts-row kbd {
+    display: inline-block;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 24px;
+    background: var(--color-white-a8);
+    border: 1px solid var(--color-white-a12);
+    border-radius: 6px;
+    color: var(--color-gray-200);
+}

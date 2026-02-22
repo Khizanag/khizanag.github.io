@@ -1127,11 +1127,18 @@
             App.saveSession();
         });
 
-        // ---- Keyboard shortcuts (1-5 to rate, Enter to advance) ----
+        // ---- Keyboard shortcuts ----
         document.addEventListener('keydown', function (e) {
+            // Toggle shortcuts overlay with ?
+            if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
+                if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+                e.preventDefault();
+                toggleShortcutsOverlay();
+                return;
+            }
+
             var screen = document.getElementById('screen-question');
             if (!screen || !screen.classList.contains('is-active')) return;
-            // Ignore if typing in a textarea
             if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
 
             var phaseId = App.getCurrentPhaseId ? App.getCurrentPhaseId() : null;
@@ -1146,6 +1153,21 @@
             } else if (key === 'Enter' && s.currentRating > 0) {
                 e.preventDefault();
                 goNextQuestion();
+            } else if (key === ' ' && s.interviewMode === 'time') {
+                e.preventDefault();
+                App.togglePause();
+            } else if (key === 's' || key === 'S') {
+                e.preventDefault();
+                var skipBtn = document.getElementById('btnSkip');
+                if (skipBtn) skipBtn.click();
+            } else if (key === 'h' || key === 'H') {
+                e.preventDefault();
+                var hintBtn = dom.btnHint;
+                if (hintBtn) hintBtn.click();
+            } else if (key === 'a' || key === 'A') {
+                e.preventDefault();
+                var ansBtn = dom.btnAnswer;
+                if (ansBtn) ansBtn.click();
             }
         });
 
@@ -1941,5 +1963,53 @@
             showAuthForm();
         }
     }, 3000);
+
+    // ---- Keyboard Shortcuts Overlay ----
+
+    var shortcutsOverlay = null;
+
+    function toggleShortcutsOverlay() {
+        if (shortcutsOverlay) {
+            shortcutsOverlay.remove();
+            shortcutsOverlay = null;
+            return;
+        }
+
+        shortcutsOverlay = document.createElement('div');
+        shortcutsOverlay.className = 'shortcuts-overlay';
+        shortcutsOverlay.innerHTML =
+            '<div class="shortcuts-modal">' +
+                '<div class="shortcuts-header">' +
+                    '<h3 class="shortcuts-title">Keyboard Shortcuts</h3>' +
+                    '<button class="shortcuts-close" aria-label="Close">' +
+                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+                    '</button>' +
+                '</div>' +
+                '<div class="shortcuts-body">' +
+                    '<div class="shortcuts-group">' +
+                        '<h4 class="shortcuts-group-title">Interview</h4>' +
+                        '<div class="shortcuts-row"><kbd>1</kbd>–<kbd>5</kbd><span>Rate question</span></div>' +
+                        '<div class="shortcuts-row"><kbd>Enter</kbd><span>Next question</span></div>' +
+                        '<div class="shortcuts-row"><kbd>S</kbd><span>Skip question</span></div>' +
+                        '<div class="shortcuts-row"><kbd>H</kbd><span>Show / hide hint</span></div>' +
+                        '<div class="shortcuts-row"><kbd>A</kbd><span>Show / hide answer</span></div>' +
+                        '<div class="shortcuts-row"><kbd>Space</kbd><span>Pause / resume timer</span></div>' +
+                    '</div>' +
+                    '<div class="shortcuts-group">' +
+                        '<h4 class="shortcuts-group-title">General</h4>' +
+                        '<div class="shortcuts-row"><kbd>?</kbd><span>Toggle this panel</span></div>' +
+                        '<div class="shortcuts-row"><kbd>Esc</kbd><span>Close modals</span></div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+
+        shortcutsOverlay.addEventListener('click', function (e) {
+            if (e.target === shortcutsOverlay || e.target.closest('.shortcuts-close')) {
+                toggleShortcutsOverlay();
+            }
+        });
+
+        document.body.appendChild(shortcutsOverlay);
+    }
 
 })(InterviewApp);

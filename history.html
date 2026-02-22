@@ -80,6 +80,16 @@
                 <option value="4">Lead</option>
                 <option value="5">Staff</option>
             </select>
+            <div class="hp-export-group">
+                <button class="hp-export-btn" id="hpExportJSON" title="Export as JSON">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    JSON
+                </button>
+                <button class="hp-export-btn" id="hpExportCSV" title="Export as CSV">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    CSV
+                </button>
+            </div>
         </div>
 
         <!-- History Grid -->
@@ -116,6 +126,7 @@
 
 <!-- Firebase -->
 <script type="module" src="js/interview-firebase.js"></script>
+<script src="js/interview-utils.js"></script>
 <!-- History Page Logic -->
 <script src="js/interview-history-page.js"></script>
 

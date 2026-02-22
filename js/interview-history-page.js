@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    var U = InterviewUtils;
+
     // ---- Constants (embedded to avoid loading full config) ----
 
     var HISTORY_KEY = 'ios-interview-history';
@@ -48,21 +50,11 @@
 
     // ---- Helpers ----
 
-    function escapeHtml(text) {
-        var div = document.createElement('div');
-        div.appendChild(document.createTextNode(text || ''));
-        return div.innerHTML;
-    }
+    var escapeHtml = U.escapeHtml;
+    var ratingColor = U.ratingColor;
 
     function topicLabel(key) {
         return ALL_TOPIC_LABELS[key] || key;
-    }
-
-    function ratingColor(avg) {
-        if (avg >= 4.0) return '#30d158';
-        if (avg >= 3.0) return '#ff9f0a';
-        if (avg >= 2.0) return '#ff375f';
-        return '#86868b';
     }
 
     // ---- Data loading ----
@@ -70,18 +62,12 @@
     var allEntries = [];
 
     function loadFromLocalStorage() {
-        try {
-            var raw = localStorage.getItem(HISTORY_KEY);
-            if (!raw) return [];
-            var arr = JSON.parse(raw);
-            return Array.isArray(arr) ? arr : [];
-        } catch (e) { return []; }
+        var arr = U.storageGet(HISTORY_KEY, []);
+        return Array.isArray(arr) ? arr : [];
     }
 
     function saveToLocalStorage(entries) {
-        try {
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(entries));
-        } catch (e) { /* */ }
+        U.storageSet(HISTORY_KEY, entries);
     }
 
     function mergeEntries(local, cloud) {
@@ -108,7 +94,9 @@
                 saveToLocalStorage(allEntries);
                 applyFilters();
             }
-        }).catch(function () { /* */ });
+        }).catch(function (e) {
+            U.logError('history-page:loadFromCloud', e);
+        });
     }
 
     // ---- DOM references ----
@@ -176,9 +164,7 @@
 
         var html = '';
         entries.forEach(function (entry, idx) {
-            var dateStr = new Date(entry.date).toLocaleDateString('en-US', {
-                month: 'short', day: 'numeric', year: 'numeric',
-            });
+            var dateStr = U.formatDate(entry.date);
 
             var levelLabel = LEVEL_LABELS[entry.levelIndex] || 'N/A';
             var levelEmoji = LEVEL_EMOJIS[entry.levelIndex] || '';
@@ -244,7 +230,6 @@
 
         var filtered = allEntries.slice();
 
-        // Search
         if (searchTerm) {
             filtered = filtered.filter(function (e) {
                 var name = (e.intervieweeName || '').toLowerCase();
@@ -253,13 +238,11 @@
             });
         }
 
-        // Level filter
         if (levelFilter !== 'all') {
             var lvl = parseInt(levelFilter, 10);
             filtered = filtered.filter(function (e) { return e.levelIndex === lvl; });
         }
 
-        // Sort
         var parts = sortBy.split('-');
         var field = parts[0];
         var dir = parts[1];
@@ -293,9 +276,7 @@
         currentDetailEntry = entry;
 
         dom.modalTitle.textContent = entry.intervieweeName || 'Unnamed';
-        dom.modalDate.textContent = new Date(entry.date).toLocaleDateString('en-US', {
-            weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
-        });
+        dom.modalDate.textContent = U.formatDateLong(entry.date);
 
         var levelLabel = LEVEL_LABELS[entry.levelIndex] || 'N/A';
         var levelEmoji = LEVEL_EMOJIS[entry.levelIndex] || '';
@@ -306,7 +287,6 @@
 
         var html = '';
 
-        // Interviewer
         if (entry.interviewerName) {
             html += '<div class="hp-detail-row">';
             html += '<span class="hp-detail-label">Interviewer</span>';
@@ -314,14 +294,12 @@
             html += '</div>';
         }
 
-        // Level
         html += '<div class="hp-detail-row" style="flex-direction:column;align-items:flex-start;gap:6px">';
         html += '<span class="hp-detail-label">Assessment Level</span>';
         html += '<span class="hp-detail-level" style="color:' + levelColor + ';background:' + levelColor + '15;border:1px solid ' + levelColor + '30">' + levelEmoji + ' ' + escapeHtml(levelLabel) + '</span>';
         html += '<span class="hp-detail-level-desc">' + escapeHtml(levelDesc) + '</span>';
         html += '</div>';
 
-        // Rating
         html += '<div class="hp-detail-row">';
         html += '<span class="hp-detail-label">Average Rating</span>';
         html += '<div class="hp-detail-rating">';
@@ -330,7 +308,6 @@
         html += '</div>';
         html += '</div>';
 
-        // Questions
         html += '<div class="hp-detail-row">';
         html += '<span class="hp-detail-label">Questions Rated</span>';
         html += '<span class="hp-detail-value">' + (entry.ratedCount || 0) + '</span>';
@@ -343,7 +320,6 @@
             html += '</div>';
         }
 
-        // Topics breakdown
         if (entry.topics && entry.topics.length > 0) {
             html += '<div class="hp-detail-section-title">Topic Breakdown</div>';
             html += '<table class="hp-topic-table">';
@@ -361,7 +337,6 @@
             html += '</tbody></table>';
         }
 
-        // Notes
         if (entry.introNotes && entry.introNotes.trim()) {
             html += '<div class="hp-detail-section-title">Intro Notes</div>';
             html += '<div class="hp-detail-notes">' + escapeHtml(entry.introNotes) + '</div>';
@@ -399,21 +374,52 @@
         applyFilters();
     }
 
-    // ---- Theme toggle ----
+    // ---- Export ----
 
-    function initTheme() {
-        var btn = document.getElementById('btnTheme');
-        if (!btn) return;
-        btn.addEventListener('click', function () {
-            var isLight = document.documentElement.classList.toggle('theme-light');
-            try { localStorage.setItem('ios-interview-theme', isLight ? 'light' : 'dark'); } catch (e) { /* */ }
+    function exportJSON() {
+        var data = JSON.stringify(currentFiltered, null, 2);
+        downloadFile(data, 'interview-history.json', 'application/json');
+    }
+
+    function exportCSV() {
+        var rows = [['Date', 'Interviewee', 'Interviewer', 'Avg Rating', 'Level', 'Questions', 'Skipped', 'Topics']];
+        currentFiltered.forEach(function (e) {
+            var topics = (e.topics || []).map(function (t) { return topicLabel(t.topic); }).join('; ');
+            rows.push([
+                e.date,
+                e.intervieweeName || '',
+                e.interviewerName || '',
+                e.avg.toFixed(2),
+                LEVEL_LABELS[e.levelIndex] || '',
+                String(e.ratedCount || 0),
+                String(e.skippedCount || 0),
+                topics,
+            ]);
         });
+        var csv = rows.map(function (row) {
+            return row.map(function (cell) {
+                return '"' + String(cell).replace(/"/g, '""') + '"';
+            }).join(',');
+        }).join('\n');
+        downloadFile(csv, 'interview-history.csv', 'text/csv');
+    }
+
+    function downloadFile(content, filename, mimeType) {
+        var blob = new Blob([content], { type: mimeType });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
     // ---- Event binding ----
 
     function bindEvents() {
-        dom.search.addEventListener('input', applyFilters);
+        dom.search.addEventListener('input', U.debounce(applyFilters, 200));
         dom.sort.addEventListener('change', applyFilters);
         dom.filterLevel.addEventListener('change', applyFilters);
 
@@ -443,13 +449,18 @@
         document.addEventListener('firebase:authchange', function () {
             loadFromCloud();
         });
+
+        var btnExportJSON = document.getElementById('hpExportJSON');
+        var btnExportCSV = document.getElementById('hpExportCSV');
+        if (btnExportJSON) btnExportJSON.addEventListener('click', exportJSON);
+        if (btnExportCSV) btnExportCSV.addEventListener('click', exportCSV);
     }
 
     // ---- Init ----
 
     function init() {
         cacheDom();
-        initTheme();
+        U.initThemeToggle('btnTheme');
         bindEvents();
         loadData();
     }

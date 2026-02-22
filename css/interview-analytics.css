@@ -21,6 +21,41 @@
     font-weight: 300;
 }
 
+/* --- Time filter pills --- */
+.analytics__filters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.analytics__filter-pill {
+    padding: 7px 18px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a10);
+    background: transparent;
+    color: var(--color-gray-400);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.analytics__filter-pill:hover {
+    border-color: var(--color-blue-a30);
+    color: var(--color-blue);
+    background: var(--color-blue-a6);
+}
+
+.analytics__filter-pill.is-active {
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+    background: var(--color-blue-a10);
+    font-weight: 600;
+}
+
 /* --- Summary stats --- */
 .analytics__summary {
     display: grid;
@@ -418,6 +453,8 @@
 }
 
 @media (max-width: 640px) {
+    .analytics__filters { gap: 6px; }
+    .analytics__filter-pill { padding: 6px 14px; font-size: 12px; }
     .analytics__summary { grid-template-columns: 1fr 1fr; gap: 8px; }
     .analytics__stat { padding: 16px; }
     .analytics__stat-value { font-size: 20px; }

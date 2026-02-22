@@ -624,6 +624,79 @@
 }
 
 /* ============================================
+   PAGINATION
+   ============================================ */
+.hp-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+}
+
+.hp-pag-btn {
+    appearance: none;
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
+    border-radius: 8px;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-gray-300);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-pag-btn:hover:not(:disabled) {
+    border-color: var(--color-blue-a25);
+    color: var(--color-blue);
+    background: var(--color-blue-a6);
+}
+
+.hp-pag-btn.is-active {
+    background: var(--color-blue);
+    border-color: var(--color-blue);
+    color: #fff;
+}
+
+.hp-pag-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   PRINT
+   ============================================ */
+@media print {
+    .nav, .hp-toolbar, .hp-pagination, .hp-modal-overlay,
+    .hp-export-group, .hp-empty__link { display: none !important; }
+
+    .hp-main { padding-top: 0; }
+    body { background: #fff; color: #000; }
+
+    .hp-stat-card {
+        border: 1px solid #ddd;
+        background: #f9f9f9;
+    }
+
+    .hp-card {
+        border: 1px solid #ddd;
+        background: #fff;
+        page-break-inside: avoid;
+    }
+
+    .hp-stat-card__value, .hp-card__name { color: #000; }
+    .hp-stat-card__label, .hp-card__meta { color: #666; }
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
@@ -641,6 +714,11 @@
 
     .hp-select {
         flex: 1;
+    }
+
+    .hp-export-group {
+        flex: 1 1 100%;
+        justify-content: flex-end;
     }
 
     .hp-card {

@@ -679,7 +679,9 @@
         // Update platform buttons
         var btns = document.querySelectorAll('.platform-selector__btn');
         for (var i = 0; i < btns.length; i++) {
-            btns[i].classList.toggle('is-active', btns[i].dataset.platform === platformId);
+            var isActive = btns[i].dataset.platform === platformId;
+            btns[i].classList.toggle('is-active', isActive);
+            btns[i].setAttribute('aria-checked', isActive ? 'true' : 'false');
         }
 
         // Update header
@@ -711,6 +713,8 @@
             s.practiceMode = mode === 'practice';
             btnModeInterview.classList.toggle('is-active', !s.practiceMode);
             btnModePractice.classList.toggle('is-active', s.practiceMode);
+            btnModeInterview.setAttribute('aria-checked', !s.practiceMode ? 'true' : 'false');
+            btnModePractice.setAttribute('aria-checked', s.practiceMode ? 'true' : 'false');
             planSection.style.display = s.practiceMode ? 'none' : '';
             interviewerField.style.display = s.practiceMode ? 'none' : '';
             if (s.practiceMode) {

@@ -61,9 +61,9 @@
         <div class="hp-toolbar">
             <div class="hp-search-wrap">
                 <svg class="hp-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="text" class="hp-search" id="hpSearch" placeholder="Search by name..." autocomplete="off">
+                <input type="text" class="hp-search" id="hpSearch" placeholder="Search by name..." autocomplete="off" aria-label="Search interviews by name">
             </div>
-            <select class="hp-select" id="hpSort">
+            <select class="hp-select" id="hpSort" aria-label="Sort order">
                 <option value="date-desc">Newest First</option>
                 <option value="date-asc">Oldest First</option>
                 <option value="rating-desc">Highest Rating</option>
@@ -71,7 +71,7 @@
                 <option value="name-asc">Name A–Z</option>
                 <option value="name-desc">Name Z–A</option>
             </select>
-            <select class="hp-select" id="hpFilterLevel">
+            <select class="hp-select" id="hpFilterLevel" aria-label="Filter by level">
                 <option value="all">All Levels</option>
                 <option value="0">Intern</option>
                 <option value="1">Junior</option>

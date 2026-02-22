@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Guide — Giga Khizanishvili</title>
+    <meta name="description" content="A comprehensive, research-backed guide to conducting effective technical interviews. From preparation to evaluation.">
+    <meta name="author" content="Giga Khizanishvili">
+    <meta name="theme-color" content="#000000">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/interview-base.css">
+    <link rel="stylesheet" href="css/interview-guide.css">
+    <script>
+    (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
+    </script>
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav">
+    <div class="nav__inner">
+        <a href="interview.html" class="nav__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Interview
+        </a>
+        <span class="nav__title">Interview Guide</span>
+        <button class="nav__theme-toggle" id="btnTheme" aria-label="Toggle light/dark mode">
+            <svg class="nav__theme-icon--dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="nav__theme-icon--light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+    </div>
+</header>
+
+<!-- Reading Progress Bar -->
+<div class="g-progress" id="gProgress"></div>
+
+<!-- Hero -->
+<section class="g-hero">
+    <div class="container">
+        <div class="g-hero__badge" data-anim="fade-up">Research-Backed</div>
+        <h1 class="g-hero__title" data-anim="fade-up" data-delay="100">The Complete<br>Interview Guide</h1>
+        <p class="g-hero__subtitle" data-anim="fade-up" data-delay="200">Everything you need to conduct effective, fair, and insightful technical interviews &mdash; whether it's your first time or your thousandth.</p>
+        <div class="g-hero__stats" data-anim="fade-up" data-delay="300">
+            <div class="g-hero__stat">
+                <span class="g-hero__stat-val">15</span>
+                <span class="g-hero__stat-label">Chapters</span>
+            </div>
+            <div class="g-hero__stat">
+                <span class="g-hero__stat-val">30+</span>
+                <span class="g-hero__stat-label">Research Sources</span>
+            </div>
+            <div class="g-hero__stat">
+                <span class="g-hero__stat-val">85yr</span>
+                <span class="g-hero__stat-label">Of Research</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Table of Contents -->
+<nav class="g-toc" id="gToc">
+    <div class="container">
+        <h2 class="g-toc__title" data-anim="fade-up">Chapters</h2>
+        <div class="g-toc__grid" data-anim="fade-up" data-delay="100">
+            <a href="#ch-science" class="g-toc__item"><span class="g-toc__num">01</span><span class="g-toc__name">The Science</span></a>
+            <a href="#ch-psychology" class="g-toc__item"><span class="g-toc__num">02</span><span class="g-toc__name">Psychology</span></a>
+            <a href="#ch-preparation" class="g-toc__item"><span class="g-toc__num">03</span><span class="g-toc__name">Preparation</span></a>
+            <a href="#ch-opening" class="g-toc__item"><span class="g-toc__num">04</span><span class="g-toc__name">Opening</span></a>
+            <a href="#ch-questions" class="g-toc__item"><span class="g-toc__num">05</span><span class="g-toc__name">Question Design</span></a>
+            <a href="#ch-listening" class="g-toc__item"><span class="g-toc__num">06</span><span class="g-toc__name">Active Listening</span></a>
+            <a href="#ch-hints" class="g-toc__item"><span class="g-toc__num">07</span><span class="g-toc__name">Hints &amp; Difficulty</span></a>
+            <a href="#ch-evaluation" class="g-toc__item"><span class="g-toc__num">08</span><span class="g-toc__name">Evaluation</span></a>
+            <a href="#ch-closing" class="g-toc__item"><span class="g-toc__num">09</span><span class="g-toc__name">Closing</span></a>
+            <a href="#ch-post" class="g-toc__item"><span class="g-toc__num">10</span><span class="g-toc__name">Post-Interview</span></a>
+            <a href="#ch-mistakes" class="g-toc__item"><span class="g-toc__num">11</span><span class="g-toc__name">Common Mistakes</span></a>
+            <a href="#ch-levels" class="g-toc__item"><span class="g-toc__num">12</span><span class="g-toc__name">Levels</span></a>
+            <a href="#ch-legal" class="g-toc__item"><span class="g-toc__num">13</span><span class="g-toc__name">Legal &amp; Ethics</span></a>
+            <a href="#ch-remote" class="g-toc__item"><span class="g-toc__num">14</span><span class="g-toc__name">Remote Interviews</span></a>
+            <a href="#ch-data" class="g-toc__item"><span class="g-toc__num">15</span><span class="g-toc__name">Research &amp; Data</span></a>
+        </div>
+    </div>
+</nav>
+
+<main class="g-main">
+    <div class="container">
+
+        <!-- ========== CH 01: THE SCIENCE ========== -->
+        <section class="g-chapter" id="ch-science">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">01</span>
+                <h2 class="g-chapter__title">The Science of Interviewing</h2>
+                <p class="g-chapter__lead">85 years of research shows structured interviews are the single strongest predictor of job performance.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <div class="g-card__icon">&#x1F4CA;</div>
+                <h3 class="g-card__title">Structured vs. Unstructured</h3>
+                <p>The landmark <strong>Schmidt &amp; Hunter (1998)</strong> meta-analysis found structured interviews have a predictive validity of <strong>.51</strong> for job performance, versus <strong>.38</strong> for unstructured interviews. The updated <strong>Sackett et al. (2022)</strong> study confirmed structured interviews are now ranked <strong>#1</strong> across all selection methods, with more than <strong>double the predictive power</strong> and <strong>nearly a third less bias</strong> than unstructured interviews.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <div class="g-card__icon">&#x2705;</div>
+                <h3 class="g-card__title">What Makes an Interview Structured?</h3>
+                <div class="g-checklist">
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text"><strong>Standardized questions</strong> &mdash; all candidates receive the same questions in the same order</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text"><strong>Predetermined scoring criteria</strong> &mdash; a rubric defining what good, mediocre, and poor answers look like</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text"><strong>Trained interviewers</strong> &mdash; everyone agrees on what each score means</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text"><strong>Consistent format</strong> &mdash; same time allocation, same interview flow</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text"><strong>Job-related content</strong> &mdash; questions tied directly to the competencies needed for the role</span></label>
+                </div>
+            </div>
+
+            <div class="g-card g-card--highlight" data-anim="fade-up">
+                <div class="g-card__icon">&#x1F4A1;</div>
+                <h3 class="g-card__title">Google's Finding</h3>
+                <p>Google's internal research confirmed that structured interview scores are <em>"highly predictive indicators of future performance scores"</em> and that both candidates and interviewers report a <strong>better experience</strong> and perceive the process as <strong>more fair</strong>.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">The Four Pillars of a Scoring Rubric</h3>
+                <div class="g-pillars">
+                    <div class="g-pillar" style="--pillar-color: var(--color-blue)">
+                        <div class="g-pillar__icon">&#x1F9E0;</div>
+                        <h4>Problem Solving</h4>
+                        <p>Organized approach, considers multiple solutions, evaluates tradeoffs</p>
+                    </div>
+                    <div class="g-pillar" style="--pillar-color: var(--color-green)">
+                        <div class="g-pillar__icon">&#x1F4BB;</div>
+                        <h4>Technical Skill</h4>
+                        <p>Clean, correct code; language mastery; efficient implementation</p>
+                    </div>
+                    <div class="g-pillar" style="--pillar-color: var(--color-purple)">
+                        <div class="g-pillar__icon">&#x1F4AC;</div>
+                        <h4>Communication</h4>
+                        <p>Explains approach clearly, asks clarifying questions, thinks out loud</p>
+                    </div>
+                    <div class="g-pillar" style="--pillar-color: var(--color-orange)">
+                        <div class="g-pillar__icon">&#x1F9EA;</div>
+                        <h4>Testing</h4>
+                        <p>Tests against normal and edge cases, self-corrects issues proactively</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 02: PSYCHOLOGY ========== -->
+        <section class="g-chapter" id="ch-psychology">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">02</span>
+                <h2 class="g-chapter__title">Psychology of Interviewing</h2>
+                <p class="g-chapter__lead">Your brain is working against you. Understanding cognitive biases is the first step to mitigating them.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Cognitive Biases That Affect Interviewers</h3>
+                <p>Click each bias to learn what it is and how to counter it.</p>
+                <div class="g-accordion" id="biasAccordion">
+                    <div class="g-acc-item">
+                        <button class="g-acc-trigger" aria-expanded="false">
+                            <span class="g-acc-trigger__icon">&#x2600;&#xFE0F;</span>
+                            <span class="g-acc-trigger__text">Halo Effect</span>
+                            <span class="g-acc-trigger__severity g-severity--high">High Risk</span>
+                            <svg class="g-acc-trigger__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="g-acc-body">
+                            <p><strong>What it is:</strong> One positive attribute (prestigious employer, eloquent speech) creates a "glow" that inflates evaluation of everything else.</p>
+                            <div class="g-do-dont">
+                                <div class="g-do"><strong>Mitigation:</strong> Evaluate each competency separately using a structured rubric with behavioral anchors. Score question-by-question, not holistically.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-acc-item">
+                        <button class="g-acc-trigger" aria-expanded="false">
+                            <span class="g-acc-trigger__icon">&#x2693;</span>
+                            <span class="g-acc-trigger__text">Anchoring Bias</span>
+                            <span class="g-acc-trigger__severity g-severity--high">High Risk</span>
+                            <svg class="g-acc-trigger__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="g-acc-body">
+                            <p><strong>What it is:</strong> Within the first 30 seconds, you form an initial impression, then spend the rest of the interview seeking confirming information.</p>
+                            <div class="g-do-dont">
+                                <div class="g-do"><strong>Mitigation:</strong> Write your rating for question one before hearing the answer to question two. Evaluate evidence in isolation.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-acc-item">
+                        <button class="g-acc-trigger" aria-expanded="false">
+                            <span class="g-acc-trigger__icon">&#x1F50D;</span>
+                            <span class="g-acc-trigger__text">Confirmation Bias</span>
+                            <span class="g-acc-trigger__severity g-severity--high">High Risk</span>
+                            <svg class="g-acc-trigger__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="g-acc-body">
+                            <p><strong>What it is:</strong> Once you form an early impression, you unconsciously steer questions to validate it &mdash; asking about successes from strong-seeming candidates and challenges from weaker-seeming ones.</p>
+                            <div class="g-do-dont">
+                                <div class="g-do"><strong>Mitigation:</strong> Use identical questions for all candidates. Practice "devil's advocate" thinking &mdash; hypothesize what evidence might disprove your initial take.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-acc-item">
+                        <button class="g-acc-trigger" aria-expanded="false">
+                            <span class="g-acc-trigger__icon">&#x1F91D;</span>
+                            <span class="g-acc-trigger__text">Similarity Bias</span>
+                            <span class="g-acc-trigger__severity g-severity--med">Medium Risk</span>
+                            <svg class="g-acc-trigger__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="g-acc-body">
+                            <p><strong>What it is:</strong> The tendency to rate more favorably people who remind us of ourselves &mdash; same school, hobbies, cultural references.</p>
+                            <div class="g-do-dont">
+                                <div class="g-do"><strong>Mitigation:</strong> Diverse interview panels. Blinded reviews where possible. Conscious awareness training.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-acc-item">
+                        <button class="g-acc-trigger" aria-expanded="false">
+                            <span class="g-acc-trigger__icon">&#x1F608;</span>
+                            <span class="g-acc-trigger__text">Horn Effect</span>
+                            <span class="g-acc-trigger__severity g-severity--med">Medium Risk</span>
+                            <svg class="g-acc-trigger__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="g-acc-body">
+                            <p><strong>What it is:</strong> Opposite of halo &mdash; a single negative trait (quiet introduction, accent, resume gap) creates a negative impression of the entire candidate.</p>
+                            <div class="g-do-dont">
+                                <div class="g-do"><strong>Mitigation:</strong> Structured rubrics, competency-by-competency evaluation. Record specific examples, not vague impressions.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-acc-item">
+                        <button class="g-acc-trigger" aria-expanded="false">
+                            <span class="g-acc-trigger__icon">&#x2696;&#xFE0F;</span>
+                            <span class="g-acc-trigger__text">Contrast Effect</span>
+                            <span class="g-acc-trigger__severity g-severity--med">Medium Risk</span>
+                            <svg class="g-acc-trigger__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="g-acc-body">
+                            <p><strong>What it is:</strong> Your perception of a candidate is influenced by the previous one. A good candidate after several poor ones appears exceptional; a good candidate after an excellent one seems mediocre.</p>
+                            <div class="g-do-dont">
+                                <div class="g-do"><strong>Mitigation:</strong> Evaluate each candidate against the rubric, never against other candidates. Take breaks between interviews to reset.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-acc-item">
+                        <button class="g-acc-trigger" aria-expanded="false">
+                            <span class="g-acc-trigger__icon">&#x23F1;&#xFE0F;</span>
+                            <span class="g-acc-trigger__text">First Impression Bias</span>
+                            <span class="g-acc-trigger__severity g-severity--high">High Risk</span>
+                            <svg class="g-acc-trigger__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="g-acc-body">
+                            <p><strong>What it is:</strong> Snap judgments made in the first few minutes that color the entire interview. Research shows most interviewers make a decision within 4 minutes.</p>
+                            <div class="g-do-dont">
+                                <div class="g-do"><strong>Mitigation:</strong> Delay forming any overall judgment until after reviewing all notes. Structured scoring forces evaluation based on answers to specific questions.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-card g-card--split" data-anim="fade-up">
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-green)">Partner Mindset</h3>
+                    <ul class="g-list g-list--green">
+                        <li>Collaborative &mdash; "Let's solve this together"</li>
+                        <li>Creates psychological safety</li>
+                        <li>Reveals true ability</li>
+                        <li>Better candidate experience</li>
+                        <li>Integrative: mutual benefit</li>
+                    </ul>
+                </div>
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-red)">Interrogator Mindset</h3>
+                    <ul class="g-list g-list--red">
+                        <li>Adversarial &mdash; "Prove yourself to me"</li>
+                        <li>Creates anxiety &amp; stress</li>
+                        <li>Masks true ability</li>
+                        <li>Damages employer brand</li>
+                        <li>Distributive: zero-sum game</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="g-callout" data-anim="fade-up">
+                <div class="g-callout__icon">&#x1F4AC;</div>
+                <blockquote class="g-callout__text">Research from Cambridge found that candidates who completed at least 3 mock interviews improved coding accuracy by <strong>27%</strong> and reported a <strong>40% reduction in anxiety</strong>. Stress significantly impacts technical interview performance &mdash; your job as an interviewer is to minimize it.</blockquote>
+            </div>
+        </section>
+
+        <!-- ========== CH 03: PREPARATION ========== -->
+        <section class="g-chapter" id="ch-preparation">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">03</span>
+                <h2 class="g-chapter__title">Preparation</h2>
+                <p class="g-chapter__lead">Great interviews start long before the first question. Here's how to prepare.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Resume Review Checklist</h3>
+                <div class="g-checklist">
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Cross-reference resume against job description requirements</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Note specific projects, technologies, and experiences to probe deeper</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Identify career transitions or gaps to ask about (without bias)</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Check LinkedIn for additional context</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Prepare tailored follow-up questions based on their experience</span></label>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Time Allocation Framework</h3>
+                <div class="g-tabs" id="timeTabs">
+                    <button class="g-tab is-active" data-tab="tab-45">45 min</button>
+                    <button class="g-tab" data-tab="tab-60">60 min</button>
+                </div>
+                <div class="g-tab-content is-active" id="tab-45">
+                    <div class="g-timeline">
+                        <div class="g-timeline__item" style="--tl-pct: 11%; --tl-color: var(--color-teal)"><span class="g-timeline__time">5 min</span><span class="g-timeline__label">Opening &amp; Rapport</span></div>
+                        <div class="g-timeline__item" style="--tl-pct: 72%; --tl-color: var(--color-blue)"><span class="g-timeline__time">32 min</span><span class="g-timeline__label">Technical Core</span></div>
+                        <div class="g-timeline__item" style="--tl-pct: 13%; --tl-color: var(--color-green)"><span class="g-timeline__time">6 min</span><span class="g-timeline__label">Candidate Q&amp;A</span></div>
+                        <div class="g-timeline__item" style="--tl-pct: 4%; --tl-color: var(--color-gray-500)"><span class="g-timeline__time">2 min</span><span class="g-timeline__label">Wrap-up</span></div>
+                    </div>
+                </div>
+                <div class="g-tab-content" id="tab-60">
+                    <div class="g-timeline">
+                        <div class="g-timeline__item" style="--tl-pct: 8%; --tl-color: var(--color-teal)"><span class="g-timeline__time">5 min</span><span class="g-timeline__label">Opening &amp; Rapport</span></div>
+                        <div class="g-timeline__item" style="--tl-pct: 22%; --tl-color: var(--color-purple)"><span class="g-timeline__time">13 min</span><span class="g-timeline__label">Behavioral / STAR</span></div>
+                        <div class="g-timeline__item" style="--tl-pct: 53%; --tl-color: var(--color-blue)"><span class="g-timeline__time">32 min</span><span class="g-timeline__label">Technical Core</span></div>
+                        <div class="g-timeline__item" style="--tl-pct: 13%; --tl-color: var(--color-green)"><span class="g-timeline__time">8 min</span><span class="g-timeline__label">Candidate Q&amp;A</span></div>
+                        <div class="g-timeline__item" style="--tl-pct: 4%; --tl-color: var(--color-gray-500)"><span class="g-timeline__time">2 min</span><span class="g-timeline__label">Wrap-up</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Environment Setup</h3>
+                <div class="g-checklist">
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Test video, audio, and internet connection</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Have a backup communication plan (phone number, alternate link)</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Open all documents and problems you plan to share</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Have your scoring rubric ready</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Close unnecessary applications to avoid distractions</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Ensure quiet environment with no interruptions</span></label>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 04: OPENING ========== -->
+        <section class="g-chapter" id="ch-opening">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">04</span>
+                <h2 class="g-chapter__title">Opening the Interview</h2>
+                <p class="g-chapter__lead">The first 5 minutes set the tone. A candidate who feels safe will perform closer to their actual ability.</p>
+            </div>
+
+            <div class="g-card g-card--split" data-anim="fade-up">
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-green)">Do</h3>
+                    <ul class="g-list g-list--green">
+                        <li>Greet warmly and introduce yourself (name, role, team)</li>
+                        <li>Explain the interview format, timing, and what to expect</li>
+                        <li>Brief small talk about how they found the role</li>
+                        <li>Tell them it's okay to ask questions and take time to think</li>
+                        <li>Say: <em>"I'm interested in how you think, not just the answer"</em></li>
+                    </ul>
+                </div>
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-red)">Don't</h3>
+                    <ul class="g-list g-list--red">
+                        <li>Start with pressure questions or brainteasers</li>
+                        <li>Ask abstract icebreakers ("If you were an appetizer...")</li>
+                        <li>Skip warm-up and jump into technical questions</li>
+                        <li>Rush through introductions or appear distracted</li>
+                        <li>Check your phone or multitask</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Great Icebreakers</h3>
+                <div class="g-icebreakers">
+                    <div class="g-ice">"What are you working on these days that you find interesting?"</div>
+                    <div class="g-ice">"Have you had a chance to look at our product?"</div>
+                    <div class="g-ice">"How did you hear about this position?"</div>
+                    <div class="g-ice">"I noticed you worked on [X] &mdash; that sounds really cool."</div>
+                </div>
+            </div>
+
+            <div class="g-card g-card--highlight" data-anim="fade-up">
+                <div class="g-card__icon">&#x1F3AF;</div>
+                <h3 class="g-card__title">Setting Expectations Template</h3>
+                <div class="g-quote-box">
+                    "We have about 45 minutes. I'll spend the first few minutes getting to know you, then we'll work through a technical problem together, and I'll leave time at the end for your questions. I'm interested in seeing how you think through problems &mdash; feel free to think out loud, ask questions, and use whatever approach feels natural."
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 05: QUESTION DESIGN ========== -->
+        <section class="g-chapter" id="ch-questions">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">05</span>
+                <h2 class="g-chapter__title">Question Design</h2>
+                <p class="g-chapter__lead">The quality of your questions determines the quality of your signal. Design questions that reveal depth, not just recall.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">The STAR Method for Behavioral Questions</h3>
+                <div class="g-star">
+                    <div class="g-star__item" style="--star-color: var(--color-blue); --star-pct: 20%">
+                        <span class="g-star__letter">S</span>
+                        <span class="g-star__label">Situation</span>
+                        <span class="g-star__desc">Context so you understand the setting</span>
+                        <span class="g-star__pct">~20% of answer</span>
+                    </div>
+                    <div class="g-star__item" style="--star-color: var(--color-purple); --star-pct: 10%">
+                        <span class="g-star__letter">T</span>
+                        <span class="g-star__label">Task</span>
+                        <span class="g-star__desc">The specific responsibility or challenge</span>
+                        <span class="g-star__pct">~10% of answer</span>
+                    </div>
+                    <div class="g-star__item" style="--star-color: var(--color-green); --star-pct: 60%">
+                        <span class="g-star__letter">A</span>
+                        <span class="g-star__label">Action</span>
+                        <span class="g-star__desc">What they personally did &mdash; the core of the answer</span>
+                        <span class="g-star__pct">~60% of answer</span>
+                    </div>
+                    <div class="g-star__item" style="--star-color: var(--color-orange); --star-pct: 10%">
+                        <span class="g-star__letter">R</span>
+                        <span class="g-star__label">Result</span>
+                        <span class="g-star__desc">Measurable outcomes and what they learned</span>
+                        <span class="g-star__pct">~10% of answer</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Probing Follow-up Questions</h3>
+                <div class="g-icebreakers">
+                    <div class="g-ice">"What would you do differently if you faced this again?"</div>
+                    <div class="g-ice">"What was the hardest part?"</div>
+                    <div class="g-ice">"Can you quantify the impact?"</div>
+                    <div class="g-ice">"How did that change your approach going forward?"</div>
+                    <div class="g-ice">"What did you learn from that experience?"</div>
+                </div>
+            </div>
+
+            <div class="g-card g-card--split" data-anim="fade-up">
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-green)">Green Flags</h3>
+                    <ul class="g-list g-list--green">
+                        <li>Specific examples with concrete details</li>
+                        <li>Asks clarifying questions before diving in</li>
+                        <li>Discusses tradeoffs unprompted</li>
+                        <li>Considers edge cases proactively</li>
+                        <li>Admits what they don't know</li>
+                        <li>Shows genuine curiosity and growth mindset</li>
+                    </ul>
+                </div>
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-red)">Red Flags</h3>
+                    <ul class="g-list g-list--red">
+                        <li>Vague answers suggesting borrowed/memorized code</li>
+                        <li>Can't explain their own past projects</li>
+                        <li>Blames others without showing what they learned</li>
+                        <li>Evasive &mdash; provides philosophies instead of implementations</li>
+                        <li>Off-topic rambling to avoid answering</li>
+                        <li>Only talks about individual work (for senior+ roles)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Live Coding Best Practices</h3>
+                <div class="g-numbered-list">
+                    <div class="g-num-item"><span class="g-num">1</span><p>Explain the format: <em>"I want to see how you think, not just the final answer"</em></p></div>
+                    <div class="g-num-item"><span class="g-num">2</span><p>Let the candidate choose their programming language</p></div>
+                    <div class="g-num-item"><span class="g-num">3</span><p>Have 2-3 prepared solutions in different languages with time/space complexities noted</p></div>
+                    <div class="g-num-item"><span class="g-num">4</span><p>Silence is okay &mdash; let them think; don't fill every pause with hints</p></div>
+                    <div class="g-num-item"><span class="g-num">5</span><p>Evaluate approach, communication, and response to being stuck &mdash; not just correctness</p></div>
+                    <div class="g-num-item"><span class="g-num">6</span><p>Structure: 5-10 min intro, 30-40 min coding, 10-15 min discussion</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 06: LISTENING ========== -->
+        <section class="g-chapter" id="ch-listening">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">06</span>
+                <h2 class="g-chapter__title">Active Listening &amp; Observation</h2>
+                <p class="g-chapter__lead">The best interviewers listen 80% and talk 20%. What you observe is as important as what you hear.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">The 80/20 Rule</h3>
+                <div class="g-ratio-bar">
+                    <div class="g-ratio-bar__fill" style="width: 80%; background: var(--color-green)">
+                        <span>Candidate speaks 80%</span>
+                    </div>
+                    <div class="g-ratio-bar__fill" style="width: 20%; background: var(--color-blue)">
+                        <span>You 20%</span>
+                    </div>
+                </div>
+                <p style="margin-top: 16px; color: var(--color-gray-400); font-size: 13px">If you're talking more than 20% of the time, you're talking too much.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">What to Observe Beyond the Verbal Answer</h3>
+                <div class="g-observe-grid">
+                    <div class="g-observe"><div class="g-observe__icon">&#x1F9E9;</div><h4>Problem-solving approach</h4><p>Do they decompose? Plan before coding? Consider edge cases?</p></div>
+                    <div class="g-observe"><div class="g-observe__icon">&#x1F4AC;</div><h4>Communication</h4><p>Can they explain their reasoning clearly? Do they think out loud?</p></div>
+                    <div class="g-observe"><div class="g-observe__icon">&#x1F4AA;</div><h4>Reaction to difficulty</h4><p>Frustration, persistence, adaptability, willingness to ask for help</p></div>
+                    <div class="g-observe"><div class="g-observe__icon">&#x1F393;</div><h4>Coachability</h4><p>How they respond to hints and feedback &mdash; do they incorporate it?</p></div>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Note-Taking Best Practices</h3>
+                <div class="g-card g-card--split" style="margin: 0; padding: 0; background: none; border: none;">
+                    <div class="g-card__half" style="padding: 0;">
+                        <h4 style="color: var(--color-green);">Write</h4>
+                        <ul class="g-list g-list--green">
+                            <li>Key answers and specific examples</li>
+                            <li>Problem-solving approach and reasoning</li>
+                            <li>Notable quotes (direct words)</li>
+                            <li>Technical accuracy of answers</li>
+                        </ul>
+                    </div>
+                    <div class="g-card__half" style="padding: 0;">
+                        <h4 style="color: var(--color-red);">Don't Write</h4>
+                        <ul class="g-list g-list--red">
+                            <li>Impressions about protected characteristics</li>
+                            <li>Vague feelings ("seemed off")</li>
+                            <li>Physical appearance descriptions</li>
+                            <li>Personal opinions unrelated to job skills</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="g-callout" style="margin-top: 16px">
+                    <div class="g-callout__icon">&#x23F0;</div>
+                    <p class="g-callout__text">Finalize your notes within <strong>1 hour</strong> of the interview while memory is fresh.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 07: HINTS ========== -->
+        <section class="g-chapter" id="ch-hints">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">07</span>
+                <h2 class="g-chapter__title">Hints &amp; Managing Difficulty</h2>
+                <p class="g-chapter__lead">The art of helping without giving away the answer. Find the Goldilocks zone of challenge.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Hint Calibration Framework</h3>
+                <div class="g-hint-levels">
+                    <div class="g-hint-level" style="--hl-color: var(--color-green)">
+                        <div class="g-hint-level__header">
+                            <span class="g-hint-level__badge">Level 1</span>
+                            <span class="g-hint-level__name">Small Nudge</span>
+                        </div>
+                        <div class="g-hint-level__body">
+                            <p>Try this first. Minimal guidance that points in a direction.</p>
+                            <div class="g-ice">"What data structure might help with lookups?"</div>
+                            <div class="g-ice">"Have you considered the edge case where the input is empty?"</div>
+                        </div>
+                    </div>
+                    <div class="g-hint-level" style="--hl-color: var(--color-orange)">
+                        <div class="g-hint-level__header">
+                            <span class="g-hint-level__badge">Level 2</span>
+                            <span class="g-hint-level__name">Direction Change</span>
+                        </div>
+                        <div class="g-hint-level__body">
+                            <p>If the small nudge didn't help. More explicit guidance.</p>
+                            <div class="g-ice">"Let's step back. What if we used a hash map?"</div>
+                            <div class="g-ice">"Can you think of a way to avoid the nested loop?"</div>
+                        </div>
+                    </div>
+                    <div class="g-hint-level" style="--hl-color: var(--color-red)">
+                        <div class="g-hint-level__header">
+                            <span class="g-hint-level__badge">Level 3</span>
+                            <span class="g-hint-level__name">Major Guidance</span>
+                        </div>
+                        <div class="g-hint-level__body">
+                            <p>Last resort. Walk through a small example together.</p>
+                            <div class="g-ice">"The key insight here is [concept]. How would you apply that?"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-card g-card--highlight" data-anim="fade-up">
+                <div class="g-card__icon">&#x1F3AF;</div>
+                <h3 class="g-card__title">The Goldilocks Zone</h3>
+                <div class="g-goldilocks">
+                    <div class="g-goldilocks__zone g-goldilocks__zone--cold">
+                        <strong>Too Easy</strong>
+                        <p>No signal. Everyone passes. Can't differentiate.</p>
+                    </div>
+                    <div class="g-goldilocks__zone g-goldilocks__zone--right">
+                        <strong>Just Right</strong>
+                        <p>Candidates demonstrate thinking. Good ones solve it. Struggling ones show approach.</p>
+                    </div>
+                    <div class="g-goldilocks__zone g-goldilocks__zone--hot">
+                        <strong>Too Hard</strong>
+                        <p>No signal. Everyone fails. Only tests luck.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">When a Candidate is Completely Stuck</h3>
+                <div class="g-numbered-list">
+                    <div class="g-num-item"><span class="g-num">1</span><p>Ask open-ended: <em>"What approaches have you considered?"</em></p></div>
+                    <div class="g-num-item"><span class="g-num">2</span><p>Ask them to think out loud about what they DO know</p></div>
+                    <div class="g-num-item"><span class="g-num">3</span><p>Give incremental hints through conversation</p></div>
+                    <div class="g-num-item"><span class="g-num">4</span><p>Don't let them sit in silence for extended periods</p></div>
+                    <div class="g-num-item"><span class="g-num">5</span><p>If no progress after multiple hints, move to a different problem</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 08: EVALUATION ========== -->
+        <section class="g-chapter" id="ch-evaluation">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">08</span>
+                <h2 class="g-chapter__title">Evaluation &amp; Scoring</h2>
+                <p class="g-chapter__lead">Precise scoring prevents "everyone gets a 3" syndrome. Define what each score means with concrete behaviors.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Rating Scale with Behavioral Anchors</h3>
+                <div class="g-rating-scale">
+                    <div class="g-rs-item" style="--rs-color: var(--color-red)">
+                        <div class="g-rs-score">1</div>
+                        <div class="g-rs-info"><strong>Unsatisfactory</strong><p>Answer missed the point entirely. Cannot demonstrate basic competency. Significant gaps in understanding.</p></div>
+                    </div>
+                    <div class="g-rs-item" style="--rs-color: var(--color-orange)">
+                        <div class="g-rs-score">2</div>
+                        <div class="g-rs-info"><strong>Below Expectations</strong><p>Poor or incomplete answer with some good points. Needs significant guidance to make progress. Fundamental misunderstandings present.</p></div>
+                    </div>
+                    <div class="g-rs-item" style="--rs-color: var(--color-yellow)">
+                        <div class="g-rs-score">3</div>
+                        <div class="g-rs-info"><strong>Meets Expectations</strong><p>Adequate answer hitting key points. Competent but not standout. Solved the problem with minor issues. Communicated reasoning.</p></div>
+                    </div>
+                    <div class="g-rs-item" style="--rs-color: var(--color-green)">
+                        <div class="g-rs-score">4</div>
+                        <div class="g-rs-info"><strong>Exceeds Expectations</strong><p>Strong answer going beyond requirements. Shows depth, nuance, and awareness of tradeoffs. Clean implementation with good edge case handling.</p></div>
+                    </div>
+                    <div class="g-rs-item" style="--rs-color: var(--color-blue)">
+                        <div class="g-rs-score">5</div>
+                        <div class="g-rs-info"><strong>Exceptional</strong><p>Excellent answer demonstrating mastery. Optimal solution with clear explanation of alternatives. Proactively discussed testing, monitoring, and production concerns.</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-callout" data-anim="fade-up">
+                <div class="g-callout__icon">&#x1F4A1;</div>
+                <blockquote class="g-callout__text">Medium's engineering team insight: <em>"We can teach someone who is lacking in one or two technical categories, provided they have the right attitude. It is harder to change a person's personality, or gain alignment with them on values."</em></blockquote>
+            </div>
+        </section>
+
+        <!-- ========== CH 09: CLOSING ========== -->
+        <section class="g-chapter" id="ch-closing">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">09</span>
+                <h2 class="g-chapter__title">Closing the Interview</h2>
+                <p class="g-chapter__lead">How you end matters. Leave every candidate with a positive impression of you and your team.</p>
+            </div>
+
+            <div class="g-card g-card--split" data-anim="fade-up">
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-green)">Say</h3>
+                    <ul class="g-list g-list--green">
+                        <li>"Thank you for your time today"</li>
+                        <li>"I enjoyed our discussion about [topic]"</li>
+                        <li>"Our recruiting team will follow up within [timeframe]"</li>
+                        <li>"Feel free to reach out if you have questions"</li>
+                    </ul>
+                </div>
+                <div class="g-card__half">
+                    <h3 class="g-card__title" style="color: var(--color-red)">Don't Say</h3>
+                    <ul class="g-list g-list--red">
+                        <li>"You did great!" (creates false expectations)</li>
+                        <li>"I don't think this is a fit" (premature)</li>
+                        <li>"We'll let you know" without a timeframe</li>
+                        <li>Anything about salary, offer likelihood, or other candidates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Time Management</h3>
+                <div class="g-numbered-list">
+                    <div class="g-num-item"><span class="g-num">1</span><p>Keep a clock visible throughout the interview</p></div>
+                    <div class="g-num-item"><span class="g-num">2</span><p>Give a verbal signal: <em>"We have about 5 minutes left, so let me move to your questions"</em></p></div>
+                    <div class="g-num-item"><span class="g-num">3</span><p><strong>Never run over</strong> &mdash; it's disrespectful to everyone's schedule</p></div>
+                    <div class="g-num-item"><span class="g-num">4</span><p>If you couldn't cover everything, note what was and wasn't assessed</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 10: POST-INTERVIEW ========== -->
+        <section class="g-chapter" id="ch-post">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">10</span>
+                <h2 class="g-chapter__title">Post-Interview</h2>
+                <p class="g-chapter__lead">Your feedback shapes hiring decisions. Write it while the memory is fresh, and make it evidence-based.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Writing Effective Feedback</h3>
+                <div class="g-checklist">
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Write feedback within <strong>1 hour</strong> of the interview</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Be specific: cite exact quotes, approaches, and examples</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Avoid vague language ("seemed good", "might fit")</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Make a clear recommendation with top 4-5 reasons</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Note both strengths and areas of concern with evidence</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Focus on job-related facts, not personal impressions</span></label>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Debrief Rules</h3>
+                <div class="g-numbered-list">
+                    <div class="g-num-item"><span class="g-num">1</span><p>All feedback must be submitted <strong>independently</strong> before the debrief meeting</p></div>
+                    <div class="g-num-item"><span class="g-num">2</span><p>Let less-senior people speak first (avoids echoing the boss)</p></div>
+                    <div class="g-num-item"><span class="g-num">3</span><p>Require evidence for every assessment &mdash; no "gut feelings"</p></div>
+                    <div class="g-num-item"><span class="g-num">4</span><p>Distinguish between "did not demonstrate" and "demonstrated poorly"</p></div>
+                    <div class="g-num-item"><span class="g-num">5</span><p>Assign a devil's advocate to argue against the consensus</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 11: COMMON MISTAKES ========== -->
+        <section class="g-chapter" id="ch-mistakes">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">11</span>
+                <h2 class="g-chapter__title">Common Mistakes</h2>
+                <p class="g-chapter__lead">Even experienced interviewers fall into these traps. Awareness is the first step to avoidance.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <div class="g-mistakes-grid">
+                    <div class="g-mistake"><span class="g-mistake__num">01</span><h4>Talking too much</h4><p>If you're speaking more than 20% of the time, the candidate can't show you what they know.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">02</span><h4>Being unprepared</h4><p>Not reviewing the resume or knowing the role requirements. Winging it with ad-hoc questions.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">03</span><h4>Succumbing to bias</h4><p>Halo effect, similarity bias, confirmation bias &mdash; without structured rubrics, bias runs the show.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">04</span><h4>Snap judgments</h4><p>Forming opinions in the first 30 seconds and spending the rest confirming them.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">05</span><h4>Testing memorization</h4><p>Asking trivia instead of problem-solving questions that reveal depth of understanding.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">06</span><h4>Asking generic questions</h4><p>"Tell me about yourself" without follow-up. Questions unrelated to job competencies.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">07</span><h4>Inconsistent process</h4><p>Different questions, formats, or criteria for different candidates makes comparison impossible.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">08</span><h4>Selling too hard</h4><p>Spending the interview marketing the company instead of assessing the candidate.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">09</span><h4>No candidate Q&amp;A</h4><p>Cutting off their questions signals disrespect and misses a chance to evaluate curiosity.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">10</span><h4>Interrupting</h4><p>Breaking their train of thought, especially during technical problems. Let them finish.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">11</span><h4>Vague scoring</h4><p>Rubrics that produce "everyone gets a 3" &mdash; useless for making hiring decisions.</p></div>
+                    <div class="g-mistake"><span class="g-mistake__num">12</span><h4>No follow-up</h4><p>Leaving candidates in the dark about next steps. This damages your employer brand permanently.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 12: LEVELS ========== -->
+        <section class="g-chapter" id="ch-levels">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">12</span>
+                <h2 class="g-chapter__title">Interviewing by Level</h2>
+                <p class="g-chapter__lead">What you assess &mdash; and what you expect &mdash; changes dramatically by seniority level.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <div class="g-levels-tabs" id="levelTabs">
+                    <button class="g-level-tab is-active" data-level="intern" style="--lt-color: #5ac8fa">Intern</button>
+                    <button class="g-level-tab" data-level="junior" style="--lt-color: #30d158">Junior</button>
+                    <button class="g-level-tab" data-level="mid" style="--lt-color: #ff9f0a">Mid</button>
+                    <button class="g-level-tab" data-level="senior" style="--lt-color: #bf5af2">Senior</button>
+                    <button class="g-level-tab" data-level="staff" style="--lt-color: #ff375f">Lead/Staff</button>
+                </div>
+                <div class="g-level-panel is-active" id="level-intern">
+                    <div class="g-level-content">
+                        <div class="g-level-meta"><span class="g-level-exp">0 years</span><span class="g-level-scope">Learning tasks</span></div>
+                        <h4>Focus Areas</h4>
+                        <p>Fundamentals, curiosity, learning speed, enthusiasm</p>
+                        <h4>What to Expect</h4>
+                        <ul><li>Basic data structures and algorithms</li><li>Willingness to learn and ask questions</li><li>Clear communication of simple concepts</li></ul>
+                        <h4>Don't Expect</h4>
+                        <ul><li>Production experience</li><li>System design or architectural decisions</li><li>Framework-level knowledge</li></ul>
+                        <h4>Green Flags</h4>
+                        <p>Asks great questions, eager to learn, can implement basic solutions with guidance, shows genuine curiosity</p>
+                    </div>
+                </div>
+                <div class="g-level-panel" id="level-junior">
+                    <div class="g-level-content">
+                        <div class="g-level-meta"><span class="g-level-exp">1-3 years</span><span class="g-level-scope">Own tasks</span></div>
+                        <h4>Focus Areas</h4>
+                        <p>Core competency in 1-2 languages/frameworks, basic problem-solving</p>
+                        <h4>What to Expect</h4>
+                        <ul><li>Solid fundamentals and clean functional code</li><li>Basic debugging skills</li><li>Understanding of common patterns</li></ul>
+                        <h4>Don't Expect</h4>
+                        <ul><li>Deep system design</li><li>Mentoring ability</li><li>Architectural vision</li></ul>
+                        <h4>Key Insight</h4>
+                        <p>Over-engineering is worse than under-engineering at this level. Look for simplicity and correctness.</p>
+                    </div>
+                </div>
+                <div class="g-level-panel" id="level-mid">
+                    <div class="g-level-content">
+                        <div class="g-level-meta"><span class="g-level-exp">3-5 years</span><span class="g-level-scope">Feature-level</span></div>
+                        <h4>Focus Areas</h4>
+                        <p>Mastery of 2-3 frameworks, independent feature delivery, handling moderate ambiguity</p>
+                        <h4>What to Expect</h4>
+                        <ul><li>Standard patterns known well</li><li>Ability to design features end-to-end</li><li>Writes tests and considers edge cases</li></ul>
+                        <h4>Assessment Focus</h4>
+                        <p>Can they work independently? Do they think beyond the happy path? Can they explain tradeoffs in their past decisions?</p>
+                    </div>
+                </div>
+                <div class="g-level-panel" id="level-senior">
+                    <div class="g-level-content">
+                        <div class="g-level-meta"><span class="g-level-exp">5+ years</span><span class="g-level-scope">Project/team level</span></div>
+                        <h4>Focus Areas</h4>
+                        <p>Architectural decisions, mentoring, tradeoff analysis, leading complex projects</p>
+                        <h4>What to Expect</h4>
+                        <ul><li>Deep expertise and proactive tradeoff discussion</li><li>Drives solutions through ambiguity independently</li><li>In system design: discusses actual numbers (QPS, storage, latency)</li><li>References real-world systems and past experience</li></ul>
+                        <h4>Key Differentiator</h4>
+                        <p>Must demonstrate influence beyond their own code. Look for mentoring, technical leadership, and cross-team impact.</p>
+                    </div>
+                </div>
+                <div class="g-level-panel" id="level-staff">
+                    <div class="g-level-content">
+                        <div class="g-level-meta"><span class="g-level-exp">7+ years</span><span class="g-level-scope">Org/multi-team</span></div>
+                        <h4>Focus Areas</h4>
+                        <p>Strategic technical direction, cross-team influence, organizational impact</p>
+                        <h4>What to Expect</h4>
+                        <ul><li>Sets vision and guides technical strategy</li><li>Drives the entire system design conversation</li><li>Identifies requirements the interviewer didn't mention</li><li>Proposes monitoring, alerting, and operational concerns</li></ul>
+                        <h4>Key Differentiator</h4>
+                        <p>Resolves disagreements <em>between teams</em>, not just within. Considers technical details in context of the bigger organizational picture.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 13: LEGAL ========== -->
+        <section class="g-chapter" id="ch-legal">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">13</span>
+                <h2 class="g-chapter__title">Legal &amp; Ethics</h2>
+                <p class="g-chapter__lead">There are questions you must never ask. Period. Protect the candidate and your organization.</p>
+            </div>
+
+            <div class="g-card g-card--danger" data-anim="fade-up">
+                <h3 class="g-card__title">Never Ask About</h3>
+                <div class="g-never-grid">
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>Age</strong><p>Retirement plans, graduation dates, birth year</p></div>
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>Family Status</strong><p>Spouse, children, childcare, pregnancy, family planning</p></div>
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>Religion</strong><p>Religious practices, church, holidays observed</p></div>
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>Disability</strong><p>Past illnesses, prescriptions, physical/mental health</p></div>
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>National Origin</strong><p>Birthplace, ancestry, accent, native language</p></div>
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>Gender / Orientation</strong><p>Gender identity, sexual orientation, relationship status</p></div>
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>Race / Ethnicity</strong><p>Racial background, ethnic heritage, genetic info</p></div>
+                    <div class="g-never"><span class="g-never__icon">&#x1F6AB;</span><strong>Criminal History</strong><p>Many jurisdictions have "Ban the Box" laws</p></div>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title" style="color: var(--color-green)">You CAN Ask</h3>
+                <ul class="g-list g-list--green">
+                    <li>"Are you authorized to work in [country]?"</li>
+                    <li>"Can you perform the essential functions of this role with or without reasonable accommodation?"</li>
+                    <li>"Are you available to work [schedule]?"</li>
+                    <li>Questions directly related to job qualifications and competencies</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ========== CH 14: REMOTE ========== -->
+        <section class="g-chapter" id="ch-remote">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">14</span>
+                <h2 class="g-chapter__title">Remote Interviews</h2>
+                <p class="g-chapter__lead">Video calls require extra intentionality. Build rapport through the screen with deliberate techniques.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Video Call Checklist</h3>
+                <div class="g-checklist">
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Test audio, video, and connection <strong>before</strong> the interview</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Professional, distraction-free background</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Good lighting (face the light source)</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Look into the camera for eye contact, not at the screen</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Use headphones to reduce echo</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Phone nearby as backup communication channel</span></label>
+                    <label class="g-check"><input type="checkbox"><span class="g-check__box"></span><span class="g-check__text">Close unnecessary tabs and notifications before sharing screen</span></label>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Building Rapport Remotely</h3>
+                <div class="g-numbered-list">
+                    <div class="g-num-item"><span class="g-num">1</span><p>Start with brief small talk about their setup or location</p></div>
+                    <div class="g-num-item"><span class="g-num">2</span><p>Use the candidate's name more frequently than in person</p></div>
+                    <div class="g-num-item"><span class="g-num">3</span><p>Use gestures and facial expressions more deliberately</p></div>
+                    <div class="g-num-item"><span class="g-num">4</span><p>Show enthusiasm about problems and solutions visibly</p></div>
+                    <div class="g-num-item"><span class="g-num">5</span><p>Be gracious about technical issues &mdash; offer extra time</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CH 15: RESEARCH DATA ========== -->
+        <section class="g-chapter" id="ch-data">
+            <div class="g-chapter__header" data-anim="fade-up">
+                <span class="g-chapter__num">15</span>
+                <h2 class="g-chapter__title">Research &amp; Data</h2>
+                <p class="g-chapter__lead">The numbers behind the science. What 85 years of research tells us about predicting job performance.</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Predictive Validity of Selection Methods</h3>
+                <p style="color: var(--color-gray-400); font-size: 13px; margin-bottom: 16px;">Higher = better predictor of job performance (0 to 1 scale)</p>
+                <div class="g-validity-chart">
+                    <div class="g-validity-row"><span class="g-validity-label">Structured Interviews</span><div class="g-validity-bar-track"><div class="g-validity-bar" style="width: 84%; background: var(--color-blue)"></div></div><span class="g-validity-val">.42</span></div>
+                    <div class="g-validity-row"><span class="g-validity-label">Work Sample Tests</span><div class="g-validity-bar-track"><div class="g-validity-bar" style="width: 66%; background: var(--color-green)"></div></div><span class="g-validity-val">.33</span></div>
+                    <div class="g-validity-row"><span class="g-validity-label">Cognitive Ability Tests</span><div class="g-validity-bar-track"><div class="g-validity-bar" style="width: 62%; background: var(--color-purple)"></div></div><span class="g-validity-val">.31</span></div>
+                    <div class="g-validity-row"><span class="g-validity-label">Reference Checks</span><div class="g-validity-bar-track"><div class="g-validity-bar" style="width: 52%; background: var(--color-orange)"></div></div><span class="g-validity-val">.26</span></div>
+                    <div class="g-validity-row"><span class="g-validity-label">Unstructured Interviews</span><div class="g-validity-bar-track"><div class="g-validity-bar" style="width: 38%; background: var(--color-gray-500)"></div></div><span class="g-validity-val">.19</span></div>
+                    <div class="g-validity-row"><span class="g-validity-label">Years of Experience</span><div class="g-validity-bar-track"><div class="g-validity-bar" style="width: 32%; background: var(--color-gray-600)"></div></div><span class="g-validity-val">.16</span></div>
+                </div>
+                <p style="color: var(--color-gray-500); font-size: 11px; margin-top: 12px;">Source: Sackett et al. (2022), updated from Schmidt &amp; Hunter (1998)</p>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Key Statistics</h3>
+                <div class="g-stats-grid">
+                    <div class="g-stat-card">
+                        <span class="g-stat-card__val">30%</span>
+                        <span class="g-stat-card__label">Cost of a bad hire<br><small>(% of annual salary)</small></span>
+                    </div>
+                    <div class="g-stat-card">
+                        <span class="g-stat-card__val">2x</span>
+                        <span class="g-stat-card__label">Structured interviews<br><small>more predictive than unstructured</small></span>
+                    </div>
+                    <div class="g-stat-card">
+                        <span class="g-stat-card__val">4</span>
+                        <span class="g-stat-card__label">Interviewers needed<br><small>(Google's Rule of Four)</small></span>
+                    </div>
+                    <div class="g-stat-card">
+                        <span class="g-stat-card__val">60-70%</span>
+                        <span class="g-stat-card__label">Turnover reduction<br><small>with assessment programs</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="g-card" data-anim="fade-up">
+                <h3 class="g-card__title">Sources &amp; Further Reading</h3>
+                <ul class="g-sources">
+                    <li>Schmidt, F.L. &amp; Hunter, J.E. (1998). "The Validity and Utility of Selection Methods in Personnel Psychology"</li>
+                    <li>Sackett, P.R. et al. (2022). "Revisiting Meta-Analytic Estimates of Validity"</li>
+                    <li>Google re:Work &mdash; Structured Interviewing Guide</li>
+                    <li>Tech Interview Handbook &mdash; Rubrics &amp; Engineering Levels</li>
+                    <li>Harvard Business School &mdash; Inclusive Hiring Practices</li>
+                    <li>NSF Research &mdash; Stress in Technical Interviews</li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<!-- Back to top -->
+<button class="g-btt" id="gBtt" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="js/interview-utils.js"></script>
+<script src="js/interview-guide.js"></script>
+
+</body>
+</html>

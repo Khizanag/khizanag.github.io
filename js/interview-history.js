@@ -10,7 +10,10 @@
             if (!raw) return [];
             var arr = JSON.parse(raw);
             return Array.isArray(arr) ? arr : [];
-        } catch (e) { return []; }
+        } catch (e) {
+            InterviewUtils.logError('history:load', e);
+            return [];
+        }
     }
 
     App.loadLocalHistory = loadHistory;
@@ -18,7 +21,9 @@
     function saveHistory(entries) {
         try {
             localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(0, MAX_ENTRIES)));
-        } catch (e) { /* */ }
+        } catch (e) {
+            InterviewUtils.logError('history:save', e);
+        }
     }
 
     App.saveToHistory = function () {

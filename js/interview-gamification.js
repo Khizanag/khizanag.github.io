@@ -28,7 +28,7 @@
         try {
             var raw = localStorage.getItem(STORAGE_KEY);
             if (raw) return JSON.parse(raw);
-        } catch (e) { /* */ }
+        } catch (e) { InterviewUtils.logError('gamification:load', e); }
         return {
             xp: 0,
             totalInterviews: 0,
@@ -42,7 +42,7 @@
     }
 
     function saveData(data) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) { /* */ }
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) { InterviewUtils.logError('gamification:save', e); }
         if (window.FirebaseService) {
             window.FirebaseService.saveGamification(data);
         }

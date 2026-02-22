@@ -9,7 +9,7 @@
     }
 
     function saveCustom(arr) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch (e) { /* */ }
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); } catch (e) { InterviewUtils.logError('custom:save', e); }
     }
 
     function saveCustomToCloud(question) {

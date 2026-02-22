@@ -1879,6 +1879,18 @@
     // Theme toggle
     InterviewUtils.initThemeToggle('btnTheme');
 
+    // Firebase write error toast
+    document.addEventListener('firebase:writeerror', function (e) {
+        var ctx = e.detail && e.detail.context ? e.detail.context : 'unknown';
+        InterviewUtils.logError('firebase:write:' + ctx, new Error('Cloud sync failed'));
+        var toast = document.getElementById('xpToast');
+        if (toast) {
+            toast.textContent = 'Cloud sync failed. Changes saved locally.';
+            toast.classList.add('is-visible');
+            setTimeout(function () { toast.classList.remove('is-visible'); }, 3000);
+        }
+    });
+
     // Expose functions for templates module
     App.renderTopicChips = renderTopicChips;
     App.updateUI = updateStartButton;

@@ -1185,7 +1185,7 @@
                 '.next:not(:disabled):hover{background:#3ba0ff;transform:scale(1.04)}' +
                 '.hint{font-size:11px;color:#424245;margin-top:14px}' +
                 '</style></head><body>' +
-                '<p class="q">' + qLabel.replace(/</g, '&lt;') + '</p>' +
+                '<p class="q">' + escapeHtml(qLabel) + '</p>' +
                 '<div class="stars">' +
                 [1,2,3,4,5].map(function (v) {
                     return '<button class="star' + (v <= s.currentRating ? ' on' : '') + '" onclick="r(' + v + ')">\u2605</button>';

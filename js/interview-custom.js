@@ -232,18 +232,23 @@
             var platform = App.state.platform;
             var added = 0;
 
+            var skipped = 0;
             for (var i = 0; i < imported.length; i++) {
                 var q = imported[i];
-                if (!q.question || !q.topic) continue;
+                if (typeof q !== 'object' || q === null || Array.isArray(q)) { skipped++; continue; }
+                if (typeof q.question !== 'string' || !q.question.trim()) { skipped++; continue; }
+                if (typeof q.topic !== 'string' || !q.topic.trim()) { skipped++; continue; }
+                var level = parseInt(q.level, 10);
+                if (isNaN(level) || level < 0 || level > 5) level = 1;
                 custom.push({
                     id: 'cq-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6),
-                    platform: q.platform || platform,
-                    topic: q.topic,
-                    level: q.level || 1,
-                    question: q.question,
-                    hint: q.hint || '',
-                    answer: q.answer || '',
-                    code: q.code || '',
+                    platform: typeof q.platform === 'string' ? q.platform : platform,
+                    topic: String(q.topic).trim(),
+                    level: level,
+                    question: String(q.question).trim(),
+                    hint: typeof q.hint === 'string' ? q.hint : '',
+                    answer: typeof q.answer === 'string' ? q.answer : '',
+                    code: typeof q.code === 'string' ? q.code : '',
                 });
                 added++;
             }
@@ -252,7 +257,9 @@
             injectCustomQuestions();
             renderList();
             document.getElementById('customIOArea').classList.remove('is-visible');
-            alert('Imported ' + added + ' question' + (added !== 1 ? 's' : '') + '.');
+            var msg = 'Imported ' + added + ' question' + (added !== 1 ? 's' : '') + '.';
+            if (skipped > 0) msg += '\n' + skipped + ' invalid entr' + (skipped !== 1 ? 'ies' : 'y') + ' skipped.';
+            alert(msg);
         } catch (e) {
             alert('Invalid JSON format. Please check the data.');
         }

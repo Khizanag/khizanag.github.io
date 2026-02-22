@@ -621,10 +621,7 @@
 
     // ---- Helpers ----
 
-    function escapeHtml(text) {
-        if (!text) return '';
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    var escapeHtml = InterviewUtils.escapeHtml;
 
     function showJoinError(msg) {
         var el = document.getElementById('joinError');

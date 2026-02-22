@@ -85,7 +85,7 @@
             el.innerHTML =
                 '<div class="plan__left">' +
                     leftIcon +
-                    '<span class="plan__name">' + phase.name + '</span>' +
+                    '<span class="plan__name">' + InterviewUtils.escapeHtml(phase.name) + '</span>' +
                 '</div>' +
                 '<div class="plan__right">' +
                     '<div class="plan__time">' +
@@ -216,7 +216,7 @@
             el.innerHTML =
                 '<div class="plan__left">' +
                     leftIcon +
-                    '<span class="plan__name">' + phase.name + '</span>' +
+                    '<span class="plan__name">' + InterviewUtils.escapeHtml(phase.name) + '</span>' +
                 '</div>' +
                 '<div class="plan__right">' +
                     '<div class="plan__time">' +

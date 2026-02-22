@@ -118,6 +118,36 @@
     border-color: var(--color-blue-a40);
 }
 
+/* Export buttons */
+.hp-export-group {
+    display: flex;
+    gap: 6px;
+}
+
+.hp-export-btn {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a10);
+    border-radius: var(--border-radius-sm);
+    padding: 8px 14px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-gray-300);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.hp-export-btn:hover {
+    border-color: var(--color-blue-a25);
+    color: var(--color-blue);
+    background: var(--color-blue-a6);
+}
+
 /* Light theme select arrow */
 .theme-light .hp-select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236e6e73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");

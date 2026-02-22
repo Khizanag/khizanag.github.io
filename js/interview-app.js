@@ -348,9 +348,7 @@
         App.saveSession();
     }
 
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
+    var escapeHtml = InterviewUtils.escapeHtml;
     App.escapeHtml = escapeHtml;
 
     // ===========================================================
@@ -1876,10 +1874,7 @@
     App.initPlan();
 
     // Theme toggle
-    document.getElementById('btnTheme').addEventListener('click', function () {
-        var isLight = document.documentElement.classList.toggle('theme-light');
-        try { localStorage.setItem('ios-interview-theme', isLight ? 'light' : 'dark'); } catch (e) { /* */ }
-    });
+    InterviewUtils.initThemeToggle('btnTheme');
 
     // Expose functions for templates module
     App.renderTopicChips = renderTopicChips;

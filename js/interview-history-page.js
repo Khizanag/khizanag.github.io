@@ -113,6 +113,7 @@
         dom.statAvg = document.getElementById('statAvg');
         dom.statBestLevel = document.getElementById('statBestLevel');
         dom.statQuestions = document.getElementById('statQuestions');
+        dom.pagination = document.getElementById('hpPagination');
         dom.modal = document.getElementById('hpModal');
         dom.modalTitle = document.getElementById('hpModalTitle');
         dom.modalDate = document.getElementById('hpModalDate');
@@ -219,6 +220,26 @@
         dom.grid.innerHTML = html;
     }
 
+    // ---- Pagination ----
+
+    var PAGE_SIZE = 20;
+    var currentPage = 0;
+
+    function renderPagination(totalItems) {
+        var pag = dom.pagination;
+        if (!pag) return;
+        var totalPages = Math.ceil(totalItems / PAGE_SIZE);
+        if (totalPages <= 1) { pag.style.display = 'none'; return; }
+
+        pag.style.display = '';
+        var html = '<button class="hp-pag-btn" data-page="prev"' + (currentPage === 0 ? ' disabled' : '') + '>&lsaquo; Prev</button>';
+        for (var i = 0; i < totalPages; i++) {
+            html += '<button class="hp-pag-btn' + (i === currentPage ? ' is-active' : '') + '" data-page="' + i + '">' + (i + 1) + '</button>';
+        }
+        html += '<button class="hp-pag-btn" data-page="next"' + (currentPage >= totalPages - 1 ? ' disabled' : '') + '>Next &rsaquo;</button>';
+        pag.innerHTML = html;
+    }
+
     // ---- Filtering & Sorting ----
 
     var currentFiltered = [];
@@ -264,8 +285,16 @@
         });
 
         currentFiltered = filtered;
+        currentPage = 0;
         renderStats(filtered);
-        renderCards(filtered);
+        renderPage();
+    }
+
+    function renderPage() {
+        var start = currentPage * PAGE_SIZE;
+        var page = currentFiltered.slice(start, start + PAGE_SIZE);
+        renderCards(page);
+        renderPagination(currentFiltered.length);
     }
 
     // ---- Detail Modal ----
@@ -427,10 +456,25 @@
             var card = e.target.closest('.hp-card');
             if (!card) return;
             var idx = parseInt(card.dataset.idx, 10);
-            if (idx >= 0 && idx < currentFiltered.length) {
-                openDetail(currentFiltered[idx]);
+            var globalIdx = currentPage * PAGE_SIZE + idx;
+            if (globalIdx >= 0 && globalIdx < currentFiltered.length) {
+                openDetail(currentFiltered[globalIdx]);
             }
         });
+
+        if (dom.pagination) {
+            dom.pagination.addEventListener('click', function (e) {
+                var btn = e.target.closest('.hp-pag-btn');
+                if (!btn || btn.disabled) return;
+                var page = btn.dataset.page;
+                var totalPages = Math.ceil(currentFiltered.length / PAGE_SIZE);
+                if (page === 'prev') { currentPage = Math.max(0, currentPage - 1); }
+                else if (page === 'next') { currentPage = Math.min(totalPages - 1, currentPage + 1); }
+                else { currentPage = parseInt(page, 10); }
+                renderPage();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
 
         dom.modalClose.addEventListener('click', closeDetail);
         dom.modalDone.addEventListener('click', closeDetail);

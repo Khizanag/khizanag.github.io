@@ -754,6 +754,19 @@
     font-size: 11px;
 }
 
+.btn-view-all {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-blue);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.btn-view-all:hover {
+    opacity: 0.7;
+}
+
 .btn-compare {
     font-family: var(--font-body);
     font-size: 13px;

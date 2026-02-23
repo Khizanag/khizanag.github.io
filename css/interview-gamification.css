@@ -102,12 +102,14 @@
     font-size: 14px;
     font-weight: 600;
     z-index: 1000;
-    transform: translateX(120%);
-    transition: transform 0.4s var(--ease-out-expo);
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
     pointer-events: none;
 }
 
 .xp-toast.is-visible {
+    opacity: 1;
     transform: translateX(0);
 }
 
@@ -130,12 +132,14 @@
     border: 1px solid var(--color-yellow-a30, rgba(255, 214, 10, 0.3));
     color: var(--color-gray-100);
     z-index: 1000;
-    transform: translateX(120%);
-    transition: transform 0.4s var(--ease-out-expo);
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
     pointer-events: none;
 }
 
 .achievement-toast.is-visible {
+    opacity: 1;
     transform: translateX(0);
 }
 

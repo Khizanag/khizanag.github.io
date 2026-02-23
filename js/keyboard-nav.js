@@ -20,6 +20,8 @@
     var sectionIds = scriptTag.dataset.sections.split(',').map(function (s) { return s.trim(); });
     if (sectionIds.length < 2) return;
 
+    var SCROLL_DURATION = 900; // ms — longer than native smooth scroll
+
     var navIndex = 0;
     var navLock = false;
     var lockTimeout = null;
@@ -37,17 +39,40 @@
         return best;
     }
 
+    // Easing: ease-in-out cubic
+    function easeInOutCubic(t) {
+        return t < 0.5
+            ? 4 * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function smoothScrollTo(targetY, duration) {
+        var startY = window.scrollY;
+        var diff = targetY - startY;
+        if (diff === 0) return;
+        var startTime = null;
+
+        function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var elapsed = timestamp - startTime;
+            var progress = Math.min(elapsed / duration, 1);
+            var eased = easeInOutCubic(progress);
+            window.scrollTo(0, startY + diff * eased);
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                navLock = false;
+                clearTimeout(lockTimeout);
+                navIndex = resolveCurrentIndex();
+            }
+        }
+
+        requestAnimationFrame(step);
+    }
+
     // Sync index from scroll position when no programmatic scroll is in flight
     window.addEventListener('scroll', function () {
         if (!navLock) navIndex = resolveCurrentIndex();
-    }, { passive: true });
-
-    // scrollend clears the lock precisely after smooth scroll completes
-    window.addEventListener('scrollend', function () {
-        if (!navLock) return;
-        clearTimeout(lockTimeout);
-        navLock = false;
-        navIndex = resolveCurrentIndex();
     }, { passive: true });
 
     document.addEventListener('keydown', function (e) {
@@ -65,13 +90,16 @@
         navIndex = next;
         navLock = true;
 
-        // Fallback: clear lock after 2s if scrollend doesn't fire
+        // Fallback: clear lock after duration + buffer if animation doesn't finish
         lockTimeout = setTimeout(function () {
             navLock = false;
             navIndex = resolveCurrentIndex();
-        }, 2000);
+        }, SCROLL_DURATION + 500);
 
         var target = document.getElementById(sectionIds[next]);
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        if (target) {
+            var targetY = target.getBoundingClientRect().top + window.scrollY;
+            smoothScrollTo(targetY, SCROLL_DURATION);
+        }
     });
 })();

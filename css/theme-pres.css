@@ -1,0 +1,725 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
+/* ============================================
+   PRESENTATIONS THEME — Dark Navy Design System
+   Overrides :root tokens + adds structural CSS
+   ============================================ */
+
+:root {
+    /* Colors */
+    --color-white: #e8edf5;
+    --color-gray-50: #0c1018;
+    --color-gray-100: #111820;
+    --color-gray-200: #2a3a55;
+    --color-gray-300: #3a4f6e;
+    --color-gray-400: #5a6a82;
+    --color-gray-500: #5a6a82;
+    --color-gray-600: #3a4a62;
+    --color-gray-700: #2a3548;
+    --color-gray-900: #e8edf5;
+    --color-black: #05080f;
+    --color-blue: #00ff88;
+    --color-blue-hover: #33ffaa;
+    --color-blue-dark: #00ff88;
+
+    /* Fonts */
+    --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Nav */
+    --nav-height: 64px;
+
+    /* Shadows → borders */
+    --shadow-card: 0 0 0 1px #1a2235;
+    --shadow-card-lg: 0 0 0 1px #2a3a55;
+
+    /* Borders */
+    --border-light: 1px solid rgba(255, 255, 255, 0.08);
+
+    /* Blue-alpha → green-alpha (for jobs.html) */
+    --color-blue-a6: rgba(0, 255, 136, 0.06);
+    --color-blue-a10: rgba(0, 255, 136, 0.10);
+    --color-blue-a15: rgba(0, 255, 136, 0.15);
+    --color-blue-a20: rgba(0, 255, 136, 0.20);
+    --color-blue-a25: rgba(0, 255, 136, 0.25);
+    --color-blue-a30: rgba(0, 255, 136, 0.30);
+}
+
+/* ============================================
+   KEYFRAMES
+   ============================================ */
+@keyframes gridMove {
+    0%   { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
+    50%      { box-shadow: 0 0 40px rgba(0, 255, 136, 0.6); }
+}
+
+/* ============================================
+   BODY — Grid & Blobs
+   ============================================ */
+body {
+    background: #05080f;
+    color: #e8edf5;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(#1a2235 1px, transparent 1px),
+        linear-gradient(90deg, #1a2235 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 10s linear infinite;
+    opacity: 0.3;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle 350px at 80% 10%, rgba(0, 255, 136, 0.05) 0%, transparent 65%),
+        radial-gradient(circle 350px at 20% 90%, rgba(77, 159, 255, 0.04) 0%, transparent 65%);
+}
+
+/* All sections above the grid/blobs */
+section,
+header,
+footer,
+.footer,
+.j-footer,
+.marquee {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+    background: rgba(0, 255, 136, 0.3);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav {
+    height: 64px;
+    background: rgba(5, 8, 15, 0.88);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    backdrop-filter: saturate(180%) blur(24px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* index.html nav */
+.nav__logo {
+    color: #e8edf5;
+}
+
+.nav__logo-accent {
+    color: #00ff88;
+}
+
+.nav__link--cta {
+    background: linear-gradient(135deg, #00ff88, #bf5af2);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* jobs.html nav */
+.nav__back {
+    color: #00ff88;
+}
+
+.nav__title {
+    color: #e8edf5;
+}
+
+/* Mobile nav menu */
+@media (max-width: 640px) {
+    .nav__links.is-open {
+        background: rgba(5, 8, 15, 0.96);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+    }
+}
+
+/* ============================================
+   SECTION EYEBROW ACCENT LINE
+   ============================================ */
+.section-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: currentColor;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+/* ============================================
+   HERO OVERRIDES (shared between both pages)
+   ============================================ */
+
+/* Hero glow → green/blue */
+.hero::before,
+.j-hero::before {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 255, 136, 0.08) 0%,
+        rgba(77, 159, 255, 0.04) 30%,
+        transparent 70%
+    );
+}
+
+/* Title gradient → green-based */
+.hero__title-gradient,
+.j-hero__title-gradient {
+    background: linear-gradient(90deg, #00ff88, #4d9fff, #bf5af2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 100%;
+}
+
+/* Hero eyebrow */
+.hero__eyebrow {
+    color: #00ff88;
+}
+
+/* Hero metric accent */
+.hero__metric-accent {
+    color: #00ff88;
+}
+
+/* Hero scroll line */
+.hero__scroll-line {
+    background: linear-gradient(to bottom, #00ff88, transparent);
+}
+
+/* Hero stat pills (jobs.html) */
+.j-hero__badge {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.10);
+    border-color: rgba(0, 255, 136, 0.25);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn--filled {
+    background: #00ff88;
+    color: #05080f;
+}
+
+.btn--filled:hover {
+    background: #33ffaa;
+}
+
+.btn--ghost {
+    color: #00ff88;
+}
+
+.btn--ghost:hover {
+    color: #33ffaa;
+}
+
+/* Contact primary pill */
+.contact__pill--primary {
+    background: #00ff88;
+    color: #05080f;
+}
+
+.contact__pill--primary:hover {
+    background: #33ffaa;
+    color: #05080f;
+}
+
+/* ============================================
+   MARQUEE
+   ============================================ */
+.marquee {
+    background: #05080f;
+}
+
+.marquee__dot {
+    background: #00ff88;
+}
+
+/* ============================================
+   INDEX.HTML — LIGHT SECTIONS → DARK
+   ============================================ */
+
+/* About (was white) */
+.about {
+    background: #0c1018;
+    color: #e8edf5;
+}
+
+.about .section-eyebrow { color: #00ff88; }
+.about .section-headline { color: #e8edf5; }
+
+.about__text {
+    color: #5a6a82;
+}
+
+.about__text strong {
+    color: #e8edf5;
+}
+
+.about__photo {
+    background: linear-gradient(160deg, #111820 0%, #1a2235 100%);
+}
+
+.about__photo::after {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about__photo-placeholder {
+    color: #5a6a82;
+}
+
+.about__photo svg {
+    color: #5a6a82;
+}
+
+.about__float-card {
+    background: #111820;
+    border: 1px solid #1a2235;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+}
+
+.about__float-value--blue {
+    color: #00ff88;
+}
+
+.about__float-label {
+    color: #5a6a82;
+}
+
+.about__highlights .highlight {
+    background: #111820;
+    border: 1px solid #1a2235;
+}
+
+.about__highlights .highlight:hover {
+    background: #162030;
+    box-shadow: 0 0 0 1px #2a3a55;
+}
+
+.highlight__desc {
+    color: #5a6a82;
+}
+
+/* Experience (was gray-50) */
+.experience {
+    background: #111820;
+    color: #e8edf5;
+}
+
+.experience .section-eyebrow { color: #00ff88; }
+.experience .section-headline { color: #e8edf5; }
+
+.exp-card {
+    background: #0c1018;
+    border: 1px solid #1a2235;
+    box-shadow: none;
+}
+
+.exp-card:hover {
+    box-shadow: 0 0 0 1px #2a3a55;
+    border-color: #2a3a55;
+}
+
+.exp-card__period {
+    background: #111820;
+    color: #5a6a82;
+}
+
+.exp-card__company {
+    color: #5a6a82;
+}
+
+.exp-card__company-link {
+    color: #5a6a82;
+}
+
+.exp-card__company-link:hover {
+    color: #e8edf5;
+}
+
+.exp-card__chevron {
+    color: #5a6a82;
+}
+
+.exp-card.is-expanded .exp-card__chevron,
+.exp-card__toggle:hover .exp-card__chevron {
+    color: #00ff88;
+}
+
+.exp-card__bullets li {
+    color: #5a6a82;
+}
+
+.exp-card__bullets li::before {
+    background: #00ff88;
+}
+
+.tag {
+    background: #111820;
+    color: #5a6a82;
+    border: 1px solid #1a2235;
+}
+
+/* Skills (was white) */
+.skills {
+    background: #0c1018;
+    color: #e8edf5;
+}
+
+.skills .section-eyebrow { color: #00ff88; }
+.skills .section-headline { color: #e8edf5; }
+
+.skill-card {
+    background: #111820;
+    border: 1px solid #1a2235;
+}
+
+.skill-card:hover {
+    background: #162030;
+    border-color: #2a3a55;
+    box-shadow: 0 0 0 1px #2a3a55;
+}
+
+.skill-tag {
+    background: #0c1018;
+    color: #5a6a82;
+    border-color: #1a2235;
+}
+
+.skill-card:hover .skill-tag {
+    background: #111820;
+}
+
+/* Education (was gray-50) */
+.education {
+    background: #111820;
+    color: #e8edf5;
+}
+
+.education .section-eyebrow { color: #00ff88; }
+.education .section-headline { color: #e8edf5; }
+
+.edu-card {
+    background: #0c1018;
+    border: 1px solid #1a2235;
+    box-shadow: none;
+}
+
+.edu-card:hover {
+    box-shadow: 0 0 0 1px #2a3a55;
+}
+
+.edu-card__eyebrow {
+    color: #00ff88;
+}
+
+.edu-card__subtitle {
+    color: #5a6a82;
+}
+
+.edu-card__detail {
+    color: #5a6a82;
+}
+
+/* ============================================
+   INDEX.HTML — DARK SECTIONS → NAVY
+   ============================================ */
+.hero,
+.projects,
+.achievements,
+.presentations,
+.contact {
+    background: #05080f;
+}
+
+/* Projects */
+.projects .section-eyebrow { color: #00ff88; }
+
+/* Achievements */
+.achievements .section-eyebrow { color: #00ff88; }
+
+.ach-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ach-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.ach-card__year {
+    color: #00ff88;
+}
+
+/* Presentations */
+.presentations .section-eyebrow { color: #bf5af2; }
+
+/* Contact */
+.contact .section-eyebrow { color: #00ff88; }
+
+.contact::before {
+    background: radial-gradient(ellipse at center bottom, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+}
+
+/* ============================================
+   FOOTER — index.html
+   ============================================ */
+.footer {
+    background: #0c1018;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   JOBS.HTML — LIGHT SECTIONS → DARK
+   ============================================ */
+.s-light {
+    background: #0c1018;
+    color: #e8edf5;
+}
+
+.s-light .section-eyebrow { color: #00ff88; }
+.s-light .section-headline { color: #e8edf5; }
+.s-light .section-desc { color: #5a6a82; }
+
+/* Dark sections → navy */
+.s-dark {
+    background: #05080f;
+}
+
+.s-dark .section-eyebrow { color: #00ff88; }
+
+/* ============================================
+   JOBS.HTML — TIMELINE (Roadmap)
+   ============================================ */
+.j-timeline::before {
+    background: linear-gradient(to bottom, #00ff88, #bf5af2);
+}
+
+.j-timeline__dot {
+    background: #0c1018;
+    border-color: #00ff88;
+    box-shadow: 0 0 0 6px #0c1018;
+    color: #00ff88;
+}
+
+.j-timeline__title {
+    color: #e8edf5;
+}
+
+.j-timeline__desc {
+    color: #5a6a82;
+}
+
+.j-timeline__tag {
+    background: rgba(0, 255, 136, 0.10);
+    color: #00ff88;
+}
+
+@media (max-width: 640px) {
+    .j-timeline__dot {
+        box-shadow: 0 0 0 5px #0c1018;
+    }
+}
+
+/* ============================================
+   JOBS.HTML — RESUME CARDS (Two-Column)
+   ============================================ */
+.j-col-card {
+    background: #111820;
+    border: 1px solid #1a2235;
+    box-shadow: none;
+}
+
+.j-col-card__title {
+    color: #e8edf5;
+}
+
+.j-col-card__list li {
+    color: #5a6a82;
+}
+
+.j-col-card__list li::before {
+    background: #00ff88;
+}
+
+.j-col-card__icon {
+    background: rgba(0, 255, 136, 0.10);
+}
+
+/* Callout */
+.j-callout {
+    background: rgba(0, 255, 136, 0.06);
+    border-color: rgba(0, 255, 136, 0.25);
+}
+
+.j-callout__title {
+    color: #00ff88;
+}
+
+.j-callout__text {
+    color: #5a6a82;
+}
+
+.j-callout__text strong {
+    color: #e8edf5;
+}
+
+/* ============================================
+   JOBS.HTML — INTERVIEW FLOW
+   ============================================ */
+.j-flow__stage {
+    background: #111820;
+    border: 1px solid #1a2235;
+    box-shadow: none;
+}
+
+.j-flow__stage::after {
+    color: #2a3548;
+}
+
+.j-flow__icon {
+    background: rgba(0, 255, 136, 0.10);
+}
+
+.j-flow__stage-title {
+    color: #e8edf5;
+}
+
+.j-flow__stage-desc {
+    color: #5a6a82;
+}
+
+.j-flow__duration {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.06);
+}
+
+/* Topics */
+.j-topics {
+    background: rgba(0, 255, 136, 0.06);
+    border-color: rgba(0, 255, 136, 0.25);
+}
+
+.j-topics__title {
+    color: #00ff88;
+}
+
+.j-topics__chip {
+    background: rgba(0, 255, 136, 0.10);
+    color: #00ff88;
+}
+
+/* ============================================
+   JOBS.HTML — RESOURCE CARDS
+   ============================================ */
+.j-res-card {
+    background: #111820;
+    border: 1px solid #1a2235;
+    box-shadow: none;
+}
+
+.j-res-card:hover {
+    box-shadow: 0 0 0 1px #2a3a55;
+    transform: translateY(-2px);
+}
+
+.j-res-card__name {
+    color: #e8edf5;
+}
+
+.j-res-card__desc {
+    color: #5a6a82;
+}
+
+.j-res-card__ext {
+    color: #5a6a82;
+}
+
+.j-res-category__title {
+    color: #e8edf5;
+}
+
+/* ============================================
+   JOBS.HTML — FILTER TABS
+   ============================================ */
+.j-filter__btn.is-active {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+/* ============================================
+   JOBS.HTML — READING PROGRESS BAR
+   ============================================ */
+.j-progress {
+    background: linear-gradient(90deg, #00ff88, #bf5af2);
+}
+
+/* ============================================
+   JOBS.HTML — BACK TO TOP
+   ============================================ */
+.g-btt {
+    background: rgba(5, 8, 15, 0.75);
+    border-color: rgba(255, 255, 255, 0.10);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+.g-btt:hover {
+    background: rgba(0, 255, 136, 0.30);
+    border-color: rgba(0, 255, 136, 0.25);
+    color: #00ff88;
+}
+
+/* ============================================
+   JOBS.HTML — FOOTER
+   ============================================ */
+.j-footer {
+    background: #0c1018;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   JOBS.HTML — PLATFORM LINK
+   ============================================ */
+.j-platform__link {
+    color: #00ff88;
+}
+
+/* ============================================
+   FOCUS VISIBLE
+   ============================================ */
+:focus-visible {
+    outline-color: #00ff88;
+}
+
+/* ============================================
+   PRINT — Reset to readable format
+   ============================================ */
+@media print {
+    body::before,
+    body::after {
+        display: none;
+    }
+}

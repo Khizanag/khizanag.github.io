@@ -510,13 +510,7 @@
         var tree = document.createElement('div');
         tree.className = 'rm-tree';
 
-        // SVG layer for connection lines
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('class', 'rm-tree__svg');
-        svg.setAttribute('aria-hidden', 'true');
-        tree.appendChild(svg);
-
-        // Render tiers (bottom to top visually, but DOM order is 1→4)
+        // Render tiers
         var tiers = [1, 2, 3, 4];
         tiers.forEach(function (tier, idx) {
             if (idx > 0) {
@@ -613,101 +607,6 @@
         });
 
         container.appendChild(tree);
-
-        // Draw SVG connections after layout
-        requestAnimationFrame(function () {
-            drawConnections(tree, svg);
-        });
-
-        // Redraw on resize
-        var resizeTimer;
-        window.addEventListener('resize', function () {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                drawConnections(tree, svg);
-            }, 150);
-        });
-    }
-
-    // ================================================================
-    // DRAW: SVG Connection Lines Between Dependent Domains
-    // ================================================================
-    function drawConnections(tree, svg) {
-        // Clear existing paths
-        while (svg.firstChild) svg.removeChild(svg.firstChild);
-
-        var treeRect = tree.getBoundingClientRect();
-        svg.setAttribute('width', treeRect.width);
-        svg.setAttribute('height', treeRect.height);
-        svg.style.width = treeRect.width + 'px';
-        svg.style.height = treeRect.height + 'px';
-
-        // Check if we're on mobile — skip lines on narrow screens
-        if (treeRect.width < 640) return;
-
-        // Collect node positions
-        var nodePositions = {};
-        var nodes = tree.querySelectorAll('.rm-node');
-        nodes.forEach(function (node) {
-            var domainId = node.dataset.domain;
-            var rect = node.getBoundingClientRect();
-            nodePositions[domainId] = {
-                cx: rect.left + rect.width / 2 - treeRect.left,
-                top: rect.top - treeRect.top,
-                bottom: rect.bottom - treeRect.top,
-            };
-        });
-
-        // Draw lines from each domain to its dependents
-        DOMAINS.forEach(function (domain) {
-            if (domain.requires.length === 0) return;
-            var targetPos = nodePositions[domain.id];
-            if (!targetPos) return;
-
-            domain.requires.forEach(function (reqId) {
-                var sourcePos = nodePositions[reqId];
-                if (!sourcePos) return;
-
-                var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-
-                var x1 = sourcePos.cx;
-                var y1 = sourcePos.top;
-                var x2 = targetPos.cx;
-                var y2 = targetPos.bottom;
-
-                // Cubic bezier curving upward
-                var midY = (y1 + y2) / 2;
-                var d = 'M ' + x1 + ' ' + y1 +
-                        ' C ' + x1 + ' ' + midY + ', ' + x2 + ' ' + midY + ', ' + x2 + ' ' + y2;
-
-                path.setAttribute('d', d);
-                path.setAttribute('class', 'rm-tree__path');
-                path.dataset.from = reqId;
-                path.dataset.to = domain.id;
-
-                // Color by source tier
-                var sourceDomain = DOMAIN_MAP[reqId];
-                if (sourceDomain) {
-                    var tierColors = { 1: '#30d158', 2: '#bf5af2', 3: '#ff9f0a', 4: '#ff375f' };
-                    path.setAttribute('stroke', tierColors[sourceDomain.tier] || '#5ac8fa');
-                }
-
-                svg.appendChild(path);
-            });
-        });
-
-        // Animate paths in
-        var paths = svg.querySelectorAll('.rm-tree__path');
-        paths.forEach(function (p) {
-            var length = p.getTotalLength();
-            p.style.strokeDasharray = length;
-            p.style.strokeDashoffset = length;
-            // Trigger animation
-            requestAnimationFrame(function () {
-                p.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
-                p.style.strokeDashoffset = '0';
-            });
-        });
     }
 
     // ================================================================
@@ -869,36 +768,8 @@
             node.classList.add('is-active');
             node.setAttribute('aria-expanded', 'true');
             detail.classList.add('is-open');
-
-            // Highlight connection paths for this domain
-            highlightConnections(domainId);
-        } else {
-            clearConnectionHighlights();
         }
     });
-
-    // ================================================================
-    // CONNECTION HIGHLIGHTING
-    // ================================================================
-    function highlightConnections(domainId) {
-        clearConnectionHighlights();
-        var paths = document.querySelectorAll('.rm-tree__path');
-        paths.forEach(function (p) {
-            if (p.dataset.from === domainId || p.dataset.to === domainId) {
-                p.classList.add('is-highlighted');
-            } else {
-                p.classList.add('is-dimmed');
-            }
-        });
-    }
-
-    function clearConnectionHighlights() {
-        var paths = document.querySelectorAll('.rm-tree__path');
-        paths.forEach(function (p) {
-            p.classList.remove('is-highlighted');
-            p.classList.remove('is-dimmed');
-        });
-    }
 
     // ================================================================
     // EVENT: Domain Card Expand/Collapse (Tier Sections)
@@ -953,13 +824,6 @@
             var card = document.querySelector('.rm-domain[data-domain="' + domain.id + '"]');
             if (card) card.style.display = show ? '' : 'none';
         });
-
-        // Redraw connections after filter
-        var tree = document.querySelector('.rm-tree');
-        var svg = document.querySelector('.rm-tree__svg');
-        if (tree && svg) {
-            setTimeout(function () { drawConnections(tree, svg); }, 50);
-        }
     });
 
     // ================================================================

@@ -68,7 +68,7 @@ const SUPPORT = `# Getting Help
 | Urgent (internal team)    | Slack: #ios-sdk      |
 | General Swift questions   | Stack Overflow       |
 
-Stack Overflow tag: \`space-ios-sdk\`
+Stack Overflow tag: \`acme-ios-sdk\`
 
 ## What NOT to Use Issues For
 - General Swift / SwiftUI questions

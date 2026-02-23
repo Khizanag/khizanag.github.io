@@ -519,8 +519,10 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: var(--color-blue-a15);
+            background: var(--color-gray-50);
             border: 2px solid var(--color-blue);
+            box-shadow: 0 0 0 6px var(--color-gray-50);
+            z-index: 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1254,7 +1256,7 @@
             .hero__scroll { display: none; }
 
             .j-timeline { padding-left: 40px; }
-            .j-timeline__dot { left: -40px; width: 28px; height: 28px; font-size: 11px; }
+            .j-timeline__dot { left: -40px; width: 28px; height: 28px; font-size: 11px; box-shadow: 0 0 0 5px var(--color-gray-50); }
 
             .j-platforms          { grid-template-columns: 1fr; }
             .j-two-col            { grid-template-columns: 1fr; }

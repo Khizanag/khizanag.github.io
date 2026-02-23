@@ -485,11 +485,14 @@ footer,
     background: #05080f;
 }
 
-/* Projects */
+/* Dark section text — consistent with converted-light sections */
 .projects .section-eyebrow { color: #00ff88; }
+.projects .section-headline { color: #e8edf5; }
+.projects .section-desc { color: #5a6a82; }
 
-/* Achievements */
 .achievements .section-eyebrow { color: #00ff88; }
+.achievements .section-headline { color: #e8edf5; }
+.achievements .section-desc { color: #5a6a82; }
 
 .ach-card {
     background: rgba(255, 255, 255, 0.02);
@@ -506,10 +509,14 @@ footer,
 }
 
 /* Presentations */
-.presentations .section-eyebrow { color: #bf5af2; }
+.presentations .section-eyebrow { color: #00ff88; }
+.presentations .section-headline { color: #e8edf5; }
+.presentations .section-desc { color: #5a6a82; }
 
 /* Contact */
 .contact .section-eyebrow { color: #00ff88; }
+.contact .section-headline { color: #e8edf5; }
+.contact .section-desc { color: #5a6a82; }
 
 .contact::before {
     background: radial-gradient(ellipse at center bottom, rgba(0, 255, 136, 0.1) 0%, transparent 70%);

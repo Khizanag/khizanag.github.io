@@ -244,7 +244,10 @@ img, svg {
     background: none;
     border: none;
     cursor: pointer;
-    font: inherit;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
     color: inherit;
     padding: 0;
 }
@@ -286,11 +289,24 @@ img, svg {
 }
 
 .nav__dropdown-menu .nav__link {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 9px 20px;
     white-space: nowrap;
     font-size: 13px;
     transition: background 0.2s, color 0.2s;
+}
+
+.nav__dropdown-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+
+.nav__dropdown-menu .nav__link:hover .nav__dropdown-icon {
+    opacity: 0.8;
 }
 
 .nav__dropdown-menu .nav__link:hover {

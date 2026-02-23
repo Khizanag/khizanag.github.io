@@ -1635,10 +1635,21 @@
 
         // Guest (anonymous sign-in)
         document.getElementById('authGuestBtn').addEventListener('click', function () {
-            if (!window.FirebaseService) { showAuthError('Firebase not loaded yet. Please wait.'); return; }
             errorEl.classList.remove('is-visible');
+            if (!window.FirebaseService) {
+                // Firebase not available — proceed to dashboard as guest without auth
+                if (!authResolved) {
+                    authResolved = true;
+                    proceedToSetup(null, null);
+                }
+                return;
+            }
             window.FirebaseService.continueAsGuest().catch(function (err) {
-                showAuthError(err.message || 'Could not continue as guest');
+                // If anonymous sign-in fails, proceed without auth
+                if (!authResolved) {
+                    authResolved = true;
+                    proceedToSetup(null, null);
+                }
             });
         });
 
@@ -1970,10 +1981,11 @@
         }
     });
 
-    // Fallback: if Firebase module fails to load, show auth form after timeout
+    // Fallback: if Firebase module fails to load, proceed to dashboard as guest
     setTimeout(function () {
         if (!authResolved && !window.FirebaseService) {
-            showAuthForm();
+            authResolved = true;
+            proceedToSetup(null, null);
         }
     }, 3000);
 

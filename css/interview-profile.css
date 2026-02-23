@@ -166,9 +166,25 @@
     transition: all 0.2s;
 }
 
+.profile__guest-actions {
+    display: flex;
+    gap: 10px;
+}
+
 .profile__guest-btn:hover {
     background: var(--color-blue-hover);
     transform: translateY(-1px);
+}
+
+.profile__guest-btn--secondary {
+    background: var(--color-white-a6);
+    color: var(--color-gray-300);
+    border: 1px solid var(--color-white-a12);
+}
+
+.profile__guest-btn--secondary:hover {
+    background: var(--color-white-a12);
+    color: var(--color-gray-100);
 }
 
 /* ---- Actions ---- */

@@ -1794,6 +1794,20 @@
                 }
             });
         });
+
+        document.getElementById('profileSignIn').addEventListener('click', function () {
+            if (!window.FirebaseService) return;
+            window.FirebaseService.signInWithGoogle().then(function (user) {
+                if (user) {
+                    renderProfile(user);
+                    updateNavProfile(user);
+                }
+            }).catch(function (err) {
+                if (err.code !== 'auth/popup-closed-by-user') {
+                    alert(err.message || 'Could not sign in');
+                }
+            });
+        });
     }
 
     // ===========================================================

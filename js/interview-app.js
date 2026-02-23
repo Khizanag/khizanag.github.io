@@ -3,7 +3,6 @@
 
     var s = App.state;
     var dom = App.dom;
-    var INTERVIEWER_KEY = 'ios-interview-interviewer';
     var FAVORITES_KEY = 'ios-interview-favorites';
     var BLACKLIST_KEY = 'ios-interview-blacklist';
 
@@ -32,7 +31,7 @@
     function initDom() {
         var d = App.dom;
 
-        // Setup
+        // Setup / Dashboard (some may be null on dashboard)
         d.topicGrid = document.getElementById('topicGrid');
         d.btnStart = document.getElementById('btnStart');
         d.validationHint = document.getElementById('validationHint');
@@ -42,7 +41,7 @@
         d.btnFoldTopics = document.getElementById('btnFoldTopics');
         d.topicFoldBody = document.getElementById('topicFoldBody');
         d.topicSummary = document.getElementById('topicSummary');
-        d.allChips = Array.prototype.slice.call(d.topicGrid.querySelectorAll('.topic-chip'));
+        d.allChips = d.topicGrid ? Array.prototype.slice.call(d.topicGrid.querySelectorAll('.topic-chip')) : [];
 
         // Question
         d.progressFill = document.getElementById('progressFill');
@@ -616,6 +615,7 @@
     // ===========================================================
 
     function updateTopicSummary() {
+        if (!dom.topicSummary) return;
         var total = dom.allChips.length;
         var count = s.selectedTopics.length;
         if (count === total) {
@@ -628,29 +628,33 @@
     }
 
     function updateStartButton() {
+        if (!dom.btnStart) return;
         var hasTopics = s.selectedTopics.length > 0;
         var hasNames = s.practiceMode
             ? s.intervieweeName.length > 0
             : s.interviewerName.length > 0 && s.intervieweeName.length > 0;
-        var allSelected = s.selectedTopics.length === dom.allChips.length;
+        var allSelected = dom.allChips.length > 0 && s.selectedTopics.length === dom.allChips.length;
         dom.btnStart.disabled = !(hasTopics && hasNames);
         var btnCreateLive = document.getElementById('btnCreateLive');
         if (btnCreateLive) btnCreateLive.disabled = !(hasTopics && hasNames);
-        dom.btnToggleAll.textContent = allSelected ? 'Clear All' : 'Select All';
+        if (dom.btnToggleAll) dom.btnToggleAll.textContent = allSelected ? 'Clear All' : 'Select All';
         updateTopicSummary();
 
-        if (!hasNames) {
-            dom.validationHint.textContent = s.practiceMode
-                ? 'Enter your name to begin'
-                : 'Enter both participant names to begin';
-        } else if (!hasTopics) {
-            dom.validationHint.textContent = 'Select at least one topic to begin';
-        } else {
-            dom.validationHint.textContent = s.selectedTopics.length + ' topic' + (s.selectedTopics.length > 1 ? 's' : '') + ' selected';
+        if (dom.validationHint) {
+            if (!hasNames) {
+                dom.validationHint.textContent = s.practiceMode
+                    ? 'Enter your name to begin'
+                    : 'Enter both participant names to begin';
+            } else if (!hasTopics) {
+                dom.validationHint.textContent = 'Select at least one topic to begin';
+            } else {
+                dom.validationHint.textContent = s.selectedTopics.length + ' topic' + (s.selectedTopics.length > 1 ? 's' : '') + ' selected';
+            }
         }
     }
 
     function selectAllTopics() {
+        if (!dom.topicGrid) return;
         s.selectedTopics = [];
         dom.allChips.forEach(function (c) {
             c.classList.add('is-selected');
@@ -660,6 +664,7 @@
     }
 
     function renderTopicChips() {
+        if (!dom.topicGrid) return;
         var topics = App.TOPIC_LABELS;
         var html = '';
         var keys = Object.keys(topics).sort(function (a, b) {
@@ -676,7 +681,7 @@
         App.switchPlatform(platformId);
         s.platform = platformId;
 
-        // Update platform buttons
+        // Update platform buttons (may not exist on dashboard)
         var btns = document.querySelectorAll('.platform-selector__btn');
         for (var i = 0; i < btns.length; i++) {
             var isActive = btns[i].dataset.platform === platformId;
@@ -684,18 +689,122 @@
             btns[i].setAttribute('aria-checked', isActive ? 'true' : 'false');
         }
 
-        // Update header
-        var config = App.getPlatformConfig();
-        var titleEl = document.getElementById('setupTitle');
-        var subtitleEl = document.getElementById('setupSubtitle');
-        var iconEl = document.getElementById('setupIcon');
-        if (titleEl) titleEl.textContent = config.name + ' Interview';
-        if (subtitleEl) subtitleEl.textContent = config.subtitle;
-        if (iconEl) iconEl.textContent = config.icon;
-
-        // Rebuild topic chips
+        // Rebuild topic chips (only if topic grid exists)
         renderTopicChips();
         selectAllTopics();
+    }
+
+    // ===========================================================
+    //  START SESSION (shared between btnStart and pending session)
+    // ===========================================================
+
+    function startSession() {
+        s.currentQ = 0;
+        s.currentRating = 0;
+        s.ratings = [];
+        s.sessionQuestions = [];
+        s.introNotes = '';
+        s.wrapupNotes = '';
+        dom.introNotes.value = '';
+        dom.wrapupNotes.value = '';
+        App.stopTimer();
+
+        var startBank = App.getQuestionBank();
+        var pool = startBank.filter(function (q) {
+            return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === 2;
+        });
+        if (pool.length === 0) {
+            pool = startBank.filter(function (q) {
+                return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
+            });
+        }
+        s.sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
+
+        dom.qInterviewee.textContent = s.intervieweeName;
+
+        if (s.practiceMode) {
+            dom.qTimer.style.display = 'none';
+            dom.btnEnd.style.display = '';
+            dom.btnEnd.innerHTML =
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> See Results';
+            dom.btnSkipSection.style.display = 'none';
+            s.remainingSeconds = 0;
+            s.timerExpired = false;
+            document.documentElement.classList.add('is-practice');
+        } else {
+            dom.qTimer.style.display = '';
+            App.startTimer();
+            dom.btnEnd.style.display = '';
+            document.documentElement.classList.remove('is-practice');
+        }
+
+        App.showScreen('screen-question');
+        if (!s.practiceMode) {
+            App.renderPhaseIndicator();
+            App.updatePhaseIndicator();
+        }
+        App.displayQuestion(0);
+        App.saveSession();
+    }
+
+    function startFromPendingSession(config) {
+        // Inject config into state
+        if (config.platform && App.PLATFORMS[config.platform]) {
+            App.switchPlatform(config.platform);
+            s.platform = config.platform;
+        }
+        s.selectedTopics = config.selectedTopics || [];
+        s.intervieweeName = config.candidateName || '';
+        s.interviewerName = config.interviewerName || '';
+        s.practiceMode = !!config.practiceMode;
+        if (config.phases) s.phases = config.phases;
+        s.timeLimitMin = config.timeLimitMin || 60;
+
+        startSession();
+    }
+
+    // ===========================================================
+    //  DASHBOARD RENDERING
+    // ===========================================================
+
+    function renderDashboard(user) {
+        var greetingEl = document.getElementById('dashGreeting');
+        if (greetingEl) {
+            var name = '';
+            if (user && !user.isAnonymous) {
+                name = user.displayName || user.email || '';
+            }
+            greetingEl.textContent = name ? 'Welcome back, ' + name : 'Welcome';
+        }
+
+        // Populate stats from gamification data
+        var gData = { xp: 0, totalInterviews: 0, streak: 0 };
+        try {
+            var raw = localStorage.getItem('ios-interview-gamification');
+            if (raw) gData = JSON.parse(raw) || gData;
+        } catch (e) { /* */ }
+
+        var XP_PER_LEVEL = 500;
+        var el;
+        el = document.getElementById('dashInterviews');
+        if (el) el.textContent = gData.totalInterviews || 0;
+        el = document.getElementById('dashXP');
+        if (el) el.textContent = gData.xp || 0;
+        el = document.getElementById('dashStreak');
+        if (el) el.textContent = gData.streak || 0;
+        el = document.getElementById('dashLevel');
+        if (el) el.textContent = Math.floor((gData.xp || 0) / XP_PER_LEVEL) + 1;
+
+        // Auth gating: show/hide lock badges for guests
+        var isGuest = !user || user.isAnonymous;
+        var lockIds = ['dashHostLock', 'dashAnalyticsLock', 'dashCustomLock'];
+        var cardIds = ['dashHostCard', 'dashAnalyticsCard', 'dashCustomCard'];
+        for (var i = 0; i < lockIds.length; i++) {
+            var lockEl = document.getElementById(lockIds[i]);
+            var cardEl = document.getElementById(cardIds[i]);
+            if (lockEl) lockEl.style.display = isGuest ? '' : 'none';
+            if (cardEl) cardEl.classList.toggle('dashboard__action-card--locked', isGuest);
+        }
     }
 
     // ===========================================================
@@ -703,85 +812,8 @@
     // ===========================================================
 
     function bindEvents() {
-        // Mode toggle (interview vs self-study)
-        var btnModeInterview = document.getElementById('btnModeInterview');
-        var btnModePractice = document.getElementById('btnModePractice');
-        var planSection = document.getElementById('planSection');
-        var interviewerField = dom.interviewerInput.closest('.setup__name-field');
-
-        var liveActions = document.querySelector('.setup__live-actions');
-
-        function setMode(mode) {
-            s.practiceMode = mode === 'practice';
-            btnModeInterview.classList.toggle('is-active', !s.practiceMode);
-            btnModePractice.classList.toggle('is-active', s.practiceMode);
-            btnModeInterview.setAttribute('aria-checked', !s.practiceMode ? 'true' : 'false');
-            btnModePractice.setAttribute('aria-checked', s.practiceMode ? 'true' : 'false');
-            planSection.style.display = s.practiceMode ? 'none' : '';
-            interviewerField.style.display = s.practiceMode ? 'none' : '';
-            if (liveActions) liveActions.style.display = s.practiceMode ? 'none' : '';
-            if (s.practiceMode) {
-                s.interviewerName = 'Self-Study';
-            } else {
-                s.interviewerName = dom.interviewerInput.value.trim();
-            }
-            updateStartButton();
-        }
-
-        btnModeInterview.addEventListener('click', function () { setMode('interview'); });
-        btnModePractice.addEventListener('click', function () { setMode('practice'); });
-
-        // Platform selector
-        var platformSelector = document.getElementById('platformSelector');
-        if (platformSelector) {
-            platformSelector.addEventListener('click', function (e) {
-                var btn = e.target.closest('.platform-selector__btn');
-                if (!btn || !btn.dataset.platform) return;
-                switchPlatform(btn.dataset.platform);
-            });
-        }
-
-        // Name inputs
-        dom.interviewerInput.addEventListener('input', function () {
-            s.interviewerName = dom.interviewerInput.value.trim();
-            try { localStorage.setItem(INTERVIEWER_KEY, s.interviewerName); } catch (e) { /* */ }
-            updateStartButton();
-        });
-        dom.nameInput.addEventListener('input', function () {
-            s.intervieweeName = dom.nameInput.value.trim();
-            updateStartButton();
-        });
-
-        // Topic fold toggle
-        dom.btnFoldTopics.addEventListener('click', function () {
-            dom.btnFoldTopics.classList.toggle('is-open');
-            dom.topicFoldBody.classList.toggle('is-open');
-        });
-
-        // Topic selection
-        dom.topicGrid.addEventListener('click', function (e) {
-            var chip = e.target.closest('.topic-chip');
-            if (!chip) return;
-            chip.classList.toggle('is-selected');
-            if (chip.classList.contains('is-selected')) {
-                s.selectedTopics.push(chip.dataset.topic);
-            } else {
-                s.selectedTopics = s.selectedTopics.filter(function (t) { return t !== chip.dataset.topic; });
-            }
-            updateStartButton();
-        });
-
-        // Select All / Clear All
-        dom.btnToggleAll.addEventListener('click', function () {
-            var allSelected = s.selectedTopics.length === dom.allChips.length;
-            if (allSelected) {
-                s.selectedTopics = [];
-                dom.allChips.forEach(function (c) { c.classList.remove('is-selected'); });
-            } else {
-                selectAllTopics();
-            }
-            updateStartButton();
-        });
+        // Mode toggle, platform selector, name inputs, topic fold — only exist on host.html, not dashboard
+        // These are guarded with null checks since dashboard no longer has setup form elements
 
         // Hint / Answer reveals
         dom.btnHint.addEventListener('click', function () {
@@ -926,61 +958,16 @@
             window.scrollTo(0, 0);
         });
 
-        // Start interview
-        dom.btnStart.addEventListener('click', function () {
-            var validNames = s.practiceMode
-                ? s.intervieweeName
-                : (s.interviewerName && s.intervieweeName);
-            if (s.selectedTopics.length === 0 || !validNames) return;
-
-            s.currentQ = 0;
-            s.currentRating = 0;
-            s.ratings = [];
-            s.sessionQuestions = [];
-            s.introNotes = '';
-            s.wrapupNotes = '';
-            dom.introNotes.value = '';
-            dom.wrapupNotes.value = '';
-            App.stopTimer();
-
-            var startBank = App.getQuestionBank();
-            var pool = startBank.filter(function (q) {
-                return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === 2;
+        // Start interview (btnStart only exists on host.html, not on dashboard)
+        if (dom.btnStart) {
+            dom.btnStart.addEventListener('click', function () {
+                var validNames = s.practiceMode
+                    ? s.intervieweeName
+                    : (s.interviewerName && s.intervieweeName);
+                if (s.selectedTopics.length === 0 || !validNames) return;
+                startSession();
             });
-            if (pool.length === 0) {
-                pool = startBank.filter(function (q) {
-                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
-                });
-            }
-            s.sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
-
-            dom.qInterviewee.textContent = s.intervieweeName;
-
-            if (s.practiceMode) {
-                // Self-study: no timer, no phases
-                dom.qTimer.style.display = 'none';
-                dom.btnEnd.style.display = '';
-                dom.btnEnd.innerHTML =
-                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> See Results';
-                dom.btnSkipSection.style.display = 'none';
-                s.remainingSeconds = 0;
-                s.timerExpired = false;
-                document.documentElement.classList.add('is-practice');
-            } else {
-                dom.qTimer.style.display = '';
-                App.startTimer();
-                dom.btnEnd.style.display = '';
-                document.documentElement.classList.remove('is-practice');
-            }
-
-            App.showScreen('screen-question');
-            if (!s.practiceMode) {
-                App.renderPhaseIndicator();
-                App.updatePhaseIndicator();
-            }
-            App.displayQuestion(0);
-            App.saveSession();
-        });
+        }
 
         // Notes input handlers
         dom.introNotes.addEventListener('input', function () {
@@ -1416,11 +1403,13 @@
             s.intervieweeName = '';
             s.introNotes = '';
             s.wrapupNotes = '';
-            dom.nameInput.value = '';
+            if (dom.nameInput) dom.nameInput.value = '';
             dom.introNotes.value = '';
             dom.wrapupNotes.value = '';
             document.documentElement.classList.remove('is-practice');
             App.renderHistory();
+            var user = window.FirebaseService ? window.FirebaseService.currentUser : null;
+            renderDashboard(user);
             App.showScreen('screen-setup');
         });
 
@@ -1883,11 +1872,21 @@
         }
 
         App.applyFeatureFlags();
-        initApp();
+        initApp(user);
     }
 
-    function initApp() {
-        // Restore saved platform and render dynamic topics
+    function initApp(user) {
+        // Check for pending session from host.html
+        var pendingRaw = null;
+        try { pendingRaw = sessionStorage.getItem('ios-interview-pending-session'); } catch (e) { /* */ }
+        if (pendingRaw) {
+            try { sessionStorage.removeItem('ios-interview-pending-session'); } catch (e) { /* */ }
+            var pendingConfig = JSON.parse(pendingRaw);
+            startFromPendingSession(pendingConfig);
+            return;
+        }
+
+        // Restore saved platform
         var savedPlatform;
         try { savedPlatform = localStorage.getItem(App.PLATFORM_KEY); } catch (e) { /* */ }
         switchPlatform(savedPlatform && App.PLATFORMS[savedPlatform] ? savedPlatform : 'ios');
@@ -1895,16 +1894,9 @@
         var restored = App.restoreSession();
         if (!restored) {
             selectAllTopics();
-            // Restore cached interviewer name
-            try {
-                var cachedName = localStorage.getItem(INTERVIEWER_KEY);
-                if (cachedName) {
-                    s.interviewerName = cachedName;
-                    dom.interviewerInput.value = cachedName;
-                }
-            } catch (e) { /* */ }
         }
-        updateStartButton();
+
+        renderDashboard(user);
         App.renderHistory();
         App.showScreen('screen-setup');
     }
@@ -1917,7 +1909,7 @@
     bindEvents();
     bindAuthEvents();
     bindProfileEvents();
-    App.initPlan();
+    if (document.getElementById('planList')) App.initPlan();
 
     // Theme toggle
     InterviewUtils.initThemeToggle('btnTheme');

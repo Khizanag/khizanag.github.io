@@ -31,6 +31,13 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - If no existing component supports the needed behavior, **create it as a reusable component** with a clear, generic class name — then use it across pages
 - Never create a one-off variant of something that already exists elsewhere in the site
 
+## Keyboard Section Navigation
+- **Every multi-section page must support ArrowLeft/ArrowRight keyboard navigation** between sections
+- Define an ordered array of section IDs and use scroll-based index tracking with a nav lock to prevent stacking
+- Pattern: ArrowRight scrolls to the next section, ArrowLeft to the previous
+- Each `<section>` must have an `id` attribute for this to work
+- Reference implementation: `_presentations/src/hooks.js` (`useKeyboardNav`) for React, `js/jobs.js` for vanilla JS
+
 ## CSS Rules
 - Keep CSS files split by screen/concern — never create a single monolithic CSS file
 - Current split: `interview-base.css`, `interview-setup.css`, `interview-question.css`, `interview-results.css`, `interview-responsive.css`

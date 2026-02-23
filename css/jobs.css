@@ -418,37 +418,7 @@ a {
     letter-spacing: 0.06em;
 }
 
-.hero__scroll {
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    animation: fade-up 1s var(--ease-out-expo) forwards 1.5s;
-}
-
-.hero__scroll-text {
-    font-size: 11px;
-    color: var(--color-gray-500);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.hero__scroll-line {
-    width: 1px;
-    height: 32px;
-    background: linear-gradient(to bottom, var(--color-gray-500), transparent);
-    animation: scroll-pulse 2s ease-in-out infinite;
-}
-
-@keyframes scroll-pulse {
-    0%, 100% { opacity: 0.5; transform: scaleY(1);   }
-    50%      { opacity: 1;   transform: scaleY(1.2); }
-}
+/* Scroll indicator styles in css/scroll-indicator.css */
 
 /* ============================================
    SECTIONS — Shared Padding

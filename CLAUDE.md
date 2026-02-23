@@ -19,14 +19,17 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 ## Structure
 - `index.html` — the main portfolio page (HTML + JS, styles in `css/portfolio.css`)
 - `jobs.html` — iOS Career Hub page (HTML + JS, styles in `css/jobs.css`)
+- `roadmap.html` — iOS Mastery Roadmap (knowledge map for Senior iOS Developers)
 - `interview.html` — iOS Interview tool
 - `css/` — all stylesheets:
   - `portfolio.css` — portfolio page styles (design tokens, layout, components, responsive, animations)
   - `jobs.css` — Career Hub page styles (design tokens, layout, components, responsive, animations)
+  - `roadmap.css` — roadmap page styles (flowchart, domain cards, topic checklists, progress tracking)
   - `theme-pres.css` — presentations theme override (dark navy, neon green, animated grid/blobs)
   - `theme-default.css` — default theme placeholder (inline styles are the default)
   - `interview-*.css` — interview tool styles, split by screen/concern
-- `js/` — modular JS files (config, session, timer, plan, results, app, keyboard-nav, etc.)
+- `js/` — modular JS files (config, session, timer, plan, results, app, keyboard-nav, roadmap, etc.)
+- `js/roadmap.js` — roadmap interactivity (data-driven rendering, progress tracking, expand/collapse, filtering)
 - `_presentations/` — React + Vite source for tech talk presentations
 - `presentations/` — built output served at `/presentations/` (do not edit directly — rebuild from `_presentations/`)
 

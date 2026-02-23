@@ -24,6 +24,13 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - `_presentations/` — React + Vite source for tech talk presentations
 - `presentations/` — built output served at `/presentations/` (do not edit directly — rebuild from `_presentations/`)
 
+## Component Reuse Rules
+- **Before creating any UI pattern, check existing pages first** (`index.html`, `interview.html`, `guide.html`, etc.)
+- If a component already exists (scroll indicator, hero stats, nav bar, progress bar, card styles, section headers, etc.), **reuse its exact HTML structure and CSS** — do not reinvent it
+- Match class names, markup hierarchy, animations, and responsive behavior from the original
+- If no existing component supports the needed behavior, **create it as a reusable component** with a clear, generic class name — then use it across pages
+- Never create a one-off variant of something that already exists elsewhere in the site
+
 ## CSS Rules
 - Keep CSS files split by screen/concern — never create a single monolithic CSS file
 - Current split: `interview-base.css`, `interview-setup.css`, `interview-question.css`, `interview-results.css`, `interview-responsive.css`

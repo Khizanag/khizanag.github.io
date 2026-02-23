@@ -91,8 +91,10 @@
         section.style.display = '';
         container.innerHTML = '';
         var esc = App.escapeHtml;
+        var MAX_PREVIEW = 5;
+        var visible = history.slice(0, MAX_PREVIEW);
 
-        history.forEach(function (entry) {
+        visible.forEach(function (entry) {
             var card = document.createElement('div');
             card.className = 'history__card';
             card.dataset.id = entry.id;

@@ -709,6 +709,8 @@
         var planSection = document.getElementById('planSection');
         var interviewerField = dom.interviewerInput.closest('.setup__name-field');
 
+        var liveActions = document.querySelector('.setup__live-actions');
+
         function setMode(mode) {
             s.practiceMode = mode === 'practice';
             btnModeInterview.classList.toggle('is-active', !s.practiceMode);
@@ -717,6 +719,7 @@
             btnModePractice.setAttribute('aria-checked', s.practiceMode ? 'true' : 'false');
             planSection.style.display = s.practiceMode ? 'none' : '';
             interviewerField.style.display = s.practiceMode ? 'none' : '';
+            if (liveActions) liveActions.style.display = s.practiceMode ? 'none' : '';
             if (s.practiceMode) {
                 s.interviewerName = 'Self-Study';
             } else {

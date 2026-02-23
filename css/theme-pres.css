@@ -816,6 +816,171 @@ footer,
 }
 
 /* ============================================
+   ROADMAP.HTML — HERO
+   ============================================ */
+.rm-hero::before {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 255, 136, 0.08) 0%,
+        rgba(77, 159, 255, 0.04) 30%,
+        transparent 70%
+    );
+}
+
+.rm-hero__badge {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.10);
+    border-color: rgba(0, 255, 136, 0.25);
+}
+
+.rm-hero__title-gradient {
+    background: linear-gradient(90deg, #00ff88, #4d9fff, #bf5af2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 100%;
+}
+
+.rm-hero__subtitle {
+    color: #5a6a82;
+}
+
+.rm-hero__stat-val {
+    color: #e8edf5;
+}
+
+.rm-hero__stat-label {
+    color: #5a6a82;
+}
+
+/* ============================================
+   ROADMAP.HTML — PROGRESS BAR
+   ============================================ */
+.rm-progress {
+    background: linear-gradient(90deg, #00ff88, #bf5af2);
+}
+
+/* ============================================
+   ROADMAP.HTML — FILTER & CONTROLS
+   ============================================ */
+.rm-filter__btn {
+    color: #5a6a82;
+}
+
+.rm-filter__btn:hover {
+    color: #e8edf5;
+}
+
+.rm-filter__btn.is-active {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+.rm-progress-summary {
+    color: #5a6a82;
+}
+
+.rm-progress-summary__fill {
+    background: linear-gradient(90deg, #00ff88, #4d9fff);
+}
+
+/* ============================================
+   ROADMAP.HTML — FLOWCHART NODES
+   ============================================ */
+.rm-tier__label-num {
+    color: #5a6a82;
+}
+
+.rm-node__title {
+    color: #e8edf5;
+}
+
+.rm-node__count {
+    color: #5a6a82;
+}
+
+.rm-node__chevron {
+    color: #5a6a82;
+}
+
+.rm-node__ring-pct {
+    color: #5a6a82;
+}
+
+/* Tier accent colors in theme */
+.rm-tier[data-tier="1"] .rm-tier__label-name { color: #00ff88; }
+.rm-tier[data-tier="1"] .rm-node__ring-fill { stroke: #00ff88; }
+
+/* ============================================
+   ROADMAP.HTML — DOMAIN CARDS
+   ============================================ */
+.rm-domain__title {
+    color: #e8edf5;
+}
+
+.rm-domain__meta {
+    color: #5a6a82;
+}
+
+.rm-domain__desc {
+    color: #5a6a82;
+}
+
+.rm-domain__chevron {
+    color: #5a6a82;
+}
+
+.rm-domain.is-expanded .rm-domain__chevron,
+.rm-domain__toggle:hover .rm-domain__chevron {
+    color: #00ff88;
+}
+
+/* ============================================
+   ROADMAP.HTML — TOPIC CHECKBOXES
+   ============================================ */
+.rm-topic__name {
+    color: #b0bcc8;
+}
+
+.rm-topic__sub {
+    color: #5a6a82;
+}
+
+.rm-topic__check input:checked + .rm-topic__box {
+    background: #00ff88;
+    border-color: #00ff88;
+}
+
+/* ============================================
+   ROADMAP.HTML — TIER HEADER BADGES
+   ============================================ */
+.rm-tier-header__badge--1 {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.10);
+}
+
+/* ============================================
+   ROADMAP.HTML — FOOTER
+   ============================================ */
+.rm-footer {
+    background: #0c1018;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rm-footer__link {
+    color: #5a6a82;
+}
+
+.rm-footer__link:hover {
+    color: #e8edf5;
+}
+
+.rm-footer__copy {
+    color: #3a4a62;
+}
+
+/* ============================================
    FOCUS VISIBLE
    ============================================ */
 :focus-visible {

@@ -85,10 +85,10 @@
     });
 
     // ---- Back to Top ----
-    var btt = document.getElementById('jBtt');
+    var btt = document.getElementById('gBtt');
     window.addEventListener('scroll', function () {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        btt.classList.toggle('is-visible', scrollTop > 500);
+        btt.classList.toggle('is-visible', scrollTop > 400);
     });
 
     btt.addEventListener('click', function () {

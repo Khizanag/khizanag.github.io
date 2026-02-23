@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS Mastery Roadmap — Giga Khizanishvili</title>
+    <meta name="description" content="The definitive knowledge map for Senior iOS Developers — 18 domains, 4 tiers, 100+ topics with interactive progress tracking.">
+    <meta name="author" content="Giga Khizanishvili">
+    <meta name="theme-color" content="#000000">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="iOS Mastery Roadmap — Giga Khizanishvili">
+    <meta property="og:description" content="The definitive knowledge map for Senior iOS Developers — 18 domains across 4 tiers with interactive progress tracking.">
+    <meta property="og:url" content="https://khizanag.github.io/roadmap">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="iOS Mastery Roadmap — Giga Khizanishvili">
+    <meta name="twitter:description" content="The definitive knowledge map for Senior iOS Developers.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/scroll-indicator.css">
+    <link rel="stylesheet" href="css/roadmap.css">
+    <link rel="stylesheet" id="themeCSS" href="css/theme-pres.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="nav">
+    <div class="nav__inner">
+        <a href="index.html" class="nav__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Portfolio
+        </a>
+        <span class="nav__title">iOS Mastery Roadmap</span>
+        <nav aria-label="Section navigation">
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#rm-overview" class="nav__link">Flowchart</a></li>
+                <li><a href="#rm-foundations" class="nav__link">Foundations</a></li>
+                <li><a href="#rm-professional" class="nav__link">Professional</a></li>
+                <li><a href="#rm-differentiators" class="nav__link">Differentiators</a></li>
+                <li><a href="#rm-leadership" class="nav__link">Leadership</a></li>
+            </ul>
+        </nav>
+        <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+        </button>
+    </div>
+</header>
+
+<!-- Reading Progress Bar -->
+<div class="rm-progress" id="rmProgress"></div>
+
+<!-- ==========================================
+     1. HERO
+     ========================================== -->
+<section class="rm-hero s-dark" id="rm-hero">
+    <div class="container">
+        <div class="rm-hero__badge" data-anim="fade-up">Senior iOS Developer</div>
+        <h1 class="rm-hero__title" data-anim="fade-up" data-delay="100">iOS Mastery<br><span class="rm-hero__title-gradient">Roadmap</span></h1>
+        <p class="rm-hero__subtitle" data-anim="fade-up" data-delay="200">The definitive knowledge map for Senior iOS Developers. Track your progress across 18 domains — from Swift fundamentals to system design.</p>
+        <div class="rm-hero__stats" data-anim="fade-up" data-delay="300">
+            <div class="rm-hero__stat">
+                <span class="rm-hero__stat-val">18</span>
+                <span class="rm-hero__stat-label">Domains</span>
+            </div>
+            <div class="rm-hero__stat">
+                <span class="rm-hero__stat-val">4</span>
+                <span class="rm-hero__stat-label">Tiers</span>
+            </div>
+            <div class="rm-hero__stat">
+                <span class="rm-hero__stat-val">100+</span>
+                <span class="rm-hero__stat-label">Topics</span>
+            </div>
+            <div class="rm-hero__stat">
+                <span class="rm-hero__stat-val">2026</span>
+                <span class="rm-hero__stat-label">Updated</span>
+            </div>
+        </div>
+        <div class="hero__scroll" aria-hidden="true">
+            <span class="hero__scroll-text">Scroll</span>
+            <div class="hero__scroll-line"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. OVERVIEW — Flowchart + Filters
+     ========================================== -->
+<section class="rm-section s-light" id="rm-overview">
+    <div class="container">
+        <p class="section-eyebrow" data-anim="fade-up">Overview</p>
+        <h2 class="section-headline" data-anim="fade-up" data-delay="100">Skill Tree</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">Click any domain to explore its topics. Check off what you know — progress is saved locally.</p>
+
+        <div class="rm-controls" data-anim="fade-up" data-delay="200">
+            <div class="rm-filter">
+                <button class="rm-filter__btn is-active" data-filter="all" type="button">All</button>
+                <button class="rm-filter__btn" data-filter="tolearn" type="button">To Learn</button>
+                <button class="rm-filter__btn" data-filter="mastered" type="button">Mastered</button>
+            </div>
+            <div class="rm-progress-summary">
+                <div class="rm-progress-summary__bar">
+                    <div class="rm-progress-summary__fill" id="rmSummaryFill" style="width: 0%"></div>
+                </div>
+                <span id="rmSummaryText">0 / 0</span>
+            </div>
+        </div>
+
+        <div class="rm-flowchart" id="rmFlowchart" data-anim="fade-up" data-delay="250">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     3. TIER 1 — Foundations
+     ========================================== -->
+<section class="rm-section s-dark" id="rm-foundations">
+    <div class="container">
+        <div class="rm-tier-header" data-anim="fade-up">
+            <span class="rm-tier-header__badge rm-tier-header__badge--1">Tier 1</span>
+        </div>
+        <p class="section-eyebrow" data-anim="fade-up">Foundations</p>
+        <h2 class="section-headline" data-anim="fade-up" data-delay="100">Must-Know</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">The core skills every iOS developer must master. These are table stakes for any senior role.</p>
+
+        <div class="rm-domains" id="rmDomains1" data-anim="fade-up" data-delay="200">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     4. TIER 2 — Professional
+     ========================================== -->
+<section class="rm-section s-light" id="rm-professional">
+    <div class="container">
+        <div class="rm-tier-header" data-anim="fade-up">
+            <span class="rm-tier-header__badge rm-tier-header__badge--2">Tier 2</span>
+        </div>
+        <p class="section-eyebrow" data-anim="fade-up">Professional</p>
+        <h2 class="section-headline" data-anim="fade-up" data-delay="100">Expected at Senior</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">Skills that hiring managers expect from senior iOS developers. You'll be tested on these in interviews.</p>
+
+        <div class="rm-domains" id="rmDomains2" data-anim="fade-up" data-delay="200">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     5. TIER 3 — Differentiators
+     ========================================== -->
+<section class="rm-section s-dark" id="rm-differentiators">
+    <div class="container">
+        <div class="rm-tier-header" data-anim="fade-up">
+            <span class="rm-tier-header__badge rm-tier-header__badge--3">Tier 3</span>
+        </div>
+        <p class="section-eyebrow" data-anim="fade-up">Differentiators</p>
+        <h2 class="section-headline" data-anim="fade-up" data-delay="100">Stand Out</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">Specialized knowledge that separates good from great. These skills make you memorable in interviews and invaluable on teams.</p>
+
+        <div class="rm-domains" id="rmDomains3" data-anim="fade-up" data-delay="200">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     6. TIER 4 — Leadership
+     ========================================== -->
+<section class="rm-section s-light" id="rm-leadership">
+    <div class="container">
+        <div class="rm-tier-header" data-anim="fade-up">
+            <span class="rm-tier-header__badge rm-tier-header__badge--4">Tier 4</span>
+        </div>
+        <p class="section-eyebrow" data-anim="fade-up">Leadership</p>
+        <h2 class="section-headline" data-anim="fade-up" data-delay="100">Architect Level</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">Skills for staff+ engineers and mobile architects. System design, team leadership, and staying ahead of the curve.</p>
+
+        <div class="rm-domains" id="rmDomains4" data-anim="fade-up" data-delay="200">
+            <!-- Rendered by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="rm-footer">
+    <div class="rm-footer__links">
+        <a href="index.html" class="rm-footer__link">Portfolio</a>
+        <a href="jobs.html" class="rm-footer__link">Career Hub</a>
+        <a href="interview.html" class="rm-footer__link">Interview Tool</a>
+        <a href="#" class="rm-footer__link" id="footerTop">Back to Top</a>
+    </div>
+    <p class="rm-footer__copy">Giga Khizanishvili &middot; iOS Mastery Roadmap &middot; 2026</p>
+</footer>
+
+<!-- Back to Top Button -->
+<button class="g-btt" id="gBtt" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="js/keyboard-nav.js" data-sections="rm-hero,rm-overview,rm-foundations,rm-professional,rm-differentiators,rm-leadership"></script>
+<script src="js/roadmap.js"></script>
+</body>
+</html>

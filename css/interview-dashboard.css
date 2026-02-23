@@ -106,18 +106,18 @@
 
 .dashboard__lock-badge {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: 14px;
-    width: 28px;
-    height: 28px;
+    top: -6px;
+    right: -6px;
+    font-size: 11px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background: var(--color-white-a6);
-    border: 1px solid var(--color-white-a10);
+    background: var(--color-white-a10);
+    border: 1px solid var(--color-white-a15);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 /* --- History section --- */

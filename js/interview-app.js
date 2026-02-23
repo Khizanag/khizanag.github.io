@@ -1591,7 +1591,9 @@
             if (!window.FirebaseService) { showAuthError('Firebase not loaded yet. Please wait.'); return; }
             errorEl.classList.remove('is-visible');
             window.FirebaseService.signInWithGoogle().catch(function (err) {
-                if (err.code !== 'auth/popup-closed-by-user') {
+                if (err.code === 'auth/unauthorized-domain') {
+                    showAuthError('This domain is not yet authorized for Google sign-in. Please use Continue as Guest.');
+                } else if (err.code !== 'auth/popup-closed-by-user') {
                     showAuthError(err.message || 'Google sign-in failed');
                 }
             });
@@ -1787,7 +1789,9 @@
                     updateNavProfile(user);
                 }
             }).catch(function (err) {
-                if (err.code === 'auth/credential-already-in-use') {
+                if (err.code === 'auth/unauthorized-domain') {
+                    alert('This domain is not yet authorized for sign-in. Please use Continue as Guest for now.');
+                } else if (err.code === 'auth/credential-already-in-use') {
                     alert('This account is already linked to another user. Please sign out and sign in directly.');
                 } else if (err.code !== 'auth/popup-closed-by-user') {
                     alert(err.message || 'Could not link account');
@@ -1803,7 +1807,9 @@
                     updateNavProfile(user);
                 }
             }).catch(function (err) {
-                if (err.code !== 'auth/popup-closed-by-user') {
+                if (err.code === 'auth/unauthorized-domain') {
+                    alert('This domain is not yet authorized for sign-in. Please use Continue as Guest for now.');
+                } else if (err.code !== 'auth/popup-closed-by-user') {
                     alert(err.message || 'Could not sign in');
                 }
             });

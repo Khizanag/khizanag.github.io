@@ -127,6 +127,7 @@
 
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
         if (navLock) return;
 
         var next = e.key === 'ArrowRight'

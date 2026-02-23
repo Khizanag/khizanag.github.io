@@ -40,14 +40,23 @@
             <ul class="nav__links" id="navLinks">
                 <li><a href="#about" class="nav__link">About</a></li>
                 <li><a href="#experience" class="nav__link">Experience</a></li>
-                <li><a href="#projects" class="nav__link">Projects</a></li>
                 <li><a href="#skills" class="nav__link">Skills</a></li>
-                <li><a href="#achievements" class="nav__link">Achievements</a></li>
-                <li><a href="#education" class="nav__link">Education</a></li>
-                <li><a href="#presentations" class="nav__link">Presentations</a></li>
-                <li><a href="jobs.html" class="nav__link">Career Hub</a></li>
-                <li><a href="roadmap.html" class="nav__link">iOS Roadmap</a></li>
-                <li><a href="#contact" class="nav__link">Contact</a></li>
+                <li class="nav__dropdown">
+                    <button class="nav__link nav__dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+                        More
+                        <svg class="nav__dropdown-arrow" viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2 4 6 8 10 4"/></svg>
+                    </button>
+                    <ul class="nav__dropdown-menu">
+                        <li><a href="#projects" class="nav__link">Projects</a></li>
+                        <li><a href="#achievements" class="nav__link">Achievements</a></li>
+                        <li><a href="#education" class="nav__link">Education</a></li>
+                        <li><a href="#presentations" class="nav__link">Presentations</a></li>
+                        <li><a href="#contact" class="nav__link">Contact</a></li>
+                        <li class="nav__dropdown-divider" role="separator"></li>
+                        <li><a href="jobs.html" class="nav__link">Career Hub</a></li>
+                        <li><a href="roadmap.html" class="nav__link">iOS Roadmap</a></li>
+                    </ul>
+                </li>
                 <li><a href="interview.html" class="nav__link nav__link--cta">Host iOS Interview</a></li>
             </ul>
         </nav>
@@ -529,6 +538,29 @@
                 toggle.focus();
             }
         });
+
+        // Nav dropdown keyboard support
+        var dropdown = document.querySelector('.nav__dropdown');
+        var dropdownTrigger = document.querySelector('.nav__dropdown-trigger');
+        if (dropdown && dropdownTrigger) {
+            dropdownTrigger.addEventListener('click', function () {
+                var isOpen = dropdown.classList.toggle('is-open');
+                dropdownTrigger.setAttribute('aria-expanded', String(isOpen));
+            });
+            document.addEventListener('click', function (e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('is-open');
+                    dropdownTrigger.setAttribute('aria-expanded', 'false');
+                }
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && dropdown.classList.contains('is-open')) {
+                    dropdown.classList.remove('is-open');
+                    dropdownTrigger.setAttribute('aria-expanded', 'false');
+                    dropdownTrigger.focus();
+                }
+            });
+        }
 
         // Scroll reveal via IntersectionObserver
         if ('IntersectionObserver' in window) {

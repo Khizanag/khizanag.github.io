@@ -66,6 +66,14 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - The `_presentations/` and `presentations/` names differ due to macOS case-insensitive filesystem
 - Vite `base` is set to `/presentations/` — do not change without updating the output directory
 
+## Theme System
+- Two themes: `css/theme-default.css` (Apple-style) and `css/theme-pres.css` (presentations dark navy)
+- Both `index.html` and `jobs.html` include `<link id="themeCSS" href="css/theme-pres.css">`
+- To switch themes: change the `href` attribute on the `#themeCSS` link
+- Theme CSS overrides `:root` custom properties + adds structural CSS via cascade
+- The presentations theme adds animated grid (body::before) and ambient blobs (body::after)
+- All sections must have `position: relative; z-index: 1` to sit above fixed backgrounds
+
 ## Deployment
 - GitHub Pages serves from the `master` branch root
 - Any push to `master` triggers automatic deployment

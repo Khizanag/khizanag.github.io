@@ -858,6 +858,8 @@
     font-family: inherit;
     font-size: inherit;
     color: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
 }
 
@@ -875,7 +877,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: color-mix(in srgb, var(--tool-color) 12%, transparent);
+    background: var(--color-white-a6);
     color: var(--tool-color);
 }
 

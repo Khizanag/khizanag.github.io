@@ -886,11 +886,28 @@ footer,
 }
 
 /* ============================================
-   ROADMAP.HTML — FLOWCHART NODES
+   ROADMAP.HTML — SKILL TREE
    ============================================ */
-.rm-tier__label-num {
+.rm-tree__tier-num {
     color: #5a6a82;
 }
+
+.rm-tree__tier-name {
+    color: #5a6a82;
+}
+
+.rm-tree__tier[data-tier="1"] .rm-tree__tier-name { color: #00ff88; }
+.rm-tree__tier[data-tier="1"] .rm-tree__tier-num { color: #00ff88; background: rgba(0, 255, 136, 0.10); }
+.rm-tree__tier[data-tier="1"] .rm-node__ring-fill { stroke: #00ff88; }
+
+.rm-tree__tier[data-tier="2"] .rm-tree__tier-name { color: #bf5af2; }
+.rm-tree__tier[data-tier="2"] .rm-tree__tier-num { color: #bf5af2; background: rgba(191, 90, 242, 0.10); }
+
+.rm-tree__tier[data-tier="3"] .rm-tree__tier-name { color: #ff9f0a; }
+.rm-tree__tier[data-tier="3"] .rm-tree__tier-num { color: #ff9f0a; background: rgba(255, 159, 10, 0.10); }
+
+.rm-tree__tier[data-tier="4"] .rm-tree__tier-name { color: #ff375f; }
+.rm-tree__tier[data-tier="4"] .rm-tree__tier-num { color: #ff375f; background: rgba(255, 55, 95, 0.10); }
 
 .rm-node__title {
     color: #e8edf5;
@@ -904,13 +921,18 @@ footer,
     color: #5a6a82;
 }
 
-.rm-node__ring-pct {
-    color: #5a6a82;
+.rm-node__ring-icon {
+    color: #e8edf5;
 }
 
-/* Tier accent colors in theme */
-.rm-tier[data-tier="1"] .rm-tier__label-name { color: #00ff88; }
-.rm-tier[data-tier="1"] .rm-node__ring-fill { stroke: #00ff88; }
+.rm-detail__prereqs {
+    color: #5a6a82;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.rm-detail__prereqs-label {
+    color: #7a8a9a;
+}
 
 /* ============================================
    ROADMAP.HTML — DOMAIN CARDS
@@ -921,6 +943,11 @@ footer,
 
 .rm-domain__meta {
     color: #5a6a82;
+}
+
+.rm-domain__prereqs {
+    color: #5a6a82;
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .rm-domain__desc {

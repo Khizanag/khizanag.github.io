@@ -21,6 +21,8 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - `interview.html` — iOS Interview tool
 - `js/` — modular JS files (config, session, timer, plan, results, app, etc.)
 - `css/` — modular CSS files, split by screen/concern
+- `_presentations/` — React + Vite source for tech talk presentations
+- `presentations/` — built output served at `/presentations/` (do not edit directly — rebuild from `_presentations/`)
 
 ## CSS Rules
 - Keep CSS files split by screen/concern — never create a single monolithic CSS file
@@ -39,6 +41,13 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - Never batch multiple unrelated tasks into a single commit
 - Keep commits focused — one feature/fix per commit
 - If a user request contains multiple tasks, complete each one with its own commit+push cycle
+
+## Presentations
+- Source lives in `_presentations/` (React + Vite)
+- Built output goes to `presentations/` (committed to git for GitHub Pages)
+- To rebuild: `cd _presentations && npm ci && npm run build`, then copy `dist/` to `presentations/`
+- The `_presentations/` and `presentations/` names differ due to macOS case-insensitive filesystem
+- Vite `base` is set to `/presentations/` — do not change without updating the output directory
 
 ## Deployment
 - GitHub Pages serves from the `master` branch root

@@ -6,16 +6,14 @@
    ============================================ */
 
 :root {
-    /* Colors */
-    --color-white: #e8edf5;
-    --color-gray-50: #0c1018;
-    --color-gray-100: #111820;
-    --color-gray-200: #2a3a55;
-    --color-gray-300: #3a4f6e;
-    --color-gray-400: #5a6a82;
-    --color-gray-500: #5a6a82;
-    --color-gray-600: #3a4a62;
-    --color-gray-700: #2a3548;
+    /*
+     * Only override tokens that are SAFE to change globally.
+     * Gray-50/100/200/300/white are used as TEXT colors on dark sections —
+     * overriding them to dark values makes text invisible.
+     * Instead, backgrounds using those tokens are overridden per-element below.
+     */
+
+    /* Accent colors */
     --color-gray-900: #e8edf5;
     --color-black: #05080f;
     --color-blue: #00ff88;
@@ -29,7 +27,7 @@
     /* Nav */
     --nav-height: 64px;
 
-    /* Shadows → borders */
+    /* Shadows → subtle borders for dark surfaces */
     --shadow-card: 0 0 0 1px #1a2235;
     --shadow-card-lg: 0 0 0 1px #2a3a55;
 
@@ -154,6 +152,27 @@ footer,
 }
 
 /* ============================================
+   SHARED TEXT COLOR OVERRIDES
+   Gray tokens remain light (for text on dark bg),
+   so muted text needs explicit darker shades.
+   ============================================ */
+.section-desc {
+    color: #5a6a82;
+}
+
+.hero__subtitle {
+    color: #5a6a82;
+}
+
+.hero__metric-label {
+    color: #5a6a82;
+}
+
+.hero__scroll-text {
+    color: #5a6a82;
+}
+
+/* ============================================
    SECTION EYEBROW ACCENT LINE
    ============================================ */
 .section-eyebrow::before {
@@ -249,6 +268,11 @@ footer,
    ============================================ */
 .marquee {
     background: #05080f;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.marquee__item {
+    color: #5a6a82;
 }
 
 .marquee__dot {
@@ -294,6 +318,7 @@ footer,
 
 .about__float-card {
     background: #111820;
+    color: #e8edf5;
     border: 1px solid #1a2235;
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
 }
@@ -304,6 +329,10 @@ footer,
 
 .about__float-label {
     color: #5a6a82;
+}
+
+.highlight__title {
+    color: #e8edf5;
 }
 
 .about__highlights .highlight {
@@ -343,6 +372,10 @@ footer,
 .exp-card__period {
     background: #111820;
     color: #5a6a82;
+}
+
+.exp-card__role {
+    color: #e8edf5;
 }
 
 .exp-card__company {
@@ -508,6 +541,7 @@ footer,
 }
 
 .s-dark .section-eyebrow { color: #00ff88; }
+.s-dark .section-desc { color: #5a6a82; }
 
 /* ============================================
    JOBS.HTML — TIMELINE (Roadmap)
@@ -663,10 +697,50 @@ footer,
 /* ============================================
    JOBS.HTML — FILTER TABS
    ============================================ */
+.j-filter__btn {
+    color: #5a6a82;
+}
+
+.j-filter__btn:hover {
+    color: #e8edf5;
+}
+
 .j-filter__btn.is-active {
     background: rgba(0, 255, 136, 0.15);
     border-color: #00ff88;
     color: #00ff88;
+}
+
+/* ============================================
+   JOBS.HTML — DOS & DON'TS
+   ============================================ */
+.j-dodont__list li {
+    color: #8090a8;
+}
+
+/* ============================================
+   JOBS.HTML — SALARY TABLE
+   ============================================ */
+.j-salary__table td {
+    color: #b0bcc8;
+}
+
+.j-salary__note {
+    color: #5a6a82;
+}
+
+/* ============================================
+   JOBS.HTML — NEGOTIATE
+   ============================================ */
+.j-negotiate__list li {
+    color: #8090a8;
+}
+
+/* ============================================
+   JOBS.HTML — PLATFORM CARDS
+   ============================================ */
+.j-platform__desc {
+    color: #5a6a82;
 }
 
 /* ============================================
@@ -693,11 +767,38 @@ footer,
 }
 
 /* ============================================
+   JOBS.HTML — HERO STATS
+   ============================================ */
+.j-hero__stat-val {
+    color: #e8edf5;
+}
+
+.j-hero__stat-label {
+    color: #5a6a82;
+}
+
+.j-hero__subtitle {
+    color: #5a6a82;
+}
+
+/* ============================================
    JOBS.HTML — FOOTER
    ============================================ */
 .j-footer {
     background: #0c1018;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.j-footer__link {
+    color: #5a6a82;
+}
+
+.j-footer__link:hover {
+    color: #e8edf5;
+}
+
+.j-footer__copy {
+    color: #3a4a62;
 }
 
 /* ============================================

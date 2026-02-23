@@ -95,6 +95,58 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+    // ---- Keyboard Section Navigation (ArrowLeft / ArrowRight) ----
+    var sectionIds = ['j-hero', 'roadmap', 'platforms', 'resume', 'dos-donts', 'interview-flow', 'salary', 'resources'];
+    var navLock = false;
+    var navIndex = 0;
+    var lockTimeout = null;
+
+    function resolveCurrentIndex() {
+        var ref = window.scrollY + window.innerHeight * 0.4;
+        var best = 0;
+        sectionIds.forEach(function (id, i) {
+            var el = document.getElementById(id);
+            if (el) {
+                var top = el.getBoundingClientRect().top + window.scrollY;
+                if (top <= ref) best = i;
+            }
+        });
+        return best;
+    }
+
+    window.addEventListener('scroll', function () {
+        if (!navLock) navIndex = resolveCurrentIndex();
+    }, { passive: true });
+
+    window.addEventListener('scrollend', function () {
+        if (!navLock) return;
+        clearTimeout(lockTimeout);
+        navLock = false;
+        navIndex = resolveCurrentIndex();
+    }, { passive: true });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        if (navLock) return;
+
+        var next = e.key === 'ArrowRight'
+            ? Math.min(navIndex + 1, sectionIds.length - 1)
+            : Math.max(navIndex - 1, 0);
+
+        if (next === navIndex) return;
+
+        navIndex = next;
+        navLock = true;
+
+        lockTimeout = setTimeout(function () {
+            navLock = false;
+            navIndex = resolveCurrentIndex();
+        }, 2000);
+
+        var target = document.getElementById(sectionIds[next]);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+
     // ---- Footer Back to Top Link ----
     var footerTop = document.getElementById('footerTop');
     if (footerTop) {

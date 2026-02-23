@@ -1,0 +1,133 @@
+/* ============================================
+   DASHBOARD SCREEN
+   ============================================ */
+
+/* --- Greeting --- */
+.dashboard__greeting {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.dashboard__greeting-name {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.dashboard__greeting-subtitle {
+    font-size: 15px;
+    color: var(--color-gray-400);
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/* --- Stats row --- */
+.dashboard__stats {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.dashboard__stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 10px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-white-a8);
+    background: var(--color-white-a3);
+}
+
+.dashboard__stat-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.dashboard__stat-value {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-gray-100);
+    letter-spacing: -0.02em;
+}
+
+.dashboard__stat-label {
+    font-size: 11px;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+}
+
+/* --- Action cards grid --- */
+.dashboard__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.dashboard__action-card {
+    position: relative;
+}
+
+.dashboard__action-card--locked .tool-card {
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.dashboard__lock-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-white-a6);
+    border: 1px solid var(--color-white-a10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* --- History section --- */
+.dashboard__history {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-white-a6);
+}
+
+.dashboard__history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.dashboard__history-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+    letter-spacing: -0.01em;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+    .dashboard__stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .dashboard__actions {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Interview — Giga Khizanishvili</title>
+    <meta name="description" content="Set up and host an interview session or start a self-study practice session.">
+    <meta name="author" content="Giga Khizanishvili">
+    <meta name="theme-color" content="#000000">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/interview-base.css">
+    <link rel="stylesheet" href="css/interview-auth.css">
+    <link rel="stylesheet" href="css/interview-setup.css">
+    <link rel="stylesheet" href="css/interview-host.css">
+    <link rel="stylesheet" href="css/interview-templates.css">
+    <link rel="stylesheet" href="css/interview-live.css">
+    <link rel="stylesheet" href="css/interview-responsive.css">
+    <script>
+    (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
+    </script>
+</head>
+<body>
+
+<!-- Skip to content link -->
+<a href="#host-content" class="skip-link">Skip to content</a>
+
+<!-- Screen reader live region -->
+<div id="srAnnounce" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- Navigation -->
+<header class="nav">
+    <div class="nav__inner">
+        <a href="interview.html" class="nav__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Dashboard
+        </a>
+        <span class="nav__title" id="hostNavTitle">Host Interview</span>
+        <button class="nav__theme-toggle" id="btnTheme" aria-label="Toggle light/dark mode">
+            <svg class="nav__theme-icon--dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="nav__theme-icon--light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+    </div>
+</header>
+
+<!-- Guest sign-in prompt (hidden by default) -->
+<main class="screen" id="host-signin" style="display:none">
+    <div class="container">
+        <div class="host__signin-prompt">
+            <h2 class="host__signin-title">Sign in to Host Interviews</h2>
+            <p class="host__signin-text">Hosting live interviews requires an account so your session data and history are saved.</p>
+            <a href="interview.html" class="host__signin-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                Sign In
+            </a>
+        </div>
+    </div>
+</main>
+
+<!-- Host setup content -->
+<main class="screen is-active" id="host-content">
+    <div class="container">
+        <div class="setup__header">
+            <div class="setup__icon" aria-hidden="true" id="setupIcon">🎯</div>
+            <h1 class="setup__title" id="setupTitle">iOS Interview</h1>
+            <p class="setup__subtitle" id="setupSubtitle">Adaptive questioning that adjusts difficulty in real time. Assess developer knowledge from fundamentals to system design.</p>
+        </div>
+
+        <!-- Interviewer badge (signed-in users) -->
+        <div class="setup__section" id="interviewerSection">
+            <p class="setup__label">Interviewer</p>
+            <div class="host__interviewer-badge">
+                Interviewing as <strong class="host__interviewer-name" id="interviewerDisplayName">...</strong>
+                <a href="interview.html" class="host__interviewer-edit">Edit Profile</a>
+            </div>
+        </div>
+
+        <!-- Templates -->
+        <div class="templates__section" data-feature="templates">
+            <div class="templates__header">
+                <span class="templates__label">Quick Start Templates</span>
+                <button class="templates__toggle" id="btnToggleTemplates">Show</button>
+            </div>
+            <div id="templateBody" style="display:none">
+                <div class="templates__grid" id="templateGrid"></div>
+            </div>
+        </div>
+
+        <!-- Platform selector -->
+        <div class="setup__section">
+            <p class="setup__label">Platform</p>
+            <div class="platform-selector" id="platformSelector" role="radiogroup" aria-label="Platform selection">
+                <button class="platform-selector__btn is-active" data-platform="ios" role="radio" aria-checked="true">
+                    <span class="platform-selector__icon" aria-hidden="true">🍏</span>
+                    <span class="platform-selector__name">iOS / Swift</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="android" role="radio" aria-checked="false">
+                    <span class="platform-selector__icon" aria-hidden="true">🤖</span>
+                    <span class="platform-selector__name">Android / Kotlin</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="frontend" role="radio" aria-checked="false">
+                    <span class="platform-selector__icon" aria-hidden="true">🌐</span>
+                    <span class="platform-selector__name">Frontend / Web</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="backend" role="radio" aria-checked="false">
+                    <span class="platform-selector__icon" aria-hidden="true">⚙️</span>
+                    <span class="platform-selector__name">Backend</span>
+                </button>
+                <button class="platform-selector__btn" data-platform="behavioral" role="radio" aria-checked="false">
+                    <span class="platform-selector__icon" aria-hidden="true">🧠</span>
+                    <span class="platform-selector__name">Behavioral</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Candidate name -->
+        <div class="setup__section" id="candidateSection">
+            <p class="setup__label">Candidate</p>
+            <div class="host__candidate-field">
+                <input type="text" class="setup__name-input" id="nameInput" placeholder="Candidate name..." autocomplete="nope" autocorrect="off" spellcheck="false">
+            </div>
+        </div>
+
+        <!-- Topics fold section -->
+        <div class="setup__section">
+            <p class="setup__label setup__label--fold" id="btnFoldTopics">
+                Topics <span class="setup__label-value" id="topicSummary">All 15 topics</span>
+                <svg class="setup__fold-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
+            </p>
+            <div class="setup__fold-body" id="topicFoldBody">
+                <div class="setup__fold-actions">
+                    <button class="setup__label-action" id="btnToggleAll">Clear All</button>
+                </div>
+                <div class="setup__topics" id="topicGrid"></div>
+            </div>
+        </div>
+
+        <!-- Mode toggle -->
+        <div class="setup__section">
+            <p class="setup__label">Mode</p>
+            <div class="mode-toggle" role="radiogroup" aria-label="Interview mode">
+                <button class="mode-toggle__btn is-active" id="btnModeInterview" data-mode="interview" role="radio" aria-checked="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Interview
+                </button>
+                <button class="mode-toggle__btn" id="btnModePractice" data-mode="practice" role="radio" aria-checked="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Self-Study
+                </button>
+            </div>
+        </div>
+
+        <!-- Interview plan -->
+        <div class="setup__section" id="planSection">
+            <p class="setup__label">Interview Plan <span class="setup__label-value" id="planTotal">60 min</span></p>
+            <div class="plan" id="planList"></div>
+        </div>
+
+        <!-- Start button + live actions -->
+        <div class="setup__start">
+            <button class="btn-start" id="btnStart" disabled>
+                Start Interview
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="host__live-actions" id="liveActionsSection" data-feature="liveSessions">
+                <button class="btn-live-create" id="btnCreateLive" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                    Create Live Session
+                </button>
+            </div>
+        </div>
+        <p class="setup__validation" id="validationHint">Select at least one topic to begin</p>
+    </div>
+</main>
+
+<!-- Scripts -->
+<script type="module" src="js/interview-firebase.js"></script>
+<script src="js/questions.js"></script>
+<script src="js/questions-android.js"></script>
+<script src="js/questions-frontend.js"></script>
+<script src="js/questions-backend.js"></script>
+<script src="js/questions-behavioral.js"></script>
+<script src="js/interview-utils.js"></script>
+<script src="js/interview-config.js"></script>
+<script src="js/interview-features.js"></script>
+<script src="js/interview-plan.js"></script>
+<script src="js/interview-templates.js"></script>
+<script src="js/interview-host.js"></script>
+</body>
+</html>

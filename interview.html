@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/interview-base.css">
     <link rel="stylesheet" href="css/interview-auth.css">
     <link rel="stylesheet" href="css/interview-setup.css">
+    <link rel="stylesheet" href="css/interview-dashboard.css">
     <link rel="stylesheet" href="css/interview-question.css">
     <link rel="stylesheet" href="css/interview-results.css">
     <link rel="stylesheet" href="css/interview-bank.css">
@@ -224,161 +225,67 @@
 </main>
 
 <!-- ==========================================
-     SETUP SCREEN
+     DASHBOARD SCREEN
      ========================================== -->
 <main class="screen" id="screen-setup">
     <div class="container">
-        <div class="setup__header">
-            <div class="setup__icon" aria-hidden="true" id="setupIcon">🎯</div>
-            <h1 class="setup__title" id="setupTitle">iOS Interview</h1>
-            <p class="setup__subtitle" id="setupSubtitle">Adaptive questioning that adjusts difficulty in real time. Assess developer knowledge from fundamentals to system design.</p>
+        <div class="dashboard__greeting">
+            <h1 class="dashboard__greeting-name" id="dashGreeting">Welcome back</h1>
+            <p class="dashboard__greeting-subtitle">What would you like to do today?</p>
         </div>
 
         <div id="xpBarContainer" data-feature="gamification"></div>
 
-        <div class="templates__section" data-feature="templates">
-            <div class="templates__header">
-                <span class="templates__label">Quick Start Templates</span>
-                <button class="templates__toggle" id="btnToggleTemplates">Show</button>
+        <div class="dashboard__stats" data-feature="gamification">
+            <div class="dashboard__stat">
+                <span class="dashboard__stat-icon">📋</span>
+                <span class="dashboard__stat-value" id="dashInterviews">0</span>
+                <span class="dashboard__stat-label">Interviews</span>
             </div>
-            <div id="templateBody" style="display:none">
-                <div class="templates__grid" id="templateGrid"></div>
+            <div class="dashboard__stat">
+                <span class="dashboard__stat-icon">⚡</span>
+                <span class="dashboard__stat-value" id="dashXP">0</span>
+                <span class="dashboard__stat-label">XP</span>
             </div>
-        </div>
-
-        <div class="setup__section">
-            <p class="setup__label">Platform</p>
-            <div class="platform-selector" id="platformSelector" role="radiogroup" aria-label="Platform selection">
-                <button class="platform-selector__btn is-active" data-platform="ios" role="radio" aria-checked="true">
-                    <span class="platform-selector__icon" aria-hidden="true">🍏</span>
-                    <span class="platform-selector__name">iOS / Swift</span>
-                </button>
-                <button class="platform-selector__btn" data-platform="android" role="radio" aria-checked="false">
-                    <span class="platform-selector__icon" aria-hidden="true">🤖</span>
-                    <span class="platform-selector__name">Android / Kotlin</span>
-                </button>
-                <button class="platform-selector__btn" data-platform="frontend" role="radio" aria-checked="false">
-                    <span class="platform-selector__icon" aria-hidden="true">🌐</span>
-                    <span class="platform-selector__name">Frontend / Web</span>
-                </button>
-                <button class="platform-selector__btn" data-platform="backend" role="radio" aria-checked="false">
-                    <span class="platform-selector__icon" aria-hidden="true">⚙️</span>
-                    <span class="platform-selector__name">Backend</span>
-                </button>
-                <button class="platform-selector__btn" data-platform="behavioral" role="radio" aria-checked="false">
-                    <span class="platform-selector__icon" aria-hidden="true">🧠</span>
-                    <span class="platform-selector__name">Behavioral</span>
-                </button>
+            <div class="dashboard__stat">
+                <span class="dashboard__stat-icon">🔥</span>
+                <span class="dashboard__stat-value" id="dashStreak">0</span>
+                <span class="dashboard__stat-label">Streak</span>
+            </div>
+            <div class="dashboard__stat">
+                <span class="dashboard__stat-icon">🏅</span>
+                <span class="dashboard__stat-value" id="dashLevel">1</span>
+                <span class="dashboard__stat-label">Level</span>
             </div>
         </div>
 
-        <div class="setup__section">
-            <p class="setup__label">Participants</p>
-            <div class="setup__names">
-                <div class="setup__name-field">
-                    <label class="setup__name-label" for="interviewerInput">Interviewer</label>
-                    <input type="text" class="setup__name-input" id="interviewerInput" placeholder="Your name..." autocomplete="nope" autocorrect="off" spellcheck="false">
-                </div>
-                <div class="setup__name-field">
-                    <label class="setup__name-label" for="nameInput">Candidate</label>
-                    <input type="text" class="setup__name-input" id="nameInput" placeholder="Candidate name..." autocomplete="nope" autocorrect="off" spellcheck="false">
-                </div>
-            </div>
-        </div>
-
-        <div class="setup__section">
-            <p class="setup__label setup__label--fold" id="btnFoldTopics">
-                Topics <span class="setup__label-value" id="topicSummary">All 15 topics</span>
-                <svg class="setup__fold-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
-            </p>
-            <div class="setup__fold-body" id="topicFoldBody">
-                <div class="setup__fold-actions">
-                    <button class="setup__label-action" id="btnToggleAll">Clear All</button>
-                </div>
-                <div class="setup__topics" id="topicGrid"></div>
-            </div>
-        </div>
-
-        <div class="setup__section">
-            <p class="setup__label">Mode</p>
-            <div class="mode-toggle" role="radiogroup" aria-label="Interview mode">
-                <button class="mode-toggle__btn is-active" id="btnModeInterview" data-mode="interview" role="radio" aria-checked="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    Interview
-                </button>
-                <button class="mode-toggle__btn" id="btnModePractice" data-mode="practice" role="radio" aria-checked="false">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                    Self-Study
-                </button>
-            </div>
-        </div>
-
-        <div class="setup__section" id="planSection">
-            <p class="setup__label">Interview Plan <span class="setup__label-value" id="planTotal">60 min</span></p>
-            <div class="plan" id="planList"></div>
-        </div>
-
-        <div class="setup__start">
-            <button class="btn-start" id="btnStart" disabled>
-                Start Interview
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-            <div class="setup__live-actions" data-feature="liveSessions">
-                <button class="btn-live-create" id="btnCreateLive" disabled>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                    Create Live Session
-                </button>
-                <button class="btn-live-join" id="btnJoinLive">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-                    Join Session
-                </button>
-            </div>
-        </div>
-        <p class="setup__validation" id="validationHint">Enter both participant names to begin</p>
-
-        <!-- Join Session Modal -->
-        <div class="modal-overlay" id="modalJoin" style="display:none">
-            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalJoinTitle">
-                <h3 class="modal__title" id="modalJoinTitle">Join Live Session</h3>
-                <div class="modal__error" id="joinError" role="alert"></div>
-                <div class="modal__field">
-                    <label class="modal__label" for="joinCodeInput">Session Code</label>
-                    <input class="live-code-input" id="joinCodeInput" type="text" maxlength="6" placeholder="ABC123" autocomplete="off" autocorrect="off" spellcheck="false" aria-describedby="joinError">
-                </div>
-                <div class="modal__field">
-                    <label class="modal__label" for="joinNameInput">Your Name</label>
-                    <input class="modal__input" id="joinNameInput" type="text" placeholder="Enter your name..." autocomplete="name">
-                </div>
-                <div class="modal__field">
-                    <label class="modal__label" for="joinRoleSelect">Your Role</label>
-                    <select class="modal__select" id="joinRoleSelect">
-                        <option value="candidate">Candidate</option>
-                        <option value="spectator">Spectator (Observer)</option>
-                    </select>
-                </div>
-                <div class="modal__actions">
-                    <button class="modal__btn modal__btn--primary" id="btnJoinSubmit">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-                        Join
-                    </button>
-                    <button class="modal__btn modal__btn--secondary" id="btnJoinCancel">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="tools-section">
-            <p class="setup__label">Tools &amp; Resources</p>
-            <div class="tools-grid">
-                <a href="guide.html" class="tool-card" data-feature="interviewGuide">
+        <div class="dashboard__actions">
+            <div class="dashboard__action-card" id="dashHostCard" data-auth-required>
+                <a href="host.html" class="tool-card">
                     <div class="tool-card__icon" style="--tool-color: var(--color-blue)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
                     <div class="tool-card__body">
-                        <span class="tool-card__name">Interview Guide</span>
-                        <span class="tool-card__desc">Best practices, psychology, evaluation</span>
+                        <span class="tool-card__name">Host Interview</span>
+                        <span class="tool-card__desc">Set up and run an interview session</span>
                     </div>
                     <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </a>
+                <span class="dashboard__lock-badge" id="dashHostLock" style="display:none">🔒</span>
+            </div>
+            <div class="dashboard__action-card">
+                <a href="host.html?mode=practice" class="tool-card">
+                    <div class="tool-card__icon" style="--tool-color: var(--color-green)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <div class="tool-card__body">
+                        <span class="tool-card__name">Self-Study</span>
+                        <span class="tool-card__desc">Practice questions at your own pace</span>
+                    </div>
+                    <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+            <div class="dashboard__action-card">
                 <button class="tool-card" id="btnBrowse" data-feature="questionBank">
                     <div class="tool-card__icon" style="--tool-color: var(--color-purple)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -389,6 +296,20 @@
                     </div>
                     <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
+            </div>
+            <div class="dashboard__action-card">
+                <a href="guide.html" class="tool-card" data-feature="interviewGuide">
+                    <div class="tool-card__icon" style="--tool-color: var(--color-teal)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <div class="tool-card__body">
+                        <span class="tool-card__name">Interview Guide</span>
+                        <span class="tool-card__desc">Best practices, psychology, evaluation</span>
+                    </div>
+                    <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+            <div class="dashboard__action-card">
                 <button class="tool-card" id="btnFlashcard" data-feature="flashcards">
                     <div class="tool-card__icon" style="--tool-color: var(--color-orange)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -399,6 +320,8 @@
                     </div>
                     <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
+            </div>
+            <div class="dashboard__action-card" id="dashAnalyticsCard" data-auth-required>
                 <button class="tool-card" id="btnAnalytics" data-feature="analytics">
                     <div class="tool-card__icon" style="--tool-color: var(--color-green)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -409,6 +332,9 @@
                     </div>
                     <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
+                <span class="dashboard__lock-badge" id="dashAnalyticsLock" style="display:none">🔒</span>
+            </div>
+            <div class="dashboard__action-card" id="dashCustomCard" data-auth-required>
                 <button class="tool-card" id="btnCustom" data-feature="customQuestions">
                     <div class="tool-card__icon" style="--tool-color: var(--color-teal)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
@@ -419,6 +345,9 @@
                     </div>
                     <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
+                <span class="dashboard__lock-badge" id="dashCustomLock" style="display:none">🔒</span>
+            </div>
+            <div class="dashboard__action-card">
                 <button class="tool-card" id="btnSandbox" data-feature="sandbox">
                     <div class="tool-card__icon" style="--tool-color: var(--color-red)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -432,13 +361,13 @@
             </div>
         </div>
 
-        <div class="setup__section history-section" id="historySection" style="display:none">
-            <p class="setup__label">
-                Interview History
+        <div class="dashboard__history" id="historySection" style="display:none">
+            <div class="dashboard__history-header">
+                <span class="dashboard__history-title">Recent History</span>
                 <a href="history.html" class="btn-view-all">View All</a>
-                <button class="btn-compare" id="btnCompare" style="display:none">Compare Selected</button>
-            </p>
+            </div>
             <div class="history__list" id="historyList"></div>
+            <button class="btn-compare" id="btnCompare" style="display:none">Compare Selected</button>
         </div>
     </div>
 

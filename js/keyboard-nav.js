@@ -20,11 +20,12 @@
     var sectionIds = scriptTag.dataset.sections.split(',').map(function (s) { return s.trim(); });
     if (sectionIds.length < 2) return;
 
-    var SCROLL_DURATION = 900; // ms — longer than native smooth scroll
+    var SCROLL_DURATION = 800; // ms
 
     var navIndex = 0;
     var navLock = false;
     var lockTimeout = null;
+    var animId = null;
 
     function resolveCurrentIndex() {
         var ref = window.scrollY + window.innerHeight * 0.4;
@@ -39,35 +40,50 @@
         return best;
     }
 
-    // Easing: ease-in-out cubic
-    function easeInOutCubic(t) {
+    // Easing: ease-in-out quart — very smooth acceleration/deceleration
+    function easeInOutQuart(t) {
         return t < 0.5
-            ? 4 * t * t * t
-            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            ? 8 * t * t * t * t
+            : 1 - Math.pow(-2 * t + 2, 4) / 2;
     }
 
     function smoothScrollTo(targetY, duration) {
         var startY = window.scrollY;
         var diff = targetY - startY;
-        if (diff === 0) return;
+        if (diff === 0) {
+            navLock = false;
+            return;
+        }
+
+        // Disable CSS scroll-behavior so window.scrollTo is instant per frame
+        var html = document.documentElement;
+        var prevBehavior = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+
+        // Cancel any in-flight animation
+        if (animId) cancelAnimationFrame(animId);
+
         var startTime = null;
 
         function step(timestamp) {
             if (!startTime) startTime = timestamp;
             var elapsed = timestamp - startTime;
             var progress = Math.min(elapsed / duration, 1);
-            var eased = easeInOutCubic(progress);
-            window.scrollTo(0, startY + diff * eased);
+            var eased = easeInOutQuart(progress);
+            window.scrollTo(0, Math.round(startY + diff * eased));
+
             if (progress < 1) {
-                requestAnimationFrame(step);
+                animId = requestAnimationFrame(step);
             } else {
+                animId = null;
+                html.style.scrollBehavior = prevBehavior;
                 navLock = false;
                 clearTimeout(lockTimeout);
                 navIndex = resolveCurrentIndex();
             }
         }
 
-        requestAnimationFrame(step);
+        animId = requestAnimationFrame(step);
     }
 
     // Sync index from scroll position when no programmatic scroll is in flight
@@ -90,9 +106,10 @@
         navIndex = next;
         navLock = true;
 
-        // Fallback: clear lock after duration + buffer if animation doesn't finish
+        // Fallback: clear lock if animation doesn't finish
         lockTimeout = setTimeout(function () {
             navLock = false;
+            document.documentElement.style.scrollBehavior = '';
             navIndex = resolveCurrentIndex();
         }, SCROLL_DURATION + 500);
 

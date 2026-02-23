@@ -510,35 +510,9 @@ a {
 
 .rm-tree {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 0;
     position: relative;
-}
-
-.rm-tree__svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: visible;
-}
-
-.rm-tree__path {
-    fill: none;
-    stroke-width: 1.5;
-    stroke-opacity: 0.25;
-    stroke-linecap: round;
-}
-
-.rm-tree__path.is-highlighted {
-    stroke-opacity: 0.7;
-    stroke-width: 2.5;
-    filter: drop-shadow(0 0 6px currentColor);
-}
-
-.rm-tree__path.is-dimmed {
-    stroke-opacity: 0.06;
 }
 
 /* Tier connector line between tiers */
@@ -1134,10 +1108,6 @@ a {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .rm-tree__svg {
-        display: none;
-    }
-
     .rm-detail__topics {
         grid-template-columns: 1fr 1fr;
     }
@@ -1241,7 +1211,6 @@ a {
     .s-light { background: #fff; color: #000; }
     [data-anim] { opacity: 1; transform: none; }
     .rm-node__ring { display: none; }
-    .rm-tree__svg { display: none; }
     .rm-domain__body { grid-template-rows: 1fr; }
     .rm-detail { grid-template-rows: 1fr; }
 }

@@ -165,13 +165,13 @@
 
         // In interview mode, guest must sign in
         if (!s.practiceMode && isGuest) {
-            dom.hostContent.style.display = 'none';
-            dom.hostSignin.style.display = '';
+            dom.hostContent.classList.remove('is-active');
+            dom.hostSignin.classList.add('is-active');
             return;
         }
 
-        dom.hostContent.style.display = '';
-        dom.hostSignin.style.display = 'none';
+        dom.hostContent.classList.add('is-active');
+        dom.hostSignin.classList.remove('is-active');
         updateStartButton();
     }
 
@@ -194,11 +194,11 @@
 
         // If guest tries interview mode, show sign-in prompt
         if (!s.practiceMode && isGuest) {
-            dom.hostContent.style.display = 'none';
-            dom.hostSignin.style.display = '';
+            dom.hostContent.classList.remove('is-active');
+            dom.hostSignin.classList.add('is-active');
         } else {
-            dom.hostContent.style.display = '';
-            dom.hostSignin.style.display = 'none';
+            dom.hostContent.classList.add('is-active');
+            dom.hostSignin.classList.remove('is-active');
         }
     }
 
@@ -317,8 +317,11 @@
             if (!window.FirebaseService) {
                 isGuest = true;
                 if (s.practiceMode) {
-                    dom.hostContent.style.display = '';
-                    dom.hostSignin.style.display = 'none';
+                    dom.hostContent.classList.add('is-active');
+                    dom.hostSignin.classList.remove('is-active');
+                } else {
+                    // No Firebase and interview mode — switch to practice
+                    setMode('practice');
                 }
             }
         }, 3000);

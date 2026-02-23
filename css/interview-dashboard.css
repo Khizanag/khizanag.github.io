@@ -64,6 +64,24 @@
     font-weight: 500;
 }
 
+/* --- Section header --- */
+.dashboard__section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-white-a6);
+}
+
+.dashboard__section-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+    letter-spacing: -0.01em;
+}
+
 /* --- Action cards grid --- */
 .dashboard__actions {
     display: grid;
@@ -74,6 +92,11 @@
 
 .dashboard__action-card {
     position: relative;
+}
+
+.dashboard__action-card .tool-card {
+    width: 100%;
+    height: 100%;
 }
 
 .dashboard__action-card--locked .tool-card {

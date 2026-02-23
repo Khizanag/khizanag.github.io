@@ -1,0 +1,224 @@
+/* ============================================
+   CONFIG PAGE — Layout
+   ============================================ */
+.cfg-main {
+    padding-top: calc(var(--nav-height) + 40px);
+    padding-bottom: 80px;
+}
+
+.cfg-main .container {
+    max-width: 640px;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.cfg-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.cfg-header__icon {
+    color: var(--color-gray-400);
+    margin-bottom: 16px;
+}
+
+.cfg-header__title {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-gray-50);
+    margin-bottom: 10px;
+}
+
+.cfg-header__subtitle {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--color-gray-400);
+    line-height: 1.5;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.cfg-section {
+    margin-bottom: 40px;
+}
+
+.cfg-section__title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gray-400);
+    margin-bottom: 6px;
+}
+
+.cfg-section__desc {
+    font-size: 13px;
+    color: var(--color-gray-600);
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   FEATURE LIST
+   ============================================ */
+.cfg-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cfg-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--color-white-a3);
+    border: 1px solid var(--color-white-a8);
+    border-radius: var(--border-radius-md);
+    transition: border-color 0.2s;
+}
+
+.cfg-item:hover {
+    border-color: var(--color-white-a15);
+}
+
+.cfg-item__icon {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--color-white-a4);
+}
+
+.cfg-item__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.cfg-item__name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray-100);
+    display: block;
+}
+
+.cfg-item__desc {
+    font-size: 12px;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
+.cfg-item__key {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-gray-600);
+    margin-top: 4px;
+    display: block;
+}
+
+/* ============================================
+   TOGGLE SWITCH
+   ============================================ */
+.cfg-toggle {
+    position: relative;
+    width: 48px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.cfg-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.cfg-toggle__track {
+    display: block;
+    width: 48px;
+    height: 28px;
+    border-radius: 14px;
+    background: var(--color-white-a12);
+    cursor: pointer;
+    transition: background 0.25s;
+    position: relative;
+}
+
+.cfg-toggle__track::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-gray-200);
+    transition: transform 0.25s var(--ease-out-expo), background 0.25s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.cfg-toggle input:checked + .cfg-toggle__track {
+    background: var(--color-green);
+}
+
+.cfg-toggle input:checked + .cfg-toggle__track::after {
+    transform: translateX(20px);
+    background: #fff;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.cfg-footer {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-white-a6);
+}
+
+.cfg-reset-btn {
+    appearance: none;
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a8);
+    border-radius: var(--border-radius-pill);
+    padding: 10px 28px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-gray-400);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cfg-reset-btn:hover {
+    background: var(--color-red-a6);
+    border-color: var(--color-red-a30);
+    color: var(--color-red);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+    .cfg-item {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+    .cfg-item__icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        font-size: 18px;
+    }
+}

@@ -1,6 +1,8 @@
 (function (App) {
     'use strict';
 
+    var STORAGE_KEY = 'ios-interview-features';
+
     var DEFAULTS = {
         liveSessions: true,
         flashcards: true,
@@ -18,7 +20,17 @@
         videoRecording: false,
     };
 
-    App.features = Object.assign({}, DEFAULTS);
+    function loadLocalOverrides() {
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return {};
+            return JSON.parse(raw);
+        } catch (e) {
+            return {};
+        }
+    }
+
+    App.features = Object.assign({}, DEFAULTS, loadLocalOverrides());
 
     App.isFeatureEnabled = function (name) {
         return App.features[name] !== false;
@@ -35,21 +47,25 @@
     var _unsubscribe = null;
 
     App.initFeatureFlags = function () {
+        var local = loadLocalOverrides();
+
         if (!window.FirebaseService) {
+            App.features = Object.assign({}, DEFAULTS, local);
             App.applyFeatureFlags();
             return;
         }
 
         window.FirebaseService.loadFeatureFlags().then(function (remote) {
-            App.features = Object.assign({}, DEFAULTS, remote);
+            App.features = Object.assign({}, DEFAULTS, local, remote);
             App.applyFeatureFlags();
         }).catch(function () {
+            App.features = Object.assign({}, DEFAULTS, local);
             App.applyFeatureFlags();
         });
 
         if (_unsubscribe) _unsubscribe();
         _unsubscribe = window.FirebaseService.subscribeFeatureFlags(function (remote) {
-            App.features = Object.assign({}, DEFAULTS, remote);
+            App.features = Object.assign({}, DEFAULTS, local, remote);
             App.applyFeatureFlags();
         });
     };

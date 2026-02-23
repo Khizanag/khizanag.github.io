@@ -383,6 +383,8 @@
 }
 
 .g-acc-trigger {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     background: var(--color-white-a3);
     border: none;
@@ -546,6 +548,8 @@
 }
 
 .g-tab {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     background: var(--color-white-a4);
     border: 1px solid var(--color-white-a8);
@@ -836,7 +840,7 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--hl-color);
-    background: color-mix(in srgb, var(--hl-color) 10%, transparent);
+    background: var(--color-white-a6);
     padding: 3px 10px;
     border-radius: var(--border-radius-pill);
 }
@@ -1007,6 +1011,8 @@
 }
 
 .g-level-tab {
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     background: var(--color-white-a4);
     border: 1px solid var(--color-white-a8);

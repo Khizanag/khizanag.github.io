@@ -1257,84 +1257,212 @@
            PRESENTATIONS
            ============================================ */
         .presentations {
+            background: var(--color-black);
             padding: var(--section-padding) 24px;
+            color: var(--color-gray-50);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .presentations .section-headline { color: var(--color-gray-50); }
+        .presentations .section-desc     { color: var(--color-gray-500); }
+
+        .presentations__ambient {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: 0.07;
+            pointer-events: none;
+        }
+
+        .presentations__ambient--1 {
+            top: -200px;
+            right: -100px;
+            background: var(--color-purple);
+        }
+
+        .presentations__ambient--2 {
+            bottom: -200px;
+            left: -100px;
+            background: var(--color-blue);
         }
 
         .presentations__grid {
-            margin-top: 64px;
+            margin-top: 80px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .pres-card {
             display: flex;
             flex-direction: column;
-            background: var(--color-gray-50);
-            border-radius: var(--border-radius-card);
-            padding: 36px 32px;
-            border: var(--border-light);
+            border-radius: var(--border-radius-card-lg);
+            padding: 40px 36px;
             text-decoration: none;
-            color: inherit;
-            transition: box-shadow 0.3s, transform 0.3s;
+            color: var(--color-gray-50);
+            position: relative;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: var(--border-dark);
+            transition: transform 0.5s var(--ease-out-quart), border-color 0.4s;
+            min-height: 340px;
         }
 
         .pres-card:hover {
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            transform: translateY(-2px);
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .pres-card__glow {
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: var(--glow-color);
+            filter: blur(80px);
+            opacity: 0.25;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        .pres-card:hover .pres-card__glow {
+            opacity: 0.4;
+        }
+
+        .pres-card__number {
+            font-family: var(--font-display);
+            font-size: 64px;
+            font-weight: 800;
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .pres-card__category {
             font-family: var(--font-mono);
             font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--cat-color, var(--color-blue-dark));
-            margin-bottom: 16px;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
         }
 
         .pres-card__title {
             font-family: var(--font-display);
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-            line-height: 1.3;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 14px;
+            line-height: 1.2;
+            color: var(--color-gray-50);
+            position: relative;
+            z-index: 2;
         }
 
         .pres-card__desc {
             font-size: 14px;
-            color: var(--color-gray-400);
-            line-height: 1.7;
+            color: rgba(245, 245, 247, 0.5);
+            line-height: 1.65;
             flex: 1;
             font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pres-card__footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 28px;
+            position: relative;
+            z-index: 2;
         }
 
         .pres-card__date {
             font-family: var(--font-mono);
             font-size: 12px;
-            color: var(--color-gray-400);
-            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.04em;
+        }
+
+        .pres-card__arrow {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .pres-card__arrow svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--accent-color);
+            stroke-width: 2;
+            fill: none;
+            transition: transform 0.3s;
+        }
+
+        .pres-card:hover .pres-card__arrow {
+            background: var(--accent-color);
+        }
+
+        .pres-card:hover .pres-card__arrow svg {
+            stroke: var(--color-black);
+            transform: translateX(2px);
         }
 
         .presentations__cta {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 48px;
+            position: relative;
+            z-index: 1;
         }
 
         .presentations__view-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-family: var(--font-display);
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 500;
-            color: var(--color-blue-dark);
+            color: var(--color-blue);
             text-decoration: none;
             letter-spacing: -0.01em;
-            transition: opacity 0.2s;
+            transition: color 0.3s;
         }
 
         .presentations__view-all:hover {
-            opacity: 0.7;
+            color: var(--color-blue-hover);
+        }
+
+        .presentations__view-all svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            transition: transform 0.3s;
+        }
+
+        .presentations__view-all:hover svg {
+            transform: translateX(4px);
         }
 
         /* ============================================
@@ -1937,32 +2065,52 @@
      PRESENTATIONS
      ========================================== -->
 <section class="presentations" id="presentations" aria-labelledby="presentations-heading">
+    <div class="presentations__ambient presentations__ambient--1"></div>
+    <div class="presentations__ambient presentations__ambient--2"></div>
     <div class="container">
-        <p class="section-eyebrow rv">Tech Talks</p>
-        <h2 class="section-headline rv rv--d1" id="presentations-heading">Research &amp;<br>presentations.</h2>
-        <p class="section-desc rv rv--d2">Deep-dive technical presentations on iOS architecture, CI/CD, and GitHub workflows.</p>
+        <p class="section-eyebrow rv" style="color: var(--color-purple)">Tech Talks</p>
+        <h2 class="section-headline rv rv--d1" id="presentations-heading">Deep dives.<br>First principles.</h2>
+        <p class="section-desc rv rv--d2">Technical research presentations on iOS architecture, CI/CD strategy, and GitHub workflows — built from real-world decisions.</p>
         <div class="presentations__grid">
-            <a href="presentations/#bitrise-config-analysis" class="pres-card rv">
-                <span class="pres-card__category" style="--cat-color: #4d9fff">CI/CD</span>
+            <a href="presentations/#bitrise-config-analysis" class="pres-card rv" style="--card-bg: linear-gradient(160deg, #0a1e3e, #080d1f); --glow-color: #4d9fff; --accent-color: #4d9fff">
+                <div class="pres-card__glow"></div>
+                <span class="pres-card__number">01</span>
+                <span class="pres-card__category">CI/CD</span>
                 <h3 class="pres-card__title">Bitrise — CI as Code</h3>
-                <p class="pres-card__desc">Should bitrise.yml move from Bitrise.io managed storage into the Git repository? Trade-offs, security risks, safeguards, and a concrete recommendation.</p>
-                <span class="pres-card__date">Feb 2026</span>
+                <p class="pres-card__desc">Should bitrise.yml live in Git or stay managed on Bitrise.io? A full analysis of trade-offs, security risks, and a concrete migration path.</p>
+                <div class="pres-card__footer">
+                    <span class="pres-card__date">Feb 2026</span>
+                    <span class="pres-card__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
             </a>
-            <a href="presentations/#github-access-strategy" class="pres-card rv rv--d1">
-                <span class="pres-card__category" style="--cat-color: #00ff88">Architecture</span>
-                <h3 class="pres-card__title">GitHub Cross-Team Access &amp; Review Strategy</h3>
-                <p class="pres-card__desc">Decoupling write access from review authority so teams retain ownership without blocking cross-team collaboration.</p>
-                <span class="pres-card__date">Feb 2026</span>
+            <a href="presentations/#github-access-strategy" class="pres-card rv rv--d1" style="--card-bg: linear-gradient(160deg, #0a2e1e, #081a10); --glow-color: #00ff88; --accent-color: #00ff88">
+                <div class="pres-card__glow"></div>
+                <span class="pres-card__number">02</span>
+                <span class="pres-card__category">Architecture</span>
+                <h3 class="pres-card__title">GitHub Access &amp; Review Strategy</h3>
+                <p class="pres-card__desc">Decoupling write access from review authority — so teams retain ownership without blocking cross-team collaboration.</p>
+                <div class="pres-card__footer">
+                    <span class="pres-card__date">Feb 2026</span>
+                    <span class="pres-card__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
             </a>
-            <a href="presentations/#dotgithub-directory" class="pres-card rv rv--d2">
-                <span class="pres-card__category" style="--cat-color: #a78bfa">GitHub</span>
+            <a href="presentations/#dotgithub-directory" class="pres-card rv rv--d2" style="--card-bg: linear-gradient(160deg, #1a1040, #0d0820); --glow-color: #a78bfa; --accent-color: #a78bfa">
+                <div class="pres-card__glow"></div>
+                <span class="pres-card__number">03</span>
+                <span class="pres-card__category">GitHub</span>
                 <h3 class="pres-card__title">The .github Directory</h3>
-                <p class="pres-card__desc">Every file GitHub recognizes inside .github/ — templates, automation, community health, ownership, and org-level defaults.</p>
-                <span class="pres-card__date">Feb 2026</span>
+                <p class="pres-card__desc">Every recognized file inside .github/ — templates, automation, community health, ownership, and org-level defaults — explained from first principles.</p>
+                <div class="pres-card__footer">
+                    <span class="pres-card__date">Feb 2026</span>
+                    <span class="pres-card__arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                </div>
             </a>
         </div>
         <div class="presentations__cta rv rv--d3">
-            <a href="presentations/" class="presentations__view-all">View All Presentations &rarr;</a>
+            <a href="presentations/" class="presentations__view-all">
+                View All Presentations
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
         </div>
     </div>
 </section>

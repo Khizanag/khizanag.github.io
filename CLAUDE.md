@@ -14,13 +14,19 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 ## Workflow Rules
 - **Always commit directly to `master`** — no feature branches
 - **Always push to remote after every commit**
-- Keep the site as a single `index.html` unless complexity requires splitting
+- HTML files reference external CSS via `<link>` tags — do not use inline `<style>` blocks
 
 ## Structure
-- `index.html` — the main portfolio site (HTML + inline CSS + JS)
+- `index.html` — the main portfolio page (HTML + JS, styles in `css/portfolio.css`)
+- `jobs.html` — iOS Career Hub page (HTML + JS, styles in `css/jobs.css`)
 - `interview.html` — iOS Interview tool
-- `js/` — modular JS files (config, session, timer, plan, results, app, etc.)
-- `css/` — modular CSS files, split by screen/concern
+- `css/` — all stylesheets:
+  - `portfolio.css` — portfolio page styles (design tokens, layout, components, responsive, animations)
+  - `jobs.css` — Career Hub page styles (design tokens, layout, components, responsive, animations)
+  - `theme-pres.css` — presentations theme override (dark navy, neon green, animated grid/blobs)
+  - `theme-default.css` — default theme placeholder (inline styles are the default)
+  - `interview-*.css` — interview tool styles, split by screen/concern
+- `js/` — modular JS files (config, session, timer, plan, results, app, keyboard-nav, etc.)
 - `_presentations/` — React + Vite source for tech talk presentations
 - `presentations/` — built output served at `/presentations/` (do not edit directly — rebuild from `_presentations/`)
 
@@ -42,9 +48,11 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - Reference: `_presentations/src/hooks.js` (`useKeyboardNav`) for the React equivalent
 
 ## CSS Rules
+- Each page has its own CSS file: `portfolio.css`, `jobs.css`, `interview-*.css`
+- Theme overrides live in `css/theme-pres.css` — loaded after the page CSS via cascade
 - Keep CSS files split by screen/concern — never create a single monolithic CSS file
-- Current split: `interview-base.css`, `interview-setup.css`, `interview-question.css`, `interview-results.css`, `interview-responsive.css`
-- When adding new styles, place them in the appropriate file by screen
+- Interview tool split: `interview-base.css`, `interview-setup.css`, `interview-question.css`, `interview-results.css`, `interview-responsive.css`
+- When adding new styles, place them in the appropriate page CSS file
 
 ## Question Bank Rules
 - Answers in `js/questions.js` should use `\n` line breaks to separate distinct concepts

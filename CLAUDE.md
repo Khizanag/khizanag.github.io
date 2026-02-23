@@ -33,10 +33,13 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 
 ## Keyboard Section Navigation
 - **Every multi-section page must support ArrowLeft/ArrowRight keyboard navigation** between sections
-- Define an ordered array of section IDs and use scroll-based index tracking with a nav lock to prevent stacking
-- Pattern: ArrowRight scrolls to the next section, ArrowLeft to the previous
+- Use the shared `js/keyboard-nav.js` utility — do NOT duplicate the logic inline
+- Add the script with a `data-sections` attribute listing section IDs in order:
+  ```html
+  <script src="js/keyboard-nav.js" data-sections="hero,about,experience,contact"></script>
+  ```
 - Each `<section>` must have an `id` attribute for this to work
-- Reference implementation: `_presentations/src/hooks.js` (`useKeyboardNav`) for React, `js/jobs.js` for vanilla JS
+- Reference: `_presentations/src/hooks.js` (`useKeyboardNav`) for the React equivalent
 
 ## CSS Rules
 - Keep CSS files split by screen/concern — never create a single monolithic CSS file

@@ -1254,6 +1254,90 @@
         }
 
         /* ============================================
+           PRESENTATIONS
+           ============================================ */
+        .presentations {
+            padding: var(--section-padding) 24px;
+        }
+
+        .presentations__grid {
+            margin-top: 64px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .pres-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--color-gray-50);
+            border-radius: var(--border-radius-card);
+            padding: 36px 32px;
+            border: var(--border-light);
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .pres-card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .pres-card__category {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--cat-color, var(--color-blue-dark));
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .pres-card__title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .pres-card__desc {
+            font-size: 14px;
+            color: var(--color-gray-400);
+            line-height: 1.7;
+            flex: 1;
+            font-weight: 300;
+        }
+
+        .pres-card__date {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--color-gray-400);
+            margin-top: 20px;
+        }
+
+        .presentations__cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .presentations__view-all {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--color-blue-dark);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            transition: opacity 0.2s;
+        }
+
+        .presentations__view-all:hover {
+            opacity: 0.7;
+        }
+
+        /* ============================================
            CONTACT
            ============================================ */
         .contact {
@@ -1401,6 +1485,7 @@
             .skills__grid           { grid-template-columns: 1fr 1fr; }
             .achievements__grid     { grid-template-columns: 1fr; }
             .education__grid        { grid-template-columns: 1fr; }
+            .presentations__grid    { grid-template-columns: 1fr; }
             .hero__metrics          { gap: 32px; }
         }
 
@@ -1414,6 +1499,7 @@
             .skills,
             .achievements,
             .education,
+            .presentations,
             .contact {
                 padding: var(--section-padding-mobile) 20px;
             }
@@ -1498,6 +1584,7 @@
                 <li><a href="#skills" class="nav__link">Skills</a></li>
                 <li><a href="#achievements" class="nav__link">Achievements</a></li>
                 <li><a href="#education" class="nav__link">Education</a></li>
+                <li><a href="#presentations" class="nav__link">Presentations</a></li>
                 <li><a href="#contact" class="nav__link">Contact</a></li>
                 <li><a href="interview.html" class="nav__link nav__link--cta">Host iOS Interview</a></li>
             </ul>
@@ -1842,6 +1929,40 @@
             <article class="edu-card rv rv--d1"><p class="edu-card__eyebrow">👨‍🏫 Instructor</p><h3 class="edu-card__title">Algorithms &amp; Data Structures</h3><p class="edu-card__subtitle">Mziuri School of Technologies &middot; 2020 – 2023</p><p class="edu-card__detail">Taught 50+ students C++ programming, algorithm design, and competitive programming techniques.</p></article>
             <article class="edu-card rv rv--d2"><p class="edu-card__eyebrow">📚 Teaching Assistant</p><h3 class="edu-card__title">Programming Methodology</h3><p class="edu-card__subtitle">Free University of Tbilisi &middot; 2019 – 2020</p><p class="edu-card__detail">Helped students grasp core programming concepts, data structures, and algorithmic thinking.</p></article>
             <article class="edu-card rv rv--d3"><p class="edu-card__eyebrow">🧑‍💻 Mentorship</p><h3 class="edu-card__title">iOS Engineering Mentorship</h3><p class="edu-card__subtitle">Space International &middot; Ongoing</p><p class="edu-card__detail">Mentoring iOS engineers on architecture patterns, SwiftUI best practices, modularization, and testing strategies.</p></article>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     PRESENTATIONS
+     ========================================== -->
+<section class="presentations" id="presentations" aria-labelledby="presentations-heading">
+    <div class="container">
+        <p class="section-eyebrow rv">Tech Talks</p>
+        <h2 class="section-headline rv rv--d1" id="presentations-heading">Research &amp;<br>presentations.</h2>
+        <p class="section-desc rv rv--d2">Deep-dive technical presentations on iOS architecture, CI/CD, and GitHub workflows.</p>
+        <div class="presentations__grid">
+            <a href="presentations/#bitrise-config-analysis" class="pres-card rv">
+                <span class="pres-card__category" style="--cat-color: #4d9fff">CI/CD</span>
+                <h3 class="pres-card__title">Bitrise — CI as Code</h3>
+                <p class="pres-card__desc">Should bitrise.yml move from Bitrise.io managed storage into the Git repository? Trade-offs, security risks, safeguards, and a concrete recommendation.</p>
+                <span class="pres-card__date">Feb 2026</span>
+            </a>
+            <a href="presentations/#github-access-strategy" class="pres-card rv rv--d1">
+                <span class="pres-card__category" style="--cat-color: #00ff88">Architecture</span>
+                <h3 class="pres-card__title">GitHub Cross-Team Access &amp; Review Strategy</h3>
+                <p class="pres-card__desc">Decoupling write access from review authority so teams retain ownership without blocking cross-team collaboration.</p>
+                <span class="pres-card__date">Feb 2026</span>
+            </a>
+            <a href="presentations/#dotgithub-directory" class="pres-card rv rv--d2">
+                <span class="pres-card__category" style="--cat-color: #a78bfa">GitHub</span>
+                <h3 class="pres-card__title">The .github Directory</h3>
+                <p class="pres-card__desc">Every file GitHub recognizes inside .github/ — templates, automation, community health, ownership, and org-level defaults.</p>
+                <span class="pres-card__date">Feb 2026</span>
+            </a>
+        </div>
+        <div class="presentations__cta rv rv--d3">
+            <a href="presentations/" class="presentations__view-all">View All Presentations &rarr;</a>
         </div>
     </div>
 </section>

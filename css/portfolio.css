@@ -232,6 +232,77 @@ img, svg {
     filter: brightness(1.2);
 }
 
+/* Nav Dropdown */
+.nav__dropdown {
+    position: relative;
+}
+
+.nav__dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    padding: 0;
+}
+
+.nav__dropdown-arrow {
+    transition: transform 0.3s;
+}
+
+.nav__dropdown:hover .nav__dropdown-arrow,
+.nav__dropdown.is-open .nav__dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav__dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    list-style: none;
+    background: rgba(10, 10, 12, 0.92);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 8px 0;
+    min-width: 170px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+    z-index: 110;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown.is-open .nav__dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav__dropdown-menu .nav__link {
+    display: block;
+    padding: 9px 20px;
+    white-space: nowrap;
+    font-size: 13px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav__dropdown-menu .nav__link:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.nav__dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 6px 12px;
+}
+
 .nav__toggle {
     display: none;
     background: none;
@@ -1625,6 +1696,31 @@ img, svg {
         gap: 20px;
         border-bottom: var(--border-dark);
     }
+
+    /* Flatten dropdown in mobile hamburger */
+    .nav__dropdown-trigger { display: none; }
+    .nav__dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        min-width: 0;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .nav__dropdown-menu .nav__link {
+        padding: 0;
+        font-size: 14px;
+    }
+    .nav__dropdown-divider { display: none; }
 
     .hero {
         min-height: 90vh;

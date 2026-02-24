@@ -24,11 +24,10 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: presentations/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install and build presentations
         run: npm ci && npm run build
-        working-directory: presentations
 
       - name: Assemble site
         run: |
@@ -36,7 +35,7 @@ jobs:
           # Copy all root static files
           cp -r css js *.html *.pdf _site/
           # Copy built presentations into the site
-          cp -r presentations/dist _site/presentations
+          cp -r dist/presentations _site/presentations
 
       - uses: actions/upload-pages-artifact@v3
 

@@ -8,5 +8,8 @@
 .vscode/
 .idea/
 
-# Node (if added later)
+# Node
 node_modules/
+
+# Build output
+dist/

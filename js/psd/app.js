@@ -58,7 +58,6 @@
         buildCatGrid();
         updateFilteredCount();
         bindEvents();
-        InterviewUtils.initThemeToggle('btnTheme');
     }
 
     /* ============================================

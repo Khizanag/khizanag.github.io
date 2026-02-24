@@ -533,7 +533,6 @@
 
     function init() {
         cacheDom();
-        U.initThemeToggle('btnTheme');
         bindEvents();
         loadData();
     }

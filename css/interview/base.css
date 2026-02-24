@@ -23,35 +23,6 @@
     color: #6e6e73;
 }
 
-/* Theme toggle button */
-.nav__theme-toggle {
-    appearance: none;
-    background: none;
-    border: 1px solid var(--color-white-a10);
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--color-gray-400);
-    transition: all 0.2s;
-    padding: 0;
-    margin-left: 12px;
-    flex-shrink: 0;
-}
-
-.nav__theme-toggle:hover {
-    color: var(--color-yellow);
-    border-color: var(--color-yellow-a40);
-    background: var(--color-yellow-a8);
-}
-
-.nav__theme-icon--light { display: none; }
-.theme-light .nav__theme-icon--dark { display: none; }
-.theme-light .nav__theme-icon--light { display: block; }
-
 /* ============================================
    RESET & BASE
    ============================================ */

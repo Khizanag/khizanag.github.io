@@ -309,3 +309,81 @@ body::after {
 .nav__fullscreen__collapse { display: none; }
 .is-fullscreen .nav__fullscreen__expand { display: none; }
 .is-fullscreen .nav__fullscreen__collapse { display: block; }
+
+/* ============================================
+   THEME TOGGLE (shared across all pages)
+   ============================================ */
+.nav__theme-toggle {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    border: 1px solid var(--color-white-a10);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.25s;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.nav__theme-toggle:hover {
+    color: var(--color-yellow);
+    border-color: var(--color-yellow-a40);
+    background: var(--color-yellow-a8);
+}
+
+.nav__theme-icon--light { display: none; }
+.theme-light .nav__theme-icon--dark { display: none; }
+.theme-light .nav__theme-icon--light { display: block; }
+
+/* ============================================
+   BACK TO TOP (shared across all pages)
+   ============================================ */
+.g-btt {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid var(--color-white-a15);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--color-gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: all 0.3s;
+    z-index: 50;
+}
+
+.g-btt.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.g-btt:hover {
+    background: var(--color-teal-a30);
+    border-color: var(--color-teal-a25);
+    color: var(--color-teal);
+}
+
+@media (max-width: 768px) {
+    .g-btt { bottom: 16px; right: 16px; width: 40px; height: 40px; }
+}
+
+@media print {
+    .g-btt { display: none; }
+}

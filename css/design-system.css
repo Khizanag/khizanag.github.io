@@ -40,11 +40,13 @@
     --color-white-a25: rgba(255, 255, 255, 0.25);
 
     /* ── Alpha palette — black ───────────────── */
+    --color-black-a10: rgba(0, 0, 0, 0.10);
     --color-black-a40: rgba(0, 0, 0, 0.40);
     --color-black-a80: rgba(5, 8, 15, 0.88);
 
     /* ── Alpha palette — blue ────────────────── */
     --color-blue-a6:  rgba(41, 151, 255, 0.06);
+    --color-blue-a8:  rgba(41, 151, 255, 0.08);
     --color-blue-a10: rgba(41, 151, 255, 0.10);
     --color-blue-a12: rgba(41, 151, 255, 0.12);
     --color-blue-a15: rgba(41, 151, 255, 0.15);
@@ -58,6 +60,7 @@
     --color-green-a10: rgba(48, 209, 88, 0.10);
     --color-green-a12: rgba(48, 209, 88, 0.12);
     --color-green-a15: rgba(48, 209, 88, 0.15);
+    --color-green-a20: rgba(48, 209, 88, 0.20);
     --color-green-a30: rgba(48, 209, 88, 0.30);
 
     /* ── Alpha palette — yellow ──────────────── */
@@ -103,6 +106,7 @@
 
     /* ── Fonts ───────────────────────────────── */
     --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: var(--font-display);
     --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
@@ -168,10 +172,12 @@
     --color-white-a20: rgba(0, 0, 0, 0.20);
     --color-white-a25: rgba(0, 0, 0, 0.25);
 
+    --color-black-a10: rgba(0, 0, 0, 0.04);
     --color-black-a40: rgba(0, 0, 0, 0.10);
     --color-black-a80: rgba(255, 255, 255, 0.90);
 
     --color-blue-a6:  rgba(0, 113, 227, 0.06);
+    --color-blue-a8:  rgba(0, 113, 227, 0.08);
     --color-blue-a10: rgba(0, 113, 227, 0.10);
     --color-blue-a12: rgba(0, 113, 227, 0.12);
     --color-blue-a15: rgba(0, 113, 227, 0.15);
@@ -184,6 +190,7 @@
     --color-green-a10: rgba(36, 138, 61, 0.10);
     --color-green-a12: rgba(36, 138, 61, 0.12);
     --color-green-a15: rgba(36, 138, 61, 0.15);
+    --color-green-a20: rgba(36, 138, 61, 0.20);
     --color-green-a30: rgba(36, 138, 61, 0.30);
 
     --color-orange-a4:  rgba(178, 80, 0, 0.04);

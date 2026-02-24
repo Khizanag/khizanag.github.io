@@ -17,19 +17,26 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - HTML files reference external CSS via `<link>` tags — do not use inline `<style>` blocks
 
 ## Structure
-- `index.html` — the main portfolio page (HTML + JS, styles in `css/portfolio.css`)
-- `jobs.html` — iOS Career Hub page (HTML + JS, styles in `css/jobs.css`)
+- `index.html` — the main portfolio page (HTML + JS, styles in `css/portfolio/portfolio.css`)
+- `jobs.html` — iOS Career Hub page (HTML + JS, styles in `css/jobs/jobs.css`)
 - `roadmap.html` — iOS Mastery Roadmap (knowledge map for Senior iOS Developers)
 - `interview.html` — iOS Interview tool
-- `css/` — all stylesheets:
-  - `portfolio.css` — portfolio page styles (design tokens, layout, components, responsive, animations)
-  - `jobs.css` — Career Hub page styles (design tokens, layout, components, responsive, animations)
-  - `roadmap.css` — roadmap page styles (flowchart, domain cards, topic checklists, progress tracking)
-  - `theme-pres.css` — presentations theme override (dark navy, neon green, animated grid/blobs)
-  - `theme-default.css` — default theme placeholder (inline styles are the default)
-  - `interview-*.css` — interview tool styles, split by screen/concern
-- `js/` — modular JS files (config, session, timer, plan, results, app, keyboard-nav, roadmap, etc.)
-- `js/roadmap.js` — roadmap interactivity (data-driven rendering, progress tracking, expand/collapse, filtering)
+- `css/` — stylesheets organized by concern:
+  - `core/` — `design-system.css` (tokens, variables), `scroll-indicator.css` (shared scroll component)
+  - `themes/` — `default.css` (placeholder), `pres.css` (dark navy + neon green)
+  - `portfolio/` — `portfolio.css` (portfolio page styles)
+  - `jobs/` — `jobs.css` (Career Hub page styles)
+  - `roadmap/` — `roadmap.css` (flowchart, domain cards, topic checklists, progress tracking)
+  - `interview/` — `base.css`, `auth.css`, `setup.css`, `dashboard.css`, `question.css`, `results.css`, `bank.css`, `analytics.css`, `flashcard.css`, `templates.css`, `custom.css`, `sandbox.css`, `gamification.css`, `profile.css`, `live.css`, `host.css`, `guide.css`, `config-page.css`, `history-page.css`, `responsive.css`
+  - `psd/` — `psd.css` (PSD study tool styles)
+- `js/` — scripts organized by concern:
+  - `shared/` — `keyboard-nav.js` (ArrowLeft/ArrowRight section navigation)
+  - `jobs/` — `jobs.js` (Career Hub interactivity)
+  - `roadmap/` — `roadmap.js` (data-driven rendering, progress tracking, expand/collapse, filtering)
+  - `interview/` — app modules (`app.js`, `config.js`, `session.js`, `timer.js`, `plan.js`, `results.js`, `history.js`, `utils.js`, `features.js`, `highlighter.js`, `firebase.js`, `live.js`, `flashcard.js`, `analytics.js`, `bank.js`, `templates.js`, `custom.js`, `sandbox.js`, `gamification.js`, `guide.js`, `host.js`, `config-page.js`, `history-page.js`)
+  - `interview/questions/` — `ios.js`, `android.js`, `frontend.js`, `backend.js`, `behavioral.js`
+  - `interview/live-coding/` — `index.js`, `easy-medium.js`, `hard-expert.js`
+  - `psd/` — `questions.js`, `app.js` (PSD study tool)
 - `presentations/` — React + Vite source for tech talk presentations (built and deployed via GitHub Actions)
 
 ## Component Reuse Rules
@@ -41,23 +48,23 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 
 ## Keyboard Section Navigation
 - **Every multi-section page must support ArrowLeft/ArrowRight keyboard navigation** between sections
-- Use the shared `js/keyboard-nav.js` utility — do NOT duplicate the logic inline
+- Use the shared `js/shared/keyboard-nav.js` utility — do NOT duplicate the logic inline
 - Add the script with a `data-sections` attribute listing section IDs in order:
   ```html
-  <script src="js/keyboard-nav.js" data-sections="hero,about,experience,contact"></script>
+  <script src="js/shared/keyboard-nav.js" data-sections="hero,about,experience,contact"></script>
   ```
 - Each `<section>` must have an `id` attribute for this to work
 - Reference: `presentations/src/hooks.js` (`useKeyboardNav`) for the React equivalent
 
 ## CSS Rules
-- Each page has its own CSS file: `portfolio.css`, `jobs.css`, `interview-*.css`
-- Theme overrides live in `css/theme-pres.css` — loaded after the page CSS via cascade
+- Each page has its own CSS subdirectory: `css/portfolio/`, `css/jobs/`, `css/interview/`
+- Theme overrides live in `css/themes/pres.css` — loaded after the page CSS via cascade
 - Keep CSS files split by screen/concern — never create a single monolithic CSS file
-- Interview tool split: `interview-base.css`, `interview-setup.css`, `interview-question.css`, `interview-results.css`, `interview-responsive.css`
-- When adding new styles, place them in the appropriate page CSS file
+- Interview tool CSS lives in `css/interview/`: `base.css`, `setup.css`, `question.css`, `results.css`, `responsive.css`, etc.
+- When adding new styles, place them in the appropriate subdirectory
 
 ## Question Bank Rules
-- Answers in `js/questions.js` should use `\n` line breaks to separate distinct concepts
+- Answers in `js/interview/questions/ios.js` should use `\n` line breaks to separate distinct concepts
 - Lists of items should use `\n- ` prefix for each item
 - Short answers (1-2 sentences) stay as single lines
 - Comparisons should separate each item with `\n`
@@ -77,8 +84,8 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - Vite `base` is set to `/presentations/` — do not change without updating the deploy workflow
 
 ## Theme System
-- Two themes: `css/theme-default.css` (Apple-style) and `css/theme-pres.css` (presentations dark navy)
-- Both `index.html` and `jobs.html` include `<link id="themeCSS" href="css/theme-pres.css">`
+- Two themes: `css/themes/default.css` (Apple-style) and `css/themes/pres.css` (presentations dark navy)
+- Both `index.html` and `jobs.html` include `<link id="themeCSS" href="css/themes/pres.css">`
 - To switch themes: change the `href` attribute on the `#themeCSS` link
 - Theme CSS overrides `:root` custom properties + adds structural CSS via cascade
 - The presentations theme adds animated grid (body::before) and ambient blobs (body::after)

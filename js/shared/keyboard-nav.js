@@ -5,7 +5,7 @@
  * Reads section IDs from the `data-sections` attribute on its own <script> tag.
  *
  * Usage:
- *   <script src="js/keyboard-nav.js"
+ *   <script src="js/shared/keyboard-nav.js"
  *           data-sections="hero,about,experience,projects"></script>
  *
  * Ported from the presentations' useKeyboardNav React hook.

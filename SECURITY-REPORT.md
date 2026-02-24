@@ -19,33 +19,33 @@ Overall security posture is **moderate** for a client-side practice tool. Major 
 
 | # | Issue | File | Status |
 |---|-------|------|--------|
-| 1 | **Firestore rules unknown** — API key is public (expected for web Firebase). If Firestore rules are permissive, anyone can read/write all user data. | `js/interview-firebase.js:35-42` | **Verify in Firebase Console** |
-| 2 | **Popup window uses `doc.write()` + `window.opener`** — deprecated API, fragile cross-window reference. Low real-world risk since popup is same-origin. | `js/interview-app.js:1201` | Open (low practical risk) |
+| 1 | **Firestore rules unknown** — API key is public (expected for web Firebase). If Firestore rules are permissive, anyone can read/write all user data. | `js/interview/firebase.js:35-42` | **Verify in Firebase Console** |
+| 2 | **Popup window uses `doc.write()` + `window.opener`** — deprecated API, fragile cross-window reference. Low real-world risk since popup is same-origin. | `js/interview/app.js:1201` | Open (low practical risk) |
 
 ### High
 
 | # | Issue | File | Status |
 |---|-------|------|--------|
-| 3 | **Code sandbox uses `new Function()`** — user-written code executes with full window access. Intentional feature for practice, but not sandboxed. | `js/interview-sandbox.js:195` | Intentional (document limitation) |
+| 3 | **Code sandbox uses `new Function()`** — user-written code executes with full window access. Intentional feature for practice, but not sandboxed. | `js/interview/sandbox.js:195` | Intentional (document limitation) |
 
 ### Medium
 
 | # | Issue | File | Status |
 |---|-------|------|--------|
 | 4 | **No Content-Security-Policy** — GitHub Pages cannot set HTTP headers, but a `<meta>` CSP tag could be added. | `interview.html`, `history.html` | Open |
-| 5 | **No Subresource Integrity (SRI)** on Firebase CDN imports. | `js/interview-firebase.js:7-12` | Open |
+| 5 | **No Subresource Integrity (SRI)** on Firebase CDN imports. | `js/interview/firebase.js:7-12` | Open |
 | 6 | **localStorage data tamperable** — history, XP, flashcard progress can be modified via DevTools. Mitigated by Firebase as source of truth for authenticated users. | Multiple files | Accepted risk |
 | 7 | **No X-Frame-Options / frame-busting** — page can be embedded in iframes. Limited risk since no sensitive form actions exist. | All HTML pages | Open |
-| 8 | **photoURL not URL-validated** — Firebase user photo URLs are set as `img.src` directly. Mitigated by `referrerPolicy: 'no-referrer'`. | `js/interview-app.js:1687,1717` | Mitigated |
-| 9 | **Anonymous auth** allows unlimited account creation. Should have Firestore write quotas. | `js/interview-firebase.js:97` | Depends on rules |
+| 8 | **photoURL not URL-validated** — Firebase user photo URLs are set as `img.src` directly. Mitigated by `referrerPolicy: 'no-referrer'`. | `js/interview/app.js:1687,1717` | Mitigated |
+| 9 | **Anonymous auth** allows unlimited account creation. Should have Firestore write quotas. | `js/interview/firebase.js:97` | Depends on rules |
 
 ### Low / Info
 
 | # | Issue | File | Status |
 |---|-------|------|--------|
 | 10 | **Theme preference in localStorage** uses strict equality check — safe. | `interview.html:16` | Mitigated |
-| 11 | **displayName from Firebase** rendered via `textContent` — safe against XSS. | `js/interview-app.js:1684` | Fixed |
-| 12 | **Custom question import** validated with schema checks (type, range, required fields). | `js/interview-custom.js` | Fixed |
+| 11 | **displayName from Firebase** rendered via `textContent` — safe against XSS. | `js/interview/app.js:1684` | Fixed |
+| 12 | **Custom question import** validated with schema checks (type, range, required fields). | `js/interview/custom.js` | Fixed |
 
 ---
 

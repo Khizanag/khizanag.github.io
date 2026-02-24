@@ -87,13 +87,22 @@ export function Home({ onOpen }) {
       </div>
 
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "0 48px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between", background: scrolled ? "rgba(5,8,15,0.85)" : "transparent", backdropFilter: scrolled ? "blur(24px) saturate(160%)" : "none", borderBottom: `1px solid ${scrolled ? C.border : "transparent"}`, transition: "background 0.4s, backdrop-filter 0.4s, border-color 0.4s" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 30, height: 30, borderRadius: 8, background: C.accentDim, border: `1px solid ${C.accent}40`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: 8, height: 8, borderRadius: 2, background: C.accent }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <a href="../" style={{ display: "flex", alignItems: "center", gap: 7, textDecoration: "none", color: C.muted, fontFamily: "'Syne', sans-serif", fontWeight: 600, fontSize: 13, letterSpacing: "0.01em", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = C.accent} onMouseLeave={(e) => e.currentTarget.style.color = C.muted}>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M11 7H3M3 7l4-4M3 7l4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Portfolio
+          </a>
+          <div style={{ width: 1, height: 20, background: C.border }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ width: 30, height: 30, borderRadius: 8, background: C.accentDim, border: `1px solid ${C.accent}40`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ width: 8, height: 8, borderRadius: 2, background: C.accent }} />
+            </div>
+            <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 15, color: C.text, letterSpacing: "-0.01em" }}>
+              Giga<span style={{ color: C.accent }}>K</span>
+            </span>
           </div>
-          <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 15, color: C.text, letterSpacing: "-0.01em" }}>
-            Giga<span style={{ color: C.accent }}>K</span>
-          </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", background: C.accentDim, border: `1px solid ${C.accent}30`, borderRadius: 50 }}>
           <div style={{ width: 5, height: 5, borderRadius: "50%", background: C.accent, animation: "pulse-glow 2.5s ease infinite" }} />

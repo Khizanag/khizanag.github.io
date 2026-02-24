@@ -3358,5 +3358,565 @@ var PSD_QUESTIONS = [
     "explanation": "False. More code ≠ better. Good developers write the MINIMUM code needed. Less code means less to maintain, fewer bugs, and lower complexity. Quality over quantity.",
     "source": "PSD Course — Code Quality",
     "tip": "Best code = least code that works. Simplicity is a virtue."
+  },
+  {
+    "id": 350,
+    "category": "Scrum Framework",
+    "difficulty": "Easy",
+    "question": "Which three accountabilities exist in the Scrum Framework?",
+    "options": [
+      "Project Manager, Development Team, and Business Analyst",
+      "Scrum Master, Product Owner, and Developers",
+      "Team Lead, Product Owner, and QA Engineer",
+      "Scrum Master, Stakeholders, and Developers"
+    ],
+    "correct": 1,
+    "explanation": "The Scrum Guide 2020 defines exactly three accountabilities: the Scrum Master, Product Owner, and Developers. There are no other formal roles in Scrum. Stakeholders, managers, and other titles are not Scrum accountabilities.",
+    "source": "Scrum Guide 2020 — Scrum Team section",
+    "tip": "Scrum has exactly 3 accountabilities: SM + PO + Developers. Nothing more."
+  },
+  {
+    "id": 351,
+    "category": "Scrum Framework",
+    "difficulty": "Easy",
+    "question": "Who is accountable for the Product Backlog?",
+    "options": [
+      "The entire Scrum Team",
+      "The Scrum Master",
+      "The Developers",
+      "The Product Owner"
+    ],
+    "correct": 3,
+    "explanation": "The Product Owner is solely accountable for managing the Product Backlog. This includes ordering items, ensuring transparency, and making the Backlog visible to stakeholders. While Developers may help refine items, accountability lies with the Product Owner.",
+    "source": "Scrum Guide 2020 — Product Owner section",
+    "tip": "PO = Product Backlog accountability. Period."
+  },
+  {
+    "id": 352,
+    "category": "Scrum Master",
+    "difficulty": "Easy",
+    "question": "What is the primary role of the Scrum Master?",
+    "options": [
+      "To manage the Scrum Team and assign tasks",
+      "To ensure the team meets its Sprint commitments",
+      "To cause the effectiveness of the Scrum Team by helping everyone understand Scrum theory and practice",
+      "To report team progress to upper management"
+    ],
+    "correct": 2,
+    "explanation": "The Scrum Master is accountable for the Scrum Team's effectiveness. They do this by enabling everyone to understand Scrum theory, practice, rules, and values. The Scrum Master is a true leader who serves the Scrum Team — not a manager or task assigner.",
+    "source": "Scrum Guide 2020 — Scrum Master section",
+    "tip": "SM = servant-leader who enables effectiveness through Scrum understanding."
+  },
+  {
+    "id": 353,
+    "category": "Sprint Events",
+    "difficulty": "Medium",
+    "question": "What is the primary purpose of the Sprint Goal?",
+    "options": [
+      "To define every task the Developers must complete during the Sprint",
+      "To provide a single objective that gives the Sprint coherence and focus",
+      "To communicate team velocity to stakeholders",
+      "To lock in scope so no changes can be made during the Sprint"
+    ],
+    "correct": 1,
+    "explanation": "The Sprint Goal is the single objective for the Sprint. It gives the Developers flexibility in the work needed to achieve it while providing focus and coherence. It is created during Sprint Planning and represents a commitment by the Developers.",
+    "source": "Scrum Guide 2020 — Sprint Goal section",
+    "tip": "Sprint Goal = ONE objective. Coherence + focus, not a task list."
+  },
+  {
+    "id": 354,
+    "category": "Sprint Events",
+    "difficulty": "Medium",
+    "question": "During the Sprint, a stakeholder asks the Developers to add a high-priority item that will jeopardize the Sprint Goal. What should the Developers do?",
+    "options": [
+      "Add the item immediately since stakeholders have authority over the team",
+      "Refuse the request entirely because Sprint scope is locked",
+      "Discuss the situation with the Product Owner, who can negotiate scope with the stakeholder",
+      "Extend the Sprint to accommodate the new item"
+    ],
+    "correct": 2,
+    "explanation": "Only the Product Owner has the authority to cancel a Sprint. If new work arises that would jeopardize the Sprint Goal, the Developers should engage the Product Owner. The PO can negotiate scope adjustments without necessarily cancelling the Sprint. The Sprint Goal should remain intact.",
+    "source": "Scrum Guide 2020 — Sprint section",
+    "tip": "Sprint Goal threatened? Escalate to PO. Only PO can cancel a Sprint."
+  },
+  {
+    "id": 355,
+    "category": "Cross-functional Teams",
+    "difficulty": "Easy",
+    "question": "What does it mean for a Scrum Team to be self-managing?",
+    "options": [
+      "The team works without a Scrum Master",
+      "The team decides internally who does what, when, and how",
+      "The team manages its own budget and hiring",
+      "The team has no external dependencies"
+    ],
+    "correct": 1,
+    "explanation": "Self-managing means the Scrum Team internally decides who does the work, how it gets done, and when. No one outside the Scrum Team tells the Developers how to turn Product Backlog items into Increments of value. This is a core property of Scrum Teams.",
+    "source": "Scrum Guide 2020 — Scrum Team section",
+    "tip": "Self-managing = WHO does WHAT, WHEN, and HOW — decided internally."
+  },
+  {
+    "id": 356,
+    "category": "Cross-functional Teams",
+    "difficulty": "Medium",
+    "question": "A Scrum Team lacks testing skills and consistently delivers low-quality Increments. What is the BEST course of action?",
+    "options": [
+      "Hire a dedicated QA team to test the Increment after each Sprint",
+      "The Scrum Team should acquire or develop the testing skills needed to deliver a Done Increment",
+      "Ask the Scrum Master to perform testing",
+      "Accept the lower quality and address it in future Sprints"
+    ],
+    "correct": 1,
+    "explanation": "Scrum Teams must be cross-functional — they have all the skills necessary to create value each Sprint. If testing skills are missing, the team must acquire or develop them. Handing testing off to a separate team violates the cross-functional nature and delays feedback.",
+    "source": "Scrum Guide 2020 — Developers section",
+    "tip": "Cross-functional = ALL skills inside the team. No external handoffs."
+  },
+  {
+    "id": 357,
+    "category": "Done & Quality",
+    "difficulty": "Medium",
+    "question": "Who creates the Definition of Done?",
+    "options": [
+      "The Scrum Master defines it based on industry standards",
+      "The Product Owner defines it to protect stakeholder interests",
+      "If not an organizational standard, the Scrum Team creates it during Sprint 0",
+      "If the organization has no standard, the Developers create the Definition of Done"
+    ],
+    "correct": 3,
+    "explanation": "If the organization does not provide a Definition of Done, the Developers must create one. If multiple Scrum Teams work on the same product, they must together define a shared Definition of Done. There is no 'Sprint 0' in Scrum.",
+    "source": "Scrum Guide 2020 — Definition of Done section",
+    "tip": "DoD: org standard if exists, else Developers define it. No Sprint 0."
+  },
+  {
+    "id": 358,
+    "category": "Done & Quality",
+    "difficulty": "Hard",
+    "question": "An organization mandates that all releases require a security audit by an external team after each Sprint. This audit takes two weeks. How should this be handled?",
+    "options": [
+      "Add the two-week audit to the Sprint duration, making each Sprint three weeks long",
+      "Work to incorporate security auditing capabilities into the team and make it part of the Definition of Done",
+      "Schedule security audits once per quarter to reduce overhead",
+      "Exclude security auditing from the Definition of Done since it is done externally"
+    ],
+    "correct": 1,
+    "explanation": "The Definition of Done should represent the quality required to release. External audit gates that delay release signal an incomplete Definition of Done. The team should strive to bring security auditing into each Sprint — ideally automated — so the Increment is truly Done at Sprint end. This is the spirit of empiricism and continuous improvement.",
+    "source": "Scrum Guide 2020 — Definition of Done; PSD Engineering Practices",
+    "tip": "External release gates = incomplete DoD. Bring them inside the Sprint."
+  },
+  {
+    "id": 359,
+    "category": "Done & Quality",
+    "difficulty": "Hard",
+    "question": "What happens to Product Backlog items that do not meet the Definition of Done at Sprint end?",
+    "options": [
+      "They are shipped anyway and marked as technical debt",
+      "They are returned to the Product Backlog for future consideration by the Product Owner",
+      "They are automatically moved to the next Sprint",
+      "The Sprint is extended until they are Done"
+    ],
+    "correct": 1,
+    "explanation": "If a Product Backlog item does not meet the Definition of Done, it cannot be included in the Sprint Review or considered part of the Increment. It is returned to the Product Backlog. The Product Owner may reorder it. Sprints are never extended.",
+    "source": "Scrum Guide 2020 — Increment and Definition of Done sections",
+    "tip": "Not Done? Back to the Backlog. Never extend a Sprint."
+  },
+  {
+    "id": 360,
+    "category": "Sprint Events",
+    "difficulty": "Medium",
+    "question": "What are the two topics addressed during Sprint Planning?",
+    "options": [
+      "What to build and who will build it",
+      "Why is the Sprint valuable, what can be Done, and how will it be done",
+      "Backlog ordering and team velocity calculation",
+      "Risk assessment and resource allocation"
+    ],
+    "correct": 1,
+    "explanation": "Sprint Planning addresses three topics: (1) WHY is this Sprint valuable — establishing the Sprint Goal; (2) WHAT can be Done — selecting Product Backlog items; and (3) HOW will the chosen work get done — creating a plan. The Scrum Guide 2020 explicitly defines these three topics.",
+    "source": "Scrum Guide 2020 — Sprint Planning section",
+    "tip": "Sprint Planning = WHY (Goal) + WHAT (selection) + HOW (plan)."
+  },
+  {
+    "id": 361,
+    "category": "Sprint Events",
+    "difficulty": "Easy",
+    "question": "What is the timebox for Sprint Planning for a one-month Sprint?",
+    "options": [
+      "4 hours",
+      "8 hours",
+      "2 hours",
+      "As long as needed to plan the entire Sprint"
+    ],
+    "correct": 1,
+    "explanation": "Sprint Planning is timeboxed to a maximum of 8 hours for a one-month Sprint. For shorter Sprints, the event is usually shorter proportionally. Timeboxes create focus and prevent over-planning.",
+    "source": "Scrum Guide 2020 — Sprint Planning section",
+    "tip": "Sprint Planning timebox: 8 hours max for a 1-month Sprint."
+  },
+  {
+    "id": 362,
+    "category": "Backlog Management",
+    "difficulty": "Medium",
+    "question": "What is the purpose of Product Backlog refinement?",
+    "options": [
+      "To lock in all Sprint work before Sprint Planning",
+      "To add detail, estimates, and order to Product Backlog items",
+      "To remove completed items from the backlog after each Sprint",
+      "To reassign priorities based on team capacity"
+    ],
+    "correct": 1,
+    "explanation": "Product Backlog refinement is the act of breaking down and further defining Product Backlog items into smaller, more precise items. This includes adding details, estimates, and ordering. It is an ongoing activity, not a one-time event.",
+    "source": "Scrum Guide 2020 — Product Backlog section",
+    "tip": "Refinement = add detail + estimate + order. Ongoing, not one-time."
+  },
+  {
+    "id": 363,
+    "category": "Backlog Management",
+    "difficulty": "Hard",
+    "question": "How much time should Developers spend on Product Backlog refinement?",
+    "options": [
+      "No more than 10% of the Developers' capacity",
+      "At least 20% of each Sprint",
+      "It depends on the Sprint length and backlog size",
+      "As much time as the Product Owner requests"
+    ],
+    "correct": 0,
+    "explanation": "The Scrum Guide suggests that Developers usually spend no more than 10% of their capacity on refinement. This is a guideline, not a hard rule, but it ensures the team balances building valuable increments with keeping the backlog ready.",
+    "source": "Scrum Guide 2020 — Product Backlog refinement section",
+    "tip": "Refinement guideline: no more than 10% of Developers' capacity."
+  },
+  {
+    "id": 364,
+    "category": "DevOps & Engineering",
+    "difficulty": "Medium",
+    "question": "What is Continuous Integration (CI)?",
+    "options": [
+      "Releasing software to production after every commit",
+      "A practice where developers frequently merge code into a shared mainline, triggering automated builds and tests",
+      "Integrating team members from different departments into one team",
+      "Running manual regression tests at the end of each Sprint"
+    ],
+    "correct": 1,
+    "explanation": "Continuous Integration is the practice of frequently merging code changes into a shared repository (often multiple times per day), where automated builds and tests are triggered. This provides rapid feedback on code quality and integration issues, supporting a sustainable pace.",
+    "source": "PSD Course — Continuous Integration",
+    "tip": "CI = frequent merges + automated build+test = fast feedback."
+  },
+  {
+    "id": 365,
+    "category": "DevOps & Engineering",
+    "difficulty": "Hard",
+    "question": "Which statement BEST describes the relationship between Continuous Integration and the Definition of Done?",
+    "options": [
+      "CI and the Definition of Done are unrelated practices",
+      "CI replaces the need for a Definition of Done",
+      "A robust CI pipeline helps teams consistently meet and enforce the Definition of Done",
+      "The Definition of Done should only contain manual acceptance criteria"
+    ],
+    "correct": 2,
+    "explanation": "A strong CI pipeline automates many quality checks (build, tests, static analysis, security scans) that form part of the Definition of Done. When CI runs on every commit, it helps the team maintain Done quality continuously rather than discovering failures at Sprint end.",
+    "source": "PSD Course — CI and Definition of Done",
+    "tip": "CI enforces DoD automatically. Good CI = consistently Done."
+  },
+  {
+    "id": 366,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "What is the main benefit of pair programming?",
+    "options": [
+      "It halves the amount of code produced per day",
+      "It produces code faster because two people work simultaneously",
+      "It improves code quality through continuous real-time code review and knowledge sharing",
+      "It is required by the Scrum Guide for all Developers"
+    ],
+    "correct": 2,
+    "explanation": "Pair programming involves two developers working together at one workstation. One writes code (driver) while the other reviews (navigator). This continuous real-time review catches defects early, spreads knowledge, and typically produces higher-quality code — often offsetting the apparent cost of using two people.",
+    "source": "PSD Course — Pair Programming; Extreme Programming practices",
+    "tip": "Pair programming = real-time review + knowledge sharing = higher quality."
+  },
+  {
+    "id": 367,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "When should testing ideally occur in a Sprint?",
+    "options": [
+      "During a dedicated testing phase at the end of the Sprint",
+      "In a separate Sprint reserved for integration and testing",
+      "Continuously throughout the Sprint, alongside development",
+      "Only after the Product Owner approves the completed features"
+    ],
+    "correct": 2,
+    "explanation": "Testing should be integrated into the development workflow and happen continuously throughout the Sprint — not saved for the end. Late testing creates a bottleneck, reduces feedback speed, and risks not completing work within the Sprint timebox. This is a core principle of Agile engineering.",
+    "source": "PSD Course — Testing Practices; Agile Testing principles",
+    "tip": "Test continuously, not at the end. Testing is part of Done, not after."
+  },
+  {
+    "id": 368,
+    "category": "Testing & Quality",
+    "difficulty": "Hard",
+    "question": "A team consistently finds that manual testing near Sprint end prevents them from delivering a Done Increment. What is the BEST long-term solution?",
+    "options": [
+      "Add more testers to the Scrum Team",
+      "Automate tests and shift testing left so defects are caught earlier in development",
+      "Extend the Sprint by a few days to complete testing",
+      "Remove some backlog items to make room for testing"
+    ],
+    "correct": 1,
+    "explanation": "Test automation and 'shifting left' (testing earlier in the development process) is the sustainable solution. Automated tests run fast, are repeatable, and integrate into CI pipelines. Simply adding more manual testers doesn't address the root cause — late, slow feedback — and adding Sprint days violates Scrum's fixed timebox principle.",
+    "source": "PSD Course — Test Automation; Shift Left Testing",
+    "tip": "Automate + shift left = sustainable quality. Don't extend Sprints."
+  },
+  {
+    "id": 369,
+    "category": "Agile Principles",
+    "difficulty": "Easy",
+    "question": "What is empiricism in the context of Scrum?",
+    "options": [
+      "Making decisions based on historical project data and projections",
+      "Making decisions based on what is known from experience, observation, and experimentation",
+      "Following a fixed process based on proven best practices",
+      "Applying scientific research to software development methodologies"
+    ],
+    "correct": 1,
+    "explanation": "Scrum is founded on empiricism — the philosophy that knowledge comes from experience and making decisions based on what is observed. The three pillars of empiricism in Scrum are Transparency, Inspection, and Adaptation. This contrasts with a predictive or plan-driven approach.",
+    "source": "Scrum Guide 2020 — Scrum Theory section",
+    "tip": "Empiricism = decisions from observation and experience. T + I + A."
+  },
+  {
+    "id": 370,
+    "category": "Agile Principles",
+    "difficulty": "Medium",
+    "question": "What are the three pillars of empiricism that support Scrum?",
+    "options": [
+      "Planning, Execution, and Review",
+      "Transparency, Inspection, and Adaptation",
+      "Communication, Collaboration, and Commitment",
+      "Velocity, Quality, and Predictability"
+    ],
+    "correct": 1,
+    "explanation": "The three pillars of empiricism in Scrum are Transparency (making the work visible), Inspection (frequently examining the work and progress), and Adaptation (adjusting based on what is found). All Scrum events are designed to support these three pillars.",
+    "source": "Scrum Guide 2020 — Scrum Theory section",
+    "tip": "Three pillars: Transparency → Inspection → Adaptation. TIA."
+  },
+  {
+    "id": 371,
+    "category": "Agile Principles",
+    "difficulty": "Medium",
+    "question": "Which Scrum value describes a Scrum Team member's willingness to share concerns, failures, and progress honestly with teammates and stakeholders?",
+    "options": [
+      "Commitment",
+      "Focus",
+      "Openness",
+      "Courage"
+    ],
+    "correct": 2,
+    "explanation": "Openness is the Scrum value that relates to being transparent and honest about work, challenges, and progress. Scrum Team members and stakeholders practice openness about all the work and challenges. It underpins the Transparency pillar of empiricism.",
+    "source": "Scrum Guide 2020 — Scrum Values section",
+    "tip": "Openness = honest transparency about work AND challenges."
+  },
+  {
+    "id": 372,
+    "category": "Agile Principles",
+    "difficulty": "Hard",
+    "question": "A team is reluctant to show the Sprint Review stakeholders an Increment that is not fully polished. Which Scrum value are they failing to embody?",
+    "options": [
+      "Focus",
+      "Respect",
+      "Courage",
+      "Commitment"
+    ],
+    "correct": 2,
+    "explanation": "Courage is the Scrum value of doing the right thing and working on tough problems even when difficult. Showing an unpolished but Done Increment requires courage — to invite feedback, to be vulnerable, and to prioritize learning over appearances. Avoiding the review due to imperfection undermines transparency and empiricism.",
+    "source": "Scrum Guide 2020 — Scrum Values section",
+    "tip": "Courage = doing the right thing even when uncomfortable. Show the real work."
+  },
+  {
+    "id": 373,
+    "category": "Scrum Master",
+    "difficulty": "Medium",
+    "question": "How does the Scrum Master serve the Developers?",
+    "options": [
+      "By assigning tasks and tracking individual velocity",
+      "By coaching team members on self-management, removing impediments, and protecting the team from distractions",
+      "By making technical decisions when the team is blocked",
+      "By reporting Developer performance to the Product Owner"
+    ],
+    "correct": 1,
+    "explanation": "The Scrum Master serves the Developers by coaching them on self-management and cross-functionality, helping them focus on creating high-value Increments, removing impediments, and ensuring all Scrum events are positive and productive. The SM does not manage individuals or make technical decisions for the team.",
+    "source": "Scrum Guide 2020 — Scrum Master section",
+    "tip": "SM serves Devs: coach self-management, remove impediments, protect focus."
+  },
+  {
+    "id": 374,
+    "category": "Scrum Master",
+    "difficulty": "Hard",
+    "question": "The organization's management wants the Scrum Master to provide weekly individual performance reports for each Developer. What should the Scrum Master do?",
+    "options": [
+      "Provide the reports as requested to maintain good organizational relations",
+      "Provide aggregated team-level metrics but not individual performance data",
+      "Explain to management how Scrum works and help them understand more effective ways to track team performance",
+      "Ask the Product Owner to provide the reports instead"
+    ],
+    "correct": 2,
+    "explanation": "The Scrum Master serves the organization by helping management understand Scrum empiricism and self-management. Individual performance reporting undermines team cohesion and self-management. The SM should coach management on how to use Scrum artifacts and events to gain the information they need without micromanaging individuals.",
+    "source": "Scrum Guide 2020 — Scrum Master serving the organization",
+    "tip": "SM coaches org on Scrum. Individual tracking undermines self-management."
+  },
+  {
+    "id": 375,
+    "category": "DevOps & Engineering",
+    "difficulty": "Medium",
+    "question": "What is the key difference between Continuous Delivery and Continuous Deployment?",
+    "options": [
+      "Continuous Delivery requires more automation than Continuous Deployment",
+      "Continuous Delivery ensures the software is always releasable; Continuous Deployment automatically releases every change to production",
+      "Continuous Deployment is slower and more controlled than Continuous Delivery",
+      "They are the same practice with different names"
+    ],
+    "correct": 1,
+    "explanation": "Continuous Delivery means the software is always in a releasable state after every change — but releasing to production is a business decision made manually. Continuous Deployment goes further: every passing change is automatically deployed to production without human intervention.",
+    "source": "PSD Course — CD Pipeline; Humble & Farley 'Continuous Delivery'",
+    "tip": "CD delivery = always releasable (manual trigger). CD deployment = auto to prod."
+  },
+  {
+    "id": 376,
+    "category": "DevOps & Engineering",
+    "difficulty": "Hard",
+    "question": "A team's CI pipeline takes 45 minutes to complete. What is the most significant problem this creates?",
+    "options": [
+      "The pipeline costs too much to run",
+      "Developers lose context and receive slow feedback, making it harder to fix integration issues quickly",
+      "Management cannot track progress in real time",
+      "The Sprint Review cannot happen until the pipeline finishes"
+    ],
+    "correct": 1,
+    "explanation": "Long CI pipeline feedback cycles mean developers have moved on to new work by the time a failure is reported. They must context-switch back, re-familiarize with the code, and fix it — costly and error-prone. Fast CI (ideally under 10 minutes) is critical for maintaining rapid feedback loops.",
+    "source": "PSD Course — CI Feedback Loops; Continuous Delivery best practices",
+    "tip": "Slow CI = slow feedback = expensive context switches. Aim for under 10 min."
+  },
+  {
+    "id": 377,
+    "category": "Backlog Management",
+    "difficulty": "Hard",
+    "question": "The Product Owner wants to add a new item to the current Sprint Backlog that would not compromise the Sprint Goal. Who decides whether to accept it?",
+    "options": [
+      "The Scrum Master, who must protect the team's Sprint commitments",
+      "The Developers, since they own the Sprint Backlog",
+      "The Product Owner, since they own the Product Backlog",
+      "The whole Scrum Team must vote on it"
+    ],
+    "correct": 1,
+    "explanation": "The Sprint Backlog belongs to the Developers. Only the Developers can change the Sprint Backlog during the Sprint. While the Product Owner can communicate a desire to add work, the Developers decide whether to accept it. If accepting it doesn't jeopardize the Sprint Goal, the Developers may agree to it.",
+    "source": "Scrum Guide 2020 — Sprint Backlog section",
+    "tip": "Sprint Backlog = Developers' property. They decide what gets added."
+  },
+  {
+    "id": 378,
+    "category": "Backlog Management",
+    "difficulty": "Medium",
+    "question": "What makes a Product Backlog item 'ready' for Sprint Planning?",
+    "options": [
+      "It has been approved by the Product Owner and signed off by stakeholders",
+      "It has been assigned to a specific Developer",
+      "It is sufficiently detailed, estimated, and understood by the Developers to be selected and worked on in a Sprint",
+      "It has passed a formal readiness review by the Scrum Master"
+    ],
+    "correct": 2,
+    "explanation": "A 'ready' backlog item is one that is small enough to fit in a Sprint, sufficiently understood so that Developers can commit to completing it, and has a clear enough description. The concept of 'Ready' is informal — the Scrum Guide doesn't define it formally, but it is a widely used practice.",
+    "source": "PSD Course — Definition of Ready; Scrum Guide 2020 refinement section",
+    "tip": "Ready = sufficiently small, detailed, and understood. No formal gate required."
+  },
+  {
+    "id": 379,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "What is Test-Driven Development (TDD)?",
+    "options": [
+      "Writing all tests after all code is written, then fixing failures",
+      "A process where test plans drive project scheduling decisions",
+      "Writing a failing test before writing the production code that makes it pass, then refactoring",
+      "Letting automated testing tools drive the development process"
+    ],
+    "correct": 2,
+    "explanation": "TDD follows the Red-Green-Refactor cycle: (1) Write a failing test (Red), (2) Write the minimum code to make it pass (Green), (3) Refactor both test and code while keeping tests passing. TDD drives better design, built-in test coverage, and confidence in refactoring.",
+    "source": "PSD Course — TDD; Kent Beck 'Test-Driven Development'",
+    "tip": "TDD = Red (fail) → Green (pass) → Refactor. Test BEFORE code."
+  },
+  {
+    "id": 380,
+    "category": "Testing & Quality",
+    "difficulty": "Hard",
+    "question": "Which type of test provides the fastest feedback in a well-structured test suite?",
+    "options": [
+      "End-to-end (UI) tests",
+      "Integration tests",
+      "Unit tests",
+      "Manual exploratory tests"
+    ],
+    "correct": 2,
+    "explanation": "Unit tests operate on small, isolated pieces of code and have no external dependencies. They run in milliseconds, providing the fastest feedback. The 'Test Pyramid' concept recommends having many unit tests at the base, fewer integration tests in the middle, and fewest end-to-end tests at the top — because speed and cost of failure increase as you move up.",
+    "source": "PSD Course — Test Pyramid; Mike Cohn testing concepts",
+    "tip": "Test Pyramid: Unit (fastest) → Integration → E2E (slowest). More at base."
+  },
+  {
+    "id": 381,
+    "category": "Advanced Scrum",
+    "difficulty": "Hard",
+    "question": "Multiple Scrum Teams work on the same product. How should they coordinate to produce a single integrated Increment?",
+    "options": [
+      "Each team delivers its own separate Increment; they are merged at the end of the release",
+      "Teams use a Program Board managed by the Scrum Master of the largest team",
+      "Teams align on a shared Definition of Done, shared Sprint cadence, and integrate continuously to produce one combined Increment",
+      "A separate integration team is created to merge each team's work"
+    ],
+    "correct": 2,
+    "explanation": "When multiple Scrum Teams work on one product, the Scrum Guide requires them to share a Definition of Done and produce a single integrated Increment. This requires shared Sprint cadence, continuous integration, and coordination between teams. A separate integration team is an anti-pattern that creates handoffs and delays.",
+    "source": "Scrum Guide 2020 — Multiple Scrum Teams section",
+    "tip": "Multiple teams, one product = shared DoD + shared cadence + single Increment."
+  },
+  {
+    "id": 382,
+    "category": "Advanced Scrum",
+    "difficulty": "Hard",
+    "question": "What is the primary cause of 'Technical Debt' in a Scrum context?",
+    "options": [
+      "Using outdated programming languages or frameworks",
+      "Delivering work that does not meet the Definition of Done and accumulating shortcuts that compromise quality",
+      "Having too many items in the Product Backlog",
+      "Insufficient Sprint Planning that leads to unrealistic commitments"
+    ],
+    "correct": 1,
+    "explanation": "Technical debt accumulates when work is delivered without meeting the Definition of Done — shortcuts taken, tests skipped, designs compromised. This creates future rework and slows velocity over time. A strong, enforced Definition of Done is the primary defense against technical debt in Scrum.",
+    "source": "PSD Course — Technical Debt; Definition of Done",
+    "tip": "Technical debt = shipping below DoD. Strong DoD prevents debt accumulation."
+  },
+  {
+    "id": 383,
+    "category": "Scrum Framework",
+    "difficulty": "Medium",
+    "question": "What is the maximum recommended size for the Developers group within a Scrum Team?",
+    "options": [
+      "5 people",
+      "7 people",
+      "10 people",
+      "There is no maximum; it depends on the product complexity"
+    ],
+    "correct": 1,
+    "explanation": "The Scrum Guide 2020 recommends that the Scrum Team (including Scrum Master and Product Owner) should have 10 or fewer members. The Developers group typically has 3 to no more than about 7-8 people. Small enough to be nimble, large enough to be cross-functional.",
+    "source": "Scrum Guide 2020 — Scrum Team section",
+    "tip": "Scrum Team: 10 or fewer total. Small = nimble communication."
+  },
+  {
+    "id": 384,
+    "category": "Agile Principles",
+    "difficulty": "Hard",
+    "question": "A Scrum Team has been delivering working software every Sprint for six months but stakeholder satisfaction keeps declining. The Scrum Master notices that Sprint Reviews are superficial and stakeholders feel unheard. Which of the following BEST explains the root problem?",
+    "options": [
+      "The team's velocity is too low to satisfy stakeholder demand",
+      "The Sprint Review is not being used as a genuine feedback loop — it is being treated as a demo rather than an adaptive planning event",
+      "Stakeholders should not attend Sprint Reviews since it creates pressure on the team",
+      "The Product Owner needs to reduce stakeholder expectations"
+    ],
+    "correct": 1,
+    "explanation": "The Sprint Review is not just a demo — it is an Inspect and Adapt event where the whole Scrum Team and stakeholders collaborate on what was done, what changed in the environment, and what to do next. If stakeholders feel unheard, the team is not leveraging the Sprint Review as a genuine feedback loop, which undermines empiricism and trust.",
+    "source": "Scrum Guide 2020 — Sprint Review section",
+    "tip": "Sprint Review = collaborative feedback loop, NOT a one-way demo."
   }
 ];

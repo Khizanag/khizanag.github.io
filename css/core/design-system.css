@@ -310,6 +310,10 @@ body::after {
 .is-fullscreen .nav__fullscreen__expand { display: none; }
 .is-fullscreen .nav__fullscreen__collapse { display: block; }
 
+@media (max-width: 768px) {
+    .nav__fullscreen { display: none; }
+}
+
 /* ============================================
    THEME TOGGLE (shared across all pages)
    ============================================ */

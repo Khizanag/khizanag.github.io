@@ -17,6 +17,14 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
   const [progress, setProgress] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isPrinting, setIsPrinting] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia("(max-width: 768px)").matches);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 768px)");
+    const onChange = (e) => setIsMobile(e.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -28,18 +36,20 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
   }, []);
 
   useEffect(() => {
+    if (isMobile) return;
     const onChange = () => setIsFullscreen(!!document.fullscreenElement);
     document.addEventListener("fullscreenchange", onChange);
     return () => document.removeEventListener("fullscreenchange", onChange);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
+    if (isMobile) return;
     const onKey = (e) => {
       if (e.key === "f" || e.key === "F") toggleFullscreen();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [isFullscreen]);
+  }, [isFullscreen, isMobile]);
 
   const handleExportPDF = () => {
     const onAfterPrint = () => {
@@ -132,20 +142,22 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
           </span>
         </button>
 
-        <button
-          onClick={toggleFullscreen}
-          title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
-          style={{
-            width: 32, height: 32, borderRadius: 8, border: `1px solid ${C.border}`,
-            background: "transparent", color: C.muted, cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            transition: "border-color 0.2s, color 0.2s",
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${color}60`; e.currentTarget.style.color = color; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.muted; }}
-        >
-          <FullscreenIcon isFullscreen={isFullscreen} />
-        </button>
+        {!isMobile && (
+          <button
+            onClick={toggleFullscreen}
+            title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
+            style={{
+              width: 32, height: 32, borderRadius: 8, border: `1px solid ${C.border}`,
+              background: "transparent", color: C.muted, cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              transition: "border-color 0.2s, color 0.2s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${color}60`; e.currentTarget.style.color = color; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.muted; }}
+          >
+            <FullscreenIcon isFullscreen={isFullscreen} />
+          </button>
+        )}
 
         <div style={{
           display: "flex", alignItems: "center", gap: 6,

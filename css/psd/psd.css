@@ -1,10 +1,17 @@
 /* ============================================
-   PSD ACCENT OVERRIDES
-   (PSD uses teal accent; interview-base uses blue)
+   PSD ACCENT — Neon green (matches presentations theme)
+   Override teal tokens so all var(--color-teal*) resolve to green
    ============================================ */
-::selection { background: var(--color-teal-a30); color: inherit; }
-.nav__back { color: var(--color-teal); }
-.theme-light .nav__back { color: var(--color-teal); }
+:root {
+    --color-teal:     #00ff88;
+    --color-teal-a6:  rgba(0, 255, 136, 0.06);
+    --color-teal-a10: rgba(0, 255, 136, 0.10);
+    --color-teal-a12: rgba(0, 255, 136, 0.12);
+    --color-teal-a15: rgba(0, 255, 136, 0.15);
+    --color-teal-a20: rgba(0, 255, 136, 0.20);
+    --color-teal-a25: rgba(0, 255, 136, 0.25);
+    --color-teal-a30: rgba(0, 255, 136, 0.30);
+}
 
 /* ============================================
    HOME SCREEN

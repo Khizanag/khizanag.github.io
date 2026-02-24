@@ -145,6 +145,15 @@
         });
         document.getElementById(id).classList.add('is-active');
         window.scrollTo(0, 0);
+
+        // When navigating to auth screen after initial load, ensure loading
+        // spinner is hidden and form is visible so user doesn't see infinite loading.
+        if (id === 'screen-auth') {
+            var authLoadEl = document.getElementById('authLoading');
+            var authFormEl = document.getElementById('authFormArea');
+            if (authLoadEl) authLoadEl.classList.remove('is-visible');
+            if (authFormEl) authFormEl.classList.remove('is-hidden');
+        }
     };
 
     // ===========================================================
@@ -1767,10 +1776,12 @@
         });
 
         document.getElementById('profileCreateAccount').addEventListener('click', function () {
+            authResolved = false;
             App.showScreen('screen-auth');
         });
 
         document.getElementById('profileSignIn').addEventListener('click', function () {
+            authResolved = false;
             App.showScreen('screen-auth');
         });
     }

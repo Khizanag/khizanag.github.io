@@ -277,3 +277,35 @@ body::after {
     0%   { background-position: 0 0; }
     100% { background-position: 40px 40px; }
 }
+
+/* ============================================
+   FULLSCREEN TOGGLE (shared across all pages)
+   ============================================ */
+.nav__fullscreen {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    border: 1px solid var(--color-white-a10);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.25s;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.nav__fullscreen:hover {
+    color: var(--color-teal);
+    border-color: var(--color-teal-a30);
+    background: var(--color-teal-a10);
+}
+
+.nav__fullscreen__collapse { display: none; }
+.is-fullscreen .nav__fullscreen__expand { display: none; }
+.is-fullscreen .nav__fullscreen__collapse { display: block; }

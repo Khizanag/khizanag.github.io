@@ -67,7 +67,6 @@
         d.btnPrev = document.getElementById('btnPrev');
         d.btnEnd = document.getElementById('btnEnd');
         d.btnPause = document.getElementById('btnPause');
-        d.btnFullscreen = document.getElementById('btnFullscreen');
         d.btnPresenter = document.getElementById('btnPresenter');
         d.btnPopout = document.getElementById('btnPopout');
         d.btnSkipSection = document.getElementById('btnSkipSection');
@@ -1094,23 +1093,6 @@
             App.togglePause();
             dom.btnPause.classList.toggle('is-paused', s.timerPaused);
         });
-
-        // Fullscreen
-        dom.btnFullscreen.addEventListener('click', function () {
-            if (document.fullscreenElement || document.webkitFullscreenElement) {
-                (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-            } else {
-                var el = document.documentElement;
-                (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
-            }
-        });
-
-        function onFullscreenChange() {
-            var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
-            document.documentElement.classList.toggle('is-fullscreen', isFs);
-        }
-        document.addEventListener('fullscreenchange', onFullscreenChange);
-        document.addEventListener('webkitfullscreenchange', onFullscreenChange);
 
         // Presenter mode
         dom.btnPresenter.addEventListener('click', function () {

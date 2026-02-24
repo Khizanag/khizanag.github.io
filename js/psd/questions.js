@@ -3918,5 +3918,565 @@ var PSD_QUESTIONS = [
     "explanation": "The Sprint Review is not just a demo — it is an Inspect and Adapt event where the whole Scrum Team and stakeholders collaborate on what was done, what changed in the environment, and what to do next. If stakeholders feel unheard, the team is not leveraging the Sprint Review as a genuine feedback loop, which undermines empiricism and trust.",
     "source": "Scrum Guide 2020 — Sprint Review section",
     "tip": "Sprint Review = collaborative feedback loop, NOT a one-way demo."
+  },
+  {
+    "id": 420,
+    "category": "Scrum Framework",
+    "difficulty": "Medium",
+    "question": "Who is the ONLY person who can cancel a Sprint?",
+    "options": [
+      "The Scrum Master, if the Sprint Goal becomes obsolete",
+      "The Product Owner",
+      "The Developers, by consensus vote",
+      "Any Scrum Team member if the Sprint Goal cannot be met"
+    ],
+    "correct": 1,
+    "explanation": "According to the Scrum Guide 2020, only the Product Owner has the authority to cancel a Sprint. A Sprint can be cancelled if the Sprint Goal becomes obsolete, which can happen when the company changes direction or market/technology conditions change. Although stakeholders may influence the decision, the cancellation authority rests solely with the Product Owner.",
+    "source": "Scrum Guide 2020 — Sprint Cancellation section",
+    "tip": "Only the PO cancels Sprints. No one else has this authority."
+  },
+  {
+    "id": 421,
+    "category": "Scrum Framework",
+    "difficulty": "Hard",
+    "question": "A Sprint is cancelled with 5 days remaining. The Scrum Team has completed three Product Backlog Items that meet the Definition of Done. What happens to those completed items?",
+    "options": [
+      "They are discarded because the Sprint was cancelled before completion",
+      "They are reviewed at the next Sprint Review and accepted then",
+      "They are released or kept — any completed and 'Done' items are reviewed and may be accepted by the Product Owner",
+      "They automatically become part of the next Sprint Backlog"
+    ],
+    "correct": 2,
+    "explanation": "When a Sprint is cancelled, any Product Backlog Items that are 'Done' (meeting the Definition of Done) are reviewed. If any represent a usable increment, they may be accepted by the Product Owner. Incomplete items are re-estimated and returned to the Product Backlog. Cancelled Sprints do not invalidate work that already meets the Definition of Done.",
+    "source": "Scrum Guide 2020 — Sprint Cancellation section",
+    "tip": "Done items survive Sprint cancellation and may be accepted. Incomplete items go back to the backlog."
+  },
+  {
+    "id": 422,
+    "category": "Scrum Framework",
+    "difficulty": "Easy",
+    "question": "Which of the following best describes a valid reason for the Product Owner to cancel a Sprint?",
+    "options": [
+      "The team is not meeting velocity targets",
+      "The Sprint Goal has become obsolete",
+      "Key Developers are on vacation",
+      "The Sprint is taking longer than expected"
+    ],
+    "correct": 1,
+    "explanation": "A Sprint can be cancelled when the Sprint Goal becomes obsolete. This happens when the company changes direction, market conditions shift, or technology makes the goal irrelevant. Velocity, absences, or timeline issues are not valid cancellation triggers per the Scrum Guide 2020.",
+    "source": "Scrum Guide 2020 — Sprint Cancellation section",
+    "tip": "Obsolete Sprint Goal = only valid cancellation reason in Scrum Guide 2020."
+  },
+  {
+    "id": 423,
+    "category": "Backlog Management",
+    "difficulty": "Medium",
+    "question": "Which of the following is an accountability of the Product Owner as defined in the Scrum Guide 2020?",
+    "options": [
+      "Managing the Developers' daily work assignments",
+      "Maximizing the value of the product resulting from the Scrum Team's work",
+      "Facilitating all Scrum events if the Scrum Master is unavailable",
+      "Defining the technical approach for Developers to follow"
+    ],
+    "correct": 1,
+    "explanation": "The Product Owner is accountable for maximizing the value of the product resulting from the Scrum Team's work. This includes developing and explicitly communicating the Product Goal, ordering the Product Backlog, and ensuring the Product Backlog is transparent, visible, and understood. The PO does not manage Developers' daily work or define technical approaches.",
+    "source": "Scrum Guide 2020 — Product Owner section",
+    "tip": "PO = maximize product VALUE. Not managing people or defining technical solutions."
+  },
+  {
+    "id": 424,
+    "category": "Backlog Management",
+    "difficulty": "Easy",
+    "question": "Who is accountable for ordering the Product Backlog?",
+    "options": [
+      "The Scrum Master",
+      "The Developers",
+      "The Product Owner",
+      "Stakeholders"
+    ],
+    "correct": 2,
+    "explanation": "The Product Owner is accountable for ordering the Product Backlog to maximize value. While the PO may delegate certain tasks, they remain accountable for the ordering decisions. Stakeholders may influence the backlog, but the PO has the final authority.",
+    "source": "Scrum Guide 2020 — Product Owner section",
+    "tip": "PO orders the backlog. Always. Delegation possible but accountability stays with PO."
+  },
+  {
+    "id": 425,
+    "category": "Done & Quality",
+    "difficulty": "Medium",
+    "question": "When is an Increment considered releasable per the Scrum Guide 2020?",
+    "options": [
+      "When the Product Owner approves it at the Sprint Review",
+      "When all Sprint Backlog items are complete",
+      "When it meets the Definition of Done",
+      "When it has been deployed to production"
+    ],
+    "correct": 2,
+    "explanation": "An Increment is releasable when it meets the Definition of Done. The Scrum Guide 2020 states that an Increment must meet the Definition of Done before it can be considered releasable. The Product Owner decides whether to actually release it, but releasability is defined by the DoD, not by PO approval or production deployment.",
+    "source": "Scrum Guide 2020 — Increment section",
+    "tip": "Releasable = meets DoD. The PO DECIDES to release, but DoD determines IF it CAN be released."
+  },
+  {
+    "id": 426,
+    "category": "Done & Quality",
+    "difficulty": "Hard",
+    "question": "A Scrum Team's Definition of Done requires automated integration tests to pass. During a Sprint, Developers discover that automated tests for a completed feature cannot pass due to a dependent service being unavailable. What should happen?",
+    "options": [
+      "The item should be considered Done since the Developers completed their part",
+      "The item cannot be included in the Sprint's Increment — it does not meet the Definition of Done",
+      "The Scrum Master can waive the DoD requirement for this Sprint",
+      "The Product Owner can accept the item and mark it Done to meet the Sprint Goal"
+    ],
+    "correct": 1,
+    "explanation": "If a Product Backlog Item does not meet the Definition of Done, it cannot be included in the Increment. The Scrum Guide 2020 is explicit: work that does not meet the DoD must be returned to the Product Backlog and considered for a future Sprint. No individual — not the Scrum Master, not the Product Owner — can waive the Definition of Done.",
+    "source": "Scrum Guide 2020 — Definition of Done section",
+    "tip": "DoD is non-negotiable. No one can waive it — not PO, not SM. Undone items go back to backlog."
+  },
+  {
+    "id": 427,
+    "category": "DevOps & Engineering",
+    "difficulty": "Medium",
+    "question": "What is the primary goal of monitoring and observability in a production system?",
+    "options": [
+      "To replace manual testing with automated alerts",
+      "To understand the internal state of a system by examining its external outputs",
+      "To measure developer productivity through deployment frequency",
+      "To ensure code coverage metrics are maintained above 80%"
+    ],
+    "correct": 1,
+    "explanation": "Observability is the ability to understand the internal state of a system by examining its external outputs (logs, metrics, traces). Monitoring tracks known failure modes; observability enables exploring unknown failure modes. Together, they allow teams to detect, diagnose, and resolve issues in production systems quickly.",
+    "source": "PSD Curriculum — Monitoring & Observability",
+    "tip": "Observability = understand INTERNAL state from EXTERNAL outputs. Monitoring = known failures; observability = unknown failures."
+  },
+  {
+    "id": 428,
+    "category": "DevOps & Engineering",
+    "difficulty": "Hard",
+    "question": "Which three pillars are foundational to observability in distributed systems?",
+    "options": [
+      "Logs, Metrics, and Traces",
+      "Unit Tests, Integration Tests, and E2E Tests",
+      "Alerts, Dashboards, and Runbooks",
+      "CPU Usage, Memory Usage, and Disk I/O"
+    ],
+    "correct": 0,
+    "explanation": "The three pillars of observability are: Logs (records of discrete events), Metrics (numeric measurements over time, e.g. request rate, error rate, latency), and Traces (end-to-end tracking of requests across distributed services). Together they provide complete visibility into system behavior and enable root cause analysis.",
+    "source": "PSD Curriculum — Observability & Distributed Systems",
+    "tip": "Three pillars = Logs + Metrics + Traces. Remember: LMT."
+  },
+  {
+    "id": 429,
+    "category": "DevOps & Engineering",
+    "difficulty": "Hard",
+    "question": "What is chaos engineering, and what is its primary purpose?",
+    "options": [
+      "A testing methodology that introduces random delays to measure performance under load",
+      "A discipline for experimenting on a system to build confidence in its capability to withstand turbulent conditions in production",
+      "A technique for deliberately breaking unit tests to find missing coverage",
+      "An approach to writing deliberately disorganized code to simulate real-world complexity"
+    ],
+    "correct": 1,
+    "explanation": "Chaos engineering is the discipline of experimenting on a system in order to build confidence in its capability to withstand turbulent conditions in production. Teams intentionally inject failures (network partitions, service crashes, resource exhaustion) to discover weaknesses before they cause production incidents. It was pioneered by Netflix (Chaos Monkey) and follows the scientific method: hypothesize, experiment, observe.",
+    "source": "PSD Curriculum — Chaos Engineering & Resilience",
+    "tip": "Chaos engineering = controlled experiments that inject failure to build CONFIDENCE in resilience."
+  },
+  {
+    "id": 430,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "What is Behavior-Driven Development (BDD)?",
+    "options": [
+      "A testing approach where testers write test scripts before code is written",
+      "A collaboration practice that uses concrete examples in natural language to illustrate desired system behavior, driving development from the outside in",
+      "A development technique where all behavior is validated through performance tests",
+      "A method where Developers document behavior after code is written to improve readability"
+    ],
+    "correct": 1,
+    "explanation": "BDD (Behavior-Driven Development) is a collaboration practice that uses concrete examples in plain language (often Given-When-Then format) to illustrate desired behavior, creating shared understanding between business, QA, and development. BDD drives development from the outside-in, using executable specifications (e.g., Cucumber, SpecFlow) as living documentation.",
+    "source": "PSD Curriculum — BDD & ATDD",
+    "tip": "BDD = Given-When-Then scenarios written collaboratively by business + QA + Dev. Executable specs."
+  },
+  {
+    "id": 431,
+    "category": "Testing & Quality",
+    "difficulty": "Hard",
+    "question": "How does Acceptance Test-Driven Development (ATDD) differ from Test-Driven Development (TDD)?",
+    "options": [
+      "ATDD focuses on unit tests written by Developers; TDD focuses on acceptance tests written by stakeholders",
+      "ATDD starts with acceptance criteria agreed upon by the whole team before implementation; TDD starts with unit tests written by Developers",
+      "ATDD is used only in waterfall projects; TDD is used in agile projects",
+      "There is no practical difference — both terms describe the same practice"
+    ],
+    "correct": 1,
+    "explanation": "ATDD (Acceptance Test-Driven Development) begins with acceptance criteria defined collaboratively by customers, testers, and developers before implementation begins. These criteria become automated acceptance tests. TDD begins with Developers writing unit tests before writing production code. ATDD operates at the system/acceptance level; TDD operates at the unit level. Both drive development from tests, but at different levels of the testing pyramid.",
+    "source": "PSD Curriculum — BDD/ATDD vs TDD",
+    "tip": "ATDD = customer-facing acceptance tests first (whole team). TDD = developer unit tests first. Different levels."
+  },
+  {
+    "id": 432,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "What is the primary purpose of acceptance testing in a Scrum context?",
+    "options": [
+      "To verify that the system meets performance benchmarks defined in the SLA",
+      "To confirm that a Product Backlog Item meets its acceptance criteria and satisfies the stakeholder's needs",
+      "To ensure that security vulnerabilities have been addressed before release",
+      "To validate that all unit tests pass in the CI pipeline"
+    ],
+    "correct": 1,
+    "explanation": "Acceptance testing verifies that a Product Backlog Item meets the acceptance criteria agreed upon before the Sprint. It confirms the software behaves as expected from the user's or business's perspective. In Scrum, acceptance tests are ideally automated and run as part of the Definition of Done, ensuring each increment is truly usable.",
+    "source": "PSD Curriculum — Acceptance Testing & Definition of Done",
+    "tip": "Acceptance testing = does it meet the ACCEPTANCE CRITERIA? User perspective, not technical."
+  },
+  {
+    "id": 433,
+    "category": "Agile Principles",
+    "difficulty": "Medium",
+    "question": "In Lean, which of the following is classified as a type of waste (Muda)?",
+    "options": [
+      "Pair programming",
+      "Partially done work",
+      "Automated testing",
+      "Continuous integration"
+    ],
+    "correct": 1,
+    "explanation": "Lean identifies 7 types of waste in software development (from Mary and Tom Poppendieck's adaptation): partially done work, extra features, relearning, handoffs, task switching, delays, and defects. Partially done work is waste because it occupies resources, creates risk, and delivers no value until complete. Pair programming, automated testing, and CI are practices that REDUCE waste.",
+    "source": "PSD Curriculum — Lean Principles & Waste Elimination",
+    "tip": "7 Lean wastes in software: partially done work, extra features, relearning, handoffs, task switching, delays, defects."
+  },
+  {
+    "id": 434,
+    "category": "Agile Principles",
+    "difficulty": "Hard",
+    "question": "Which of the following BEST represents the Lean waste of 'extra features'?",
+    "options": [
+      "Writing code that has not yet been integrated",
+      "Building features that were not requested and may never be used",
+      "Spending too much time in Sprint Planning",
+      "Having too many items in the Product Backlog"
+    ],
+    "correct": 1,
+    "explanation": "The Lean waste of 'extra features' (also called 'over-production' or 'gold plating') refers to building functionality beyond what was requested or needed. In software, this is often driven by developers wanting to add 'nice to have' features. These features consume development time, add maintenance burden, increase complexity, and may never provide value if users don't use them.",
+    "source": "PSD Curriculum — Lean Waste Types (Poppendieck)",
+    "tip": "Extra features = building things no one asked for. YAGNI principle: 'You Ain't Gonna Need It.'"
+  },
+  {
+    "id": 435,
+    "category": "Advanced Scrum",
+    "difficulty": "Hard",
+    "question": "A Scrum Team adopts a Kanban board alongside Scrum. Which Kanban flow metric is MOST useful for predicting when a Product Backlog Item will be completed?",
+    "options": [
+      "Throughput — the number of items completed per Sprint",
+      "Work In Progress (WIP) — the number of items currently being worked on",
+      "Cycle Time — the elapsed time from when work starts on an item to when it is done",
+      "Lead Time — the elapsed time from when an item enters the backlog to when it is delivered"
+    ],
+    "correct": 2,
+    "explanation": "Cycle Time measures the elapsed time from when work actually starts on an item to when it meets the Definition of Done. It is the most useful metric for predicting future completion times within the team's control. Lead Time includes wait time in the backlog (outside team control). Throughput measures volume, and WIP measures current load. For forecasting individual item completion, Cycle Time provides the most actionable data.",
+    "source": "PSD Curriculum — Kanban Metrics in Scrum",
+    "tip": "Cycle Time = work started → done. Best for PREDICTING completion. Lead Time includes backlog wait."
+  },
+  {
+    "id": 436,
+    "category": "Advanced Scrum",
+    "difficulty": "Medium",
+    "question": "When a Scrum Team uses Kanban flow metrics, what does 'throughput' measure?",
+    "options": [
+      "The speed at which individual Developers complete tasks",
+      "The number of Product Backlog Items completed per unit of time",
+      "The total time a story spends in the backlog before being started",
+      "The percentage of stories completed without defects"
+    ],
+    "correct": 1,
+    "explanation": "Throughput in Kanban measures the number of items (Product Backlog Items, user stories, etc.) completed per unit of time (e.g., per Sprint, per week). It is a key flow metric used for forecasting: if a team has a historical throughput of 8 items per Sprint, you can use probabilistic forecasting to predict how many Sprints a set of items will take.",
+    "source": "PSD Curriculum — Kanban Metrics & Forecasting",
+    "tip": "Throughput = items COMPLETED per time period. Use it for probabilistic forecasting."
+  },
+  {
+    "id": 437,
+    "category": "DevOps & Engineering",
+    "difficulty": "Medium",
+    "question": "What is Infrastructure as Code (IaC), and what is its primary benefit for Scrum Teams?",
+    "options": [
+      "Writing application code that automatically provisions cloud resources at runtime",
+      "Managing and provisioning infrastructure through machine-readable configuration files rather than manual processes, enabling repeatability and version control",
+      "A coding standard that enforces infrastructure-related naming conventions in application code",
+      "A technique for embedding infrastructure monitoring directly into application source code"
+    ],
+    "correct": 1,
+    "explanation": "Infrastructure as Code (IaC) is the practice of managing and provisioning infrastructure (servers, networks, databases, cloud resources) through version-controlled configuration files (e.g., Terraform, Ansible, CloudFormation) rather than manual processes. For Scrum Teams, IaC enables: repeatability (same infra every time), version control (audit trail), automated testing of infrastructure, faster environment creation, and reduced 'works on my machine' problems.",
+    "source": "PSD Curriculum — Infrastructure as Code & DevOps",
+    "tip": "IaC = infrastructure defined in code, version-controlled, automated. Eliminates manual, error-prone provisioning."
+  },
+  {
+    "id": 438,
+    "category": "DevOps & Engineering",
+    "difficulty": "Hard",
+    "question": "A Scrum Team needs to deploy database schema changes alongside application code changes continuously. Which strategy BEST minimizes downtime and deployment risk?",
+    "options": [
+      "Deploy all schema changes manually before deploying the application code",
+      "Use expand-contract (parallel change) migrations: add new schema elements while keeping old ones, deploy the application, then remove old schema elements in a later migration",
+      "Roll back the database to its previous state if the deployment fails, then re-deploy",
+      "Deploy schema changes only at the end of each Sprint to batch them together"
+    ],
+    "correct": 1,
+    "explanation": "The expand-contract pattern (also called parallel change) is the safest strategy for continuous database migrations: (1) Expand: add new columns/tables while keeping old ones — both old and new app versions work. (2) Deploy new application code that uses new schema. (3) Contract: once confirmed, remove old schema elements. This enables zero-downtime deployments and easy rollback. Batching migrations or requiring downtime contradicts continuous delivery principles.",
+    "source": "PSD Curriculum — Database Migration Strategies & Continuous Delivery",
+    "tip": "Expand-contract = add new schema first, deploy app, then remove old schema. Zero downtime, easy rollback."
+  },
+  {
+    "id": 439,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "What is Static Application Security Testing (SAST)?",
+    "options": [
+      "Security testing performed by penetration testers attempting to breach the running application",
+      "Analysis of source code, bytecode, or binaries for security vulnerabilities without executing the application",
+      "Load testing that simulates malicious traffic patterns to identify security weaknesses",
+      "A process where security experts review the application architecture documents"
+    ],
+    "correct": 1,
+    "explanation": "SAST (Static Application Security Testing) analyzes source code, bytecode, or binary code for security vulnerabilities without executing the application. It is a 'white-box' testing approach that can be integrated into CI/CD pipelines to catch vulnerabilities early (e.g., SQL injection, XSS, hardcoded credentials). Common SAST tools include SonarQube, Checkmarx, and Veracode. SAST finds issues early but can produce false positives.",
+    "source": "PSD Curriculum — Security Testing: SAST & DAST",
+    "tip": "SAST = static analysis of SOURCE CODE for security flaws. No running app needed. White-box. Shift-left security."
+  },
+  {
+    "id": 440,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "What is Dynamic Application Security Testing (DAST)?",
+    "options": [
+      "Analysis of application source code for insecure coding patterns without running the application",
+      "Security testing performed against a running application by simulating external attacks",
+      "A process of dynamically generating test data to improve code coverage",
+      "Automated regression testing that validates security headers in HTTP responses"
+    ],
+    "correct": 1,
+    "explanation": "DAST (Dynamic Application Security Testing) tests a running application from the outside, simulating how an attacker would interact with it. It sends malicious inputs, examines responses, and identifies runtime vulnerabilities like SQL injection, XSS, and authentication flaws. Common DAST tools include OWASP ZAP and Burp Suite. Unlike SAST, DAST is a 'black-box' approach — it doesn't need source code access but requires a running environment.",
+    "source": "PSD Curriculum — Security Testing: SAST & DAST",
+    "tip": "DAST = tests RUNNING application from outside. Black-box. Simulates real attacker. Finds runtime vulnerabilities."
+  },
+  {
+    "id": 441,
+    "category": "Testing & Quality",
+    "difficulty": "Hard",
+    "question": "A Scrum Team wants to integrate security testing into their Definition of Done. Which combination of security practices provides the most comprehensive coverage in a CI/CD pipeline?",
+    "options": [
+      "Manual penetration testing at each Sprint Review",
+      "SAST in the CI pipeline on every commit, plus DAST against a staging environment before each release",
+      "Only DAST, since it tests the actual running application and catches more real-world vulnerabilities",
+      "Code review by a security team after each Sprint"
+    ],
+    "correct": 1,
+    "explanation": "Combining SAST and DAST provides complementary coverage: SAST runs on every commit in the CI pipeline (fast feedback, catches code-level vulnerabilities early, shift-left security), while DAST runs against a staging environment to catch runtime vulnerabilities that only manifest when the application is running. This layered approach is a security testing best practice — SAST alone misses runtime issues; DAST alone misses code-level issues and runs too late.",
+    "source": "PSD Curriculum — Security in CI/CD Pipelines",
+    "tip": "SAST + DAST = complementary. SAST in CI (every commit) + DAST in staging (runtime). Both are needed."
+  },
+  {
+    "id": 442,
+    "category": "Testing & Quality",
+    "difficulty": "Medium",
+    "question": "Which performance testing type validates that a system can handle the maximum expected load under normal conditions?",
+    "options": [
+      "Stress testing",
+      "Load testing",
+      "Soak testing",
+      "Spike testing"
+    ],
+    "correct": 1,
+    "explanation": "Load testing validates system behavior under the maximum expected normal load (e.g., peak concurrent users, transactions per second). It verifies the system meets performance requirements under realistic conditions. Stress testing goes beyond normal limits to find breaking points. Soak testing checks for degradation over extended periods. Spike testing validates behavior under sudden traffic surges.",
+    "source": "PSD Curriculum — Performance Testing Types",
+    "tip": "Load = normal max load. Stress = beyond limits. Soak = extended duration. Spike = sudden surge."
+  },
+  {
+    "id": 443,
+    "category": "Testing & Quality",
+    "difficulty": "Hard",
+    "question": "A Scrum Team's application shows increasing response times after running for 48 hours, but performs well in short tests. Which type of performance test should they run?",
+    "options": [
+      "Load testing with peak concurrent users",
+      "Stress testing to find the breaking point",
+      "Soak (endurance) testing over an extended period",
+      "Spike testing with sudden traffic surges"
+    ],
+    "correct": 2,
+    "explanation": "The described symptom — performance degrading over extended runtime despite good short-term performance — is a classic sign of memory leaks, connection pool exhaustion, or resource accumulation. Soak testing (also called endurance testing) runs the system under normal load for an extended period (hours or days) to detect these types of gradual degradation issues that don't appear in short-duration tests.",
+    "source": "PSD Curriculum — Performance Testing & Endurance Testing",
+    "tip": "Slow degradation over time = memory leak suspect. Run SOAK testing. Endurance reveals what short tests miss."
+  },
+  {
+    "id": 444,
+    "category": "DevOps & Engineering",
+    "difficulty": "Hard",
+    "question": "What is a 'code smell', and how does it relate to refactoring?",
+    "options": [
+      "A code smell is a security vulnerability identified by SAST tools; refactoring fixes it",
+      "A code smell is a surface-level indicator in code that suggests a deeper problem may exist; refactoring is the technique used to improve the code's structure without changing its behavior",
+      "A code smell is any line of code longer than 120 characters; refactoring reformats it",
+      "A code smell is a failing unit test; refactoring is writing new code to make it pass"
+    ],
+    "correct": 1,
+    "explanation": "A code smell (term coined by Kent Beck, popularized by Martin Fowler) is a characteristic in source code that suggests a deeper structural problem. Examples include: Long Method, Large Class, Duplicate Code, Feature Envy, Data Clumps, Primitive Obsession, and Shotgun Surgery. Code smells are not bugs — they don't prevent the code from working — but they indicate areas that may benefit from refactoring. Refactoring addresses code smells by restructuring the code without changing its external behavior.",
+    "source": "PSD Curriculum — Code Smells & Refactoring (Martin Fowler)",
+    "tip": "Code smell = structural indicator of deeper problems. Refactor to address them WITHOUT changing behavior."
+  },
+  {
+    "id": 445,
+    "category": "DevOps & Engineering",
+    "difficulty": "Medium",
+    "question": "A method has grown to over 200 lines and handles database queries, business logic, and email sending all in one place. Which refactoring pattern BEST addresses this?",
+    "options": [
+      "Rename Method — give the method a more descriptive name",
+      "Extract Method — break the large method into smaller, focused methods",
+      "Move Method — move the method to a more appropriate class",
+      "Inline Method — replace the method with its body at each call site"
+    ],
+    "correct": 1,
+    "explanation": "The 'Long Method' code smell is best addressed by the 'Extract Method' refactoring pattern: identify cohesive groups of code within the large method and extract them into separate, well-named methods. This improves readability, testability, and reuse. The extracted methods can then be further improved — some may need to be moved to more appropriate classes (Move Method), but the first step is extraction.",
+    "source": "PSD Curriculum — Refactoring Patterns (Martin Fowler)",
+    "tip": "Long Method → Extract Method. Pull out cohesive chunks into separate, well-named methods."
+  },
+  {
+    "id": 446,
+    "category": "DevOps & Engineering",
+    "difficulty": "Hard",
+    "question": "Which refactoring pattern is MOST appropriate when two classes perform the same logic in different ways?",
+    "options": [
+      "Extract Superclass — move shared behavior to a common base class",
+      "Rename Variable — standardize naming across both classes",
+      "Extract Method — create a new method within one of the classes",
+      "Inline Class — collapse one class into the other"
+    ],
+    "correct": 0,
+    "explanation": "When two classes perform similar logic, the 'Duplicate Code' code smell is present. 'Extract Superclass' (or Extract Interface, or Pull Up Method) addresses this by moving shared behavior to a common base class or abstraction, allowing both classes to inherit or implement it. This eliminates duplication and creates a single point of maintenance. This is a classic application of the DRY (Don't Repeat Yourself) principle through refactoring.",
+    "source": "PSD Curriculum — Refactoring Patterns & DRY Principle",
+    "tip": "Duplicate logic in two classes → Extract Superclass (or Pull Up Method). DRY through inheritance."
+  },
+  {
+    "id": 447,
+    "category": "Scrum Master",
+    "difficulty": "Easy",
+    "question": "The Scrum Master notices that the Daily Scrum is consistently running 30 minutes. What should the Scrum Master do?",
+    "options": [
+      "Cancel the Daily Scrum until the team learns to be more efficient",
+      "Coach the Developers on the purpose of the Daily Scrum and help them inspect and adapt their approach to keep it within 15 minutes",
+      "Allow it — the Scrum Guide says 15 minutes is a guideline, not a rule",
+      "Take over facilitation and enforce strict time limits by interrupting speakers"
+    ],
+    "correct": 1,
+    "explanation": "The Scrum Master serves the Developers by coaching them in self-management and Scrum practices. The Daily Scrum has a 15-minute timebox per the Scrum Guide 2020. The Scrum Master should coach the team on the purpose (inspect progress, adapt the Sprint Backlog plan) and help them find ways to stay within the timebox — not enforce it through interruption or cancel the event.",
+    "source": "Scrum Guide 2020 — Daily Scrum & Scrum Master Accountabilities",
+    "tip": "SM coaches, doesn't control. Help the team understand WHY 15 minutes, and let them adapt HOW."
+  },
+  {
+    "id": 448,
+    "category": "Scrum Master",
+    "difficulty": "Medium",
+    "question": "A Product Owner is struggling to communicate product vision to stakeholders and Developers. How should the Scrum Master respond?",
+    "options": [
+      "Take over the stakeholder communication responsibilities from the Product Owner",
+      "Escalate the issue to management so they can coach the Product Owner",
+      "Coach the Product Owner on effective techniques for communicating product vision and facilitating stakeholder engagement",
+      "Advise the Developers to interpret the Product Backlog items themselves without relying on the Product Owner"
+    ],
+    "correct": 2,
+    "explanation": "The Scrum Master serves the Product Owner by coaching them in Product Goal and Product Backlog management, helping them understand the need for clear and concise Product Backlog items, and facilitating stakeholder collaboration. The Scrum Master coaches and supports the PO rather than taking over their responsibilities or escalating unnecessarily.",
+    "source": "Scrum Guide 2020 — Scrum Master serving the Product Owner",
+    "tip": "SM serves the PO through coaching, not by taking over. Coach on vision communication and stakeholder engagement."
+  },
+  {
+    "id": 449,
+    "category": "Sprint Events",
+    "difficulty": "Medium",
+    "question": "What is the maximum timebox for a Sprint Review in a one-month Sprint?",
+    "options": [
+      "1 hour",
+      "2 hours",
+      "4 hours",
+      "8 hours"
+    ],
+    "correct": 2,
+    "explanation": "Per the Scrum Guide 2020, the Sprint Review is timeboxed to a maximum of 4 hours for a one-month Sprint. For shorter Sprints, the event is usually shorter. The Sprint Review is a working session where the Scrum Team and stakeholders inspect the Increment and adapt the Product Backlog — not a formal presentation or status meeting.",
+    "source": "Scrum Guide 2020 — Sprint Review section",
+    "tip": "Sprint Review: 4 hours max for 1-month Sprint. Shorter sprint = shorter review."
+  },
+  {
+    "id": 450,
+    "category": "Cross-functional Teams",
+    "difficulty": "Easy",
+    "question": "Which of the following BEST describes a cross-functional Scrum Team?",
+    "options": [
+      "A team where each member can perform every other member's role",
+      "A team that has all the skills necessary to create value each Sprint without depending on people outside the team",
+      "A team composed of members from multiple departments within the organization",
+      "A team where the Scrum Master, Product Owner, and Developers rotate roles each Sprint"
+    ],
+    "correct": 1,
+    "explanation": "A cross-functional team in Scrum has all the skills necessary to create value each Sprint without requiring external dependencies. The Scrum Guide 2020 states: 'Scrum Teams are cross-functional, meaning the members have all the skills necessary to create value each Sprint.' This does not mean every member can do everything — it means the team collectively has all required capabilities.",
+    "source": "Scrum Guide 2020 — Scrum Team section",
+    "tip": "Cross-functional = team COLLECTIVELY has all skills needed. Not that each person can do everything."
+  },
+  {
+    "id": 451,
+    "category": "Cross-functional Teams",
+    "difficulty": "Medium",
+    "question": "A Scrum Team realizes they lack the security expertise needed to properly address security requirements in the Product Backlog. What is the BEST approach?",
+    "options": [
+      "Remove security-related items from the Product Backlog until a security expert is hired",
+      "Have the Scrum Master coordinate with a separate security team to review work after each Sprint",
+      "Grow security skills within the team through training, pairing, or adding a member with security expertise so the team becomes self-sufficient",
+      "Ask the Product Owner to accept items without meeting security acceptance criteria until the skill gap is resolved"
+    ],
+    "correct": 2,
+    "explanation": "Cross-functional teams should have all skills needed to deliver value. When a skill gap exists, the best approach is to close it — through training existing members, pairing with experts, bringing in a consultant to upskill the team, or hiring someone with the needed expertise. Routing work to an external team creates dependencies and handoffs (Lean waste), and removing requirements compromises quality.",
+    "source": "Scrum Guide 2020 — Cross-functional Teams; PSD Curriculum — Team Skills",
+    "tip": "Skill gaps → grow the skill within the team. External dependencies are Lean waste (handoffs)."
+  },
+  {
+    "id": 452,
+    "category": "Advanced Scrum",
+    "difficulty": "Hard",
+    "question": "A team uses Scrum with a Kanban board and wants to use WIP limits. Where should WIP limits be applied for maximum benefit?",
+    "options": [
+      "Only on the 'In Progress' column to limit concurrent tasks",
+      "On each workflow state (column) to expose bottlenecks and improve flow across the entire value stream",
+      "On the entire Sprint Backlog to limit total Sprint scope",
+      "Only on the 'Done' column to control the rate of completed work"
+    ],
+    "correct": 1,
+    "explanation": "WIP (Work In Progress) limits should be applied to each workflow state (column) in the Kanban board. When a column fills up, it signals a bottleneck that forces the team to swarm and resolve the constraint before pulling more work in. Limiting WIP only on 'In Progress' misses bottlenecks in other states. WIP limits are a key Kanban practice that improves flow, reduces cycle time, and makes system constraints visible.",
+    "source": "PSD Curriculum — Kanban Flow Metrics & WIP Limits",
+    "tip": "WIP limits per COLUMN expose bottlenecks. A full column = system constraint. Stop starting, start finishing."
+  },
+  {
+    "id": 453,
+    "category": "Agile Principles",
+    "difficulty": "Medium",
+    "question": "Which Lean waste type does 'task switching' (working on multiple items simultaneously) represent?",
+    "options": [
+      "Partially done work",
+      "Extra features",
+      "Task switching (motion waste)",
+      "Delays"
+    ],
+    "correct": 2,
+    "explanation": "Task switching is explicitly identified as one of the 7 Lean wastes in software (Poppendieck). Every context switch incurs cognitive overhead — research shows it takes 15-20 minutes to regain deep focus after an interruption. In software development, task switching leads to increased cycle time, more defects (from context loss), and reduced throughput. WIP limits and focus on finishing started work are the countermeasures.",
+    "source": "PSD Curriculum — Lean Waste Types in Software Development",
+    "tip": "Task switching = Lean waste. Context switches kill productivity. Stop starting, start finishing."
+  },
+  {
+    "id": 454,
+    "category": "Done & Quality",
+    "difficulty": "Hard",
+    "question": "An organization's Definition of Done does not include security testing. A Scrum Team wants to add SAST scanning to their Definition of Done. Who has the authority to update the Definition of Done?",
+    "options": [
+      "Only the Product Owner, since they are accountable for product quality",
+      "Only the Scrum Master, since they are accountable for Scrum adoption",
+      "The Developers create the Definition of Done if no organizational standard exists; if an organizational standard exists, the team must at minimum comply with it and may add stricter criteria",
+      "The organization's quality assurance department, since they own quality standards"
+    ],
+    "correct": 2,
+    "explanation": "Per the Scrum Guide 2020: if the Definition of Done is not an organizational standard, the Scrum Team must create a Definition of Done appropriate for the product. If the organization has a standard, all Scrum Teams must follow it as a minimum. Teams may adopt a stricter Definition of Done than the organizational standard. Adding SAST to the DoD is an excellent quality improvement — the Developers (as part of the Scrum Team) can and should propose and adopt stricter criteria.",
+    "source": "Scrum Guide 2020 — Definition of Done section",
+    "tip": "No org standard = team creates DoD. Org standard exists = minimum floor, team can be stricter. Developers own DoD."
   }
 ];

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSD Study Hub — Giga Khizanishvili</title>
+    <meta name="description" content="Professional Scrum Developer (PSD) certification study tool with quiz, flashcards, and review modes. 200 multiple-choice questions.">
+    <meta name="author" content="Giga Khizanishvili">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://khizanag.github.io/psd">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/psd.css">
+</head>
+<body>
+
+<!-- ==========================================
+     NAVIGATION
+     ========================================== -->
+<header class="psd-nav">
+    <div class="psd-nav__inner">
+        <a href="index.html" class="psd-nav__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Portfolio
+        </a>
+        <span class="psd-nav__title">PSD Study Hub</span>
+    </div>
+</header>
+
+<!-- ==========================================
+     HOME SCREEN
+     ========================================== -->
+<main class="psd-screen is-active" id="screen-home">
+    <div class="psd-container">
+        <div class="psd-hero">
+            <span class="psd-hero__badge">Professional Scrum Developer</span>
+            <h1 class="psd-hero__title">PSD Certification<br>Study Tool</h1>
+            <p class="psd-hero__subtitle">200 questions across 10 Scrum categories. Quiz yourself, study with flashcards, or review everything.</p>
+        </div>
+
+        <!-- Mode cards -->
+        <div class="psd-modes">
+            <button class="psd-mode-card" data-mode="quiz">
+                <span class="psd-mode-card__icon">&#x1F4DD;</span>
+                <div>
+                    <div class="psd-mode-card__title">Quiz Mode</div>
+                    <div class="psd-mode-card__desc">Timed quiz with scoring &amp; streaks</div>
+                </div>
+            </button>
+            <button class="psd-mode-card" data-mode="study">
+                <span class="psd-mode-card__icon">&#x1F0CF;</span>
+                <div>
+                    <div class="psd-mode-card__title">Flashcards</div>
+                    <div class="psd-mode-card__desc">Tap to reveal, study at your pace</div>
+                </div>
+            </button>
+            <button class="psd-mode-card" data-mode="review">
+                <span class="psd-mode-card__icon">&#x1F4DA;</span>
+                <div>
+                    <div class="psd-mode-card__title">Full Review</div>
+                    <div class="psd-mode-card__desc">Browse all questions &amp; answers</div>
+                </div>
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="psd-filters">
+            <div class="psd-filter-section">
+                <div class="psd-filter-label">
+                    Categories
+                    <span class="psd-filter-label__count" id="filteredCount">200 questions</span>
+                </div>
+                <div class="psd-chips" id="categoryChips"></div>
+            </div>
+            <div class="psd-filter-section">
+                <div class="psd-filter-label">Difficulty</div>
+                <div class="psd-chips" id="difficultyChips">
+                    <button class="psd-chip psd-chip--easy is-selected" data-difficulty="Easy">Easy</button>
+                    <button class="psd-chip psd-chip--medium is-selected" data-difficulty="Medium">Medium</button>
+                    <button class="psd-chip psd-chip--hard is-selected" data-difficulty="Hard">Hard</button>
+                </div>
+            </div>
+            <div class="psd-filter-section">
+                <button class="psd-bookmark-filter" id="bookmarkFilter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                    Bookmarked only
+                </button>
+            </div>
+        </div>
+
+        <!-- Category stats -->
+        <div class="psd-cat-grid" id="catGrid"></div>
+    </div>
+</main>
+
+<!-- ==========================================
+     QUIZ SETUP SCREEN
+     ========================================== -->
+<main class="psd-screen" id="screen-setup">
+    <div class="psd-container">
+        <div class="psd-setup__header">
+            <h2 class="psd-setup__title">Quiz Setup</h2>
+            <p class="psd-setup__subtitle">Choose how many questions (<span id="setupAvailable">200</span> available)</p>
+        </div>
+
+        <div class="psd-size-options" id="sizeOptions">
+            <button class="psd-size-btn is-selected" data-size="20">
+                <span class="psd-size-btn__num">20</span>
+                <span class="psd-size-btn__label">Quick</span>
+            </button>
+            <button class="psd-size-btn" data-size="40">
+                <span class="psd-size-btn__num">40</span>
+                <span class="psd-size-btn__label">Standard</span>
+            </button>
+            <button class="psd-size-btn" data-size="80">
+                <span class="psd-size-btn__num">80</span>
+                <span class="psd-size-btn__label">Deep Dive</span>
+            </button>
+            <button class="psd-size-btn" data-size="all">
+                <span class="psd-size-btn__num" id="sizeAllNum">200</span>
+                <span class="psd-size-btn__label">All</span>
+            </button>
+        </div>
+
+        <div class="psd-setup__actions">
+            <button class="psd-btn-secondary" id="btnSetupBack">Back</button>
+            <button class="psd-btn-primary" id="btnStartQuiz">
+                Start Quiz
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
+     QUIZ SCREEN
+     ========================================== -->
+<main class="psd-screen" id="screen-quiz">
+    <div class="psd-container">
+        <!-- Progress -->
+        <div class="psd-quiz__progress">
+            <div class="psd-quiz__bar"><div class="psd-quiz__fill" id="quizFill"></div></div>
+            <span class="psd-quiz__counter" id="quizCounter">1 / 20</span>
+        </div>
+
+        <!-- Meta row -->
+        <div class="psd-quiz__meta">
+            <span class="psd-quiz__streak" id="quizStreak"></span>
+            <span class="psd-badge psd-badge--category" id="quizCategory"></span>
+            <span class="psd-badge" id="quizDifficulty"></span>
+            <span class="psd-badge psd-badge--multi" id="quizMulti" style="display:none"></span>
+            <button class="psd-quiz__bookmark" id="quizBookmark" aria-label="Bookmark question">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            </button>
+        </div>
+
+        <!-- Question card -->
+        <div class="psd-qcard">
+            <div class="psd-qcard__question" id="quizQuestion"></div>
+            <div class="psd-options" id="quizOptions"></div>
+            <div class="psd-confirm-wrap" id="quizConfirmWrap" style="display:none">
+                <button class="psd-btn-confirm" id="btnConfirm" disabled>Confirm Selection</button>
+            </div>
+            <div class="psd-explanation" id="quizExplanation">
+                <div class="psd-explanation__text" id="quizExplText"></div>
+                <div class="psd-explanation__tip" id="quizExplTip"></div>
+                <div class="psd-explanation__source" id="quizExplSource"></div>
+            </div>
+        </div>
+
+        <!-- Next button -->
+        <div class="psd-quiz__next-wrap" id="quizNextWrap">
+            <button class="psd-btn-primary" id="btnQuizNext">
+                Next Question
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
+     RESULTS SCREEN
+     ========================================== -->
+<main class="psd-screen" id="screen-results">
+    <div class="psd-container">
+        <div class="psd-results__header">
+            <!-- SVG ring -->
+            <div class="psd-results__ring">
+                <svg viewBox="0 0 120 120">
+                    <circle class="psd-results__ring-bg" cx="60" cy="60" r="54"/>
+                    <circle class="psd-results__ring-fill" id="resultRing" cx="60" cy="60" r="54" stroke-dasharray="339.29" stroke-dashoffset="339.29"/>
+                </svg>
+                <div class="psd-results__ring-text">
+                    <span class="psd-results__pct" id="resultPct">0%</span>
+                    <span class="psd-results__grade" id="resultGrade"></span>
+                </div>
+            </div>
+            <h2 class="psd-results__title" id="resultTitle">Quiz Complete!</h2>
+            <p class="psd-results__subtitle" id="resultSubtitle"></p>
+        </div>
+
+        <!-- Stats -->
+        <div class="psd-results__stats">
+            <div class="psd-results__stat">
+                <div class="psd-results__stat-value psd-results__stat-value--green" id="resultCorrect">0</div>
+                <div class="psd-results__stat-label">Correct</div>
+            </div>
+            <div class="psd-results__stat">
+                <div class="psd-results__stat-value psd-results__stat-value--red" id="resultWrong">0</div>
+                <div class="psd-results__stat-label">Wrong</div>
+            </div>
+            <div class="psd-results__stat">
+                <div class="psd-results__stat-value psd-results__stat-value--teal" id="resultStreak">0</div>
+                <div class="psd-results__stat-label">Best Streak</div>
+            </div>
+        </div>
+
+        <!-- Category breakdown -->
+        <div class="psd-breakdown" id="resultBreakdown">
+            <div class="psd-breakdown__title">Category Breakdown</div>
+        </div>
+
+        <!-- Missed questions -->
+        <div class="psd-missed" id="resultMissed">
+            <div class="psd-missed__title">Missed Questions</div>
+        </div>
+
+        <!-- Actions -->
+        <div class="psd-results__actions">
+            <button class="psd-btn-primary" id="btnRetryQuiz">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+                Try Again
+            </button>
+            <button class="psd-btn-secondary" id="btnResultsHome">Home</button>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
+     FLASHCARDS SCREEN
+     ========================================== -->
+<main class="psd-screen" id="screen-study">
+    <div class="psd-container">
+        <!-- Progress -->
+        <div class="psd-study__progress">
+            <div class="psd-study__bar"><div class="psd-study__fill" id="studyFill"></div></div>
+            <span class="psd-study__counter" id="studyCounter">1 / 200</span>
+        </div>
+
+        <!-- Flashcard -->
+        <div class="psd-flashcard" id="flashcard">
+            <div class="psd-flashcard__meta">
+                <span class="psd-badge psd-badge--category" id="studyCategory"></span>
+                <span class="psd-badge" id="studyDifficulty"></span>
+                <button class="psd-quiz__bookmark" id="studyBookmark" aria-label="Bookmark question" style="margin-left:auto">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+                </button>
+            </div>
+            <div class="psd-flashcard__question" id="studyQuestion"></div>
+            <div class="psd-flashcard__reveal-hint" id="studyHint">Tap to reveal answer</div>
+            <div class="psd-flashcard__answer" id="studyAnswer">
+                <div class="psd-flashcard__options" id="studyOptions"></div>
+                <div class="psd-explanation" style="display:block">
+                    <div class="psd-explanation__text" id="studyExplText"></div>
+                    <div class="psd-explanation__tip" id="studyExplTip"></div>
+                    <div class="psd-explanation__source" id="studyExplSource"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="psd-study__nav">
+            <button class="psd-study__nav-btn" id="btnStudyPrev">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                Prev
+            </button>
+            <button class="psd-study__nav-btn" id="btnStudyNext">
+                Next
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+        </div>
+
+        <div style="text-align:center; margin-top:24px">
+            <button class="psd-btn-secondary" id="btnStudyHome">Back to Home</button>
+        </div>
+    </div>
+</main>
+
+<!-- ==========================================
+     REVIEW SCREEN
+     ========================================== -->
+<main class="psd-screen" id="screen-review">
+    <div class="psd-container">
+        <div class="psd-review__header">
+            <h2 class="psd-review__title">Full Review</h2>
+            <p class="psd-review__subtitle" id="reviewSubtitle">All 200 questions with answers</p>
+        </div>
+
+        <div class="psd-review__filters" id="reviewFilters"></div>
+
+        <div class="psd-review__list" id="reviewList"></div>
+
+        <div class="psd-review__back-wrap">
+            <button class="psd-btn-secondary" id="btnReviewHome">Back to Home</button>
+        </div>
+    </div>
+</main>
+
+<script src="js/psd-questions.js"></script>
+<script src="js/psd-app.js"></script>
+</body>
+</html>

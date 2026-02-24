@@ -12,7 +12,7 @@
     --color-gray-600: #48484a;
     --color-gray-700: #424245;
     --color-gray-900: #1d1d1f;
-    --color-black: #000000;
+    --color-black: #05080f;
     --color-blue: #2997ff;
     --color-blue-hover: #3ba0ff;
     --color-blue-dark: #0071e3;
@@ -38,7 +38,7 @@
 
     /* Alpha palette — black */
     --color-black-a40: rgba(0, 0, 0, 0.40);
-    --color-black-a80: rgba(0, 0, 0, 0.80);
+    --color-black-a80: rgba(5, 8, 15, 0.88);
 
     /* Alpha palette — blue */
     --color-blue-a6:  rgba(41, 151, 255, 0.06);
@@ -230,6 +230,11 @@
     border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 
+.theme-light body::before,
+.theme-light body::after {
+    display: none;
+}
+
 .theme-light .q-card__pre {
     background: #f5f5f7;
     border-color: rgba(0, 0, 0, 0.08);
@@ -297,6 +302,31 @@ body {
     color: var(--color-gray-50);
     min-height: 100vh;
     min-height: 100dvh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(#1a2235 1px, transparent 1px),
+        linear-gradient(90deg, #1a2235 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 10s linear infinite;
+    opacity: 0.3;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle 350px at 80% 10%, rgba(0, 255, 136, 0.05) 0%, transparent 65%),
+        radial-gradient(circle 350px at 20% 90%, rgba(77, 159, 255, 0.04) 0%, transparent 65%);
 }
 
 ::selection {
@@ -415,6 +445,8 @@ body {
     max-width: var(--container-max);
     margin: 0 auto;
     padding: 0 22px;
+    position: relative;
+    z-index: 1;
 }
 
 /* ============================================
@@ -426,6 +458,8 @@ body {
     padding-bottom: 80px;
     min-height: 100vh;
     min-height: 100dvh;
+    position: relative;
+    z-index: 1;
 }
 
 .screen.is-active {
@@ -436,6 +470,11 @@ body {
 @keyframes screen-in {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gridMove {
+    0%   { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
 }
 
 /* ============================================
@@ -500,7 +539,7 @@ body {
 }
 
 .shortcuts-modal {
-    background: #1c1c1e;
+    background: #111820;
     border: 1px solid var(--color-white-a10);
     border-radius: var(--border-radius-md);
     width: 100%;

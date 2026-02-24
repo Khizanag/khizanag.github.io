@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: presentations/package-lock.json
+
+      - name: Install and build presentations
+        run: npm ci && npm run build
+        working-directory: presentations
+
+      - name: Assemble site
+        run: |
+          mkdir _site
+          # Copy all root static files
+          cp -r css js *.html *.pdf _site/
+          # Copy built presentations into the site
+          cp -r presentations/dist _site/presentations
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ github.event.repository.homepage }}
+    steps:
+      - uses: actions/deploy-pages@v4

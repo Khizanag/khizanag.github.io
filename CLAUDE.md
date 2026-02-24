@@ -30,8 +30,7 @@ Static HTML/CSS/JS — no build tools or frameworks required.
   - `interview-*.css` — interview tool styles, split by screen/concern
 - `js/` — modular JS files (config, session, timer, plan, results, app, keyboard-nav, roadmap, etc.)
 - `js/roadmap.js` — roadmap interactivity (data-driven rendering, progress tracking, expand/collapse, filtering)
-- `_presentations/` — React + Vite source for tech talk presentations
-- `presentations/` — built output served at `/presentations/` (do not edit directly — rebuild from `_presentations/`)
+- `presentations/` — React + Vite source for tech talk presentations (built and deployed via GitHub Actions)
 
 ## Component Reuse Rules
 - **Before creating any UI pattern, check existing pages first** (`index.html`, `interview.html`, `guide.html`, etc.)
@@ -48,7 +47,7 @@ Static HTML/CSS/JS — no build tools or frameworks required.
   <script src="js/keyboard-nav.js" data-sections="hero,about,experience,contact"></script>
   ```
 - Each `<section>` must have an `id` attribute for this to work
-- Reference: `_presentations/src/hooks.js` (`useKeyboardNav`) for the React equivalent
+- Reference: `presentations/src/hooks.js` (`useKeyboardNav`) for the React equivalent
 
 ## CSS Rules
 - Each page has its own CSS file: `portfolio.css`, `jobs.css`, `interview-*.css`
@@ -71,11 +70,11 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - If a user request contains multiple tasks, complete each one with its own commit+push cycle
 
 ## Presentations
-- Source lives in `_presentations/` (React + Vite)
-- Built output goes to `presentations/` (committed to git for GitHub Pages)
-- To rebuild: `cd _presentations && npm ci && npm run build`, then copy `dist/` to `presentations/`
-- The `_presentations/` and `presentations/` names differ due to macOS case-insensitive filesystem
-- Vite `base` is set to `/presentations/` — do not change without updating the output directory
+- Source lives in `presentations/` (React + Vite)
+- Built output is NOT tracked in git — `dist/` is gitignored
+- GitHub Actions builds and deploys automatically on push to `master`
+- To build locally: `cd presentations && npm ci && npm run build`
+- Vite `base` is set to `/presentations/` — do not change without updating the deploy workflow
 
 ## Theme System
 - Two themes: `css/theme-default.css` (Apple-style) and `css/theme-pres.css` (presentations dark navy)
@@ -86,5 +85,7 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - All sections must have `position: relative; z-index: 1` to sit above fixed backgrounds
 
 ## Deployment
-- GitHub Pages serves from the `master` branch root
-- Any push to `master` triggers automatic deployment
+- GitHub Pages deploys via GitHub Actions (`.github/workflows/deploy.yml`)
+- Push to `master` triggers: build presentations → assemble full site → deploy to Pages
+- Static files (HTML, CSS, JS, PDF) are copied directly; `presentations/` is built from source
+- No built output is committed to git

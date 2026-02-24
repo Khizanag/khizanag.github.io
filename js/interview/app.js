@@ -1767,38 +1767,11 @@
         });
 
         document.getElementById('profileCreateAccount').addEventListener('click', function () {
-            if (!window.FirebaseService) return;
-            // Link anonymous account to Google
-            window.FirebaseService.linkGoogle().then(function (user) {
-                if (user) {
-                    renderProfile(user);
-                    updateNavProfile(user);
-                }
-            }).catch(function (err) {
-                if (err.code === 'auth/unauthorized-domain') {
-                    alert('This domain is not yet authorized for sign-in. Please use Continue as Guest for now.');
-                } else if (err.code === 'auth/credential-already-in-use') {
-                    alert('This account is already linked to another user. Please sign out and sign in directly.');
-                } else if (err.code !== 'auth/popup-closed-by-user') {
-                    alert(err.message || 'Could not link account');
-                }
-            });
+            App.showScreen('screen-auth');
         });
 
         document.getElementById('profileSignIn').addEventListener('click', function () {
-            if (!window.FirebaseService) return;
-            window.FirebaseService.signInWithGoogle().then(function (user) {
-                if (user) {
-                    renderProfile(user);
-                    updateNavProfile(user);
-                }
-            }).catch(function (err) {
-                if (err.code === 'auth/unauthorized-domain') {
-                    alert('This domain is not yet authorized for sign-in. Please use Continue as Guest for now.');
-                } else if (err.code !== 'auth/popup-closed-by-user') {
-                    alert(err.message || 'Could not sign in');
-                }
-            });
+            App.showScreen('screen-auth');
         });
     }
 

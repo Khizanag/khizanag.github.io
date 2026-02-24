@@ -1682,20 +1682,22 @@
         if (user.isAnonymous) {
             nameEl.textContent = 'Guest';
             avatarEl.textContent = '?';
+            avatarEl.classList.add('nav__user-avatar--placeholder');
             return;
         }
 
         nameEl.textContent = user.displayName || user.email || '';
+        avatarEl.textContent = '';
         if (user.photoURL) {
+            avatarEl.classList.remove('nav__user-avatar--placeholder');
             var img = document.createElement('img');
-            img.className = 'nav__user-avatar';
             img.src = user.photoURL;
             img.alt = 'Avatar';
             img.referrerPolicy = 'no-referrer';
-            avatarEl.replaceWith(img);
+            avatarEl.appendChild(img);
         } else {
-            var initials = (user.displayName || user.email || '?').charAt(0).toUpperCase();
-            avatarEl.textContent = initials;
+            avatarEl.classList.add('nav__user-avatar--placeholder');
+            avatarEl.textContent = (user.displayName || user.email || '?').charAt(0).toUpperCase();
         }
     }
 
@@ -1716,14 +1718,16 @@
             nameEl.textContent = user.displayName || 'User';
             emailEl.textContent = user.email || '';
 
+            avatarEl.textContent = '';
             if (user.photoURL) {
+                avatarEl.classList.remove('profile__avatar--placeholder');
                 var img = document.createElement('img');
-                img.className = 'profile__avatar';
                 img.src = user.photoURL;
                 img.alt = 'Avatar';
                 img.referrerPolicy = 'no-referrer';
-                avatarEl.replaceWith(img);
+                avatarEl.appendChild(img);
             } else {
+                avatarEl.classList.add('profile__avatar--placeholder');
                 avatarEl.textContent = (user.displayName || user.email || '?').charAt(0).toUpperCase();
             }
 

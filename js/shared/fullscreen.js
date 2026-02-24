@@ -15,6 +15,9 @@
     var btn = document.getElementById('btnFullscreen');
     if (!btn) return;
 
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile) return;
+
     function isFullscreen() {
         return !!(document.fullscreenElement || document.webkitFullscreenElement);
     }

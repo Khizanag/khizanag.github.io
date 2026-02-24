@@ -133,6 +133,16 @@
             </button>
         </div>
 
+        <div class="psd-setup__toggle">
+            <label class="psd-toggle-label">
+                <span class="psd-toggle">
+                    <input type="checkbox" id="hideDifficultyToggle" checked>
+                    <span class="psd-toggle__track"></span>
+                </span>
+                Hide question difficulty
+            </label>
+        </div>
+
         <div class="psd-setup__actions">
             <button class="psd-btn-secondary" id="btnSetupBack">Back</button>
             <button class="psd-btn-primary" id="btnStartQuiz">
@@ -231,9 +241,17 @@
             <div class="psd-breakdown__title">Category Breakdown</div>
         </div>
 
-        <!-- Missed questions -->
-        <div class="psd-missed" id="resultMissed">
-            <div class="psd-missed__title">Missed Questions</div>
+        <!-- Full answer log -->
+        <div class="psd-answer-log" id="resultAnswerLog">
+            <div class="psd-answer-log__top">
+                <div class="psd-answer-log__title">Questions</div>
+                <div class="psd-answer-log__tabs" id="resultTabs">
+                    <button class="psd-answer-log__tab is-active" data-filter="all">All</button>
+                    <button class="psd-answer-log__tab" data-filter="wrong">Wrong</button>
+                    <button class="psd-answer-log__tab" data-filter="correct">Correct</button>
+                </div>
+            </div>
+            <div id="resultAnswerList"></div>
         </div>
 
         <!-- Actions -->
@@ -303,6 +321,10 @@
 <main class="screen" id="screen-review">
     <div class="container">
         <div class="psd-review__header">
+            <button class="psd-back-link" id="btnReviewBack">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+                Back to Home
+            </button>
             <h2 class="psd-review__title">Full Review</h2>
             <p class="psd-review__subtitle" id="reviewSubtitle">All 200 questions with answers</p>
         </div>

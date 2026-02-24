@@ -897,21 +897,6 @@
         }
     });
 
-    // ================================================================
-    // BACK TO TOP BUTTON
-    // ================================================================
-    var btt = document.getElementById('gBtt');
-    if (btt) {
-        window.addEventListener('scroll', function () {
-            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            btt.classList.toggle('is-visible', scrollTop > 400);
-        });
-
-        btt.addEventListener('click', function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
     // Footer "Back to Top" link
     var footerTop = document.getElementById('footerTop');
     if (footerTop) {

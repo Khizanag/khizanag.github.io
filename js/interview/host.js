@@ -304,9 +304,6 @@
         // Apply feature flags
         App.applyFeatureFlags();
 
-        // Theme toggle
-        InterviewUtils.initThemeToggle('btnTheme');
-
         // Apply preset mode from URL
         if (presetMode === 'practice') {
             setMode('practice');

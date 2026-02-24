@@ -1241,42 +1241,6 @@
 }
 
 /* ============================================
-   BACK TO TOP
-   ============================================ */
-.g-btt {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--color-white-a10);
-    border: 1px solid var(--color-white-a15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: var(--color-gray-200);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: all 0.3s;
-    z-index: 50;
-}
-
-.g-btt.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.g-btt:hover {
-    background: var(--color-blue-a20);
-    border-color: var(--color-blue-a30);
-    color: var(--color-blue);
-}
-
-/* ============================================
    SCROLL ANIMATIONS
    ============================================ */
 [data-anim] {
@@ -1320,7 +1284,6 @@
     .g-stats-grid { grid-template-columns: 1fr; }
     .g-ratio-bar__fill span { font-size: 10px; }
     .g-validity-label { min-width: 90px; font-size: 11px; }
-    .g-btt { bottom: 16px; right: 16px; width: 40px; height: 40px; }
     .g-callout { flex-direction: column; gap: 10px; }
     .g-star__item { gap: 10px; }
     .g-star__pct { display: none; }

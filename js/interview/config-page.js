@@ -37,9 +37,6 @@
         videoRecording: { icon: '🎥', name: 'Video Recording',   desc: 'Record interview sessions for review' },
     };
 
-    // ---- Theme toggle ----
-    InterviewUtils.initThemeToggle('btnTheme');
-
     // ---- Load saved features ----
     function loadFeatures() {
         var saved = InterviewUtils.storageGet(STORAGE_KEY, null);

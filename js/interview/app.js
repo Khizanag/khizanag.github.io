@@ -1914,9 +1914,6 @@
     bindProfileEvents();
     if (document.getElementById('planList')) App.initPlan();
 
-    // Theme toggle
-    InterviewUtils.initThemeToggle('btnTheme');
-
     // Firebase write error toast
     document.addEventListener('firebase:writeerror', function (e) {
         var ctx = e.detail && e.detail.context ? e.detail.context : 'unknown';

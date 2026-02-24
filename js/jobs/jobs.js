@@ -84,17 +84,6 @@
         });
     });
 
-    // ---- Back to Top ----
-    var btt = document.getElementById('gBtt');
-    window.addEventListener('scroll', function () {
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        btt.classList.toggle('is-visible', scrollTop > 400);
-    });
-
-    btt.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
     // ---- Footer Back to Top Link ----
     var footerTop = document.getElementById('footerTop');
     if (footerTop) {

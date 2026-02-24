@@ -1,9 +1,6 @@
 (function () {
     'use strict';
 
-    // ---- Theme Toggle ----
-    InterviewUtils.initThemeToggle('btnTheme');
-
     // ---- Scroll Animations (IntersectionObserver) ----
     var animEls = document.querySelectorAll('[data-anim]');
     if ('IntersectionObserver' in window) {
@@ -33,17 +30,6 @@
         var docHeight = document.documentElement.scrollHeight - window.innerHeight;
         var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         progressBar.style.width = Math.min(pct, 100) + '%';
-    });
-
-    // ---- Back to Top Button ----
-    var btt = document.getElementById('gBtt');
-    window.addEventListener('scroll', function () {
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        btt.classList.toggle('is-visible', scrollTop > 400);
-    });
-
-    btt.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // ---- Accordion ----

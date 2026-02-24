@@ -56,6 +56,7 @@
         buildCatGrid();
         updateFilteredCount();
         bindEvents();
+        InterviewUtils.initThemeToggle('btnTheme');
     }
 
     /* ============================================
@@ -135,7 +136,7 @@
        SCREEN SWITCHING
        ============================================ */
     function showScreen(id) {
-        var screens = document.querySelectorAll('.psd-screen');
+        var screens = document.querySelectorAll('.screen');
         for (var i = 0; i < screens.length; i++) {
             screens[i].classList.remove('is-active');
         }
@@ -780,7 +781,7 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', function (e) {
-            var active = document.querySelector('.psd-screen.is-active');
+            var active = document.querySelector('.screen.is-active');
             if (!active) return;
             var screenId = active.id;
 

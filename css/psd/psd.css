@@ -1288,11 +1288,19 @@
     font-weight: 300;
 }
 
+.psd-review__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
 .psd-review__filters {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 

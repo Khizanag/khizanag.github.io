@@ -37,6 +37,7 @@
         quizMultiSelected: [],
         quizAnswered: false,
         hideDifficulty: true,
+        hideReviewDifficulty: true,
 
         // Flashcards
         studyQuestions: [],
@@ -724,7 +725,7 @@
                 '<div class="psd-review__item-header">' +
                     '<span class="psd-review__item-num">' + (idx + 1) + '</span>' +
                     '<span class="psd-review__item-q">' + escapeHtml(q.question) + '</span>' +
-                    '<div class="psd-review__item-badges">' +
+                    '<div class="psd-review__item-badges"' + (state.hideReviewDifficulty ? ' style="display:none"' : '') + '>' +
                         '<span class="psd-badge ' + difficultyClass(q.difficulty) + '">' + q.difficulty + '</span>' +
                     '</div>' +
                     '<svg class="psd-review__item-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
@@ -877,6 +878,13 @@
         // Review
         $('btnReviewBack').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
         $('btnReviewHome').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
+        $('hideReviewDifficultyToggle').addEventListener('change', function () {
+            state.hideReviewDifficulty = this.checked;
+            var badges = document.querySelectorAll('#reviewList .psd-review__item-badges');
+            for (var i = 0; i < badges.length; i++) {
+                badges[i].style.display = state.hideReviewDifficulty ? 'none' : '';
+            }
+        });
 
         // Answer log tabs (results)
         var tabBtns = document.querySelectorAll('#resultTabs .psd-answer-log__tab');

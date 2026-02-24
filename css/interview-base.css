@@ -78,7 +78,26 @@
     --color-purple-a12: rgba(191, 90, 242, 0.12);
 
     /* Alpha palette — teal */
+    --color-teal-a6:  rgba(90, 200, 250, 0.06);
+    --color-teal-a10: rgba(90, 200, 250, 0.10);
     --color-teal-a12: rgba(90, 200, 250, 0.12);
+    --color-teal-a15: rgba(90, 200, 250, 0.15);
+    --color-teal-a20: rgba(90, 200, 250, 0.20);
+    --color-teal-a25: rgba(90, 200, 250, 0.25);
+    --color-teal-a30: rgba(90, 200, 250, 0.30);
+
+    /* Alpha palette — green (additional) */
+    --color-green-a15: rgba(48, 209, 88, 0.15);
+
+    /* Alpha palette — red (additional) */
+    --color-red-a10: rgba(255, 69, 58, 0.10);
+    --color-red-a12: rgba(255, 69, 58, 0.12);
+
+    /* Alpha palette — purple (additional) */
+    --color-purple-a15: rgba(191, 90, 242, 0.15);
+
+    /* Alpha palette — orange (additional) */
+    --color-orange-a15: rgba(255, 159, 10, 0.15);
 
     /* Alpha palette — pink */
     --color-pink-a12: rgba(255, 55, 95, 0.12);
@@ -176,7 +195,26 @@
     --color-purple-a12: rgba(137, 68, 171, 0.12);
 
     /* Teal alpha (darker base) */
+    --color-teal-a6:  rgba(0, 119, 163, 0.06);
+    --color-teal-a10: rgba(0, 119, 163, 0.10);
     --color-teal-a12: rgba(0, 119, 163, 0.12);
+    --color-teal-a15: rgba(0, 119, 163, 0.15);
+    --color-teal-a20: rgba(0, 119, 163, 0.20);
+    --color-teal-a25: rgba(0, 119, 163, 0.25);
+    --color-teal-a30: rgba(0, 119, 163, 0.30);
+
+    /* Green alpha (additional, darker base) */
+    --color-green-a15: rgba(36, 138, 61, 0.15);
+
+    /* Red alpha (additional, darker base) */
+    --color-red-a10: rgba(215, 0, 21, 0.10);
+    --color-red-a12: rgba(215, 0, 21, 0.12);
+
+    /* Purple alpha (additional, darker base) */
+    --color-purple-a15: rgba(137, 68, 171, 0.15);
+
+    /* Orange alpha (additional, darker base) */
+    --color-orange-a15: rgba(178, 80, 0, 0.15);
 
     /* Pink alpha (darker base) */
     --color-pink-a12: rgba(211, 15, 69, 0.12);

@@ -327,9 +327,11 @@ body::after {
     justify-content: center;
     color: var(--color-gray-500);
     cursor: pointer;
-    transition: all 0.25s;
+    transition: color 0.3s, border-color 0.3s, background 0.3s, box-shadow 0.3s;
     padding: 0;
     flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .nav__theme-toggle:hover {
@@ -338,9 +340,40 @@ body::after {
     background: var(--color-yellow-a8);
 }
 
-.nav__theme-icon--light { display: none; }
-.theme-light .nav__theme-icon--dark { display: none; }
-.theme-light .nav__theme-icon--light { display: block; }
+/* Icon containers with animated transitions */
+.nav__theme-icon--dark,
+.nav__theme-icon--light {
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+    position: absolute;
+}
+
+.nav__theme-icon--dark {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+.nav__theme-icon--light {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+}
+
+.theme-light .nav__theme-icon--dark {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+}
+.theme-light .nav__theme-icon--light {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* Click burst animation */
+@keyframes theme-toggle-burst {
+    0%   { box-shadow: 0 0 0 0 var(--color-yellow-a40); }
+    50%  { box-shadow: 0 0 0 8px var(--color-yellow-a8); }
+    100% { box-shadow: 0 0 0 0 transparent; }
+}
+.nav__theme-toggle.is-animating {
+    animation: theme-toggle-burst 0.5s ease-out;
+}
 
 /* ============================================
    BACK TO TOP (shared across all pages)

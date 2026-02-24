@@ -25,5 +25,14 @@
         try { localStorage.setItem(STORAGE_KEY, isLight ? 'light' : 'dark'); } catch (e) {}
         // Also sync legacy key used by interview pages
         try { localStorage.setItem('ios-interview-theme', isLight ? 'light' : 'dark'); } catch (e) {}
+
+        // Burst animation
+        btn.classList.remove('is-animating');
+        void btn.offsetWidth; // force reflow to restart animation
+        btn.classList.add('is-animating');
+    });
+
+    btn.addEventListener('animationend', function () {
+        btn.classList.remove('is-animating');
     });
 })();

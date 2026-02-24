@@ -36,6 +36,7 @@
         quizBestStreak: 0,
         quizMultiSelected: [],
         quizAnswered: false,
+        hideDifficulty: true,
 
         // Flashcards
         studyQuestions: [],
@@ -170,6 +171,14 @@
         var cats = getAllCategories();
         var container = $('catGrid');
         container.innerHTML = '';
+
+        // Add label before the grid cards
+        var label = document.createElement('div');
+        label.className = 'psd-cat-grid__label';
+        label.textContent = 'Question Distribution';
+        label.style.gridColumn = '1 / -1';
+        container.appendChild(label);
+
         Object.keys(cats).forEach(function (cat) {
             var div = document.createElement('div');
             div.className = 'psd-cat-card';
@@ -272,6 +281,7 @@
         var diffEl = $('quizDifficulty');
         diffEl.textContent = q.difficulty;
         diffEl.className = 'psd-badge ' + difficultyClass(q.difficulty);
+        diffEl.style.display = state.hideDifficulty ? 'none' : '';
 
         var multiEl = $('quizMulti');
         var multi = isMultiSelect(q);
@@ -466,8 +476,8 @@
         // Category breakdown
         renderBreakdown();
 
-        // Missed questions
-        renderMissed();
+        // Full answer log
+        renderAnswerLog();
     }
 
     function renderBreakdown() {
@@ -503,33 +513,77 @@
         });
     }
 
-    function renderMissed() {
-        var container = $('resultMissed');
-        var items = container.querySelectorAll('.psd-missed__item');
-        for (var i = 0; i < items.length; i++) items[i].remove();
+    function renderAnswerLog() {
+        var container = $('resultAnswerList');
+        container.innerHTML = '';
 
-        var missed = state.quizAnswers.filter(function (a) { return !a.isCorrect; });
-
-        if (missed.length === 0) {
-            container.style.display = 'none';
+        if (state.quizAnswers.length === 0) {
+            $('resultAnswerLog').style.display = 'none';
             return;
         }
-        container.style.display = '';
+        $('resultAnswerLog').style.display = '';
 
-        missed.forEach(function (a) {
+        state.quizAnswers.forEach(function (a) {
             var q = findQuestion(a.questionId);
             if (!q) return;
-            var correctLabels = (Array.isArray(q.correct) ? q.correct : [q.correct]).map(function (ci) {
-                return LETTERS[ci] + '. ' + q.options[ci];
-            }).join(', ');
+
+            var correctArr = Array.isArray(q.correct) ? q.correct : [q.correct];
+            var selected = a.selected;
+
+            var optionsHtml = q.options.map(function (opt, i) {
+                var isSel = selected.indexOf(i) !== -1;
+                var isCor = correctArr.indexOf(i) !== -1;
+                var cls = 'psd-answer-log__opt';
+                var marker = '\u25CB';
+
+                if (isCor && isSel) {
+                    cls += ' psd-answer-log__opt--correct';
+                    marker = '\u2705';
+                } else if (isCor) {
+                    cls += ' psd-answer-log__opt--correct';
+                    marker = '\u2705';
+                } else if (isSel) {
+                    cls += ' psd-answer-log__opt--user-wrong';
+                    marker = '\u274C';
+                }
+
+                return '<div class="' + cls + '">' +
+                    '<span class="psd-answer-log__opt-marker">' + marker + '</span>' +
+                    '<span>' + LETTERS[i] + '. ' + escapeHtml(opt) + '</span></div>';
+            }).join('');
 
             var div = document.createElement('div');
-            div.className = 'psd-missed__item';
+            div.className = 'psd-answer-log__item';
+            div.setAttribute('data-result', a.isCorrect ? 'correct' : 'wrong');
             div.innerHTML =
-                '<div class="psd-missed__q">' + escapeHtml(q.question) + '</div>' +
-                '<div class="psd-missed__answer">Correct: <strong>' + escapeHtml(correctLabels) + '</strong></div>';
+                '<div class="psd-answer-log__header">' +
+                    '<span class="psd-answer-log__status psd-answer-log__status--' + (a.isCorrect ? 'correct' : 'wrong') + '">' +
+                        (a.isCorrect ? '\u2713' : '\u2717') + '</span>' +
+                    '<span class="psd-answer-log__q">' + escapeHtml(q.question) + '</span>' +
+                    '<svg class="psd-answer-log__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+                '</div>' +
+                '<div class="psd-answer-log__body">' +
+                    '<div class="psd-answer-log__options">' + optionsHtml + '</div>' +
+                    '<div class="psd-answer-log__explanation">' + escapeHtml(q.explanation) + '</div>' +
+                '</div>';
+
+            div.querySelector('.psd-answer-log__header').addEventListener('click', function () {
+                div.classList.toggle('is-open');
+            });
+
             container.appendChild(div);
         });
+    }
+
+    function filterAnswerLog(filter) {
+        var items = document.querySelectorAll('.psd-answer-log__item');
+        for (var i = 0; i < items.length; i++) {
+            if (filter === 'all' || items[i].getAttribute('data-result') === filter) {
+                items[i].style.display = '';
+            } else {
+                items[i].style.display = 'none';
+            }
+        }
     }
 
     function barColor(pct) {
@@ -579,12 +633,33 @@
         // Question
         $('studyQuestion').textContent = q.question;
 
-        // Hide answer
+        // Build always-visible options (without correct marking)
+        var alwaysOptsEl = document.getElementById('studyOptionsAlways');
+        if (!alwaysOptsEl) {
+            alwaysOptsEl = document.createElement('div');
+            alwaysOptsEl.id = 'studyOptionsAlways';
+            alwaysOptsEl.className = 'psd-flashcard__options-always';
+            // Insert before the reveal hint
+            $('studyHint').parentNode.insertBefore(alwaysOptsEl, $('studyHint'));
+        }
+        alwaysOptsEl.innerHTML = '';
+        alwaysOptsEl.style.display = '';
+        q.options.forEach(function (opt, i) {
+            var div = document.createElement('div');
+            div.className = 'psd-flashcard__opt';
+            div.innerHTML =
+                '<span class="psd-flashcard__opt-letter">' + LETTERS[i] + '</span>' +
+                '<span>' + escapeHtml(opt) + '</span>';
+            alwaysOptsEl.appendChild(div);
+        });
+
+        // Hide answer (correct marking + explanation)
         state.studyRevealed = false;
         $('studyAnswer').classList.remove('is-visible');
         $('studyHint').style.display = '';
+        $('studyHint').textContent = 'Tap to reveal correct answer';
 
-        // Build options
+        // Build revealed options (with correct marking)
         var optContainer = $('studyOptions');
         optContainer.innerHTML = '';
         var correctArr = isMultiSelect(q) ? q.correct : [q.correct];
@@ -613,6 +688,9 @@
         state.studyRevealed = true;
         $('studyAnswer').classList.add('is-visible');
         $('studyHint').style.display = 'none';
+        // Hide always-visible options since revealed section shows them with correct marking
+        var alwaysOptsEl = document.getElementById('studyOptionsAlways');
+        if (alwaysOptsEl) alwaysOptsEl.style.display = 'none';
     }
 
     /* ============================================
@@ -635,10 +713,10 @@
             var div = document.createElement('div');
             div.className = 'psd-review__item';
 
+            // Options without correct marking initially
             var answersHtml = q.options.map(function (opt, i) {
-                var isCor = correctArr.indexOf(i) !== -1;
-                return '<div class="psd-review__answer' + (isCor ? ' is-correct' : '') + '">' +
-                    '<span class="psd-review__answer-marker">' + (isCor ? '\u2705' : '\u25CB') + '</span>' +
+                return '<div class="psd-review__answer" data-correct="' + (correctArr.indexOf(i) !== -1 ? '1' : '0') + '">' +
+                    '<span class="psd-review__answer-marker">\u25CB</span>' +
                     '<span>' + LETTERS[i] + '. ' + escapeHtml(opt) + '</span></div>';
             }).join('');
 
@@ -653,11 +731,28 @@
                 '</div>' +
                 '<div class="psd-review__item-body">' +
                     '<div class="psd-review__answer-list">' + answersHtml + '</div>' +
-                    '<div class="psd-review__explanation">' + escapeHtml(q.explanation) + '</div>' +
+                    '<button class="psd-review__reveal-btn">Show Answer</button>' +
+                    '<div class="psd-review__explanation" style="display:none">' + escapeHtml(q.explanation) + '</div>' +
                 '</div>';
 
             div.querySelector('.psd-review__item-header').addEventListener('click', function () {
                 div.classList.toggle('is-open');
+            });
+
+            // Reveal button handler
+            div.querySelector('.psd-review__reveal-btn').addEventListener('click', function () {
+                this.classList.add('is-revealed');
+                this.textContent = 'Answer Revealed';
+                // Show correct answers
+                var answers = div.querySelectorAll('.psd-review__answer');
+                for (var a = 0; a < answers.length; a++) {
+                    if (answers[a].getAttribute('data-correct') === '1') {
+                        answers[a].classList.add('is-correct');
+                        answers[a].querySelector('.psd-review__answer-marker').textContent = '\u2705';
+                    }
+                }
+                // Show explanation
+                div.querySelector('.psd-review__explanation').style.display = '';
             });
 
             container.appendChild(div);
@@ -732,6 +827,9 @@
             });
         }
         $('btnSetupBack').addEventListener('click', function () { showScreen('screen-home'); });
+        $('hideDifficultyToggle').addEventListener('change', function () {
+            state.hideDifficulty = this.checked;
+        });
         $('btnStartQuiz').addEventListener('click', startQuiz);
 
         // Quiz
@@ -777,7 +875,18 @@
         $('btnStudyHome').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
 
         // Review
+        $('btnReviewBack').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
         $('btnReviewHome').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
+
+        // Answer log tabs (results)
+        var tabBtns = document.querySelectorAll('#resultTabs .psd-answer-log__tab');
+        for (var t = 0; t < tabBtns.length; t++) {
+            tabBtns[t].addEventListener('click', function () {
+                for (var j = 0; j < tabBtns.length; j++) tabBtns[j].classList.remove('is-active');
+                this.classList.add('is-active');
+                filterAnswerLog(this.getAttribute('data-filter'));
+            });
+        }
 
         // Keyboard navigation
         document.addEventListener('keydown', function (e) {

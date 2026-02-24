@@ -1,6 +1,7 @@
 export const FONTS = `
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #05080f; }
 @media print {
   @page { margin: 0; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }

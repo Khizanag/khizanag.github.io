@@ -2,6 +2,7 @@ import { C } from "./tokens.js";
 import BitriseConfigAnalysis from "../slides/bitrise/index.jsx";
 import GithubAccessStrategy from "../slides/github/index.jsx";
 import DotGithubPresentation from "../slides/dotgithub/index.jsx";
+import GitConfigPresentation from "../slides/git-config-files/index.jsx";
 
 export const SLIDES = [
   {
@@ -30,5 +31,14 @@ export const SLIDES = [
     categoryColor: C.purple,
     date:          "Feb 2026",
     component:     DotGithubPresentation,
+  },
+  {
+    id:            "git-config-files",
+    title:         ".gitconfig & .gitmodules",
+    subtitle:      "How Git cascades configuration across system, user, and repository levels — and how submodule metadata flows between these two connected INI files.",
+    category:      "Git Internals",
+    categoryColor: C.blue,
+    date:          "Feb 2026",
+    component:     GitConfigPresentation,
   },
 ];

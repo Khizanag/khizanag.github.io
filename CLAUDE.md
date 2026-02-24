@@ -2,7 +2,7 @@
 
 ## Overview
 Personal portfolio/resume website for Giga Khizanishvili, hosted via GitHub Pages.
-Static HTML/CSS/JS — no build tools or frameworks required.
+Static HTML/CSS/JS pages + React/Vite presentations. Build tools at root level (`package.json`, `vite.config.js`).
 
 ## Git Identity
 - **Always use this identity for commits in this repo:**
@@ -37,7 +37,7 @@ Static HTML/CSS/JS — no build tools or frameworks required.
   - `interview/questions/` — `ios.js`, `android.js`, `frontend.js`, `backend.js`, `behavioral.js`
   - `interview/live-coding/` — `index.js`, `easy-medium.js`, `hard-expert.js`
   - `psd/` — `questions.js`, `app.js` (PSD study tool)
-- `presentations/` — React + Vite source for tech talk presentations (built and deployed via GitHub Actions)
+- `src/presentations/` — React + Vite source for tech talk presentations (built via root-level Vite config)
 
 ## Component Reuse Rules
 - **Before creating any UI pattern, check existing pages first** (`index.html`, `interview.html`, `guide.html`, etc.)
@@ -54,7 +54,7 @@ Static HTML/CSS/JS — no build tools or frameworks required.
   <script src="js/shared/keyboard-nav.js" data-sections="hero,about,experience,contact"></script>
   ```
 - Each `<section>` must have an `id` attribute for this to work
-- Reference: `presentations/src/hooks.js` (`useKeyboardNav`) for the React equivalent
+- Reference: `src/presentations/hooks.js` (`useKeyboardNav`) for the React equivalent
 
 ## CSS Rules
 - Each page has its own CSS subdirectory: `css/portfolio/`, `css/jobs/`, `css/interview/`
@@ -77,10 +77,11 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 - If a user request contains multiple tasks, complete each one with its own commit+push cycle
 
 ## Presentations
-- Source lives in `presentations/` (React + Vite)
-- Built output is NOT tracked in git — `dist/` is gitignored
+- Source lives in `src/presentations/` (React + Vite)
+- Build config at root: `package.json`, `vite.config.js` (root `src/presentations`)
+- Built output goes to `dist/presentations/` — NOT tracked in git
 - GitHub Actions builds and deploys automatically on push to `master`
-- To build locally: `cd presentations && npm ci && npm run build`
+- To build locally: `npm ci && npm run build`
 - Vite `base` is set to `/presentations/` — do not change without updating the deploy workflow
 
 ## Theme System
@@ -94,5 +95,5 @@ Static HTML/CSS/JS — no build tools or frameworks required.
 ## Deployment
 - GitHub Pages deploys via GitHub Actions (`.github/workflows/deploy.yml`)
 - Push to `master` triggers: build presentations → assemble full site → deploy to Pages
-- Static files (HTML, CSS, JS, PDF) are copied directly; `presentations/` is built from source
+- Static files (HTML, CSS, JS, PDF) are copied directly; `src/presentations/` is built via Vite to `dist/presentations/`
 - No built output is committed to git

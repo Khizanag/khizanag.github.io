@@ -1,49 +1,10 @@
 /* ============================================
-   DESIGN TOKENS
+   PAGE TOKENS — Portfolio
    ============================================ */
 :root {
-    --color-white: #fbfbfd;
-    --color-gray-50: #f5f5f7;
-    --color-gray-100: #e8e8ed;
-    --color-gray-200: #d2d2d7;
-    --color-gray-400: #86868b;
-    --color-gray-500: #6e6e73;
-    --color-gray-700: #424245;
-    --color-gray-900: #1d1d1f;
-    --color-black: #000000;
-    --color-blue: #2997ff;
-    --color-blue-hover: #3ba0ff;
-    --color-blue-dark: #0071e3;
-    --color-purple: #bf5af2;
-    --color-green: #30d158;
-    --color-orange: #ff9f0a;
-    --color-pink: #ff375f;
-    --color-teal: #5ac8fa;
-
-    --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-out-quart: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-    --nav-height: 48px;
     --container-max: 1024px;
     --section-padding: 140px;
     --section-padding-mobile: 100px;
-    --border-radius-pill: 980px;
-    --border-radius-card-sm: 16px;
-    --border-radius-card: 24px;
-    --border-radius-card-lg: 28px;
-
-    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.05);
-    --shadow-card-lg: 0 12px 48px rgba(0, 0, 0, 0.06);
-
-    --transition-card: 0.4s var(--ease-out-quart);
-
-    --border-light: 1px solid rgba(0, 0, 0, 0.06);
-    --border-dark: 1px solid rgba(255, 255, 255, 0.08);
-    --border-dark-hover: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* ============================================

@@ -1,28 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
-
 /* ============================================
    PRESENTATIONS THEME — Dark Navy Design System
    Overrides :root tokens + adds structural CSS
    ============================================ */
 
 :root {
-    /*
-     * Only override tokens that are SAFE to change globally.
-     * Gray-50/100/200/300/white are used as TEXT colors on dark sections —
-     * overriding them to dark values makes text invisible.
-     * Instead, backgrounds using those tokens are overridden per-element below.
-     */
-
     /* Accent colors */
     --color-gray-900: #e8edf5;
-    --color-black: #05080f;
     --color-blue: #00ff88;
     --color-blue-hover: #33ffaa;
     --color-blue-dark: #00ff88;
-
-    /* Fonts */
-    --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
     /* Nav */
     --nav-height: 64px;
@@ -46,47 +32,9 @@
 /* ============================================
    KEYFRAMES
    ============================================ */
-@keyframes gridMove {
-    0%   { background-position: 0 0; }
-    100% { background-position: 40px 40px; }
-}
-
 @keyframes pulse-glow {
     0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
     50%      { box-shadow: 0 0 40px rgba(0, 255, 136, 0.6); }
-}
-
-/* ============================================
-   BODY — Grid & Blobs
-   ============================================ */
-body {
-    background: #05080f;
-    color: #e8edf5;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-        linear-gradient(#1a2235 1px, transparent 1px),
-        linear-gradient(90deg, #1a2235 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: gridMove 10s linear infinite;
-    opacity: 0.3;
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-        radial-gradient(circle 350px at 80% 10%, rgba(0, 255, 136, 0.05) 0%, transparent 65%),
-        radial-gradient(circle 350px at 20% 90%, rgba(77, 159, 255, 0.04) 0%, transparent 65%);
 }
 
 /* All sections above the grid/blobs */

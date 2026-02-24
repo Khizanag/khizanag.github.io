@@ -227,6 +227,14 @@
     --color-pink-a12: rgba(211, 15, 69, 0.12);
 }
 
+html {
+    background: var(--color-black);
+}
+
+.theme-light html {
+    background: #ffffff;
+}
+
 .theme-light body {
     background: #ffffff;
     color: #1d1d1f;

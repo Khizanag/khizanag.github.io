@@ -2,10 +2,20 @@
    AUTH SCREEN
    ========================================== */
 
+#screen-auth {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#screen-auth.is-active {
+    display: flex;
+    animation: screen-in 0.5s var(--ease-out-expo);
+}
+
 .auth {
     max-width: 420px;
-    margin: 0 auto;
-    padding: 60px 24px 40px;
+    width: 100%;
+    padding: 0 24px 40px;
     text-align: center;
 }
 
@@ -368,7 +378,7 @@
 
 @media (max-width: 480px) {
     .auth {
-        padding: 40px 16px 32px;
+        padding: 0 16px 32px;
     }
 
     .auth__title {

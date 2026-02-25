@@ -90,6 +90,40 @@
         var features = loadFeatures();
         features[input.dataset.key] = input.checked;
         saveFeatures(features);
+        updateToggleAllLabels();
+    });
+
+    // ---- Toggle All ----
+    function updateToggleAllLabels() {
+        var features = loadFeatures();
+        var activeKeys = Object.keys(DEFAULTS).filter(function (k) { return DEFAULTS[k]; });
+        var experimentalKeys = Object.keys(DEFAULTS).filter(function (k) { return !DEFAULTS[k]; });
+
+        var allActiveOn = activeKeys.every(function (k) { return features[k] !== false; });
+        var allExperimentalOn = experimentalKeys.every(function (k) { return features[k] !== false; });
+
+        var btnActive = document.getElementById('cfgToggleActive');
+        var btnExperimental = document.getElementById('cfgToggleExperimental');
+        if (btnActive) btnActive.textContent = allActiveOn ? 'Disable All' : 'Enable All';
+        if (btnExperimental) btnExperimental.textContent = allExperimentalOn ? 'Disable All' : 'Enable All';
+    }
+
+    function toggleSection(isDefault) {
+        var features = loadFeatures();
+        var keys = Object.keys(DEFAULTS).filter(function (k) { return isDefault ? DEFAULTS[k] : !DEFAULTS[k]; });
+        var allOn = keys.every(function (k) { return features[k] !== false; });
+        var newValue = !allOn;
+        keys.forEach(function (k) { features[k] = newValue; });
+        saveFeatures(features);
+        render();
+    }
+
+    document.getElementById('cfgToggleActive').addEventListener('click', function () {
+        toggleSection(true);
+    });
+
+    document.getElementById('cfgToggleExperimental').addEventListener('click', function () {
+        toggleSection(false);
     });
 
     // ---- Reset ----
@@ -101,5 +135,6 @@
 
     // ---- Init ----
     render();
+    updateToggleAllLabels();
 
 })();

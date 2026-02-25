@@ -48,14 +48,24 @@
         </div>
 
         <div class="cfg-section">
-            <h2 class="cfg-section__title">Active Features</h2>
-            <p class="cfg-section__desc">These features are currently available in the app.</p>
+            <div class="cfg-section__header">
+                <div>
+                    <h2 class="cfg-section__title">Active Features</h2>
+                    <p class="cfg-section__desc">These features are currently available in the app.</p>
+                </div>
+                <button class="cfg-toggle-all" id="cfgToggleActive">Disable All</button>
+            </div>
             <div class="cfg-list" id="cfgActiveList"></div>
         </div>
 
         <div class="cfg-section">
-            <h2 class="cfg-section__title">Experimental Features</h2>
-            <p class="cfg-section__desc">These features are disabled by default. Enable them to try new functionality.</p>
+            <div class="cfg-section__header">
+                <div>
+                    <h2 class="cfg-section__title">Experimental Features</h2>
+                    <p class="cfg-section__desc">These features are disabled by default. Enable them to try new functionality.</p>
+                </div>
+                <button class="cfg-toggle-all" id="cfgToggleExperimental">Enable All</button>
+            </div>
             <div class="cfg-list" id="cfgExperimentalList"></div>
         </div>
 

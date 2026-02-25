@@ -81,6 +81,8 @@
                 experimentalList.innerHTML += html;
             }
         });
+
+        updateToggleAllLabels();
     }
 
     // ---- Toggle handler ----
@@ -135,6 +137,5 @@
 
     // ---- Init ----
     render();
-    updateToggleAllLabels();
 
 })();

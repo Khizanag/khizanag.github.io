@@ -293,7 +293,7 @@
                     <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </a>
             </div>
-            <div class="dashboard__action-card" data-feature="questionBank">
+            <div class="dashboard__action-card" id="dashBrowseCard" data-auth-required data-feature="questionBank">
                 <button class="tool-card" id="btnBrowse">
                     <div class="tool-card__icon" style="--tool-color: var(--color-purple)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -304,6 +304,7 @@
                     </div>
                     <svg class="tool-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
+                <span class="dashboard__lock-badge" id="dashBrowseLock" style="display:none">🔒</span>
             </div>
             <div class="dashboard__action-card" data-feature="interviewGuide">
                 <a href="guide.html" class="tool-card">

@@ -273,7 +273,6 @@
     display: none;
     align-items: center;
     gap: 10px;
-    margin-left: auto;
 }
 
 .nav__user.is-visible {

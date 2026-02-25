@@ -1954,9 +1954,15 @@
         }
     });
 
-    // Fallback: if Firebase module fails to load, proceed to dashboard as guest
+    // Fallback: if auth hasn't resolved within 3 seconds, unblock the UI.
+    // Firebase module may have loaded but onAuthStateChanged may be slow
+    // (e.g. IndexedDB auth state restoration). Show the auth form so the
+    // user isn't stuck on the spinner. If firebase:authchange fires later,
+    // it will still proceed to setup normally.
     setTimeout(function () {
-        if (!authResolved && !window.FirebaseService) {
+        if (authResolved) return;
+        showAuthForm();
+        if (!window.FirebaseService) {
             authResolved = true;
             proceedToSetup(null, null);
         }

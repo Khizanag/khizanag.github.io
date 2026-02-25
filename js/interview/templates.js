@@ -104,7 +104,7 @@
         },
     ];
 
-    var escapeHtml = App.escapeHtml;
+    var escapeHtml = App.escapeHtml || InterviewUtils.escapeHtml;
 
     function buildTemplateCards() {
         var container = document.getElementById('templateGrid');

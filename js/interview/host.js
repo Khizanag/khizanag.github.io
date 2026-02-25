@@ -46,11 +46,10 @@
     var allChips = [];
 
     // ===========================================================
-    //  URL PARAMS
+    //  PAGE MODE (from body data attribute)
     // ===========================================================
 
-    var params = new URLSearchParams(window.location.search);
-    var presetMode = params.get('mode');
+    var pageMode = document.body.dataset.hostMode || 'interview';
 
     // ===========================================================
     //  PLATFORM / TOPICS
@@ -105,13 +104,11 @@
         }
 
         var config = App.getPlatformConfig();
-        if (dom.setupTitle) dom.setupTitle.textContent = config.name + ' Interview';
+        if (dom.setupTitle) dom.setupTitle.textContent = s.practiceMode
+            ? config.name + ' Practice'
+            : config.name + ' Interview';
         if (dom.setupSubtitle) dom.setupSubtitle.textContent = config.subtitle;
         if (dom.setupIcon) dom.setupIcon.textContent = config.icon;
-
-        if (dom.hostNavTitle) {
-            dom.hostNavTitle.textContent = s.practiceMode ? 'Self-Study Practice' : 'Host Interview';
-        }
 
         renderTopicChips();
         selectAllTopics();
@@ -123,7 +120,7 @@
 
     function updateStartButton() {
         var hasTopics = s.selectedTopics.length > 0;
-        var hasNames = s.practiceMode ? true : (dom.nameInput.value.trim().length > 0);
+        var hasNames = s.practiceMode ? true : (dom.nameInput && dom.nameInput.value.trim().length > 0);
         var allSelected = allChips.length > 0 && s.selectedTopics.length === allChips.length;
 
         dom.btnStart.disabled = !(hasTopics && hasNames);
@@ -150,28 +147,20 @@
 
     function setMode(mode) {
         s.practiceMode = mode === 'practice';
-        dom.btnModeInterview.classList.toggle('is-active', !s.practiceMode);
-        dom.btnModePractice.classList.toggle('is-active', s.practiceMode);
-        dom.btnModeInterview.setAttribute('aria-checked', !s.practiceMode ? 'true' : 'false');
-        dom.btnModePractice.setAttribute('aria-checked', s.practiceMode ? 'true' : 'false');
 
-        dom.planSection.style.display = s.practiceMode ? 'none' : '';
-        dom.candidateSection.style.display = s.practiceMode ? 'none' : '';
+        if (dom.planSection) dom.planSection.style.display = s.practiceMode ? 'none' : '';
+        if (dom.candidateSection) dom.candidateSection.style.display = s.practiceMode ? 'none' : '';
         if (dom.liveActionsSection) dom.liveActionsSection.style.display = s.practiceMode ? 'none' : '';
-
-        if (dom.hostNavTitle) {
-            dom.hostNavTitle.textContent = s.practiceMode ? 'Self-Study Practice' : 'Host Interview';
-        }
 
         // In interview mode, guest must sign in
         if (!s.practiceMode && isGuest) {
             dom.hostContent.classList.remove('is-active');
-            dom.hostSignin.classList.add('is-active');
+            if (dom.hostSignin) dom.hostSignin.classList.add('is-active');
             return;
         }
 
         dom.hostContent.classList.add('is-active');
-        dom.hostSignin.classList.remove('is-active');
+        if (dom.hostSignin) dom.hostSignin.classList.remove('is-active');
         updateStartButton();
     }
 
@@ -179,26 +168,64 @@
     //  AUTH
     // ===========================================================
 
+    function updateNavProfile(user) {
+        var navUser = document.getElementById('navUser');
+        var avatarEl = document.getElementById('navUserAvatar');
+        var nameEl = document.getElementById('navUserName');
+        if (!navUser) return;
+
+        if (!user) {
+            navUser.classList.remove('is-visible');
+            return;
+        }
+
+        navUser.classList.add('is-visible');
+
+        if (user.isAnonymous) {
+            if (nameEl) nameEl.textContent = 'Guest';
+            if (avatarEl) { avatarEl.textContent = '?'; avatarEl.classList.add('nav__user-avatar--placeholder'); }
+            return;
+        }
+
+        if (nameEl) nameEl.textContent = user.displayName || user.email || '';
+        if (avatarEl) {
+            avatarEl.textContent = '';
+            if (user.photoURL) {
+                avatarEl.classList.remove('nav__user-avatar--placeholder');
+                var img = document.createElement('img');
+                img.src = user.photoURL;
+                img.alt = 'Avatar';
+                img.referrerPolicy = 'no-referrer';
+                avatarEl.appendChild(img);
+            } else {
+                avatarEl.classList.add('nav__user-avatar--placeholder');
+                avatarEl.textContent = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+            }
+        }
+    }
+
     function handleAuth(user) {
         currentUser = user;
         isGuest = !user || user.isAnonymous;
 
+        updateNavProfile(user);
+
         if (user && !user.isAnonymous) {
-            dom.interviewerName.textContent = user.displayName || user.email || 'You';
-            dom.interviewerSection.style.display = '';
+            if (dom.interviewerName) dom.interviewerName.textContent = user.displayName || user.email || 'You';
+            if (dom.interviewerSection) dom.interviewerSection.style.display = '';
             s.interviewerName = user.displayName || user.email || '';
         } else {
-            dom.interviewerSection.style.display = 'none';
-            s.interviewerName = isGuest ? 'Self-Study' : '';
+            if (dom.interviewerSection) dom.interviewerSection.style.display = 'none';
+            s.interviewerName = s.practiceMode ? 'Self-Study' : '';
         }
 
-        // If guest tries interview mode, show sign-in prompt
+        // In interview mode, guest must sign in
         if (!s.practiceMode && isGuest) {
             dom.hostContent.classList.remove('is-active');
-            dom.hostSignin.classList.add('is-active');
+            if (dom.hostSignin) dom.hostSignin.classList.add('is-active');
         } else {
             dom.hostContent.classList.add('is-active');
-            dom.hostSignin.classList.remove('is-active');
+            if (dom.hostSignin) dom.hostSignin.classList.remove('is-active');
         }
     }
 
@@ -213,10 +240,6 @@
     // ===========================================================
 
     function bindEvents() {
-        // Mode toggle
-        dom.btnModeInterview.addEventListener('click', function () { setMode('interview'); });
-        dom.btnModePractice.addEventListener('click', function () { setMode('practice'); });
-
         // Platform selector
         var platformSelector = document.getElementById('platformSelector');
         if (platformSelector) {
@@ -228,10 +251,12 @@
         }
 
         // Candidate name
-        dom.nameInput.addEventListener('input', function () {
-            s.intervieweeName = dom.nameInput.value.trim();
-            updateStartButton();
-        });
+        if (dom.nameInput) {
+            dom.nameInput.addEventListener('input', function () {
+                s.intervieweeName = dom.nameInput.value.trim();
+                updateStartButton();
+            });
+        }
 
         // Topic fold
         dom.btnFoldTopics.addEventListener('click', function () {
@@ -304,21 +329,20 @@
         // Apply feature flags
         App.applyFeatureFlags();
 
-        // Apply preset mode from URL
-        if (presetMode === 'practice') {
-            setMode('practice');
-        }
+        // Apply mode from body data attribute
+        setMode(pageMode);
 
-        // Fallback: if no Firebase, allow self-study mode
+        // Fallback: if no Firebase, handle gracefully
         setTimeout(function () {
             if (!window.FirebaseService) {
                 isGuest = true;
                 if (s.practiceMode) {
                     dom.hostContent.classList.add('is-active');
-                    dom.hostSignin.classList.remove('is-active');
+                    if (dom.hostSignin) dom.hostSignin.classList.remove('is-active');
                 } else {
-                    // No Firebase and interview mode — switch to practice
-                    setMode('practice');
+                    // No Firebase and interview mode — show sign-in prompt
+                    dom.hostContent.classList.remove('is-active');
+                    if (dom.hostSignin) dom.hostSignin.classList.add('is-active');
                 }
             }
         }, 3000);

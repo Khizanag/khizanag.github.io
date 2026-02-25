@@ -820,7 +820,7 @@
     // ===========================================================
 
     function bindEvents() {
-        // Mode toggle, platform selector, name inputs, topic fold — only exist on host.html, not dashboard
+        // Mode toggle, platform selector, name inputs, topic fold — only exist on host-interview.html, not dashboard
         // These are guarded with null checks since dashboard no longer has setup form elements
 
         // Hint / Answer reveals
@@ -966,7 +966,7 @@
             window.scrollTo(0, 0);
         });
 
-        // Start interview (btnStart only exists on host.html, not on dashboard)
+        // Start interview (btnStart only exists on host-interview.html, not on dashboard)
         if (dom.btnStart) {
             dom.btnStart.addEventListener('click', function () {
                 var validNames = s.practiceMode
@@ -1863,7 +1863,7 @@
     }
 
     function initApp(user) {
-        // Check for pending session from host.html
+        // Check for pending session from host-interview.html
         var pendingRaw = null;
         try { pendingRaw = sessionStorage.getItem('ios-interview-pending-session'); } catch (e) { /* */ }
         if (pendingRaw) {

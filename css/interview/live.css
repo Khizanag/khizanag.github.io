@@ -279,14 +279,14 @@
 .btn-live-join {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 10px 20px;
+    gap: 8px;
+    padding: 16px 28px;
     border: 1.5px solid var(--border-primary);
     border-radius: 100px;
     background: transparent;
     color: var(--text-secondary);
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;

@@ -117,7 +117,13 @@
         var newValue = !allOn;
         keys.forEach(function (k) { features[k] = newValue; });
         saveFeatures(features);
-        render();
+
+        var listId = isDefault ? 'cfgActiveList' : 'cfgExperimentalList';
+        var checkboxes = document.getElementById(listId).querySelectorAll('input[type="checkbox"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = newValue;
+        }
+        updateToggleAllLabels();
     }
 
     document.getElementById('cfgToggleActive').addEventListener('click', function () {

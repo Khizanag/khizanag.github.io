@@ -805,8 +805,8 @@
 
         // Auth gating: show/hide lock badges for guests
         var isGuest = !user || user.isAnonymous;
-        var lockIds = ['dashHostLock', 'dashAnalyticsLock', 'dashCustomLock'];
-        var cardIds = ['dashHostCard', 'dashAnalyticsCard', 'dashCustomCard'];
+        var lockIds = ['dashHostLock', 'dashAnalyticsLock', 'dashCustomLock', 'dashBrowseLock'];
+        var cardIds = ['dashHostCard', 'dashAnalyticsCard', 'dashCustomCard', 'dashBrowseCard'];
         for (var i = 0; i < lockIds.length; i++) {
             var lockEl = document.getElementById(lockIds[i]);
             var cardEl = document.getElementById(cardIds[i]);

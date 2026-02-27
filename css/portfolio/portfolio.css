@@ -276,6 +276,16 @@ img, svg {
     background: rgba(255, 255, 255, 0.06);
 }
 
+.nav__dropdown-label {
+    padding: 6px 20px 2px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-gray-500);
+    pointer-events: none;
+}
+
 .nav__dropdown-divider {
     height: 1px;
     background: rgba(255, 255, 255, 0.08);
@@ -1700,6 +1710,7 @@ img, svg {
         font-size: 14px;
     }
     .nav__dropdown-divider { display: none; }
+    .nav__dropdown-label { display: none; }
 
     .hero {
         min-height: 90vh;

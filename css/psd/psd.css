@@ -1366,6 +1366,11 @@
     display: block;
 }
 
+.psd-review__bookmark {
+    margin-left: 0;
+    flex-shrink: 0;
+}
+
 .psd-review__item-chevron {
     width: 16px;
     height: 16px;

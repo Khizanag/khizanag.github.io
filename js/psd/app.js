@@ -727,6 +727,9 @@
                     '<div class="psd-review__item-badges"' + (state.hideReviewDifficulty ? ' style="display:none"' : '') + '>' +
                         '<span class="psd-badge ' + difficultyClass(q.difficulty) + '">' + q.difficulty + '</span>' +
                     '</div>' +
+                    '<button class="psd-quiz__bookmark psd-review__bookmark' + (isBookmarked(q.id) ? ' is-active' : '') + '" aria-label="Bookmark question" data-id="' + q.id + '">' +
+                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>' +
+                    '</button>' +
                     '<svg class="psd-review__item-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
                 '</div>' +
                 '<div class="psd-review__item-body">' +
@@ -734,6 +737,14 @@
                     '<button class="psd-review__reveal-btn">Show Answer</button>' +
                     '<div class="psd-review__explanation" style="display:none">' + escapeHtml(q.explanation) + '</div>' +
                 '</div>';
+
+            // Bookmark button handler (stop propagation so it doesn't toggle the item)
+            div.querySelector('.psd-review__bookmark').addEventListener('click', function (e) {
+                e.stopPropagation();
+                var id = Number(this.getAttribute('data-id'));
+                toggleBookmark(id);
+                updateBookmarkBtn(this, id);
+            });
 
             div.querySelector('.psd-review__item-header').addEventListener('click', function () {
                 div.classList.toggle('is-open');

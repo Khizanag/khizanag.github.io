@@ -237,8 +237,13 @@ a {
    HERO
    ============================================ */
 .j-hero {
-    padding: calc(var(--nav-height) + 80px) 24px 120px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 120px 24px 80px;
     background: var(--color-black);
     position: relative;
     overflow: hidden;
@@ -1080,6 +1085,7 @@ a {
     }
 
     .j-hero {
+        min-height: auto;
         padding: calc(var(--nav-height) + 48px) 20px 48px;
     }
 

@@ -145,6 +145,12 @@ img, svg {
     padding: 0 22px;
 }
 
+.nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .nav__logo {
     font-family: var(--font-display);
     font-weight: 700;

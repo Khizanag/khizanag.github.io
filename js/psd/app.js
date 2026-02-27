@@ -712,33 +712,57 @@
             var correctArr = isMultiSelect(q) ? q.correct : [q.correct];
             var div = document.createElement('div');
             div.className = 'psd-review__item';
+            var num = idx + 1;
+            var numClass = 'psd-review__item-num' + (num >= 100 ? ' psd-review__item-num--wide' : '');
 
-            // Options without correct marking initially
+            var markerSvg =
+                '<span class="psd-review__answer-marker">' +
+                    '<svg class="psd-review__marker-circle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/></svg>' +
+                    '<svg class="psd-review__marker-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5L6.5 11.5L12.5 4.5"/></svg>' +
+                '</span>';
+
             var answersHtml = q.options.map(function (opt, i) {
                 return '<div class="psd-review__answer" data-correct="' + (correctArr.indexOf(i) !== -1 ? '1' : '0') + '">' +
-                    '<span class="psd-review__answer-marker">\u25CB</span>' +
+                    markerSvg +
                     '<span>' + LETTERS[i] + '. ' + escapeHtml(opt) + '</span></div>';
             }).join('');
 
+            var badgesHtml =
+                '<span class="psd-badge psd-badge--category">' + escapeHtml(q.category) + '</span>' +
+                (isMultiSelect(q) ? '<span class="psd-badge psd-badge--multi">Multi</span>' : '') +
+                '<span class="psd-badge psd-review__diff-badge ' + difficultyClass(q.difficulty) + '"' +
+                    (state.hideReviewDifficulty ? ' style="display:none"' : '') + '>' + q.difficulty + '</span>';
+
+            var explanationHtml =
+                '<div class="psd-review__explanation-label">Explanation</div>' +
+                '<div class="psd-review__explanation-text">' + escapeHtml(q.explanation) + '</div>' +
+                (q.tip ? '<div class="psd-review__tip">' + escapeHtml(q.tip) + '</div>' : '') +
+                (q.source ? '<div class="psd-review__source">' + escapeHtml(q.source) + '</div>' : '');
+
+            var eyeSvg = '<svg class="psd-review__reveal-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+                '<path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2.5"/></svg>';
+
             div.innerHTML =
                 '<div class="psd-review__item-header">' +
-                    '<span class="psd-review__item-num">' + (idx + 1) + '</span>' +
+                    '<span class="' + numClass + '">' + num + '</span>' +
                     '<span class="psd-review__item-q">' + escapeHtml(q.question) + '</span>' +
-                    '<div class="psd-review__item-badges"' + (state.hideReviewDifficulty ? ' style="display:none"' : '') + '>' +
-                        '<span class="psd-badge ' + difficultyClass(q.difficulty) + '">' + q.difficulty + '</span>' +
-                    '</div>' +
+                    '<div class="psd-review__item-badges">' + badgesHtml + '</div>' +
                     '<button class="psd-quiz__bookmark psd-review__bookmark' + (isBookmarked(q.id) ? ' is-active' : '') + '" aria-label="Bookmark question" data-id="' + q.id + '">' +
                         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>' +
                     '</button>' +
                     '<svg class="psd-review__item-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
                 '</div>' +
-                '<div class="psd-review__item-body">' +
-                    '<div class="psd-review__answer-list">' + answersHtml + '</div>' +
-                    '<button class="psd-review__reveal-btn">Show Answer</button>' +
-                    '<div class="psd-review__explanation" style="display:none">' + escapeHtml(q.explanation) + '</div>' +
-                '</div>';
+                '<div class="psd-review__item-collapse"><div class="psd-review__item-collapse-inner">' +
+                    '<div class="psd-review__item-body">' +
+                        '<div class="psd-review__answer-list">' + answersHtml + '</div>' +
+                        '<button class="psd-review__reveal-btn">' + eyeSvg + ' Show Answer</button>' +
+                        '<div class="psd-review__explanation-collapse"><div class="psd-review__explanation-collapse-inner">' +
+                            '<div class="psd-review__explanation">' + explanationHtml + '</div>' +
+                        '</div></div>' +
+                    '</div>' +
+                '</div></div>';
 
-            // Bookmark button handler (stop propagation so it doesn't toggle the item)
+            // Bookmark button handler
             div.querySelector('.psd-review__bookmark').addEventListener('click', function (e) {
                 e.stopPropagation();
                 var id = Number(this.getAttribute('data-id'));
@@ -750,20 +774,28 @@
                 div.classList.toggle('is-open');
             });
 
-            // Reveal button handler
+            // Reveal button handler — staggered highlights + explanation slide-in
             div.querySelector('.psd-review__reveal-btn').addEventListener('click', function () {
-                this.classList.add('is-revealed');
-                this.textContent = 'Answer Revealed';
-                // Show correct answers
+                var btn = this;
+                btn.classList.add('is-revealed');
+                btn.textContent = 'Answer Revealed';
+
                 var answers = div.querySelectorAll('.psd-review__answer');
+                var delay = 0;
                 for (var a = 0; a < answers.length; a++) {
                     if (answers[a].getAttribute('data-correct') === '1') {
-                        answers[a].classList.add('is-correct');
-                        answers[a].querySelector('.psd-review__answer-marker').textContent = '\u2705';
+                        (function (el, d) {
+                            setTimeout(function () { el.classList.add('is-correct'); }, d);
+                        })(answers[a], delay);
+                        delay += 120;
                     }
                 }
-                // Show explanation
-                div.querySelector('.psd-review__explanation').style.display = '';
+
+                // Slide in explanation after all answers revealed
+                var explCollapse = div.querySelector('.psd-review__explanation-collapse');
+                setTimeout(function () {
+                    explCollapse.classList.add('is-open');
+                }, delay + 200);
             });
 
             container.appendChild(div);
@@ -890,7 +922,7 @@
         $('btnReviewHome').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
         $('hideReviewDifficultyToggle').addEventListener('change', function () {
             state.hideReviewDifficulty = this.checked;
-            var badges = document.querySelectorAll('#reviewList .psd-review__item-badges');
+            var badges = document.querySelectorAll('#reviewList .psd-review__diff-badge');
             for (var i = 0; i < badges.length; i++) {
                 badges[i].style.display = state.hideReviewDifficulty ? 'none' : '';
             }

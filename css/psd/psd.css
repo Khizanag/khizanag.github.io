@@ -1314,6 +1314,20 @@
     background: var(--color-white-a3);
     border: 1px solid var(--color-white-a8);
     border-radius: var(--border-radius-sm);
+    transition: transform 0.3s var(--ease-smooth),
+                border-color 0.3s,
+                background 0.3s,
+                box-shadow 0.3s;
+}
+
+.psd-review__item:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-white-a12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.psd-review__item.is-open {
+    border-color: var(--color-teal-a25);
 }
 
 /* --- Smooth expand/collapse (CSS Grid) --- */

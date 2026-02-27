@@ -334,21 +334,70 @@
         </div>
 
         <div class="psd-review__controls">
-            <div class="psd-review__filters" id="reviewFilters"></div>
             <div class="psd-review__search">
                 <svg class="psd-review__search-icon" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
                 <input type="text" class="psd-review__search-input" id="reviewSearchInput" placeholder="Search questions...">
             </div>
-            <label class="psd-toggle-label">
-                <span class="psd-toggle">
-                    <input type="checkbox" id="hideReviewDifficultyToggle" checked>
-                    <span class="psd-toggle__track"></span>
-                </span>
-                Hide difficulty
-            </label>
+
+            <div class="psd-review__toolbar">
+                <div class="psd-review__toolbar-left">
+                    <select class="psd-review__select" id="reviewCategoryFilter">
+                        <option value="all">All Categories</option>
+                    </select>
+                    <select class="psd-review__select" id="reviewDifficultyFilter">
+                        <option value="all">All Difficulties</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                    <select class="psd-review__select" id="reviewSort">
+                        <option value="id-asc">ID Ascending</option>
+                        <option value="id-desc">ID Descending</option>
+                        <option value="cat-asc">Category A–Z</option>
+                        <option value="cat-desc">Category Z–A</option>
+                        <option value="diff-asc">Easy → Hard</option>
+                        <option value="diff-desc">Hard → Easy</option>
+                    </select>
+                    <select class="psd-review__select" id="reviewPageSize">
+                        <option value="25">25 / page</option>
+                        <option value="50">50 / page</option>
+                        <option value="100">100 / page</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+                <div class="psd-review__toolbar-right">
+                    <label class="psd-toggle-label">
+                        <span class="psd-toggle">
+                            <input type="checkbox" id="hideReviewDifficultyToggle" checked>
+                            <span class="psd-toggle__track"></span>
+                        </span>
+                        Hide difficulty
+                    </label>
+                    <label class="psd-toggle-label">
+                        <span class="psd-toggle">
+                            <input type="checkbox" id="hideReviewCategoryToggle">
+                            <span class="psd-toggle__track"></span>
+                        </span>
+                        Hide categories
+                    </label>
+                    <label class="psd-toggle-label">
+                        <span class="psd-toggle">
+                            <input type="checkbox" id="hideReviewMultiToggle">
+                            <span class="psd-toggle__track"></span>
+                        </span>
+                        Hide multi
+                    </label>
+                </div>
+            </div>
+
+            <div class="psd-review__info">
+                <span class="psd-review__info-count" id="reviewInfoCount">500 questions</span>
+                <span class="psd-review__info-range" id="reviewInfoRange">Showing 1–25 of 500</span>
+            </div>
         </div>
 
         <div class="psd-review__list" id="reviewList"></div>
+        <div class="psd-review__pagination" id="reviewPagination"></div>
 
         <div class="psd-review__back-wrap">
             <button class="psd-btn-secondary" id="btnReviewHome">Back to Home</button>

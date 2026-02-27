@@ -20,7 +20,7 @@ Static HTML/CSS/JS pages + React/Vite presentations. Build tools at root level (
 - `index.html` — the main portfolio page (HTML + JS, styles in `css/portfolio/portfolio.css`)
 - `jobs.html` — iOS Career Hub page (HTML + JS, styles in `css/jobs/jobs.css`)
 - `roadmap.html` — iOS Mastery Roadmap (knowledge map for Senior iOS Developers)
-- `interview.html` — iOS Interview tool
+- `interview.html` — Interview tool (supports iOS, Android, Frontend, Backend, Behavioral)
 - `css/` — stylesheets organized by concern:
   - `core/` — `design-system.css` (tokens, variables), `scroll-indicator.css` (shared scroll component)
   - `themes/` — `default.css` (placeholder), `pres.css` (dark navy + neon green)

@@ -928,6 +928,21 @@
             }
         });
 
+        // Review search (debounced)
+        var searchTimer = null;
+        $('reviewSearchInput').addEventListener('input', function () {
+            var input = this;
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(function () {
+                var term = input.value.toLowerCase().trim();
+                var items = document.querySelectorAll('#reviewList .psd-review__item');
+                for (var i = 0; i < items.length; i++) {
+                    var text = items[i].textContent.toLowerCase();
+                    items[i].style.display = (!term || text.indexOf(term) !== -1) ? '' : 'none';
+                }
+            }, 200);
+        });
+
         // Answer log tabs (results)
         var tabBtns = document.querySelectorAll('#resultTabs .psd-answer-log__tab');
         for (var t = 0; t < tabBtns.length; t++) {

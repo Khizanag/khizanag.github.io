@@ -38,6 +38,16 @@
         quizAnswered: false,
         hideDifficulty: true,
         hideReviewDifficulty: true,
+        hideReviewCategory: false,
+        hideReviewMulti: false,
+
+        // Review controls
+        reviewCategoryFilter: 'all',
+        reviewDifficultyFilter: 'all',
+        reviewSort: 'id-asc',
+        reviewPageSize: 25,
+        reviewCurrentPage: 0,
+        reviewFiltered: [],
 
         // Flashcards
         studyQuestions: [],
@@ -696,23 +706,94 @@
     /* ============================================
        REVIEW MODE
        ============================================ */
+    var DIFF_ORDER = { 'Easy': 0, 'Medium': 1, 'Hard': 2 };
+
     function openReview() {
         showScreen('screen-review');
-        renderReviewList();
+        populateReviewCategoryDropdown();
+        applyReviewFilters();
     }
 
-    function renderReviewList() {
-        var qs = getFilteredQuestions();
-        $('reviewSubtitle').textContent = qs.length + ' question' + (qs.length !== 1 ? 's' : '');
+    function populateReviewCategoryDropdown() {
+        var sel = $('reviewCategoryFilter');
+        var current = sel.value;
+        sel.innerHTML = '<option value="all">All Categories</option>';
+        var cats = getAllCategories();
+        Object.keys(cats).forEach(function (cat) {
+            var opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat + ' (' + cats[cat] + ')';
+            sel.appendChild(opt);
+        });
+        sel.value = current || 'all';
+    }
+
+    function applyReviewFilters() {
+        var qs = PSD_QUESTIONS.slice();
+        var searchTerm = ($('reviewSearchInput').value || '').toLowerCase().trim();
+
+        // Search
+        if (searchTerm) {
+            qs = qs.filter(function (q) {
+                return q.question.toLowerCase().indexOf(searchTerm) !== -1 ||
+                       q.category.toLowerCase().indexOf(searchTerm) !== -1 ||
+                       q.explanation.toLowerCase().indexOf(searchTerm) !== -1;
+            });
+        }
+
+        // Category filter
+        if (state.reviewCategoryFilter !== 'all') {
+            qs = qs.filter(function (q) { return q.category === state.reviewCategoryFilter; });
+        }
+
+        // Difficulty filter
+        if (state.reviewDifficultyFilter !== 'all') {
+            qs = qs.filter(function (q) { return q.difficulty === state.reviewDifficultyFilter; });
+        }
+
+        // Sort
+        var sort = state.reviewSort;
+        if (sort === 'id-desc') {
+            qs.sort(function (a, b) { return b.id - a.id; });
+        } else if (sort === 'cat-asc') {
+            qs.sort(function (a, b) { return a.category.localeCompare(b.category) || a.id - b.id; });
+        } else if (sort === 'cat-desc') {
+            qs.sort(function (a, b) { return b.category.localeCompare(a.category) || a.id - b.id; });
+        } else if (sort === 'diff-asc') {
+            qs.sort(function (a, b) { return (DIFF_ORDER[a.difficulty] || 0) - (DIFF_ORDER[b.difficulty] || 0) || a.id - b.id; });
+        } else if (sort === 'diff-desc') {
+            qs.sort(function (a, b) { return (DIFF_ORDER[b.difficulty] || 0) - (DIFF_ORDER[a.difficulty] || 0) || a.id - b.id; });
+        }
+        // id-asc is default order (PSD_QUESTIONS is already id-asc)
+
+        state.reviewFiltered = qs;
+        state.reviewCurrentPage = 0;
+        renderReviewPage();
+    }
+
+    function renderReviewPage() {
+        var qs = state.reviewFiltered;
+        var total = qs.length;
+        var pageSize = state.reviewPageSize === 'all' ? total : state.reviewPageSize;
+        var start = state.reviewCurrentPage * pageSize;
+        var end = Math.min(start + pageSize, total);
+        var page = qs.slice(start, end);
+
+        // Update subtitle & info bar
+        $('reviewSubtitle').textContent = total + ' question' + (total !== 1 ? 's' : '');
+        $('reviewInfoCount').textContent = total + ' question' + (total !== 1 ? 's' : '');
+        $('reviewInfoRange').textContent = total > 0
+            ? 'Showing ' + (start + 1) + '\u2013' + end + ' of ' + total
+            : 'No results';
 
         var container = $('reviewList');
         container.innerHTML = '';
 
-        qs.forEach(function (q, idx) {
+        page.forEach(function (q, idx) {
             var correctArr = isMultiSelect(q) ? q.correct : [q.correct];
             var div = document.createElement('div');
             div.className = 'psd-review__item';
-            var num = idx + 1;
+            var num = start + idx + 1;
             var numClass = 'psd-review__item-num' + (num >= 100 ? ' psd-review__item-num--wide' : '');
 
             var markerSvg =
@@ -727,11 +808,14 @@
                     '<span>' + LETTERS[i] + '. ' + escapeHtml(opt) + '</span></div>';
             }).join('');
 
+            var catStyle = state.hideReviewCategory ? ' style="display:none"' : '';
+            var multiStyle = state.hideReviewMulti ? ' style="display:none"' : '';
+            var diffStyle = state.hideReviewDifficulty ? ' style="display:none"' : '';
+
             var badgesHtml =
-                '<span class="psd-badge psd-badge--category">' + escapeHtml(q.category) + '</span>' +
-                (isMultiSelect(q) ? '<span class="psd-badge psd-badge--multi">Multi</span>' : '') +
-                '<span class="psd-badge psd-review__diff-badge ' + difficultyClass(q.difficulty) + '"' +
-                    (state.hideReviewDifficulty ? ' style="display:none"' : '') + '>' + q.difficulty + '</span>';
+                '<span class="psd-badge psd-badge--category psd-review__cat-badge"' + catStyle + '>' + escapeHtml(q.category) + '</span>' +
+                (isMultiSelect(q) ? '<span class="psd-badge psd-badge--multi psd-review__multi-badge"' + multiStyle + '>Multi</span>' : '') +
+                '<span class="psd-badge psd-review__diff-badge ' + difficultyClass(q.difficulty) + '"' + diffStyle + '>' + q.difficulty + '</span>';
 
             var explanationHtml =
                 '<div class="psd-review__explanation-label">Explanation</div>' +
@@ -791,7 +875,6 @@
                     }
                 }
 
-                // Slide in explanation after all answers revealed
                 var explCollapse = div.querySelector('.psd-review__explanation-collapse');
                 setTimeout(function () {
                     explCollapse.classList.add('is-open');
@@ -800,6 +883,76 @@
 
             container.appendChild(div);
         });
+
+        renderReviewPagination();
+    }
+
+    function renderReviewPagination() {
+        var container = $('reviewPagination');
+        container.innerHTML = '';
+
+        var total = state.reviewFiltered.length;
+        var pageSize = state.reviewPageSize === 'all' ? total : state.reviewPageSize;
+        if (pageSize <= 0 || total <= 0) return;
+        var totalPages = Math.ceil(total / pageSize);
+        if (totalPages <= 1) return;
+
+        var current = state.reviewCurrentPage;
+
+        // Prev button
+        var prevBtn = document.createElement('button');
+        prevBtn.className = 'psd-pag-btn psd-pag-btn--arrow';
+        prevBtn.setAttribute('data-page', current - 1);
+        prevBtn.disabled = current === 0;
+        prevBtn.innerHTML = '\u2039 Prev';
+        container.appendChild(prevBtn);
+
+        // Page numbers with ellipsis
+        var pages = buildPageNumbers(current, totalPages);
+        pages.forEach(function (p) {
+            if (p === '...') {
+                var span = document.createElement('span');
+                span.className = 'psd-pag-ellipsis';
+                span.textContent = '\u2026';
+                container.appendChild(span);
+            } else {
+                var btn = document.createElement('button');
+                btn.className = 'psd-pag-btn' + (p === current ? ' is-active' : '');
+                btn.setAttribute('data-page', p);
+                btn.textContent = p + 1;
+                container.appendChild(btn);
+            }
+        });
+
+        // Next button
+        var nextBtn = document.createElement('button');
+        nextBtn.className = 'psd-pag-btn psd-pag-btn--arrow';
+        nextBtn.setAttribute('data-page', current + 1);
+        nextBtn.disabled = current === totalPages - 1;
+        nextBtn.innerHTML = 'Next \u203A';
+        container.appendChild(nextBtn);
+    }
+
+    function buildPageNumbers(current, total) {
+        if (total <= 7) {
+            var arr = [];
+            for (var i = 0; i < total; i++) arr.push(i);
+            return arr;
+        }
+
+        var pages = [];
+        pages.push(0);
+
+        if (current > 2) pages.push('...');
+
+        var start = Math.max(1, current - 1);
+        var end = Math.min(total - 2, current + 1);
+        for (var j = start; j <= end; j++) pages.push(j);
+
+        if (current < total - 3) pages.push('...');
+
+        pages.push(total - 1);
+        return pages;
     }
 
     /* ============================================
@@ -920,6 +1073,26 @@
         // Review
         $('btnReviewBack').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
         $('btnReviewHome').addEventListener('click', function () { showScreen('screen-home'); updateFilteredCount(); });
+
+        // Review selects
+        $('reviewCategoryFilter').addEventListener('change', function () {
+            state.reviewCategoryFilter = this.value;
+            applyReviewFilters();
+        });
+        $('reviewDifficultyFilter').addEventListener('change', function () {
+            state.reviewDifficultyFilter = this.value;
+            applyReviewFilters();
+        });
+        $('reviewSort').addEventListener('change', function () {
+            state.reviewSort = this.value;
+            applyReviewFilters();
+        });
+        $('reviewPageSize').addEventListener('change', function () {
+            state.reviewPageSize = this.value === 'all' ? 'all' : parseInt(this.value);
+            applyReviewFilters();
+        });
+
+        // Review toggles — operate on DOM directly
         $('hideReviewDifficultyToggle').addEventListener('change', function () {
             state.hideReviewDifficulty = this.checked;
             var badges = document.querySelectorAll('#reviewList .psd-review__diff-badge');
@@ -927,20 +1100,39 @@
                 badges[i].style.display = state.hideReviewDifficulty ? 'none' : '';
             }
         });
+        $('hideReviewCategoryToggle').addEventListener('change', function () {
+            state.hideReviewCategory = this.checked;
+            var badges = document.querySelectorAll('#reviewList .psd-review__cat-badge');
+            for (var i = 0; i < badges.length; i++) {
+                badges[i].style.display = state.hideReviewCategory ? 'none' : '';
+            }
+        });
+        $('hideReviewMultiToggle').addEventListener('change', function () {
+            state.hideReviewMulti = this.checked;
+            var badges = document.querySelectorAll('#reviewList .psd-review__multi-badge');
+            for (var i = 0; i < badges.length; i++) {
+                badges[i].style.display = state.hideReviewMulti ? 'none' : '';
+            }
+        });
 
         // Review search (debounced)
         var searchTimer = null;
         $('reviewSearchInput').addEventListener('input', function () {
-            var input = this;
             clearTimeout(searchTimer);
             searchTimer = setTimeout(function () {
-                var term = input.value.toLowerCase().trim();
-                var items = document.querySelectorAll('#reviewList .psd-review__item');
-                for (var i = 0; i < items.length; i++) {
-                    var text = items[i].textContent.toLowerCase();
-                    items[i].style.display = (!term || text.indexOf(term) !== -1) ? '' : 'none';
-                }
-            }, 200);
+                applyReviewFilters();
+            }, 250);
+        });
+
+        // Pagination — delegated click
+        $('reviewPagination').addEventListener('click', function (e) {
+            var btn = e.target.closest('.psd-pag-btn');
+            if (!btn || btn.disabled) return;
+            var page = parseInt(btn.getAttribute('data-page'));
+            if (isNaN(page)) return;
+            state.reviewCurrentPage = page;
+            renderReviewPage();
+            $('reviewList').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
         // Answer log tabs (results)

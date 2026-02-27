@@ -1290,26 +1290,15 @@
 
 .psd-review__controls {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
+    gap: 12px;
     margin-bottom: 24px;
-    flex-wrap: wrap;
-}
-
-.psd-review__filters {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
 }
 
 /* --- Search input --- */
 .psd-review__search {
     position: relative;
-    flex: 1;
-    min-width: 180px;
-    max-width: 320px;
+    width: 100%;
 }
 
 .psd-review__search-icon {
@@ -1349,6 +1338,158 @@
 .psd-review__search-input:focus {
     border-color: var(--color-teal);
     background: var(--color-teal-a6);
+}
+
+/* --- Toolbar --- */
+.psd-review__toolbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.psd-review__toolbar-left {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.psd-review__toolbar-right {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* --- Custom select --- */
+.psd-review__select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px 32px 8px 12px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a10);
+    background-color: var(--color-white-a4);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    color: var(--color-gray-300);
+    font-family: var(--font-body);
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.25s, background-color 0.25s;
+}
+
+.psd-review__select:hover {
+    border-color: var(--color-white-a20);
+    background-color: var(--color-white-a6);
+}
+
+.psd-review__select:focus {
+    border-color: var(--color-teal);
+    background-color: var(--color-teal-a6);
+}
+
+.psd-review__select option {
+    background: #1a1a2e;
+    color: var(--color-gray-200);
+}
+
+/* --- Info bar --- */
+.psd-review__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-top: 1px solid var(--color-white-a6);
+    border-bottom: 1px solid var(--color-white-a6);
+}
+
+.psd-review__info-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-teal);
+}
+
+.psd-review__info-range {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-500);
+}
+
+/* --- Pagination --- */
+.psd-review__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.psd-review__pagination:empty {
+    display: none;
+}
+
+.psd-pag-btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-white-a10);
+    background: var(--color-white-a4);
+    color: var(--color-gray-300);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s var(--ease-smooth);
+}
+
+.psd-pag-btn:hover {
+    border-color: var(--color-teal);
+    background: var(--color-teal-a10);
+    color: var(--color-teal);
+}
+
+.psd-pag-btn.is-active {
+    border-color: var(--color-teal);
+    background: var(--color-teal-a20);
+    color: var(--color-teal);
+    font-weight: 700;
+}
+
+.psd-pag-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.psd-pag-btn--arrow {
+    width: auto;
+    padding: 0 12px;
+    gap: 4px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.psd-pag-ellipsis {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-600);
+    font-family: var(--font-mono);
+    font-size: 14px;
 }
 
 .psd-review__list {
@@ -1712,6 +1853,9 @@
     .psd-breakdown { padding: 24px 20px; }
     .psd-answer-log { padding: 24px 20px; }
     .psd-breakdown__name { min-width: 100px; }
+    .psd-review__toolbar { flex-direction: column; }
+    .psd-review__toolbar-left { display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; }
+    .psd-review__toolbar-right { flex-direction: row; flex-wrap: wrap; }
 }
 
 /* ============================================
@@ -1737,5 +1881,8 @@
     .psd-study__nav { gap: 10px; }
     .psd-study__nav-btn { padding: 10px 18px; font-size: 13px; }
     .psd-setup__actions { flex-direction: column; align-items: center; }
+    .psd-review__toolbar-left { grid-template-columns: 1fr; }
+    .psd-review__toolbar-right { flex-direction: column; }
+    .psd-review__select { width: 100%; }
 }
 

@@ -101,22 +101,25 @@
         var expected = Scoring.expectedOutcome(engine.theta, b);
         var info = Scoring.itemInformation(engine.theta, b);
 
+        // Capture K before decay for consistent updates
+        var kNow = engine.K;
+
         // Update global theta
-        engine.theta += engine.K * (outcome - expected) / 100;
+        engine.theta += kNow * (outcome - expected) / 100;
         engine.totalInfo += info;
         engine.questionCount++;
 
         // Decay K
         engine.K = Math.max(K_FLOOR, engine.K * K_DECAY);
 
-        // Update per-topic theta
+        // Update per-topic theta (using pre-decay K)
         var topic = question.topic;
         if (engine.topicThetas[topic] === undefined) {
             engine.topicThetas[topic] = THETA_INITIAL;
             engine.topicCounts[topic] = 0;
         }
         var topicExpected = Scoring.expectedOutcome(engine.topicThetas[topic], b);
-        engine.topicThetas[topic] += engine.K * (outcome - topicExpected) / 100;
+        engine.topicThetas[topic] += kNow * (outcome - topicExpected) / 100;
         engine.topicCounts[topic]++;
 
         // Record history
@@ -277,13 +280,13 @@
 
     Scoring.deserializeEngine = function (data) {
         return {
-            theta: data.theta || THETA_INITIAL,
-            K: data.K || K_INITIAL,
+            theta: data.theta != null ? data.theta : THETA_INITIAL,
+            K: data.K != null ? data.K : K_INITIAL,
             history: data.history || [],
             topicThetas: data.topicThetas || {},
             topicCounts: data.topicCounts || {},
-            totalInfo: data.totalInfo || 0,
-            questionCount: data.questionCount || 0,
+            totalInfo: data.totalInfo != null ? data.totalInfo : 0,
+            questionCount: data.questionCount != null ? data.questionCount : 0,
         };
     };
 

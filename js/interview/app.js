@@ -785,17 +785,19 @@
             greetingEl.textContent = name ? 'Welcome back, ' + name : 'Welcome';
         }
 
-        // Populate stats from gamification data
+        // Populate stats — derive interview count from history (source of truth)
         var gData = { xp: 0, totalInterviews: 0, streak: 0 };
         try {
             var raw = localStorage.getItem('ios-interview-gamification');
             if (raw) gData = JSON.parse(raw) || gData;
         } catch (e) { /* */ }
 
+        var historyCount = App.loadLocalHistory().length;
+
         var XP_PER_LEVEL = 500;
         var el;
         el = document.getElementById('dashInterviews');
-        if (el) el.textContent = gData.totalInterviews || 0;
+        if (el) el.textContent = historyCount;
         el = document.getElementById('dashXP');
         if (el) el.textContent = gData.xp || 0;
         el = document.getElementById('dashStreak');
@@ -1755,8 +1757,11 @@
             if (raw) gData = JSON.parse(raw) || gData;
         } catch (e) { /* */ }
 
+        // Derive interview count from history (source of truth)
+        var historyCount = App.loadLocalHistory().length;
+
         var XP_PER_LEVEL = 500;
-        document.getElementById('profileInterviews').textContent = gData.totalInterviews || 0;
+        document.getElementById('profileInterviews').textContent = historyCount;
         document.getElementById('profileQuestions').textContent = gData.totalQuestions || 0;
         document.getElementById('profileXP').textContent = gData.xp || 0;
         document.getElementById('profileLevel').textContent = Math.floor((gData.xp || 0) / XP_PER_LEVEL) + 1;
@@ -1821,6 +1826,10 @@
                 localStorage.setItem('ios-interview-history', JSON.stringify(cloudData.history.slice(0, 50)));
             }
             if (cloudData.gamification) {
+                // Reconcile totalInterviews with actual history count
+                if (cloudData.history) {
+                    cloudData.gamification.totalInterviews = cloudData.history.length;
+                }
                 localStorage.setItem('ios-interview-gamification', JSON.stringify(cloudData.gamification));
             }
             if (cloudData.sr) {

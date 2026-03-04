@@ -160,12 +160,31 @@
         });
     };
 
-    // ---- Comparison table helpers ----
+    // ---- Comparison view ----
 
-    function buildCompareRow(label, entries, cellFn) {
-        var html = '<tr><td>' + label + '</td>';
-        entries.forEach(function (e) { html += '<td>' + cellFn(e) + '</td>'; });
-        return html + '</tr>';
+    function ratingColor(avg) {
+        if (avg >= 4.0) return '#30d158';
+        if (avg >= 3.0) return '#ff9f0a';
+        if (avg >= 2.0) return '#ff375f';
+        return '#86868b';
+    }
+
+    function buildRatingBar(avg, color) {
+        var pct = Math.round((avg / 5) * 100);
+        return '<div class="cmp-rating">' +
+            '<div class="cmp-rating__bar"><div class="cmp-rating__fill" style="width:' + pct + '%;background:' + color + '"></div></div>' +
+            '<span class="cmp-rating__text" style="color:' + color + '">' + avg.toFixed(1) + '</span>' +
+        '</div>';
+    }
+
+    function bestIndex(entries, valueFn) {
+        var best = -Infinity;
+        var idx = -1;
+        entries.forEach(function (e, i) {
+            var v = valueFn(e);
+            if (v > best) { best = v; idx = i; }
+        });
+        return idx;
     }
 
     App.showComparison = function () {
@@ -186,39 +205,110 @@
         if (!modal || !body) return;
 
         var esc = App.escapeHtml;
-        var html = '<table class="compare__table"><thead><tr><th></th>';
-        entries.forEach(function (e) {
-            html += '<th>' + esc(e.intervieweeName) + '</th>';
-        });
-        html += '</tr></thead><tbody>';
+        var bestAvgIdx = bestIndex(entries, function (e) { return e.avg; });
+        var bestQIdx = bestIndex(entries, function (e) { return e.ratedCount; });
 
-        html += buildCompareRow('Date', entries, function (e) {
-            return new Date(e.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        });
-        html += buildCompareRow('Assessment', entries, function (e) {
-            return '<span style="color:' + App.LEVEL_COLORS[e.levelIndex] + '">' +
-                App.LEVEL_EMOJIS[e.levelIndex] + ' ' + esc(App.LEVEL_LABELS[e.levelIndex]) + '</span>';
-        });
-        html += buildCompareRow('Avg Rating', entries, function (e) {
-            return e.avg.toFixed(1) + '/5';
-        });
-        html += buildCompareRow('Questions', entries, function (e) {
-            return String(e.ratedCount);
-        });
+        // Build candidate cards
+        var html = '<div class="cmp-cards">';
+        entries.forEach(function (entry, idx) {
+            var levelLabel = App.LEVEL_LABELS[entry.levelIndex] || 'N/A';
+            var levelEmoji = App.LEVEL_EMOJIS[entry.levelIndex] || '';
+            var levelColor = App.LEVEL_COLORS[entry.levelIndex] || '#86868b';
+            var dateStr = new Date(entry.date).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric',
+            });
+            var avgColor = ratingColor(entry.avg);
 
-        // Topic rows
+            html += '<div class="cmp-card">';
+
+            // Header: name + date
+            html += '<div class="cmp-card__header">' +
+                '<span class="cmp-card__name">' + esc(entry.intervieweeName) + '</span>' +
+                '<span class="cmp-card__date">' + esc(dateStr) + '</span>' +
+            '</div>';
+
+            // Level badge
+            html += '<div class="cmp-card__level" style="color:' + levelColor + ';background:' + levelColor + '15;border-color:' + levelColor + '30">' +
+                '<span>' + levelEmoji + '</span> ' + esc(levelLabel) +
+            '</div>';
+
+            // Overall rating
+            html += '<div class="cmp-card__section">' +
+                '<span class="cmp-card__label">Overall Rating' + (idx === bestAvgIdx ? ' <span class="cmp-best">Best</span>' : '') + '</span>' +
+                buildRatingBar(entry.avg, avgColor) +
+            '</div>';
+
+            // Questions count
+            html += '<div class="cmp-card__section">' +
+                '<span class="cmp-card__label">Questions' + (idx === bestQIdx ? ' <span class="cmp-best">Most</span>' : '') + '</span>' +
+                '<div class="cmp-stat-row">' +
+                    '<span class="cmp-stat-value">' + entry.ratedCount + ' rated</span>' +
+                    (entry.skippedCount > 0 ? '<span class="cmp-stat-dim">' + entry.skippedCount + ' skipped</span>' : '') +
+                '</div>' +
+            '</div>';
+
+            // Topic breakdown
+            if (entry.topics.length > 0) {
+                html += '<div class="cmp-card__section cmp-card__section--topics">' +
+                    '<span class="cmp-card__label">Topics</span>';
+                entry.topics.forEach(function (t) {
+                    var topicLabel = App.TOPIC_LABELS[t.topic] || t.topic;
+                    var tColor = ratingColor(t.avg);
+                    html += '<div class="cmp-topic">' +
+                        '<div class="cmp-topic__header">' +
+                            '<span class="cmp-topic__name">' + esc(topicLabel) + '</span>' +
+                            '<span class="cmp-topic__count">' + t.count + 'q</span>' +
+                        '</div>' +
+                        buildRatingBar(t.avg, tColor) +
+                    '</div>';
+                });
+                html += '</div>';
+            }
+
+            html += '</div>'; // .cmp-card
+        });
+        html += '</div>'; // .cmp-cards
+
+        // Topic-by-topic cross-comparison table
         var allTopics = {};
         entries.forEach(function (e) {
             e.topics.forEach(function (t) { allTopics[t.topic] = true; });
         });
-        Object.keys(allTopics).forEach(function (topic) {
-            html += buildCompareRow(esc(App.TOPIC_LABELS[topic] || topic), entries, function (e) {
-                var t = e.topics.find(function (x) { return x.topic === topic; });
-                return t ? t.avg.toFixed(1) + '/5 (' + t.count + 'q)' : '<span class="compare__na">-</span>';
+        var topicKeys = Object.keys(allTopics);
+        if (topicKeys.length > 0) {
+            html += '<div class="cmp-cross">' +
+                '<span class="cmp-cross__title">Topic Comparison</span>' +
+                '<div class="cmp-cross__grid">';
+            topicKeys.forEach(function (topic) {
+                var topicLabel = App.TOPIC_LABELS[topic] || topic;
+                html += '<div class="cmp-cross__row">' +
+                    '<span class="cmp-cross__topic">' + esc(topicLabel) + '</span>' +
+                    '<div class="cmp-cross__bars">';
+                var topicBestIdx = bestIndex(entries, function (e) {
+                    var t = e.topics.find(function (x) { return x.topic === topic; });
+                    return t ? t.avg : -1;
+                });
+                entries.forEach(function (e, idx) {
+                    var t = e.topics.find(function (x) { return x.topic === topic; });
+                    if (t) {
+                        var tColor = ratingColor(t.avg);
+                        var isBest = idx === topicBestIdx && entries.length > 1;
+                        html += '<div class="cmp-cross__entry' + (isBest ? ' cmp-cross__entry--best' : '') + '">' +
+                            '<span class="cmp-cross__name">' + esc(e.intervieweeName) + '</span>' +
+                            buildRatingBar(t.avg, tColor) +
+                        '</div>';
+                    } else {
+                        html += '<div class="cmp-cross__entry cmp-cross__entry--na">' +
+                            '<span class="cmp-cross__name">' + esc(e.intervieweeName) + '</span>' +
+                            '<span class="cmp-cross__na">Not covered</span>' +
+                        '</div>';
+                    }
+                });
+                html += '</div></div>';
             });
-        });
+            html += '</div></div>';
+        }
 
-        html += '</tbody></table>';
         body.innerHTML = html;
         modal.style.display = '';
     };

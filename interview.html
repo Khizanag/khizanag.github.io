@@ -393,13 +393,16 @@
     </div>
 
     <!-- Comparison Modal -->
-    <div class="modal-overlay" id="modalCompare" style="display:none">
-        <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="modalCompareTitle">
-            <h3 class="modal__title" id="modalCompareTitle">Side-by-Side Comparison</h3>
-            <div class="compare__body" id="compareBody"></div>
-            <div class="modal__actions">
-                <button class="modal__btn modal__btn--secondary" id="btnCompareClose">Close</button>
+    <div class="compare-overlay" id="modalCompare" style="display:none">
+        <div class="compare-modal" role="dialog" aria-modal="true" aria-labelledby="modalCompareTitle">
+            <button class="compare-modal__close" id="btnCompareClose" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="compare-modal__header">
+                <h3 class="compare-modal__title" id="modalCompareTitle">Comparison</h3>
+                <p class="compare-modal__sub">Side-by-side interview breakdown</p>
             </div>
+            <div class="compare__body" id="compareBody"></div>
         </div>
     </div>
 </main>

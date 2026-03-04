@@ -108,55 +108,63 @@
             var levelColor = App.LEVEL_COLORS[entry.levelIndex] || '#86868b';
 
             card.innerHTML =
-                '<div class="history__card-header">' +
-                    '<div class="history__card-info">' +
-                        '<span class="history__card-name">' + esc(entry.intervieweeName) + '</span>' +
-                        '<span class="history__card-date">' + esc(dateStr) + '</span>' +
-                    '</div>' +
-                    '<div class="history__card-actions">' +
-                        '<label class="history__compare-label">' +
-                            '<input type="checkbox" class="history__compare-cb" data-id="' + esc(entry.id) + '">' +
-                            '<span>Compare</span>' +
-                        '</label>' +
+                '<input type="checkbox" class="history__compare-cb" data-id="' + esc(entry.id) + '">' +
+                '<div class="history__card-check">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="20 6 9 17 4 12"/></svg>' +
+                '</div>' +
+                '<div class="history__card-content">' +
+                    '<div class="history__card-header">' +
+                        '<div class="history__card-info">' +
+                            '<span class="history__card-name">' + esc(entry.intervieweeName) + '</span>' +
+                            '<span class="history__card-date">' + esc(dateStr) + '</span>' +
+                        '</div>' +
                         '<button class="history__delete-btn" data-id="' + esc(entry.id) + '" aria-label="Delete">' +
                             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>' +
                         '</button>' +
                     '</div>' +
-                '</div>' +
-                '<div class="history__card-stats">' +
-                    '<span class="history__card-level" style="color:' + levelColor + '">' + levelEmoji + ' ' + esc(levelLabel) + '</span>' +
-                    '<span class="history__card-avg">' + entry.avg.toFixed(1) + '/5</span>' +
-                    '<span class="history__card-count">' + entry.ratedCount + 'q' +
-                        (entry.skippedCount > 0 ? ' <span class="history__card-skipped">+' + entry.skippedCount + ' skipped</span>' : '') +
-                    '</span>' +
+                    '<div class="history__card-stats">' +
+                        '<span class="history__card-level" style="color:' + levelColor + '">' + levelEmoji + ' ' + esc(levelLabel) + '</span>' +
+                        '<span class="history__card-avg">' + entry.avg.toFixed(1) + '/5</span>' +
+                        '<span class="history__card-count">' + entry.ratedCount + 'q' +
+                            (entry.skippedCount > 0 ? ' <span class="history__card-skipped">+' + entry.skippedCount + ' skipped</span>' : '') +
+                        '</span>' +
+                    '</div>' +
                 '</div>';
 
             container.appendChild(card);
         });
 
-        // Delete handlers
-        container.addEventListener('click', function (e) {
-            var delBtn = e.target.closest('.history__delete-btn');
-            if (!delBtn) return;
-            var id = delBtn.dataset.id;
-            if (!confirm('Delete this interview record?')) return;
-            var h = loadHistory().filter(function (entry) { return entry.id !== id; });
-            saveHistory(h);
-            if (window.FirebaseService) {
-                window.FirebaseService.deleteHistoryEntry(id);
-            }
-            App.renderHistory();
-        });
-
-        // Compare checkbox handlers
-        container.addEventListener('change', function (e) {
-            if (!e.target.classList.contains('history__compare-cb')) return;
+        function updateCompareBtn() {
             var count = container.querySelectorAll('.history__compare-cb:checked').length;
             var compareBtn = document.getElementById('btnCompare');
             if (compareBtn) {
                 compareBtn.style.display = count >= 2 ? '' : 'none';
                 compareBtn.textContent = 'Compare ' + count + ' Selected';
             }
+        }
+
+        // Card click toggles selection (unless clicking delete)
+        container.addEventListener('click', function (e) {
+            var delBtn = e.target.closest('.history__delete-btn');
+            if (delBtn) {
+                var id = delBtn.dataset.id;
+                if (!confirm('Delete this interview record?')) return;
+                var h = loadHistory().filter(function (entry) { return entry.id !== id; });
+                saveHistory(h);
+                if (window.FirebaseService) {
+                    window.FirebaseService.deleteHistoryEntry(id);
+                }
+                App.renderHistory();
+                return;
+            }
+
+            var card = e.target.closest('.history__card');
+            if (!card) return;
+            var cb = card.querySelector('.history__compare-cb');
+            if (!cb) return;
+            cb.checked = !cb.checked;
+            card.classList.toggle('is-selected', cb.checked);
+            updateCompareBtn();
         });
     };
 

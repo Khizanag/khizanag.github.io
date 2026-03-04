@@ -71,6 +71,7 @@
     .modal__actions { flex-direction: column; }
     .modal__btn { justify-content: center; }
     .phase-toast { max-width: calc(100vw - 32px); bottom: 20px; padding: 12px 18px; }
+    .history__card { gap: 10px; padding: 14px 16px; }
     .history__card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
     .history__card-stats { flex-wrap: wrap; gap: 10px; }
 

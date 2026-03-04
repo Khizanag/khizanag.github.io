@@ -652,15 +652,72 @@
 }
 
 .history__card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     background: var(--color-white-a4);
-    border: 1px solid var(--color-white-a8);
+    border: 2px solid var(--color-white-a8);
     border-radius: var(--border-radius-sm);
     padding: 16px 20px;
-    transition: border-color 0.2s;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    user-select: none;
 }
 
 .history__card:hover {
     border-color: var(--color-white-a15);
+    background: var(--color-white-a6);
+}
+
+.history__card.is-selected {
+    border-color: var(--color-blue-a40);
+    background: var(--color-blue-a6);
+    box-shadow: 0 0 0 1px var(--color-blue-a15);
+}
+
+.history__card.is-selected:hover {
+    border-color: var(--color-blue-a40);
+    background: var(--color-blue-a10);
+}
+
+/* Hidden checkbox — state only */
+.history__compare-cb {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* Selection indicator circle */
+.history__card-check {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--color-white-a15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s var(--ease-out-expo);
+    color: transparent;
+    background: transparent;
+}
+
+.history__card:hover .history__card-check {
+    border-color: var(--color-blue-a30);
+}
+
+.history__card.is-selected .history__card-check {
+    border-color: var(--color-blue);
+    background: var(--color-blue);
+    color: #fff;
+}
+
+.history__card-content {
+    flex: 1;
+    min-width: 0;
 }
 
 .history__card-header {
@@ -688,37 +745,16 @@
     color: var(--color-gray-500);
 }
 
-.history__card-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.history__compare-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--color-gray-500);
-    cursor: pointer;
-}
-
-.history__compare-label span {
-    user-select: none;
-}
-
-.history__compare-cb {
-    accent-color: var(--color-blue);
-}
-
 .history__delete-btn {
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     background: none;
     border: none;
     color: var(--color-gray-700);
     cursor: pointer;
-    padding: 4px;
-    border-radius: 4px;
+    padding: 6px;
+    border-radius: 6px;
     transition: color 0.2s, background 0.2s;
     display: flex;
     align-items: center;
@@ -771,20 +807,31 @@
 }
 
 .btn-compare {
+    display: none;
+    width: 100%;
+    margin-top: 16px;
     font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--color-blue);
-    background: var(--color-blue-a10);
-    border: 1px solid var(--color-blue-a25);
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
     border-radius: var(--border-radius-pill);
-    padding: 6px 16px;
+    padding: 12px 24px;
     cursor: pointer;
     transition: all 0.2s;
+    text-align: center;
+    animation: cmp-btn-in 0.2s var(--ease-out-expo);
+}
+
+@keyframes cmp-btn-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .btn-compare:hover {
-    background: var(--color-blue-a20);
+    background: var(--color-blue-a40);
+    filter: brightness(1.15);
 }
 
 /* ============================================

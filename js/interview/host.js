@@ -328,7 +328,97 @@
                 sessionStorage.setItem('ios-interview-pending-session', JSON.stringify(config));
             } catch (e) { /* */ }
 
+            // Save to recent configs
+            saveRecentConfig(config);
+
             window.location.href = 'interview.html?session=pending';
+        });
+    }
+
+    // ===========================================================
+    //  RECENT CONFIGURATIONS
+    // ===========================================================
+
+    var RECENT_KEY = 'ios-interview-recent-configs';
+
+    function loadRecentConfigs() {
+        try {
+            var raw = localStorage.getItem(RECENT_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch (e) { return []; }
+    }
+
+    function configHash(cfg) {
+        return (cfg.platform || '') + ':' + (cfg.selectedTopics || []).slice().sort().join(',') + ':' + (cfg.timeLimitMin || 0);
+    }
+
+    function saveRecentConfig(config) {
+        var recent = loadRecentConfigs();
+        var hash = configHash(config);
+        recent = recent.filter(function (c) { return configHash(c) !== hash; });
+        recent.unshift({
+            platform: config.platform,
+            selectedTopics: config.selectedTopics,
+            timeLimitMin: config.timeLimitMin,
+            phases: config.phases,
+            candidateLevel: config.candidateLevel,
+            date: new Date().toISOString(),
+        });
+        if (recent.length > 3) recent = recent.slice(0, 3);
+        try { localStorage.setItem(RECENT_KEY, JSON.stringify(recent)); } catch (e) { /* */ }
+    }
+
+    function renderRecentConfigs() {
+        var recent = loadRecentConfigs();
+        var container = document.getElementById('recentConfigs');
+        var list = document.getElementById('recentConfigList');
+        if (!container || !list || recent.length === 0) return;
+
+        container.style.display = '';
+        list.innerHTML = '';
+
+        recent.forEach(function (cfg, idx) {
+            var platformName = App.PLATFORMS[cfg.platform] ? App.PLATFORMS[cfg.platform].name : cfg.platform;
+            var topicCount = (cfg.selectedTopics || []).length;
+            var dateStr = '';
+            if (cfg.date) {
+                var d = new Date(cfg.date);
+                dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+
+            var card = document.createElement('button');
+            card.className = 'host__recent-card';
+            card.innerHTML =
+                '<span class="host__recent-platform">' + InterviewUtils.escapeHtml(platformName) + '</span>' +
+                '<span class="host__recent-meta">' + topicCount + ' topics \u00B7 ' + (cfg.timeLimitMin || 60) + ' min' + (dateStr ? ' \u00B7 ' + dateStr : '') + '</span>';
+
+            card.addEventListener('click', function () {
+                // Populate form from recent config
+                if (cfg.platform && App.PLATFORMS[cfg.platform]) {
+                    switchPlatform(cfg.platform);
+                }
+                if (cfg.selectedTopics) {
+                    s.selectedTopics = cfg.selectedTopics.slice();
+                    allChips.forEach(function (c) {
+                        c.classList.toggle('is-selected', s.selectedTopics.indexOf(c.dataset.topic) !== -1);
+                    });
+                    updateTopicSummary();
+                }
+                if (cfg.phases) {
+                    s.phases = cfg.phases;
+                    App.renderPlan();
+                }
+                if (cfg.candidateLevel !== null && cfg.candidateLevel !== undefined) {
+                    candidateLevel = cfg.candidateLevel;
+                    var levelBtns = document.querySelectorAll('.host__level-btn');
+                    levelBtns.forEach(function (b) {
+                        b.classList.toggle('is-active', parseInt(b.dataset.level, 10) === candidateLevel);
+                    });
+                }
+                updateStartButton();
+            });
+
+            list.appendChild(card);
         });
     }
 
@@ -346,6 +436,9 @@
 
         // Init plan module
         App.initPlan();
+
+        // Render recent configurations
+        renderRecentConfigs();
 
         // Apply feature flags
         App.applyFeatureFlags();

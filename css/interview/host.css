@@ -120,6 +120,44 @@
     transform: scale(1.04);
 }
 
+/* --- Recent configurations --- */
+.host__recent-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.host__recent-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 16px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-white-a8);
+    background: var(--color-white-a3);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s var(--ease-smooth);
+    font-family: var(--font-body);
+}
+
+.host__recent-card:hover {
+    background: var(--color-white-a6);
+    border-color: var(--color-white-a20);
+    transform: translateY(-1px);
+}
+
+.host__recent-platform {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+}
+
+.host__recent-meta {
+    font-size: 11px;
+    color: var(--color-gray-500);
+}
+
 /* --- Level selector --- */
 .host__level-selector {
     display: flex;

@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="css/interview/gamification.css">
     <link rel="stylesheet" href="css/interview/profile.css">
     <link rel="stylesheet" href="css/interview/live.css">
+    <link rel="stylesheet" href="css/interview/scoring.css">
     <link rel="stylesheet" href="css/interview/responsive.css">
     <script>
     (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
@@ -743,6 +744,9 @@
             <span class="results__rec-confidence" id="recConfidence"></span>
         </div>
 
+        <div id="scoreGauge" class="score-gauge" style="display:none"></div>
+        <div id="scoreTopics" class="score-topics" style="display:none"></div>
+
         <div class="results__stats">
             <div class="results__stat">
                 <div class="results__stat-value" id="statAvg">—</div><span id="statAvgDelta"></span>
@@ -1442,6 +1446,7 @@
 <script src="js/interview/timer.js"></script>
 <script src="js/interview/plan.js"></script>
 
+<script src="js/interview/scoring.js"></script>
 <script src="js/interview/results.js"></script>
 <script src="js/interview/history.js"></script>
 <script src="js/interview/app.js"></script>

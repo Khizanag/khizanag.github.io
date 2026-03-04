@@ -1,0 +1,119 @@
+/* Score Gauge — SVG circular arc + topic bars */
+
+.score-gauge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+}
+
+.score-gauge__svg {
+    width: 120px;
+    height: 120px;
+    transform: rotate(-90deg);
+}
+
+.score-gauge__track {
+    fill: none;
+    stroke: var(--color-white-a6, rgba(255, 255, 255, 0.06));
+    stroke-width: 8;
+}
+
+.score-gauge__arc {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease-out, stroke 0.3s ease;
+}
+
+.score-gauge__value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: -78px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.score-gauge__label {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.score-gauge__ci {
+    font-size: 11px;
+    color: var(--color-gray-500, #86868b);
+    text-align: center;
+    margin-top: 4px;
+}
+
+/* Topic Score Bars */
+
+.score-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0 24px;
+}
+
+.score-topic {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.score-topic__label {
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 120px;
+    text-align: right;
+    color: var(--color-gray-400, #98989d);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.score-topic__bar-track {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--color-white-a6, rgba(255, 255, 255, 0.06));
+    position: relative;
+    overflow: hidden;
+}
+
+.score-topic__bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease-out;
+}
+
+.score-topic__score {
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 28px;
+    text-align: right;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .score-gauge__svg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .score-gauge__value {
+        font-size: 26px;
+        margin-top: -68px;
+    }
+
+    .score-topic__label {
+        min-width: 80px;
+        font-size: 11px;
+    }
+}

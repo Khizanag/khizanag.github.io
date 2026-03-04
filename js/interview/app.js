@@ -643,32 +643,10 @@
                 });
             }
         } else {
-            var topic = s.selectedTopics[Math.floor(Math.random() * s.selectedTopics.length)];
+            // Build pool from selected topics (all levels)
             pool = bank.filter(function (q) {
-                return q.topic === topic && q.topic !== 'code-challenge' && q.level === targetLevel;
+                return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
             });
-
-            // Try all selected topics at same level
-            if (pool.length === 0) {
-                pool = bank.filter(function (q) {
-                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' && q.level === targetLevel;
-                });
-            }
-
-            // Try adjacent levels ±1, ±2
-            for (var offset = 1; pool.length === 0 && offset <= 2; offset++) {
-                pool = bank.filter(function (q) {
-                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge' &&
-                        (q.level === targetLevel + offset || q.level === targetLevel - offset);
-                });
-            }
-
-            // Final fallback: any level from selected topics
-            if (pool.length === 0) {
-                pool = bank.filter(function (q) {
-                    return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
-                });
-            }
         }
 
         // Filter blacklisted questions
@@ -690,6 +668,19 @@
         }
 
         if (pool.length === 0) return null;
+
+        // Use adaptive selection when scoring engine is available
+        if (!codePhase && s.scoringEngine && typeof InterviewScoring !== 'undefined') {
+            var recentIds = s.sessionQuestions.slice(-3).map(function (q) { return q.question; });
+            var picked = InterviewScoring.selectQuestion({
+                pool: pool,
+                engine: s.scoringEngine,
+                topics: s.selectedTopics,
+                recentIds: recentIds,
+            });
+            if (picked) { picked._phase = currentPhaseId; return picked; }
+        }
+
         var picked = pool[Math.floor(Math.random() * pool.length)];
         if (picked) picked._phase = currentPhaseId;
         return picked;
@@ -797,6 +788,11 @@
         dom.introNotes.value = '';
         dom.wrapupNotes.value = '';
         App.stopTimer();
+
+        // Initialize adaptive scoring engine
+        if (typeof InterviewScoring !== 'undefined') {
+            s.scoringEngine = InterviewScoring.createEngine(s.selectedTopics);
+        }
 
         var startBank = App.getQuestionBank();
         var pool = startBank.filter(function (q) {
@@ -966,7 +962,14 @@
         function goNextQuestion() {
             if (!s.practiceMode && s.currentRating === 0) return;
             stopQuestionTimer();
-            s.ratings.push(s.currentRating || 0);
+            var ratingValue = s.currentRating || 0;
+            s.ratings.push(ratingValue);
+
+            // Update scoring engine
+            if (s.scoringEngine && typeof InterviewScoring !== 'undefined' && ratingValue > 0) {
+                InterviewScoring.processRating(s.scoringEngine, s.sessionQuestions[s.currentQ], ratingValue);
+            }
+
             s.currentQ++;
 
             if (!s.practiceMode && s.timerExpired) {

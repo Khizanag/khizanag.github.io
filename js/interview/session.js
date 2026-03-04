@@ -15,7 +15,7 @@
         if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
         var dom = App.dom;
         try {
-            localStorage.setItem(App.SESSION_KEY, JSON.stringify({
+            var sessionData = {
                 version: 1,
                 interviewerName: s.interviewerName,
                 intervieweeName: s.intervieweeName,
@@ -38,7 +38,11 @@
                 hintRevealed: dom.hintReveal.classList.contains('is-open'),
                 answerRevealed: dom.answerReveal.classList.contains('is-open'),
                 timestamp: Date.now(),
-            }));
+            };
+            if (s.scoringEngine && typeof InterviewScoring !== 'undefined') {
+                sessionData.scoringEngine = InterviewScoring.serializeEngine(s.scoringEngine);
+            }
+            localStorage.setItem(App.SESSION_KEY, JSON.stringify(sessionData));
         } catch (e) { /* localStorage unavailable */ }
 
         // Flash save indicator
@@ -87,6 +91,11 @@
             return q && q.topic && typeof q.level === 'number' && q.question;
         });
         if (!valid) { App.clearSession(); return false; }
+
+        // Restore scoring engine
+        if (data.scoringEngine && typeof InterviewScoring !== 'undefined') {
+            s.scoringEngine = InterviewScoring.deserializeEngine(data.scoringEngine);
+        }
 
         // Restore state
         s.interviewerName = data.interviewerName || '';

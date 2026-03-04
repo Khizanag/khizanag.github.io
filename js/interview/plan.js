@@ -183,9 +183,13 @@
             targetIndex = parseInt(phase.dataset.index, 10) + 1;
         }
 
-        // Clamp: can't go before index 1 or after last movable
-        var minIdx = 1;
+        // Clamp: keep items between leading and trailing locked phases
+        var minIdx = 0;
+        for (var mi = 0; mi < s.phases.length; mi++) {
+            if (s.phases[mi].locked) minIdx = mi + 1; else break;
+        }
         var maxIdx = s.phases.length - 1;
+        if (s.phases[maxIdx] && s.phases[maxIdx].locked) maxIdx--;
         if (targetIndex < minIdx) targetIndex = minIdx;
         if (targetIndex > maxIdx) targetIndex = maxIdx;
 

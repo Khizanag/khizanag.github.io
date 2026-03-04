@@ -133,7 +133,12 @@
         document.getElementById('levelName').textContent = App.LEVEL_LABELS[levelIndex];
         document.getElementById('levelName').style.color = App.LEVEL_COLORS[levelIndex];
         document.getElementById('resultsSubtitle').textContent = App.LEVEL_DESCS[levelIndex];
-        dom.resultsInterviewee.textContent = s.intervieweeName + ' \u2014 interviewed by ' + s.interviewerName;
+        var intervieweeText = s.intervieweeName;
+        if (s.candidateLevel !== null && s.candidateLevel !== undefined && App.LEVEL_LABELS[s.candidateLevel]) {
+            intervieweeText += ' (' + App.LEVEL_LABELS[s.candidateLevel] + ')';
+        }
+        intervieweeText += ' \u2014 interviewed by ' + s.interviewerName;
+        dom.resultsInterviewee.textContent = intervieweeText;
         document.getElementById('statAvg').textContent = ratedCount > 0 ? avg.toFixed(1) : '\u2014';
         document.getElementById('statTotal').textContent = ratedCount + (skippedCount > 0 ? ' (' + skippedCount + ' skipped)' : '');
         document.getElementById('statTopics').textContent = uniqueTopics.length;
@@ -424,6 +429,9 @@
         lines.push(pad('Date:', 18) + date);
         lines.push(pad('Interviewer:', 18) + s.interviewerName);
         lines.push(pad('Candidate:', 18) + s.intervieweeName);
+        if (s.candidateLevel !== null && s.candidateLevel !== undefined && App.LEVEL_LABELS[s.candidateLevel]) {
+            lines.push(pad('Exp. Level:', 18) + App.LEVEL_LABELS[s.candidateLevel]);
+        }
         lines.push('');
         lines.push(pad('Assessment:', 18) + App.LEVEL_LABELS[levelIndex] + ' ' + App.LEVEL_EMOJIS[levelIndex]);
         lines.push(pad('Average Rating:', 18) + avg.toFixed(1) + ' / 5.0');

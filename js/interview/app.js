@@ -796,6 +796,7 @@
         s.practiceMode = !!config.practiceMode;
         if (config.phases) s.phases = config.phases;
         s.timeLimitMin = config.timeLimitMin || 60;
+        s.candidateLevel = config.candidateLevel !== undefined ? config.candidateLevel : null;
 
         window.QuestionsReady.then(function () { startSession(); });
     }

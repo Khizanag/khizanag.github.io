@@ -44,6 +44,7 @@
     App.dom.btnToggleAll = dom.btnToggleAll;
 
     var allChips = [];
+    var candidateLevel = null;
 
     // ===========================================================
     //  PAGE MODE (from body data attribute)
@@ -250,6 +251,25 @@
             });
         }
 
+        // Candidate level selector
+        var levelSelector = document.getElementById('levelSelector');
+        if (levelSelector) {
+            levelSelector.addEventListener('click', function (e) {
+                var btn = e.target.closest('.host__level-btn');
+                if (!btn) return;
+                var levelBtns = levelSelector.querySelectorAll('.host__level-btn');
+                var lvl = parseInt(btn.dataset.level, 10);
+                if (candidateLevel === lvl) {
+                    candidateLevel = null;
+                    btn.classList.remove('is-active');
+                } else {
+                    candidateLevel = lvl;
+                    levelBtns.forEach(function (b) { b.classList.remove('is-active'); });
+                    btn.classList.add('is-active');
+                }
+            });
+        }
+
         // Candidate name
         if (dom.nameInput) {
             dom.nameInput.addEventListener('input', function () {
@@ -301,6 +321,7 @@
                 practiceMode: s.practiceMode,
                 phases: s.phases,
                 timeLimitMin: s.timeLimitMin || 60,
+                candidateLevel: candidateLevel,
             };
 
             try {

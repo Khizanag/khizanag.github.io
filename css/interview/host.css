@@ -120,6 +120,38 @@
     transform: scale(1.04);
 }
 
+/* --- Level selector --- */
+.host__level-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.host__level-btn {
+    padding: 6px 16px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a12);
+    background: transparent;
+    color: var(--color-gray-300);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s var(--ease-smooth);
+}
+
+.host__level-btn:hover {
+    background: var(--color-white-a6);
+    border-color: var(--color-white-a20);
+}
+
+.host__level-btn.is-active {
+    background: var(--color-blue-a10);
+    border-color: var(--color-blue);
+    color: var(--color-blue);
+    font-weight: 600;
+}
+
 /* --- Live actions on host --- */
 .host__live-actions {
     display: flex;

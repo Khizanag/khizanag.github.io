@@ -64,6 +64,7 @@
                 var t = topicStats[key];
                 return { topic: key, avg: Math.round((t.total / t.count) * 100) / 100, count: t.count };
             }),
+            candidateLevel: s.candidateLevel !== undefined ? s.candidateLevel : null,
             introNotes: s.introNotes || '',
             wrapupNotes: s.wrapupNotes || '',
             topicStats: topicStats,

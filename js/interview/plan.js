@@ -340,12 +340,25 @@
         for (var i = 0; i < s.phases.length; i++) {
             cumulative += s.phases[i].time * 60;
             if (elapsed < cumulative) {
-                // Skip to the start of the next phase
                 if (i < s.phases.length - 1) {
+                    // Compute phase summary before skipping
+                    var phaseStartSec = cumulative - s.phases[i].time * 60;
+                    var timeInPhase = elapsed - phaseStartSec;
+                    var mins = Math.floor(timeInPhase / 60);
+                    var secs = timeInPhase % 60;
+                    var timeStr = mins > 0 ? mins + 'm ' + secs + 's' : secs + 's';
+                    var questionsInPhase = s.ratings.length - (s._phaseStartQ || 0);
+                    var phaseName = s.phases[i].name;
+
                     s.remainingSeconds = totalSeconds - cumulative;
+                    s._phaseStartQ = s.ratings.length;
                     App.dom.timerText.textContent = App.formatTime(s.remainingSeconds);
                     App.updatePhaseIndicator();
                     App.saveSession();
+
+                    if (App.showToast) {
+                        App.showToast(phaseName + ': ' + timeStr + ', ' + questionsInPhase + ' question' + (questionsInPhase !== 1 ? 's' : ''), { type: 'info', duration: 3500 });
+                    }
                 }
                 return;
             }

@@ -70,6 +70,14 @@
             topicStats: topicStats,
         };
 
+        // Add 100-point adaptive score if available
+        if (s.scoringEngine && typeof InterviewScoring !== 'undefined') {
+            var summary = InterviewScoring.getSummary(s.scoringEngine);
+            entry.score = summary.score;
+            entry.scoreLevel = summary.level.label;
+            entry.topicScores = summary.topicScores;
+        }
+
         var history = loadHistory();
         history.unshift(entry);
         saveHistory(history);
@@ -111,6 +119,16 @@
             var levelEmoji = App.LEVEL_EMOJIS[entry.levelIndex] || '';
             var levelColor = App.LEVEL_COLORS[entry.levelIndex] || '#86868b';
 
+            // Lazy migration: compute score from avg for old entries
+            var entryScore = entry.score;
+            if (entryScore === undefined && typeof InterviewScoring !== 'undefined') {
+                var migrated = InterviewScoring.migrateFromAvg(entry.avg, entry.ratedCount);
+                entryScore = migrated.score;
+            }
+            var scoreHtml = entryScore !== undefined
+                ? '<span class="history__card-score" style="color:' + levelColor + '">' + entryScore + '/100</span>'
+                : '';
+
             card.innerHTML =
                 '<input type="checkbox" class="history__compare-cb" data-id="' + esc(entry.id) + '">' +
                 '<div class="history__card-check">' +
@@ -129,6 +147,7 @@
                     '<div class="history__card-stats">' +
                         '<span class="history__card-level" style="color:' + levelColor + '">' + levelEmoji + ' ' + esc(levelLabel) + '</span>' +
                         '<span class="history__card-avg">' + entry.avg.toFixed(1) + '/5</span>' +
+                        scoreHtml +
                         '<span class="history__card-count">' + entry.ratedCount + 'q' +
                             (entry.skippedCount > 0 ? ' <span class="history__card-skipped">+' + entry.skippedCount + ' skipped</span>' : '') +
                         '</span>' +

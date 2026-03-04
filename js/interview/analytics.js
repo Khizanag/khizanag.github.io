@@ -101,6 +101,11 @@
             '<div class="analytics__trend-tooltip-name" id="anTooltipName"></div>' +
             '<div class="analytics__trend-tooltip-detail" id="anTooltipDetail"></div></div>';
 
+        // Replace container to remove stale event listeners
+        var fresh = container.cloneNode(false);
+        container.parentNode.replaceChild(fresh, container);
+        container = fresh;
+
         container.innerHTML = svgParts.join('') + tooltip;
 
         var tooltipEl = document.getElementById('anTrendTooltip');

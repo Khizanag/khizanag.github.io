@@ -328,6 +328,73 @@
     color: var(--color-red);
 }
 
+/* --- Timeout bar --- */
+.sandbox__timeout-bar {
+    height: 2px;
+    background: transparent;
+    border-radius: 1px;
+    overflow: hidden;
+    margin-bottom: 2px;
+}
+
+.sandbox__timeout-bar.is-running {
+    background: var(--color-white-a6);
+}
+
+.sandbox__timeout-bar.is-running::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: var(--color-blue);
+    animation: sandbox-timeout 5s linear forwards;
+}
+
+@keyframes sandbox-timeout {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+/* --- Test results --- */
+.sandbox__test-results {
+    margin-top: 8px;
+}
+
+.sandbox__test-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.sandbox__test-pass {
+    background: rgba(48, 209, 88, 0.1);
+    color: #30d158;
+}
+
+.sandbox__test-fail {
+    background: rgba(255, 55, 95, 0.1);
+    color: #ff375f;
+}
+
+.sandbox__test-icon {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.sandbox__test-label {
+    font-weight: 600;
+    min-width: 50px;
+}
+
+.sandbox__test-detail {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    opacity: 0.8;
+}
+
 /* --- Action bar --- */
 .sandbox__actions {
     display: flex;

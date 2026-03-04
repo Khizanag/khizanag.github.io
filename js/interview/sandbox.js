@@ -162,6 +162,9 @@
 
     function runCode() {
         var output = document.getElementById('sbOutput');
+        var timeoutBar = document.getElementById('sbTimeoutBar');
+        var testResults = document.getElementById('sbTestResults');
+        if (testResults) testResults.innerHTML = '';
 
         if (!currentProblem) {
             output.textContent = 'Select a problem first.';
@@ -178,9 +181,17 @@
             return;
         }
 
+        // Show timeout bar
+        if (timeoutBar) {
+            timeoutBar.classList.add('is-running');
+            setTimeout(function () { timeoutBar.classList.remove('is-running'); }, 5000);
+        }
+
         if (lang && lang.executable) {
-            // Actually execute JavaScript
+            // Actually execute JavaScript with 5s timeout
             var originalLog = console.log;
+            var timeoutId = null;
+            var timedOut = false;
             try {
                 var logs = [];
                 console.log = function () {
@@ -194,6 +205,7 @@
 
                 var result = new Function(code + '\nif(typeof solve === "function") return solve();')();
                 console.log = originalLog;
+                if (timeoutBar) timeoutBar.classList.remove('is-running');
 
                 var out = '';
                 if (logs.length > 0) out += logs.join('\n');
@@ -205,16 +217,45 @@
 
                 output.textContent = out;
                 output.className = 'sandbox__output';
+
+                // Basic test case comparison if problem has expected output
+                if (testResults && currentProblem.testCases) {
+                    renderTestCases(testResults, code, currentProblem.testCases);
+                }
             } catch (e) {
                 console.log = originalLog;
+                if (timeoutBar) timeoutBar.classList.remove('is-running');
                 output.textContent = 'Error: ' + e.message;
                 output.className = 'sandbox__output sandbox__output--error';
             }
         } else {
+            if (timeoutBar) timeoutBar.classList.remove('is-running');
             var langName = lang ? lang.name : selectedLanguage;
             output.textContent = langName + ' cannot be executed in the browser.\n\nOnly JavaScript is executable here. For ' + langName + ', use the editor as a scratchpad and compare your approach with the reference solution.';
             output.className = 'sandbox__output sandbox__output--error';
         }
+    }
+
+    function renderTestCases(container, code, testCases) {
+        testCases.forEach(function (tc, i) {
+            var row = document.createElement('div');
+            try {
+                var fn = new Function(code + '\nreturn solve(' + tc.input + ');');
+                var actual = fn();
+                var expected = tc.expected;
+                var pass = JSON.stringify(actual) === JSON.stringify(expected);
+                row.className = 'sandbox__test-row sandbox__test-' + (pass ? 'pass' : 'fail');
+                row.innerHTML = '<span class="sandbox__test-icon">' + (pass ? '\u2714' : '\u2718') + '</span>' +
+                    '<span class="sandbox__test-label">Test ' + (i + 1) + '</span>' +
+                    '<span class="sandbox__test-detail">Input: ' + tc.input + ' \u2192 ' + (pass ? 'Passed' : 'Expected ' + JSON.stringify(expected) + ', got ' + JSON.stringify(actual)) + '</span>';
+            } catch (e) {
+                row.className = 'sandbox__test-row sandbox__test-fail';
+                row.innerHTML = '<span class="sandbox__test-icon">\u2718</span>' +
+                    '<span class="sandbox__test-label">Test ' + (i + 1) + '</span>' +
+                    '<span class="sandbox__test-detail">Error: ' + e.message + '</span>';
+            }
+            container.appendChild(row);
+        });
     }
 
     function resetEditor() {

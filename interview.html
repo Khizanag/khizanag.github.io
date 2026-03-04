@@ -208,12 +208,15 @@
 
             <form class="auth__form" id="authForm" autocomplete="on">
                 <div class="auth__field" id="authNameField" style="display:none">
+                    <label for="authName" class="sr-only">Display name</label>
                     <input class="auth__input" type="text" id="authName" placeholder="Display name" autocomplete="name">
                 </div>
                 <div class="auth__field">
+                    <label for="authEmail" class="sr-only">Email address</label>
                     <input class="auth__input" type="email" id="authEmail" placeholder="Email address" autocomplete="email" required>
                 </div>
                 <div class="auth__field">
+                    <label for="authPassword" class="sr-only">Password</label>
                     <input class="auth__input" type="password" id="authPassword" placeholder="Password" autocomplete="current-password" required>
                 </div>
                 <button class="auth__submit" type="submit" id="authSubmitBtn">Sign In</button>
@@ -1281,7 +1284,7 @@
 
         <div class="sandbox__picker">
             <span class="sandbox__picker-label">Language</span>
-            <select class="sandbox__picker-select sandbox__picker-select--lang" id="sbLangSelect">
+            <select class="sandbox__picker-select sandbox__picker-select--lang" id="sbLangSelect" aria-label="Language">
                 <option value="javascript">JavaScript</option>
                 <option value="typescript">TypeScript</option>
                 <option value="swift">Swift</option>
@@ -1293,7 +1296,7 @@
 
         <div class="sandbox__picker">
             <span class="sandbox__picker-label">Problem</span>
-            <select class="sandbox__picker-select" id="sbProblemSelect">
+            <select class="sandbox__picker-select" id="sbProblemSelect" aria-label="Problem">
                 <option value="">Choose a problem...</option>
             </select>
             <button class="sandbox__picker-btn sandbox__picker-btn--random" id="sbRandomBtn">Random</button>

@@ -150,6 +150,30 @@
 
         document.getElementById('fcAnswerText').textContent = q.answer;
 
+        // Show next review date from SR data
+        var nextReviewEl = document.getElementById('fcNextReview');
+        if (!nextReviewEl) {
+            nextReviewEl = document.createElement('p');
+            nextReviewEl.className = 'fc__next-review';
+            nextReviewEl.id = 'fcNextReview';
+            document.getElementById('fcAnswerText').parentNode.appendChild(nextReviewEl);
+        }
+        var qid = questionId(q);
+        var sr = loadSR();
+        if (sr[qid] && sr[qid].nextReview) {
+            var reviewDate = new Date(sr[qid].nextReview);
+            var now = Date.now();
+            if (sr[qid].nextReview <= now) {
+                nextReviewEl.textContent = 'Due for review now';
+            } else {
+                nextReviewEl.textContent = 'Next review: ' + reviewDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+            nextReviewEl.style.display = '';
+        } else {
+            nextReviewEl.textContent = 'New card';
+            nextReviewEl.style.display = '';
+        }
+
         var codeArea = document.getElementById('fcCardCode');
         if (q.code) {
             codeArea.style.display = '';
@@ -271,6 +295,50 @@
         } else {
             dueEl.style.display = 'none';
         }
+
+        // Mastery progress per topic
+        renderMasteryBars(sr);
+    }
+
+    function renderMasteryBars(sr) {
+        var container = document.getElementById('fcMasteryBars');
+        if (!container) return;
+
+        var bank = App.getQuestionBank();
+        if (!bank || bank.length === 0) { container.innerHTML = ''; return; }
+
+        // Group questions by topic
+        var topicCounts = {};
+        var topicMastered = {};
+        var MASTERY_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+        bank.forEach(function (q) {
+            var topic = q.topic;
+            if (!topicCounts[topic]) { topicCounts[topic] = 0; topicMastered[topic] = 0; }
+            topicCounts[topic]++;
+            var qid = topic + '::' + (q.question || '').substring(0, 80);
+            if (sr[qid] && sr[qid].interval && sr[qid].interval >= MASTERY_INTERVAL) {
+                topicMastered[topic]++;
+            }
+        });
+
+        var topics = Object.keys(topicCounts).filter(function (t) {
+            return fc.topics.length === 0 || fc.topics.indexOf(t) !== -1;
+        });
+
+        if (topics.length === 0) { container.innerHTML = ''; return; }
+
+        var html = '<p class="fc__mastery-title">Mastery Progress</p>';
+        topics.sort().forEach(function (t) {
+            var pct = topicCounts[t] > 0 ? Math.round((topicMastered[t] / topicCounts[t]) * 100) : 0;
+            var label = App.TOPIC_LABELS[t] || t;
+            html += '<div class="fc__mastery-row">' +
+                '<span class="fc__mastery-label">' + label + '</span>' +
+                '<div class="fc__mastery-track"><div class="fc__mastery-fill" style="width:' + pct + '%"></div></div>' +
+                '<span class="fc__mastery-pct">' + pct + '%</span>' +
+            '</div>';
+        });
+        container.innerHTML = html;
     }
 
     function startSession() {

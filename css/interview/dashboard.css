@@ -2,28 +2,6 @@
    DASHBOARD SCREEN
    ============================================ */
 
-/* --- Greeting --- */
-.dashboard__greeting {
-    text-align: center;
-    margin-bottom: 12px;
-}
-
-.dashboard__greeting-name {
-    font-family: var(--font-display);
-    font-size: clamp(24px, 5vw, 36px);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.2;
-    margin-bottom: 6px;
-}
-
-.dashboard__greeting-subtitle {
-    font-size: 15px;
-    color: var(--color-gray-400);
-    font-weight: 300;
-    line-height: 1.5;
-}
-
 /* --- Stats row --- */
 .dashboard__stats {
     display: flex;

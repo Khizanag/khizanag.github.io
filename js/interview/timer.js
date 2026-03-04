@@ -85,7 +85,7 @@
                 text.textContent = 'The interview timer has expired. The current question has no rating and will be discarded.';
                 document.getElementById('btnTimeUpInclude').style.display = 'none';
             }
-            modal.style.display = '';
+            App.showModal(modal);
             return;
         }
 

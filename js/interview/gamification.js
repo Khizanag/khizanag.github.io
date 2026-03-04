@@ -285,7 +285,9 @@
 
         var oldLevel = getLevel(data.xp);
         data.xp += totalXP;
-        data.totalInterviews++;
+        // Sync totalInterviews with actual history count (source of truth)
+        var historyCount = App.loadLocalHistory().length;
+        data.totalInterviews = historyCount > 0 ? historyCount : data.totalInterviews + 1;
         data.totalQuestions += s.ratings.length;
 
         // Track platform

@@ -100,6 +100,13 @@
             var ring = document.getElementById('levelRing');
             ring.style.setProperty('--ring-color', App.LEVEL_COLORS[0]);
             ring.style.setProperty('--ring-pct', 0);
+            // Hide recommendation and strengths for zero-rated interviews
+            var recElNR = document.getElementById('resultsRecommendation');
+            if (recElNR) recElNR.style.display = 'none';
+            var swElNR = document.getElementById('resultsStrengths');
+            if (swElNR) swElNR.style.display = 'none';
+            var deltaElNR = document.getElementById('statAvgDelta');
+            if (deltaElNR) deltaElNR.innerHTML = '';
             // Notes even with no rated questions
             var introNE = document.getElementById('resultsIntroNotes');
             var wrapupNE = document.getElementById('resultsWrapupNotes');
@@ -144,10 +151,11 @@
         document.getElementById('statTopics').textContent = uniqueTopics.length;
 
         // Performance delta vs previous interview
+        var deltaEl = document.getElementById('statAvgDelta');
+        if (deltaEl) deltaEl.innerHTML = '';
         var prevInterview = getPreviousInterview(s.intervieweeName);
-        if (prevInterview && prevInterview.avg !== undefined) {
-            var statAvgEl = document.getElementById('statAvg');
-            if (statAvgEl) statAvgEl.insertAdjacentHTML('afterend', deltaHtml(avg, prevInterview.avg));
+        if (prevInterview && prevInterview.avg !== undefined && deltaEl) {
+            deltaEl.innerHTML = deltaHtml(avg, prevInterview.avg);
         }
 
         // Time stats
@@ -405,7 +413,14 @@
     App.downloadReport = function () {
         if (!s.ratings.length) return;
 
-        var avg = s.ratings.reduce(function (a, b) { return a + b; }, 0) / s.ratings.length;
+        var ratedSumDL = 0, ratedCountDL = 0;
+        s.sessionQuestions.forEach(function (q, i) {
+            if (i >= s.ratings.length) return;
+            if (q.skipped) return;
+            ratedSumDL += s.ratings[i];
+            ratedCountDL++;
+        });
+        var avg = ratedCountDL > 0 ? ratedSumDL / ratedCountDL : 0;
         var levelIndex = App.getLevelIndex(avg);
         var date = new Date().toLocaleDateString('en-US', {
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',

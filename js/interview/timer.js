@@ -116,6 +116,8 @@
         s.remainingSeconds = s.timeLimitMin * 60;
         s.timerExpired = false;
         announcedMilestones = {};
+        _lastPhaseId = null;
+        _phaseWarnings = {};
         dom.qTimer.style.display = '';
         dom.qTimer.classList.remove('is-warning', 'is-danger');
         dom.timerText.textContent = App.formatTime(s.remainingSeconds);

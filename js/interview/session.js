@@ -52,6 +52,7 @@
     };
 
     App.clearSession = function () {
+        if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
         try { localStorage.removeItem(App.SESSION_KEY); } catch (e) { /* */ }
     };
 

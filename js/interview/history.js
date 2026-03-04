@@ -79,6 +79,8 @@
         }
     };
 
+    var _historyListenerBound = false;
+
     App.renderHistory = function () {
         var container = document.getElementById('historyList');
         var section = document.getElementById('historySection');
@@ -146,6 +148,8 @@
         }
 
         // Card click toggles selection (unless clicking delete)
+        if (_historyListenerBound) return;
+        _historyListenerBound = true;
         container.addEventListener('click', function (e) {
             var delBtn = e.target.closest('.history__delete-btn');
             if (delBtn) {

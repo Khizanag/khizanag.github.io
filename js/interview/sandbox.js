@@ -188,10 +188,8 @@
         }
 
         if (lang && lang.executable) {
-            // Actually execute JavaScript with 5s timeout
+            // Actually execute JavaScript
             var originalLog = console.log;
-            var timeoutId = null;
-            var timedOut = false;
             try {
                 var logs = [];
                 console.log = function () {
@@ -204,8 +202,6 @@
                 };
 
                 var result = new Function(code + '\nif(typeof solve === "function") return solve();')();
-                console.log = originalLog;
-                if (timeoutBar) timeoutBar.classList.remove('is-running');
 
                 var out = '';
                 if (logs.length > 0) out += logs.join('\n');
@@ -223,10 +219,11 @@
                     renderTestCases(testResults, code, currentProblem.testCases);
                 }
             } catch (e) {
-                console.log = originalLog;
-                if (timeoutBar) timeoutBar.classList.remove('is-running');
                 output.textContent = 'Error: ' + e.message;
                 output.className = 'sandbox__output sandbox__output--error';
+            } finally {
+                console.log = originalLog;
+                if (timeoutBar) timeoutBar.classList.remove('is-running');
             }
         } else {
             if (timeoutBar) timeoutBar.classList.remove('is-running');

@@ -157,6 +157,34 @@
     };
 
     // ===========================================================
+    //  GLOBAL TOAST SYSTEM
+    // ===========================================================
+
+    App.showToast = function (message, opts) {
+        opts = opts || {};
+        var type = opts.type || 'info';
+        var duration = opts.duration || 3000;
+        var container = document.getElementById('appToastContainer');
+        if (!container) return;
+
+        var toast = document.createElement('div');
+        toast.className = 'app-toast app-toast--' + type;
+        toast.textContent = message;
+        container.appendChild(toast);
+
+        requestAnimationFrame(function () {
+            toast.classList.add('is-visible');
+        });
+
+        setTimeout(function () {
+            toast.classList.remove('is-visible');
+            toast.addEventListener('transitionend', function () {
+                if (toast.parentNode) toast.parentNode.removeChild(toast);
+            });
+        }, duration);
+    };
+
+    // ===========================================================
     //  PHASE-AWARE DISPLAY
     // ===========================================================
 

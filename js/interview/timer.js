@@ -25,6 +25,40 @@
         }
     }
 
+    var _lastPhaseId = null;
+    var _phaseWarnings = {};
+
+    function checkPhaseWarnings() {
+        if (s.interviewMode !== 'time' || !App.getCurrentPhaseId) return;
+
+        var phaseId = App.getCurrentPhaseId();
+
+        // Phase changed — show transition toast
+        if (_lastPhaseId && phaseId !== _lastPhaseId) {
+            _phaseWarnings = {};
+            var phaseName = '';
+            for (var i = 0; i < s.phases.length; i++) {
+                if (s.phases[i].id === phaseId) { phaseName = s.phases[i].name; break; }
+            }
+            if (phaseName && App.showToast) {
+                App.showToast('Phase: ' + phaseName, { type: 'info', duration: 2500 });
+            }
+        }
+        _lastPhaseId = phaseId;
+
+        if (!App.getPhaseRemainingSeconds) return;
+        var remaining = App.getPhaseRemainingSeconds();
+
+        if (remaining === 120 && !_phaseWarnings['2min']) {
+            _phaseWarnings['2min'] = true;
+            if (App.showToast) App.showToast('2 minutes left in this phase', { type: 'warning', duration: 3000 });
+        }
+        if (remaining === 60 && !_phaseWarnings['1min']) {
+            _phaseWarnings['1min'] = true;
+            if (App.showToast) App.showToast('1 minute left in this phase', { type: 'warning', duration: 3000 });
+        }
+    }
+
     App.onTimerTick = function () {
         var dom = App.dom;
         s.remainingSeconds--;
@@ -72,6 +106,7 @@
 
         App.updatePhaseIndicator();
         if (App.updatePhaseUI) App.updatePhaseUI();
+        checkPhaseWarnings();
         App.saveSession();
         if (App.syncLiveState) App.syncLiveState();
     };

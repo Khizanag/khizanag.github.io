@@ -1080,6 +1080,12 @@
             App.showResults();
         });
 
+        // Copy summary
+        var btnCopySummary = document.getElementById('btnCopySummary');
+        if (btnCopySummary) {
+            btnCopySummary.addEventListener('click', function () { App.copyResultsSummary(); });
+        }
+
         // Download report
         dom.btnDownload.addEventListener('click', function () {
             App.downloadReport();

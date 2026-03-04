@@ -395,10 +395,17 @@
         document.getElementById('fcBtnStart').addEventListener('click', startSession);
 
         // Flip card
-        document.getElementById('fcCard').addEventListener('click', function (e) {
+        var fcCardEl = document.getElementById('fcCard');
+        fcCardEl.addEventListener('click', function (e) {
             if (e.target.closest('.fc__rate-btn')) return;
             if (e.target.closest('.fc__reveal-btn')) return;
             flipCard();
+        });
+        fcCardEl.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                flipCard();
+            }
         });
 
         // Reveal answer button

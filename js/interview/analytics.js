@@ -42,6 +42,14 @@
         document.getElementById('anSumTopics').textContent = topicCount;
     }
 
+    function getEntryScore(entry) {
+        if (entry.score !== undefined) return entry.score;
+        if (typeof InterviewScoring !== 'undefined') {
+            return InterviewScoring.migrateFromAvg(entry.avg, entry.ratedCount).score;
+        }
+        return Math.round((entry.avg / 5) * 100);
+    }
+
     function renderTrendChart(history) {
         var container = document.getElementById('anTrend');
         if (history.length < 2) {
@@ -58,34 +66,40 @@
         var chartH = h - padT - padB;
 
         function x(i) { return padL + (i / (n - 1)) * chartW; }
+        // Dual scale: left axis uses 0-100 score
+        function yScore(val) { return padT + chartH - (val / 100) * chartH; }
+        // Legacy 1-5 scale
         function y(val) { return padT + chartH - ((val - 1) / 4) * chartH; }
 
         var svgParts = [];
         svgParts.push('<svg class="analytics__trend-svg" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">');
 
-        for (var g = 1; g <= 5; g++) {
-            var gy = y(g);
+        // Grid lines — 100-point scale (0, 25, 50, 75, 100)
+        [0, 25, 50, 75, 100].forEach(function (g) {
+            var gy = yScore(g);
             svgParts.push('<line x1="' + padL + '" y1="' + gy + '" x2="' + (w - padR) + '" y2="' + gy + '" class="analytics__trend-grid-line"/>');
             svgParts.push('<text x="' + (padL - 8) + '" y="' + (gy + 4) + '" class="analytics__trend-y-label" text-anchor="end">' + g + '</text>');
-        }
+        });
 
-        var points = [];
-        var areaPoints = [];
+        // Score line (100-point)
+        var scorePoints = [];
+        var scoreArea = [];
         for (var i = 0; i < n; i++) {
+            var sc = getEntryScore(entries[i]);
             var px = x(i);
-            var py = y(entries[i].avg);
-            points.push(px + ',' + py);
-            areaPoints.push(px + ',' + py);
+            var py = yScore(sc);
+            scorePoints.push(px + ',' + py);
+            scoreArea.push(px + ',' + py);
         }
-        areaPoints.push(x(n - 1) + ',' + y(1));
-        areaPoints.push(x(0) + ',' + y(1));
-
-        svgParts.push('<polygon points="' + areaPoints.join(' ') + '" class="analytics__trend-area"/>');
-        svgParts.push('<polyline points="' + points.join(' ') + '" class="analytics__trend-line"/>');
+        scoreArea.push(x(n - 1) + ',' + yScore(0));
+        scoreArea.push(x(0) + ',' + yScore(0));
+        svgParts.push('<polygon points="' + scoreArea.join(' ') + '" class="analytics__trend-area"/>');
+        svgParts.push('<polyline points="' + scorePoints.join(' ') + '" class="analytics__trend-line"/>');
 
         for (var j = 0; j < n; j++) {
             var dx = x(j);
-            var dy = y(entries[j].avg);
+            var ds = getEntryScore(entries[j]);
+            var dy = yScore(ds);
             var levelColor = App.LEVEL_COLORS[entries[j].levelIndex] || App.LEVEL_COLORS[0];
             svgParts.push('<circle cx="' + dx + '" cy="' + dy + '" r="4" class="analytics__trend-dot" style="fill:' + levelColor + '" data-idx="' + j + '"/>');
 
@@ -114,9 +128,10 @@
             if (!dot) { tooltipEl.classList.remove('is-visible'); return; }
             var idx = parseInt(dot.dataset.idx, 10);
             var entry = entries[idx];
+            var sc = getEntryScore(entry);
             document.getElementById('anTooltipName').textContent = entry.intervieweeName;
             document.getElementById('anTooltipDetail').textContent =
-                entry.avg.toFixed(1) + '/5 · ' + (entry.ratedCount || 0) + 'q · ' +
+                sc + '/100 · ' + entry.avg.toFixed(1) + '/5 · ' + (entry.ratedCount || 0) + 'q · ' +
                 App.LEVEL_LABELS[entry.levelIndex];
 
             var rect = container.getBoundingClientRect();
@@ -163,7 +178,12 @@
         keys.forEach(function (key) {
             var t = topicAgg[key];
             var avg = t.total / t.count;
-            var pct = Math.round((avg / 5) * 100);
+            var score;
+            if (typeof InterviewScoring !== 'undefined') {
+                score = InterviewScoring.migrateFromAvg(avg, t.count).score;
+            } else {
+                score = Math.round((avg / 5) * 100);
+            }
             var levelIdx = App.getLevelIndex(avg);
             var color = App.LEVEL_COLORS[levelIdx];
             var label = App.TOPIC_LABELS[key] || key;
@@ -171,8 +191,8 @@
             html += '<div class="analytics__heat-row">';
             html += '<span class="analytics__heat-label">' + escapeHtml(label) + '</span>';
             html += '<div class="analytics__heat-bar-track">';
-            html += '<div class="analytics__heat-bar-fill" style="width:' + pct + '%;background:' + color + '"></div>';
-            html += '<span class="analytics__heat-bar-value">' + avg.toFixed(1) + '</span>';
+            html += '<div class="analytics__heat-bar-fill" style="width:' + score + '%;background:' + color + '"></div>';
+            html += '<span class="analytics__heat-bar-value">' + score + '</span>';
             html += '</div>';
             html += '<span class="analytics__heat-count">' + t.count + 'q</span>';
             html += '</div>';
@@ -301,22 +321,22 @@
             return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
         }
 
-        function polygonPoints(values) {
+        function polygonPoints(values, maxVal) {
             return values.map(function (v, i) {
                 var angle = (360 / n) * i;
-                var r = (v / 5) * maxR;
+                var r = (v / maxVal) * maxR;
                 var p = polarToXY(angle, r);
                 return p.x + ',' + p.y;
             }).join(' ');
         }
 
-        // Build concentric guide polygons
+        // Build concentric guide polygons (100-point scale)
         var guides = '';
-        [1, 2, 3, 4, 5].forEach(function (level) {
+        [20, 40, 60, 80, 100].forEach(function (level) {
             var pts = [];
             for (var i = 0; i < n; i++) {
                 var angle = (360 / n) * i;
-                var r = (level / 5) * maxR;
+                var r = (level / 100) * maxR;
                 var p = polarToXY(angle, r);
                 pts.push(p.x + ',' + p.y);
             }
@@ -336,14 +356,20 @@
             labels += '<text x="' + labelPos.x + '" y="' + labelPos.y + '" class="analytics__radar-label" text-anchor="middle" dominant-baseline="middle">' + topicLabel + '</text>';
         });
 
-        // Data polygon
-        var values = keys.map(function (k) { return topicMap[k].total / topicMap[k].count; });
-        var dataPolygon = '<polygon points="' + polygonPoints(values) + '" class="analytics__radar-fill"/>';
+        // Data polygon — convert 1-5 averages to 0-100 scores
+        var values = keys.map(function (k) {
+            var avg = topicMap[k].total / topicMap[k].count;
+            if (typeof InterviewScoring !== 'undefined') {
+                return InterviewScoring.migrateFromAvg(avg, topicMap[k].count).score;
+            }
+            return Math.round((avg / 5) * 100);
+        });
+        var dataPolygon = '<polygon points="' + polygonPoints(values, 100) + '" class="analytics__radar-fill"/>';
 
         // Dots
         var dots = values.map(function (v, i) {
             var angle = (360 / n) * i;
-            var r = (v / 5) * maxR;
+            var r = (v / 100) * maxR;
             var p = polarToXY(angle, r);
             return '<circle cx="' + p.x + '" cy="' + p.y + '" r="3.5" class="analytics__radar-dot"/>';
         }).join('');
@@ -377,9 +403,15 @@
         var esc = App.escapeHtml;
         container.innerHTML = weak.map(function (t) {
             var label = App.TOPIC_LABELS[t.key] || t.key;
+            var scoreText;
+            if (typeof InterviewScoring !== 'undefined') {
+                scoreText = InterviewScoring.migrateFromAvg(t.avg, t.count).score + '/100';
+            } else {
+                scoreText = t.avg.toFixed(1) + '/5';
+            }
             return '<div class="analytics__weak-item">' +
                 '<span class="analytics__weak-name">' + esc(label) + '</span>' +
-                '<span class="analytics__weak-score">' + t.avg.toFixed(1) + '/5</span>' +
+                '<span class="analytics__weak-score">' + scoreText + '</span>' +
                 '<span class="analytics__weak-count">' + t.count + ' questions</span>' +
                 '<span class="analytics__weak-hint">Practice more ' + esc(label) + ' questions</span>' +
             '</div>';

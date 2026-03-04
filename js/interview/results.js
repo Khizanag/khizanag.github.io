@@ -208,6 +208,9 @@
             swEl.style.display = 'none';
         }
 
+        // Score gauge (100-point system)
+        renderScoreGauge();
+
         // Question breakdown
         var list = document.getElementById('breakdownList');
         list.innerHTML = '';
@@ -367,6 +370,65 @@
         });
     }
 
+    // ---- Score gauge rendering ----
+
+    function renderScoreGauge() {
+        var gaugeEl = document.getElementById('scoreGauge');
+        var topicsEl = document.getElementById('scoreTopics');
+        if (!gaugeEl || !topicsEl || !s.scoringEngine || typeof InterviewScoring === 'undefined') return;
+
+        var summary = InterviewScoring.getSummary(s.scoringEngine);
+        if (summary.score === undefined) return;
+
+        gaugeEl.style.display = '';
+        topicsEl.style.display = '';
+
+        // SVG circular arc gauge
+        var r = 50;
+        var circumference = 2 * Math.PI * r;
+        var pct = summary.score / 100;
+        var dashoffset = circumference * (1 - pct);
+        var color = summary.level.color;
+
+        gaugeEl.innerHTML =
+            '<svg class="score-gauge__svg" viewBox="0 0 120 120">' +
+                '<circle class="score-gauge__track" cx="60" cy="60" r="' + r + '"/>' +
+                '<circle class="score-gauge__arc" cx="60" cy="60" r="' + r + '"' +
+                    ' stroke="' + color + '"' +
+                    ' stroke-dasharray="' + circumference + '"' +
+                    ' stroke-dashoffset="' + circumference + '"/>' +
+            '</svg>' +
+            '<div class="score-gauge__value" style="color:' + color + '">' + summary.score + '</div>' +
+            '<div class="score-gauge__label" style="color:' + color + '">' + App.escapeHtml(summary.level.label) + '</div>' +
+            '<div class="score-gauge__ci">' + summary.confidence.lower + ' \u2013 ' + summary.confidence.upper + ' (95% CI)</div>';
+
+        // Animate the arc
+        requestAnimationFrame(function () {
+            var arc = gaugeEl.querySelector('.score-gauge__arc');
+            if (arc) arc.style.strokeDashoffset = dashoffset;
+        });
+
+        // Topic bars
+        if (summary.topicScores.length > 0) {
+            var topicsHtml = '';
+            summary.topicScores.forEach(function (t) {
+                var label = App.TOPIC_LABELS[t.topic] || t.topic;
+                var tColor = t.level.color;
+                topicsHtml +=
+                    '<div class="score-topic">' +
+                        '<span class="score-topic__label">' + App.escapeHtml(label) + '</span>' +
+                        '<div class="score-topic__bar-track">' +
+                            '<div class="score-topic__bar-fill" style="width:' + t.score + '%;background:' + tColor + '"></div>' +
+                        '</div>' +
+                        '<span class="score-topic__score" style="color:' + tColor + '">' + t.score + '</span>' +
+                    '</div>';
+            });
+            topicsEl.innerHTML = topicsHtml;
+        } else {
+            topicsEl.style.display = 'none';
+        }
+    }
+
     // ---- Copy summary to clipboard ----
 
     App.copyResultsSummary = function () {
@@ -387,7 +449,12 @@
 
         var lines = [];
         lines.push('**' + s.intervieweeName + '** \u2014 ' + App.LEVEL_LABELS[levelIndex] + ' ' + App.LEVEL_EMOJIS[levelIndex]);
-        lines.push('Rating: ' + avg.toFixed(1) + '/5 | ' + ratedCount + ' questions | ' + rec.label + ' (' + rec.confidence + ')');
+        var ratingLine = 'Rating: ' + avg.toFixed(1) + '/5 | ' + ratedCount + ' questions | ' + rec.label + ' (' + rec.confidence + ')';
+        if (s.scoringEngine && typeof InterviewScoring !== 'undefined') {
+            var sm = InterviewScoring.getSummary(s.scoringEngine);
+            ratingLine += ' | Score: ' + sm.score + '/100';
+        }
+        lines.push(ratingLine);
         if (sw.strengths.length > 0) {
             lines.push('Strengths: ' + sw.strengths.map(function (t) { return (App.TOPIC_LABELS[t.key] || t.key) + ' (' + t.avg.toFixed(1) + ')'; }).join(', '));
         }
@@ -450,6 +517,11 @@
         lines.push('');
         lines.push(pad('Assessment:', 18) + App.LEVEL_LABELS[levelIndex] + ' ' + App.LEVEL_EMOJIS[levelIndex]);
         lines.push(pad('Average Rating:', 18) + avg.toFixed(1) + ' / 5.0');
+        if (s.scoringEngine && typeof InterviewScoring !== 'undefined') {
+            var dlSummary = InterviewScoring.getSummary(s.scoringEngine);
+            lines.push(pad('Adaptive Score:', 18) + dlSummary.score + ' / 100 (' + dlSummary.level.label + ')');
+            lines.push(pad('95% CI:', 18) + dlSummary.confidence.lower + ' \u2013 ' + dlSummary.confidence.upper);
+        }
 
         var ratedCount = 0;
         s.sessionQuestions.forEach(function (q, i) {
@@ -587,6 +659,11 @@
         }
         md.push('| **Assessment** | ' + App.LEVEL_LABELS[levelIndex] + ' ' + App.LEVEL_EMOJIS[levelIndex] + ' |');
         md.push('| **Average** | ' + avg.toFixed(1) + ' / 5.0 |');
+        if (s.scoringEngine && typeof InterviewScoring !== 'undefined') {
+            var mdSummary = InterviewScoring.getSummary(s.scoringEngine);
+            md.push('| **Adaptive Score** | ' + mdSummary.score + '/100 (' + mdSummary.level.label + ') |');
+            md.push('| **95% CI** | ' + mdSummary.confidence.lower + ' \u2013 ' + mdSummary.confidence.upper + ' |');
+        }
         md.push('| **Recommendation** | **' + rec.label + '** (' + rec.confidence + ') |');
         md.push('| **Questions** | ' + ratedCount + ' rated, ' + skippedCount + ' skipped |');
         md.push('');

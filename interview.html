@@ -680,6 +680,22 @@
     </div>
 </main>
 
+<!-- Resume Session Modal -->
+<div class="modal-overlay" id="modalResumeSession" style="display:none">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalResumeTitle">
+        <h3 class="modal__title" id="modalResumeTitle">Resume Session?</h3>
+        <div class="modal__session-preview" id="resumePreview">
+            <p class="modal__session-name" id="resumeName"></p>
+            <p class="modal__session-meta" id="resumeMeta"></p>
+        </div>
+        <p class="modal__text">A previous interview session was found. Would you like to continue where you left off?</p>
+        <div class="modal__actions">
+            <button class="modal__btn modal__btn--primary" id="btnResumeContinue">Continue Session</button>
+            <button class="modal__btn modal__btn--secondary" id="btnResumeFresh">Start Fresh</button>
+        </div>
+    </div>
+</div>
+
 <!-- ==========================================
      RESULTS SCREEN (Step 3)
      ========================================== -->

@@ -257,6 +257,130 @@
         container.innerHTML = html;
     }
 
+    function aggregateTopics(history) {
+        var map = {};
+        history.forEach(function (entry) {
+            if (!entry.topics) return;
+            entry.topics.forEach(function (t) {
+                if (!map[t.topic]) map[t.topic] = { total: 0, count: 0 };
+                map[t.topic].total += t.avg * t.count;
+                map[t.topic].count += t.count;
+            });
+        });
+        return map;
+    }
+
+    function renderRadarChart(history) {
+        var container = document.getElementById('anRadar');
+        if (!container) return;
+
+        var topicMap = aggregateTopics(history);
+        var keys = Object.keys(topicMap);
+        if (keys.length < 3) {
+            container.innerHTML = '<p style="text-align:center;color:var(--color-gray-500);font-size:13px;padding:20px 0;">Need at least 3 topics for radar chart</p>';
+            return;
+        }
+
+        // Take top 8 by question count
+        keys.sort(function (a, b) { return topicMap[b].count - topicMap[a].count; });
+        keys = keys.slice(0, 8);
+        var n = keys.length;
+
+        var size = 300;
+        var cx = size / 2;
+        var cy = size / 2;
+        var maxR = 110;
+
+        function polarToXY(angle, r) {
+            var rad = (angle - 90) * Math.PI / 180;
+            return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+        }
+
+        function polygonPoints(values) {
+            return values.map(function (v, i) {
+                var angle = (360 / n) * i;
+                var r = (v / 5) * maxR;
+                var p = polarToXY(angle, r);
+                return p.x + ',' + p.y;
+            }).join(' ');
+        }
+
+        // Build concentric guide polygons
+        var guides = '';
+        [1, 2, 3, 4, 5].forEach(function (level) {
+            var pts = [];
+            for (var i = 0; i < n; i++) {
+                var angle = (360 / n) * i;
+                var r = (level / 5) * maxR;
+                var p = polarToXY(angle, r);
+                pts.push(p.x + ',' + p.y);
+            }
+            guides += '<polygon points="' + pts.join(' ') + '" class="analytics__radar-guide"/>';
+        });
+
+        // Axis lines + labels
+        var axes = '';
+        var labels = '';
+        keys.forEach(function (key, i) {
+            var angle = (360 / n) * i;
+            var end = polarToXY(angle, maxR);
+            axes += '<line x1="' + cx + '" y1="' + cy + '" x2="' + end.x + '" y2="' + end.y + '" class="analytics__radar-axis"/>';
+            var labelPos = polarToXY(angle, maxR + 18);
+            var topicLabel = App.TOPIC_LABELS[key] || key;
+            if (topicLabel.length > 12) topicLabel = topicLabel.slice(0, 10) + '..';
+            labels += '<text x="' + labelPos.x + '" y="' + labelPos.y + '" class="analytics__radar-label" text-anchor="middle" dominant-baseline="middle">' + topicLabel + '</text>';
+        });
+
+        // Data polygon
+        var values = keys.map(function (k) { return topicMap[k].total / topicMap[k].count; });
+        var dataPolygon = '<polygon points="' + polygonPoints(values) + '" class="analytics__radar-fill"/>';
+
+        // Dots
+        var dots = values.map(function (v, i) {
+            var angle = (360 / n) * i;
+            var r = (v / 5) * maxR;
+            var p = polarToXY(angle, r);
+            return '<circle cx="' + p.x + '" cy="' + p.y + '" r="3.5" class="analytics__radar-dot"/>';
+        }).join('');
+
+        container.innerHTML =
+            '<svg viewBox="0 0 ' + size + ' ' + size + '" class="analytics__radar-svg">' +
+            guides + axes + dataPolygon + dots + labels +
+            '</svg>';
+    }
+
+    function renderWeakTopics(history) {
+        var container = document.getElementById('anWeakTopics');
+        if (!container) return;
+
+        var topicMap = aggregateTopics(history);
+        var keys = Object.keys(topicMap);
+        var topics = keys.map(function (k) {
+            var avg = topicMap[k].total / topicMap[k].count;
+            return { key: k, avg: avg, count: topicMap[k].count };
+        });
+
+        topics.sort(function (a, b) { return a.avg - b.avg; });
+        var weak = topics.filter(function (t) { return t.avg < 3.0; }).slice(0, 5);
+        if (weak.length === 0) weak = topics.slice(0, 3);
+
+        if (weak.length === 0) {
+            container.innerHTML = '<p style="text-align:center;color:var(--color-gray-500);font-size:13px;padding:20px 0;">No data yet</p>';
+            return;
+        }
+
+        var esc = App.escapeHtml;
+        container.innerHTML = weak.map(function (t) {
+            var label = App.TOPIC_LABELS[t.key] || t.key;
+            return '<div class="analytics__weak-item">' +
+                '<span class="analytics__weak-name">' + esc(label) + '</span>' +
+                '<span class="analytics__weak-score">' + t.avg.toFixed(1) + '/5</span>' +
+                '<span class="analytics__weak-count">' + t.count + ' questions</span>' +
+                '<span class="analytics__weak-hint">Practice more ' + esc(label) + ' questions</span>' +
+            '</div>';
+        }).join('');
+    }
+
     function renderDashboard(range) {
         if (range !== undefined) currentRange = range;
         var allHistory = loadHistory();
@@ -287,6 +411,8 @@
         renderSummary(history);
         renderTrendChart(history);
         renderTopicHeatmap(history);
+        renderRadarChart(history);
+        renderWeakTopics(history);
         renderLevelDistribution(history);
         renderInterviewerStats(history);
 

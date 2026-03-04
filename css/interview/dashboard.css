@@ -198,6 +198,32 @@
     }
 }
 
+/* --- Staggered card animation --- */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.is-animated .dashboard__action-card {
+    opacity: 0;
+    animation: cardFadeIn 0.4s var(--ease-out-expo) forwards;
+}
+
+.is-animated .dashboard__action-card:nth-child(1) { animation-delay: 0.05s; }
+.is-animated .dashboard__action-card:nth-child(2) { animation-delay: 0.1s; }
+.is-animated .dashboard__action-card:nth-child(3) { animation-delay: 0.15s; }
+.is-animated .dashboard__action-card:nth-child(4) { animation-delay: 0.2s; }
+.is-animated .dashboard__action-card:nth-child(5) { animation-delay: 0.25s; }
+.is-animated .dashboard__action-card:nth-child(6) { animation-delay: 0.3s; }
+.is-animated .dashboard__action-card:nth-child(7) { animation-delay: 0.35s; }
+.is-animated .dashboard__action-card:nth-child(8) { animation-delay: 0.4s; }
+
 /* --- History section --- */
 .dashboard__history {
     margin-top: 32px;

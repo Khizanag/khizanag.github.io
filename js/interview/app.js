@@ -1188,9 +1188,23 @@
             btnCopySummary.addEventListener('click', function () { App.copyResultsSummary(); });
         }
 
-        // Download report
-        dom.btnDownload.addEventListener('click', function () {
+        // Download report dropdown
+        dom.btnDownload.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var menu = document.getElementById('downloadMenu');
+            menu.classList.toggle('is-open');
+        });
+        document.getElementById('btnDownloadTxt').addEventListener('click', function () {
+            document.getElementById('downloadMenu').classList.remove('is-open');
             App.downloadReport();
+        });
+        document.getElementById('btnDownloadMd').addEventListener('click', function () {
+            document.getElementById('downloadMenu').classList.remove('is-open');
+            App.downloadMarkdownReport();
+        });
+        document.addEventListener('click', function () {
+            var menu = document.getElementById('downloadMenu');
+            if (menu) menu.classList.remove('is-open');
         });
 
         // Print / PDF

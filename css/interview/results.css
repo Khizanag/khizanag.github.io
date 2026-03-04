@@ -346,6 +346,53 @@
     border-color: var(--color-white-a20);
 }
 
+/* --- Download dropdown --- */
+.results__download-wrap {
+    position: relative;
+    display: inline-flex;
+}
+
+.results__download-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 6px;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-white-a12);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    display: none;
+    z-index: 10;
+    min-width: 160px;
+}
+
+.results__download-menu.is-open {
+    display: block;
+}
+
+.results__download-option {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--color-gray-200);
+    font-size: 13px;
+    font-family: var(--font-body);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.results__download-option:hover {
+    background: var(--color-white-a6);
+}
+
+.results__download-option + .results__download-option {
+    border-top: 1px solid var(--color-white-a6);
+}
+
 /* --- Copy button --- */
 .btn-copy {
     display: inline-flex;

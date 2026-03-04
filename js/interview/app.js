@@ -776,15 +776,6 @@
     // ===========================================================
 
     function renderDashboard(user) {
-        var greetingEl = document.getElementById('dashGreeting');
-        if (greetingEl) {
-            var name = '';
-            if (user && !user.isAnonymous) {
-                name = user.displayName || user.email || '';
-            }
-            greetingEl.textContent = name ? 'Welcome back, ' + name : 'Welcome';
-        }
-
         // Populate stats — derive interview count from history (source of truth)
         var gData = { xp: 0, totalInterviews: 0, streak: 0 };
         try {

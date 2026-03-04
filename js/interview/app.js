@@ -157,6 +157,27 @@
     };
 
     // ===========================================================
+    //  MODAL HELPERS
+    // ===========================================================
+
+    App.showModal = function (el) {
+        if (!el) return;
+        el.classList.remove('is-closing');
+        el.style.display = '';
+    };
+
+    App.hideModal = function (el) {
+        if (!el || el.style.display === 'none') return;
+        el.classList.add('is-closing');
+        var handler = function () {
+            el.classList.remove('is-closing');
+            el.style.display = 'none';
+            el.removeEventListener('animationend', handler);
+        };
+        el.addEventListener('animationend', handler);
+    };
+
+    // ===========================================================
     //  COUNT-UP ANIMATION
     // ===========================================================
 
@@ -1106,14 +1127,14 @@
 
         // Timer expiry modal handlers
         document.getElementById('btnTimeUpInclude').addEventListener('click', function () {
-            document.getElementById('modalTimeUp').style.display = 'none';
+            App.hideModal(document.getElementById('modalTimeUp'));
             stopQuestionTimer();
             if (s.currentRating > 0) s.ratings.push(s.currentRating);
             App.stopTimer();
             App.showResults();
         });
         document.getElementById('btnTimeUpDiscard').addEventListener('click', function () {
-            document.getElementById('modalTimeUp').style.display = 'none';
+            App.hideModal(document.getElementById('modalTimeUp'));
             stopQuestionTimer();
             s.sessionQuestions.splice(s.currentQ, 1);
             App.stopTimer();
@@ -1296,11 +1317,11 @@
         var REPORT_EMAIL = 'giga.khizanishvili@gmail.com';
 
         function showModal(modal) {
-            modal.style.display = '';
+            App.showModal(modal);
         }
 
         function hideModal(modal) {
-            modal.style.display = 'none';
+            App.hideModal(modal);
         }
 
         // Close modal on backdrop click

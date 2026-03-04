@@ -80,7 +80,7 @@
         d.qCard = document.querySelector('.q-card');
         d.qNote = document.getElementById('qNote');
         d.qRating = document.querySelector('.rating');
-        d.allStars = Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star'));
+        d.allStars = d.ratingStars ? Array.prototype.slice.call(d.ratingStars.querySelectorAll('.rating__star')) : [];
 
         // Favorite / Blacklist
         d.btnFav = document.getElementById('btnFav');
@@ -112,7 +112,7 @@
         d.feedbackDetails = document.getElementById('feedbackDetails');
         d.btnFeedbackSend = document.getElementById('btnFeedbackSend');
         d.btnFeedbackCancel = document.getElementById('btnFeedbackCancel');
-        d.feedbackRatingBtns = Array.prototype.slice.call(d.feedbackRating.querySelectorAll('.modal__rating-btn'));
+        d.feedbackRatingBtns = d.feedbackRating ? Array.prototype.slice.call(d.feedbackRating.querySelectorAll('.modal__rating-btn')) : [];
 
         // Phase toast
         d.phaseToast = document.getElementById('phaseToast');
@@ -688,6 +688,7 @@
             if (fav.length > 0 && Math.random() < 0.5) pool = fav;
         }
 
+        if (pool.length === 0) return null;
         var picked = pool[Math.floor(Math.random() * pool.length)];
         if (picked) picked._phase = currentPhaseId;
         return picked;
@@ -789,6 +790,9 @@
         s.introNotes = '';
         s.wrapupNotes = '';
         s._phaseStartQ = 0;
+        prevPhaseId = null;
+        phaseQuestionStart = 0;
+        phaseRatingStart = 0;
         dom.introNotes.value = '';
         dom.wrapupNotes.value = '';
         App.stopTimer();
@@ -801,6 +805,10 @@
             pool = startBank.filter(function (q) {
                 return s.selectedTopics.indexOf(q.topic) !== -1 && q.topic !== 'code-challenge';
             });
+        }
+        if (pool.length === 0) {
+            if (App.showToast) App.showToast('No questions available for selected topics.', { type: 'warning' });
+            return;
         }
         s.sessionQuestions.push(pool[Math.floor(Math.random() * pool.length)]);
 
@@ -967,6 +975,7 @@
             }
 
             var nextQ = pickNextQuestion();
+            if (!nextQ) { App.showResults(); return; }
             s.sessionQuestions.push(nextQ);
             App.displayQuestion(s.currentQ);
             App.saveSession();
@@ -988,6 +997,7 @@
             }
 
             var nextQ = pickNextQuestion();
+            if (!nextQ) { App.showResults(); return; }
             s.sessionQuestions.push(nextQ);
             App.displayQuestion(s.currentQ);
             App.saveSession();
@@ -1117,6 +1127,7 @@
                     s.currentQ++;
                 }
                 var nextQ = pickNextQuestion();
+                if (!nextQ) { App.showResults(); return; }
                 if (s.currentQ >= s.sessionQuestions.length) {
                     s.sessionQuestions.push(nextQ);
                 } else {
@@ -2024,15 +2035,15 @@
                     var modal = document.getElementById('modalResumeSession');
                     modal.style.display = '';
 
-                    document.getElementById('btnResumeContinue').addEventListener('click', function () {
+                    document.getElementById('btnResumeContinue').onclick = function () {
                         modal.style.display = 'none';
                         App.restoreSession();
-                    });
-                    document.getElementById('btnResumeFresh').addEventListener('click', function () {
+                    };
+                    document.getElementById('btnResumeFresh').onclick = function () {
                         modal.style.display = 'none';
                         App.clearSession();
                         selectAllTopics();
-                    });
+                    };
                 }
             }
         } catch (e) { /* */ }

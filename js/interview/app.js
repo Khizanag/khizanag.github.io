@@ -768,7 +768,7 @@
         if (config.phases) s.phases = config.phases;
         s.timeLimitMin = config.timeLimitMin || 60;
 
-        startSession();
+        window.QuestionsReady.then(function () { startSession(); });
     }
 
     // ===========================================================
@@ -966,7 +966,7 @@
                     ? s.intervieweeName
                     : (s.interviewerName && s.intervieweeName);
                 if (s.selectedTopics.length === 0 || !validNames) return;
-                startSession();
+                window.QuestionsReady.then(function () { startSession(); });
             });
         }
 

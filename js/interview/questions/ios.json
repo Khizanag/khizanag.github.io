@@ -1,9 +1,4 @@
-// ============================================
-// QUESTION BANK — iOS Interview Practice
-// 23 topics × 6 levels (Intern → Staff)
-// 479 questions total
-// ============================================
-var QUESTION_BANK = [
+[
   {
     "topic": "swift",
     "level": 0,
@@ -3407,4 +3402,4 @@ var QUESTION_BANK = [
     "hint": "Think about the lifecycle of the custom executor and when the actor accesses it.",
     "answer": "The class name conflicts with the protocol name SerialExecutor, but assuming that's fixed (e.g., named CustomSerialExecutor), the real issue is lifetime management. The custom executor is stored as a private property of the actor, but unownedExecutor returns an UnownedSerialExecutor — this means there's no strong reference keeping the executor alive from the runtime's perspective. If the actor's executor property were ever released prematurely (e.g., during deinitialization ordering), the unowned reference would dangle. Additionally, the custom executor must ensure thread safety of its own state. In practice, custom executors should be long-lived objects (often global or static), and care must be taken that runSynchronously is called on the exact same executor instance. The DispatchQueue-backed executor pattern works but must handle reentrancy — if actor code calls another actor method that bounces back, the serial queue could deadlock."
   }
-];
+]

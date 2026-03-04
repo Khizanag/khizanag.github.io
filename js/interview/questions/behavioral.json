@@ -1,7 +1,4 @@
-var QUESTION_BANK_BEHAVIORAL = [
-  // ============================================================
-  // LEADERSHIP & INFLUENCE (8 questions)
-  // ============================================================
+[
   {
     "topic": "leadership",
     "level": 2,
@@ -58,10 +55,6 @@ var QUESTION_BANK_BEHAVIORAL = [
     "hint": "Discuss how you balance immediate delivery needs with long-term architectural goals. How do you get buy-in for investments that pay off later?",
     "answer": "A strong answer includes:\n- A clear technical vision tied to business strategy and growth projections\n- Assessment of current state, desired state, and the gap between them\n- Incremental roadmap that delivers value at each stage rather than a big-bang rewrite\n- Building organizational buy-in through clear communication of ROI\n- Metrics and milestones to track progress and prove value\n- Flexibility to adjust the strategy as business needs evolve\n- Examples of balancing tactical needs (feature delivery) with strategic investments (platform, tooling, architecture)"
   },
-
-  // ============================================================
-  // TEAMWORK & COLLABORATION (7 questions)
-  // ============================================================
   {
     "topic": "teamwork",
     "level": 1,
@@ -111,10 +104,6 @@ var QUESTION_BANK_BEHAVIORAL = [
     "hint": "Discuss the dynamics of pairing — how you navigated different skill levels, kept both people engaged, and what you learned from the experience.",
     "answer": "A strong answer includes:\n- Specific context: who they paired with, what they were working on, why they chose to pair\n- Clear role definition (driver/navigator) and regular switching\n- Handling skill differences: patient teaching or humble learning depending on the dynamic\n- Keeping both people engaged and avoiding one person dominating\n- Communication during pairing: thinking out loud, asking questions, suggesting alternatives\n- Concrete outcome: faster solution, fewer bugs, shared understanding\n- Honest reflection on challenges: fatigue, personality clashes, different coding styles"
   },
-
-  // ============================================================
-  // PROBLEM SOLVING (7 questions)
-  // ============================================================
   {
     "topic": "problem-solving",
     "level": 1,
@@ -164,10 +153,6 @@ var QUESTION_BANK_BEHAVIORAL = [
     "hint": "Be honest and specific. The best answers show genuine reflection and concrete changes in behavior, not a humble-brag disguised as a failure.",
     "answer": "A strong answer includes:\n- A genuine failure, not a trivial or humble-brag answer\n- Honest ownership without excessive self-blame or blaming others\n- Clear description of what went wrong and the impact\n- Root cause analysis: why it happened, not just what happened\n- Specific lessons learned and concrete behavior changes\n- How they applied those lessons in subsequent situations\n- Vulnerability and self-awareness in discussing the failure\n- Red flags: deflecting blame, claiming they never make mistakes, choosing a trivial example"
   },
-
-  // ============================================================
-  // COMMUNICATION (6 questions)
-  // ============================================================
   {
     "topic": "communication",
     "level": 1,
@@ -210,10 +195,6 @@ var QUESTION_BANK_BEHAVIORAL = [
     "hint": "Think about daily standups, async updates, blocker communication, and adjusting communication style for different audiences.",
     "answer": "A strong answer includes:\n- Proactive communication rather than waiting to be asked\n- Different communication channels for different audiences (standups for team, weekly summaries for managers)\n- Highlighting blockers early before they become critical\n- Being honest about delays or difficulties rather than hiding problems\n- Quantifying progress where possible (tasks completed, percentage done, items remaining)\n- Asking for help when stuck rather than spinning wheels silently\n- Adjusting frequency and detail based on project phase and risk level"
   },
-
-  // ============================================================
-  // GROWTH & LEARNING (6 questions)
-  // ============================================================
   {
     "topic": "growth",
     "level": 1,
@@ -256,10 +237,6 @@ var QUESTION_BANK_BEHAVIORAL = [
     "hint": "Show deliberate self-improvement. How did you identify the gap? What concrete steps did you take? How do you know you improved?",
     "answer": "A strong answer includes:\n- Specific skill or behavior they improved (not vague 'I got better at coding')\n- How they identified the gap: feedback, self-reflection, failed attempt, comparison to peers\n- Concrete improvement plan: practice, study, mentorship, deliberate exposure\n- Consistent effort over time rather than a one-time fix\n- Measurable evidence of improvement: feedback from others, better outcomes, new responsibilities\n- Ongoing commitment to continued growth in this area\n- Self-awareness about areas still needing improvement\n- Red flags: can't identify any area for improvement, only external factors mentioned"
   },
-
-  // ============================================================
-  // CULTURE & VALUES (6 questions)
-  // ============================================================
   {
     "topic": "culture",
     "level": 2,
@@ -302,4 +279,4 @@ var QUESTION_BANK_BEHAVIORAL = [
     "hint": "Focus on how you quantified the cost of tech debt, built consensus for addressing it, and balanced it against feature delivery.",
     "answer": "A strong answer includes:\n- Framing tech debt in business terms: developer velocity, bug rate, onboarding time, incident frequency\n- Tracking and quantifying tech debt rather than just complaining about it\n- Building a compelling case for stakeholders: cost of inaction vs. cost of remediation\n- Proposing pragmatic approaches: allocating a percentage of sprints, boy-scout rule, dedicated tech debt sprints\n- Getting buy-in from product managers and leadership, not just engineering\n- Prioritizing tech debt by impact rather than trying to fix everything at once\n- Preventing new tech debt through better practices: code review, architecture review, definition of done\n- Celebrating and communicating wins when tech debt is resolved"
   }
-];
+]

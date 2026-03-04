@@ -1,5 +1,4 @@
-var QUESTION_BANK_FRONTEND = [
-  // === JavaScript (7 questions) ===
+[
   {
     "topic": "javascript",
     "level": 0,
@@ -49,8 +48,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "ESM is static and asynchronous; CJS is dynamic and synchronous.",
     "answer": "ESM uses static import/export declarations parsed before execution, enabling tree-shaking because bundlers can determine unused exports at build time. CJS uses require() which is synchronous and dynamic, preventing reliable static analysis.\nFor circular dependencies, ESM provides live bindings (importing modules see updated values) while CJS provides a snapshot of the partially-executed module, often yielding undefined for not-yet-initialized exports."
   },
-
-  // === TypeScript (4 questions) ===
   {
     "topic": "typescript",
     "level": 1,
@@ -79,8 +76,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "Think about narrowing types at runtime using a shared literal field.",
     "answer": "Type guards are runtime checks (typeof, instanceof, or custom predicates with 'is') that narrow a variable's type within a branch. Discriminated unions use a shared literal property (discriminant) so TypeScript can narrow the union based on that field's value.\nExhaustive checking is achieved by assigning the narrowed value to a 'never' type in the default branch — if a new variant is added, the compiler flags the unhandled case."
   },
-
-  // === React (7 questions) ===
   {
     "topic": "react",
     "level": 0,
@@ -130,8 +125,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "RSCs run only on the server and send serialized output, not JavaScript, to the client.",
     "answer": "React Server Components execute on the server and stream a serialized UI description (not JS bundle) to the client. They can directly access databases, file systems, and server-only APIs without exposing secrets, and their code is never shipped to the browser, reducing bundle size.\nClient Components are marked with 'use client' and handle interactivity, state, and browser APIs. The architectural benefit is a clear separation: data-fetching and rendering logic stays on the server while only interactive code is sent to the client."
   },
-
-  // === CSS (5 questions) ===
   {
     "topic": "css",
     "level": 0,
@@ -167,8 +160,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "Think about designing for the smallest screen first and scaling up.",
     "answer": "Mobile-first means writing base styles for small screens and using min-width media queries to add complexity for larger viewports. Container queries (@container) let components respond to their parent's size rather than the viewport, enabling truly reusable components.\nFluid typography uses clamp() (e.g., clamp(1rem, 2.5vw, 2rem)) to smoothly scale font size between breakpoints without abrupt jumps. Combining these strategies creates layouts that adapt gracefully across all screen sizes."
   },
-
-  // === HTML & Web Platform (4 questions) ===
   {
     "topic": "html-web",
     "level": 0,
@@ -197,8 +188,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "They act as a network proxy between the browser and server.",
     "answer": "Service Workers are event-driven scripts that act as a programmable network proxy. Their lifecycle: install (cache assets), activate (clean old caches), then intercept fetch events to serve cached responses when offline.\nThey enable offline-first PWAs, background sync, and push notifications. Cache strategies include cache-first (speed), network-first (freshness), and stale-while-revalidate (balance). They run on a separate thread and require HTTPS."
   },
-
-  // === Frontend Performance (4 questions) ===
   {
     "topic": "fe-performance",
     "level": 1,
@@ -227,8 +216,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "Tree-shaking, minification, compression, caching strategies.",
     "answer": "Key techniques: tree-shaking to eliminate dead code (requires ESM imports), minification and terser for JS/CSS, Brotli/gzip compression on the server, and content hashing in filenames for long-term caching with cache-busting on changes.\nAdditionally: analyze the bundle with tools like webpack-bundle-analyzer, replace heavy libraries with lighter alternatives, use dynamic imports for large dependencies, externalize rarely-changing vendors, and set up proper CDN caching with immutable headers."
   },
-
-  // === Frontend Testing (3 questions) ===
   {
     "topic": "fe-testing",
     "level": 1,
@@ -250,8 +237,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "Static analysis, unit, integration, and end-to-end — with most effort on integration.",
     "answer": "The testing trophy (by Kent C. Dodds) prioritizes: static analysis (TypeScript/ESLint) at the base, then unit tests for pure logic, integration tests as the largest layer (components with their children and API mocks), and a few E2E tests for critical user flows.\nIntegration tests give the best confidence-to-cost ratio. Use msw for API mocking, RTL for component integration tests, and Playwright/Cypress for E2E. Avoid excessive unit tests of implementation details."
   },
-
-  // === Frontend Architecture (4 questions) ===
   {
     "topic": "fe-architecture",
     "level": 1,
@@ -280,8 +265,6 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "Think about Nx, Turborepo, shared packages, versioning, and CI impact.",
     "answer": "A monorepo uses tools like Nx or Turborepo to manage multiple apps and shared libraries in one repository. Shared packages (UI components, utilities, configs) are linked locally, ensuring consistent versions and enabling atomic cross-project refactors.\nBenefits: code sharing without publish cycles, unified CI/CD, and atomic changes across packages. Trade-offs: longer CI times (mitigated by affected-only builds and remote caching), complex dependency graphs, and tooling overhead. Use Nx's dependency graph and Turborepo's task caching to keep builds fast."
   },
-
-  // === Frontend Security (1 question) ===
   {
     "topic": "fe-security",
     "level": 2,
@@ -289,13 +272,11 @@ var QUESTION_BANK_FRONTEND = [
     "hint": "Malicious scripts injected into trusted websites. Think about sanitization and CSP.",
     "answer": "XSS occurs when an attacker injects malicious scripts into a web page viewed by other users. Types: Stored (persisted on server), Reflected (in URL parameters), and DOM-based (client-side manipulation).\nPrevention: always escape/sanitize user input before rendering, use frameworks that auto-escape (React's JSX escapes by default), avoid innerHTML/dangerouslySetInnerHTML, implement Content Security Policy (CSP) headers, and use HttpOnly cookies to protect tokens from script access."
   },
-
-  // === Frontend Tooling (1 question) ===
   {
     "topic": "fe-tooling",
     "level": 2,
     "question": "Compare Webpack and Vite: architecture, dev experience, and build performance.",
     "hint": "Vite uses native ES modules in dev; Webpack bundles everything.",
     "answer": "Webpack bundles all modules into a dependency graph at build time, using loaders and plugins for transformation. It is highly configurable but has slower dev startup because it bundles everything before serving.\nVite serves source files as native ES modules in development (instant server start) and uses esbuild for pre-bundling dependencies. For production, Vite uses Rollup for optimized bundles. Vite offers dramatically faster HMR and dev startup, while Webpack has a more mature plugin ecosystem and handles complex legacy setups better."
-  },
-];
+  }
+]

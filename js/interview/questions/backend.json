@@ -1,4 +1,4 @@
-var QUESTION_BANK_BACKEND = [
+[
   {
     "topic": "api-design",
     "level": 0,
@@ -279,4 +279,4 @@ var QUESTION_BANK_BACKEND = [
     "hint": "Think about the cost of establishing a new database connection for every request.",
     "answer": "Connection pooling maintains a pool of reusable database connections rather than creating and destroying a connection for each request. Establishing a database connection is expensive — it involves TCP handshake, authentication, and memory allocation on the database server.\n\nWith a connection pool, when a request needs a database connection, it borrows one from the pool. When done, it returns the connection to the pool instead of closing it. This dramatically reduces latency and resource consumption.\n\nKey configuration parameters:\n- Minimum pool size: Connections kept open even when idle.\n- Maximum pool size: Upper limit to prevent overwhelming the database.\n- Connection timeout: How long to wait for a connection before failing.\n- Idle timeout: How long an unused connection stays in the pool.\n\nIf the pool is exhausted, requests queue up or fail. Monitor pool utilization to size it correctly — typically set the max slightly below the database's max connections divided by the number of application instances."
   }
-];
+]

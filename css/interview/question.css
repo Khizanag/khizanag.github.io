@@ -136,6 +136,20 @@
     margin-right: auto;
 }
 
+/* --- Save indicator --- */
+.q-save-indicator {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: #30d158;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-smooth);
+    pointer-events: none;
+}
+
+.q-save-indicator.is-visible {
+    opacity: 1;
+}
+
 /* --- Timer pill with integrated pause --- */
 .q-timer {
     display: inline-flex;

@@ -154,6 +154,15 @@
             if (authLoadEl) authLoadEl.classList.remove('is-visible');
             if (authFormEl) authFormEl.classList.remove('is-hidden');
         }
+
+        // Trigger card stagger animation on dashboard
+        if (id === 'screen-setup') {
+            var actionsGrid = document.querySelector('.dashboard__actions');
+            if (actionsGrid) {
+                actionsGrid.classList.remove('is-animated');
+                requestAnimationFrame(function () { actionsGrid.classList.add('is-animated'); });
+            }
+        }
     };
 
     // ===========================================================

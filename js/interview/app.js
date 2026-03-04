@@ -741,6 +741,7 @@
         s.sessionQuestions = [];
         s.introNotes = '';
         s.wrapupNotes = '';
+        s._phaseStartQ = 0;
         dom.introNotes.value = '';
         dom.wrapupNotes.value = '';
         App.stopTimer();

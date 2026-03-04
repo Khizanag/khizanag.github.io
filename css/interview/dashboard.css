@@ -98,6 +98,15 @@
     z-index: 2;
 }
 
+/* --- Skeleton loading --- */
+.dashboard__stat-value.skeleton {
+    color: transparent;
+    background: var(--color-white-a6);
+    border-radius: 4px;
+    min-width: 32px;
+    animation: skeleton-pulse 1.2s ease-in-out infinite;
+}
+
 /* --- Getting Started --- */
 .dashboard__getting-started {
     border: 1px dashed var(--color-white-a12);

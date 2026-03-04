@@ -863,15 +863,15 @@
         var historyCount = App.loadLocalHistory().length;
 
         var XP_PER_LEVEL = 500;
-        var el;
-        el = document.getElementById('dashInterviews');
-        if (el) App.animateCountUp(el, historyCount);
-        el = document.getElementById('dashXP');
-        if (el) App.animateCountUp(el, gData.xp || 0);
-        el = document.getElementById('dashStreak');
-        if (el) App.animateCountUp(el, gData.streak || 0);
-        el = document.getElementById('dashLevel');
-        if (el) App.animateCountUp(el, Math.floor((gData.xp || 0) / XP_PER_LEVEL) + 1);
+        var statIds = ['dashInterviews', 'dashXP', 'dashStreak', 'dashLevel'];
+        var statVals = [historyCount, gData.xp || 0, gData.streak || 0, Math.floor((gData.xp || 0) / XP_PER_LEVEL) + 1];
+        for (var si = 0; si < statIds.length; si++) {
+            var el = document.getElementById(statIds[si]);
+            if (el) {
+                el.classList.remove('skeleton');
+                App.animateCountUp(el, statVals[si]);
+            }
+        }
 
         // Auth gating: show/hide lock badges for guests
         var isGuest = !user || user.isAnonymous;

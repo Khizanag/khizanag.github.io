@@ -157,6 +157,23 @@
     };
 
     // ===========================================================
+    //  COUNT-UP ANIMATION
+    // ===========================================================
+
+    App.animateCountUp = function (el, target, duration) {
+        if (!el || target <= 0) { if (el) el.textContent = target; return; }
+        duration = duration || 600;
+        var start = performance.now();
+        function step(now) {
+            var progress = Math.min((now - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            el.textContent = Math.round(eased * target);
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    };
+
+    // ===========================================================
     //  GLOBAL TOAST SYSTEM
     // ===========================================================
 
@@ -818,13 +835,13 @@
         var XP_PER_LEVEL = 500;
         var el;
         el = document.getElementById('dashInterviews');
-        if (el) el.textContent = historyCount;
+        if (el) App.animateCountUp(el, historyCount);
         el = document.getElementById('dashXP');
-        if (el) el.textContent = gData.xp || 0;
+        if (el) App.animateCountUp(el, gData.xp || 0);
         el = document.getElementById('dashStreak');
-        if (el) el.textContent = gData.streak || 0;
+        if (el) App.animateCountUp(el, gData.streak || 0);
         el = document.getElementById('dashLevel');
-        if (el) el.textContent = Math.floor((gData.xp || 0) / XP_PER_LEVEL) + 1;
+        if (el) App.animateCountUp(el, Math.floor((gData.xp || 0) / XP_PER_LEVEL) + 1);
 
         // Auth gating: show/hide lock badges for guests
         var isGuest = !user || user.isAnonymous;

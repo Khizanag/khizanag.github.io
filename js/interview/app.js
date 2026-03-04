@@ -476,6 +476,7 @@
         startQuestionTimer();
 
         var q = s.sessionQuestions[index];
+        if (!q) return;
 
         var elapsed = s.timeLimitMin * 60 - s.remainingSeconds;
         var pct = Math.min((elapsed / (s.timeLimitMin * 60)) * 100, 100);
@@ -1038,10 +1039,13 @@
         dom.btnSkip.addEventListener('click', skipQuestion);
 
         // Scoring rubric toggle
-        document.getElementById('btnRubric').addEventListener('click', function () {
-            var panel = document.getElementById('ratingRubric');
-            panel.style.display = panel.style.display === 'none' ? '' : 'none';
-        });
+        var btnRubric = document.getElementById('btnRubric');
+        if (btnRubric) {
+            btnRubric.addEventListener('click', function () {
+                var panel = document.getElementById('ratingRubric');
+                if (panel) panel.style.display = panel.style.display === 'none' ? '' : 'none';
+            });
+        }
 
         // Previous question
         dom.btnPrev.addEventListener('click', function () {

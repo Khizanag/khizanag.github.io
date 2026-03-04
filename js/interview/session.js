@@ -9,6 +9,8 @@
         saveTimer = setTimeout(function () { App.saveSessionNow(); }, 500);
     };
 
+    var saveIndicatorTimer = null;
+
     App.saveSessionNow = function () {
         if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
         var dom = App.dom;
@@ -37,6 +39,16 @@
                 timestamp: Date.now(),
             }));
         } catch (e) { /* localStorage unavailable */ }
+
+        // Flash save indicator
+        var indicator = document.getElementById('saveIndicator');
+        if (indicator) {
+            indicator.classList.add('is-visible');
+            if (saveIndicatorTimer) clearTimeout(saveIndicatorTimer);
+            saveIndicatorTimer = setTimeout(function () {
+                indicator.classList.remove('is-visible');
+            }, 1500);
+        }
     };
 
     App.clearSession = function () {

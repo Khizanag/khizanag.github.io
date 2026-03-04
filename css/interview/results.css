@@ -69,6 +69,84 @@
     margin: 0 auto;
 }
 
+/* --- Recommendation badge --- */
+.results__recommendation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.results__rec-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: var(--border-radius-pill);
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+}
+
+.results__rec-confidence {
+    font-size: 12px;
+    color: var(--color-gray-400);
+}
+
+/* --- Strengths / Weaknesses --- */
+.results__strengths {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.results__strengths-col {
+    background: var(--color-white-a4);
+    border-radius: var(--border-radius-md);
+    padding: 16px 20px;
+}
+
+.results__strengths-col--good {
+    border-left: 3px solid #30d158;
+}
+
+.results__strengths-col--weak {
+    border-left: 3px solid #ff375f;
+}
+
+.results__strengths-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-gray-400);
+    margin-bottom: 10px;
+}
+
+.results__strengths-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.results__strengths-list li {
+    font-size: 13px;
+    padding: 4px 0;
+    color: var(--color-gray-200);
+}
+
+.results__strengths-empty {
+    font-style: italic;
+    opacity: 0.5;
+}
+
+@media (max-width: 640px) {
+    .results__strengths {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- Stats row --- */
 .results__stats {
     display: grid;

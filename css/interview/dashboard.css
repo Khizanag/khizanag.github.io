@@ -98,6 +98,106 @@
     z-index: 2;
 }
 
+/* --- Getting Started --- */
+.dashboard__getting-started {
+    border: 1px dashed var(--color-white-a12);
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+    background: var(--color-white-a2);
+    transition: opacity 0.4s, max-height 0.4s;
+    overflow: hidden;
+}
+
+.dashboard__getting-started.is-dismissed {
+    opacity: 0;
+    max-height: 0;
+    padding: 0 24px;
+    margin-bottom: 0;
+}
+
+.dashboard__gs-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-gray-200);
+    margin-bottom: 16px;
+}
+
+.dashboard__gs-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.dashboard__gs-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard__gs-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-blue-a10);
+    color: var(--color-blue);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dashboard__gs-text {
+    font-size: 13px;
+    color: var(--color-gray-300);
+}
+
+.dashboard__gs-dismiss {
+    background: transparent;
+    border: 1px solid var(--color-white-a12);
+    border-radius: var(--border-radius-pill);
+    padding: 6px 16px;
+    color: var(--color-gray-400);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dashboard__gs-dismiss:hover {
+    background: var(--color-white-a6);
+    color: var(--color-gray-200);
+}
+
+/* --- Locked card tooltip --- */
+.dashboard__action-card--locked {
+    position: relative;
+}
+
+.dashboard__action-card--locked[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-gray-900);
+    color: var(--color-gray-300);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: var(--border-radius-sm);
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+}
+
+@media (max-width: 640px) {
+    .dashboard__gs-steps {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- History section --- */
 .dashboard__history {
     margin-top: 32px;

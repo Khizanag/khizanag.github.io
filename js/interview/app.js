@@ -834,7 +834,32 @@
             var lockEl = document.getElementById(lockIds[i]);
             var cardEl = document.getElementById(cardIds[i]);
             if (lockEl) lockEl.style.display = isGuest ? '' : 'none';
-            if (cardEl) cardEl.classList.toggle('dashboard__action-card--locked', isGuest);
+            if (cardEl) {
+                cardEl.classList.toggle('dashboard__action-card--locked', isGuest);
+                if (isGuest) cardEl.dataset.tooltip = 'Sign in to unlock';
+                else delete cardEl.dataset.tooltip;
+            }
+        }
+
+        // Getting started section for new users
+        var gsEl = document.getElementById('gettingStarted');
+        if (gsEl) {
+            var gsDismissed = false;
+            try { gsDismissed = localStorage.getItem('ios-interview-gs-dismissed') === '1'; } catch (e) { /* */ }
+            if (historyCount === 0 && !gsDismissed) {
+                gsEl.style.display = '';
+                var btnDismiss = document.getElementById('btnDismissGS');
+                if (btnDismiss && !btnDismiss._bound) {
+                    btnDismiss._bound = true;
+                    btnDismiss.addEventListener('click', function () {
+                        gsEl.classList.add('is-dismissed');
+                        try { localStorage.setItem('ios-interview-gs-dismissed', '1'); } catch (e) { /* */ }
+                        setTimeout(function () { gsEl.style.display = 'none'; }, 400);
+                    });
+                }
+            } else {
+                gsEl.style.display = 'none';
+            }
         }
     }
 

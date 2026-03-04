@@ -55,6 +55,26 @@
         return { strengths: strengths, weaknesses: weaknesses };
     }
 
+    function getPreviousInterview(name) {
+        if (!name) return null;
+        var history = App.loadLocalHistory();
+        var lower = name.toLowerCase();
+        for (var i = 0; i < history.length; i++) {
+            if (history[i].intervieweeName && history[i].intervieweeName.toLowerCase() === lower) {
+                return history[i];
+            }
+        }
+        return null;
+    }
+
+    function deltaHtml(current, previous) {
+        if (previous === null || previous === undefined) return '';
+        var diff = current - previous;
+        if (Math.abs(diff) < 0.05) return '<span class="results__delta results__delta--same">\u2014</span>';
+        if (diff > 0) return '<span class="results__delta results__delta--up">\u25B2 ' + diff.toFixed(1) + '</span>';
+        return '<span class="results__delta results__delta--down">\u25BC ' + Math.abs(diff).toFixed(1) + '</span>';
+    }
+
     App.showResults = function () {
         var dom = App.dom;
         App.stopTimer();
@@ -117,6 +137,13 @@
         document.getElementById('statAvg').textContent = ratedCount > 0 ? avg.toFixed(1) : '\u2014';
         document.getElementById('statTotal').textContent = ratedCount + (skippedCount > 0 ? ' (' + skippedCount + ' skipped)' : '');
         document.getElementById('statTopics').textContent = uniqueTopics.length;
+
+        // Performance delta vs previous interview
+        var prevInterview = getPreviousInterview(s.intervieweeName);
+        if (prevInterview && prevInterview.avg !== undefined) {
+            var statAvgEl = document.getElementById('statAvg');
+            if (statAvgEl) statAvgEl.insertAdjacentHTML('afterend', deltaHtml(avg, prevInterview.avg));
+        }
 
         // Time stats
         var timeStats = getTimeStats();
@@ -286,6 +313,24 @@
             return (topics[b].total / topics[b].count) - (topics[a].total / topics[a].count);
         });
 
+        // Build previous topic map for delta
+        var prevTopicMap = {};
+        var prev = getPreviousInterview(s.intervieweeName);
+        if (prev && prev.topics) {
+            // Reconstruct topic stats from previous history if available
+            var prevHistory = App.loadLocalHistory();
+            var lower = s.intervieweeName.toLowerCase();
+            for (var hi = 0; hi < prevHistory.length; hi++) {
+                if (prevHistory[hi].intervieweeName && prevHistory[hi].intervieweeName.toLowerCase() === lower && prevHistory[hi].topicStats) {
+                    var pts = prevHistory[hi].topicStats;
+                    Object.keys(pts).forEach(function (k) {
+                        prevTopicMap[k] = pts[k].total / pts[k].count;
+                    });
+                    break;
+                }
+            }
+        }
+
         var esc = App.escapeHtml;
         keys.forEach(function (key) {
             var t = topics[key];
@@ -293,13 +338,14 @@
             var label = App.TOPIC_LABELS[key] || key;
             var levelIdx = App.getLevelIndex(avg);
             var pct = Math.round((avg / 5) * 100);
+            var topicDelta = prevTopicMap[key] !== undefined ? deltaHtml(avg, prevTopicMap[key]) : '';
 
             var row = document.createElement('div');
             row.className = 'results__topic-row';
             row.innerHTML =
                 '<div class="results__topic-info">' +
                     '<span class="results__topic-name">' + esc(label) + '</span>' +
-                    '<span class="results__topic-meta">' + t.count + 'q \u00B7 ' + avg.toFixed(1) + ' avg \u00B7 ' + esc(App.LEVEL_LABELS[levelIdx]) + '</span>' +
+                    '<span class="results__topic-meta">' + t.count + 'q \u00B7 ' + avg.toFixed(1) + ' avg \u00B7 ' + esc(App.LEVEL_LABELS[levelIdx]) + topicDelta + '</span>' +
                 '</div>' +
                 '<div class="results__topic-bar">' +
                     '<div class="results__topic-fill" style="width:' + pct + '%;background:' + App.LEVEL_COLORS[levelIdx] + '"></div>' +

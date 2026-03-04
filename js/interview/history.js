@@ -66,6 +66,7 @@
             }),
             introNotes: s.introNotes || '',
             wrapupNotes: s.wrapupNotes || '',
+            topicStats: topicStats,
         };
 
         var history = loadHistory();

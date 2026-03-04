@@ -346,6 +346,36 @@
     border-color: var(--color-white-a20);
 }
 
+/* --- Copy button --- */
+.btn-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid var(--color-white-a12);
+    background: transparent;
+    color: var(--color-gray-200);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    letter-spacing: -0.01em;
+}
+
+.btn-copy:hover {
+    background: var(--color-white-a6);
+    border-color: var(--color-white-a20);
+    transform: scale(1.04);
+}
+
+.btn-copy.is-copied {
+    background: var(--color-green-a10);
+    border-color: #30d158;
+    color: #30d158;
+}
+
 /* --- Download button --- */
 .btn-download {
     display: inline-flex;

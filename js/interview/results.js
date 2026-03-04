@@ -354,6 +354,47 @@
         });
     }
 
+    // ---- Copy summary to clipboard ----
+
+    App.copyResultsSummary = function () {
+        if (!s.ratings.length) return;
+
+        var ratedSum = 0, ratedCount = 0, skippedCount = 0;
+        s.sessionQuestions.forEach(function (q, i) {
+            if (i >= s.ratings.length) return;
+            if (q.skipped) { skippedCount++; return; }
+            ratedSum += s.ratings[i];
+            ratedCount++;
+        });
+        var avg = ratedCount > 0 ? ratedSum / ratedCount : 0;
+        var levelIndex = App.getLevelIndex(avg);
+        var rec = getRecommendation(avg, ratedCount);
+        var topicStats = getTopicStats();
+        var sw = getStrengthsWeaknesses(topicStats);
+
+        var lines = [];
+        lines.push('**' + s.intervieweeName + '** \u2014 ' + App.LEVEL_LABELS[levelIndex] + ' ' + App.LEVEL_EMOJIS[levelIndex]);
+        lines.push('Rating: ' + avg.toFixed(1) + '/5 | ' + ratedCount + ' questions | ' + rec.label + ' (' + rec.confidence + ')');
+        if (sw.strengths.length > 0) {
+            lines.push('Strengths: ' + sw.strengths.map(function (t) { return (App.TOPIC_LABELS[t.key] || t.key) + ' (' + t.avg.toFixed(1) + ')'; }).join(', '));
+        }
+        if (sw.weaknesses.length > 0) {
+            lines.push('Weak areas: ' + sw.weaknesses.map(function (t) { return (App.TOPIC_LABELS[t.key] || t.key) + ' (' + t.avg.toFixed(1) + ')'; }).join(', '));
+        }
+
+        var text = lines.join('\n');
+        var btn = document.getElementById('btnCopySummary');
+        navigator.clipboard.writeText(text).then(function () {
+            btn.classList.add('is-copied');
+            var origHTML = btn.innerHTML;
+            btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+            setTimeout(function () {
+                btn.classList.remove('is-copied');
+                btn.innerHTML = origHTML;
+            }, 2000);
+        });
+    };
+
     // ---- Download report ----
 
     App.downloadReport = function () {

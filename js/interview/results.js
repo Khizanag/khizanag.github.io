@@ -27,6 +27,34 @@
         };
     }
 
+    function getRecommendation(avg, ratedCount) {
+        var label, color;
+        if (avg >= 4.5) { label = 'Strong Hire'; color = '#30d158'; }
+        else if (avg >= 3.5) { label = 'Hire'; color = '#5ac8fa'; }
+        else if (avg >= 2.5) { label = 'Lean Hire'; color = '#ff9f0a'; }
+        else { label = 'No Hire'; color = '#ff375f'; }
+
+        var confidence;
+        if (ratedCount < 5) confidence = 'Low confidence';
+        else if (ratedCount <= 10) confidence = 'Moderate confidence';
+        else confidence = 'High confidence';
+
+        return { label: label, color: color, confidence: confidence };
+    }
+
+    function getStrengthsWeaknesses(topicStats) {
+        var keys = Object.keys(topicStats);
+        var sorted = keys.map(function (k) {
+            var t = topicStats[k];
+            return { key: k, avg: t.total / t.count, count: t.count };
+        }).sort(function (a, b) { return b.avg - a.avg; });
+
+        var strengths = sorted.slice(0, 3).filter(function (t) { return t.avg >= 3.0; });
+        var weaknesses = sorted.slice().reverse().slice(0, 3).filter(function (t) { return t.avg < 3.5; });
+
+        return { strengths: strengths, weaknesses: weaknesses };
+    }
+
     App.showResults = function () {
         var dom = App.dom;
         App.stopTimer();
@@ -101,6 +129,44 @@
         var pct = Math.round((avg / 5) * 100);
         ring.style.setProperty('--ring-color', App.LEVEL_COLORS[levelIndex]);
         ring.style.setProperty('--ring-pct', pct);
+
+        // Hiring recommendation
+        var rec = getRecommendation(avg, ratedCount);
+        var recEl = document.getElementById('resultsRecommendation');
+        var recBadge = document.getElementById('recBadge');
+        var recConf = document.getElementById('recConfidence');
+        if (recEl && recBadge) {
+            recEl.style.display = '';
+            recBadge.textContent = rec.label;
+            recBadge.style.background = rec.color;
+            recConf.textContent = rec.confidence + ' (' + ratedCount + ' rated)';
+        }
+
+        // Strengths / Weaknesses
+        var topicStatsForSW = getTopicStats();
+        var sw = getStrengthsWeaknesses(topicStatsForSW);
+        var swEl = document.getElementById('resultsStrengths');
+        var strList = document.getElementById('strengthsList');
+        var weakList = document.getElementById('weaknessesList');
+        if (swEl && (sw.strengths.length > 0 || sw.weaknesses.length > 0)) {
+            swEl.style.display = '';
+            strList.innerHTML = '';
+            weakList.innerHTML = '';
+            sw.strengths.forEach(function (t) {
+                var li = document.createElement('li');
+                li.textContent = (App.TOPIC_LABELS[t.key] || t.key) + ' (' + t.avg.toFixed(1) + ')';
+                strList.appendChild(li);
+            });
+            if (sw.strengths.length === 0) strList.innerHTML = '<li class="results__strengths-empty">No clear strengths yet</li>';
+            sw.weaknesses.forEach(function (t) {
+                var li = document.createElement('li');
+                li.textContent = (App.TOPIC_LABELS[t.key] || t.key) + ' (' + t.avg.toFixed(1) + ')';
+                weakList.appendChild(li);
+            });
+            if (sw.weaknesses.length === 0) weakList.innerHTML = '<li class="results__strengths-empty">No weak areas identified</li>';
+        } else if (swEl) {
+            swEl.style.display = 'none';
+        }
 
         // Question breakdown
         var list = document.getElementById('breakdownList');
@@ -274,6 +340,13 @@
         lines.push('');
         lines.push(pad('Assessment:', 18) + App.LEVEL_LABELS[levelIndex] + ' ' + App.LEVEL_EMOJIS[levelIndex]);
         lines.push(pad('Average Rating:', 18) + avg.toFixed(1) + ' / 5.0');
+
+        var ratedCount = 0;
+        s.sessionQuestions.forEach(function (q, i) {
+            if (i < s.ratings.length && !q.skipped) ratedCount++;
+        });
+        var dlRec = getRecommendation(avg, ratedCount);
+        lines.push(pad('Recommendation:', 18) + dlRec.label + ' (' + dlRec.confidence + ')');
         lines.push(pad('Questions:', 18) + s.ratings.length);
 
         var uniqueTopics = [];

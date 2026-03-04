@@ -695,6 +695,11 @@
             <p class="results__subtitle" id="resultsSubtitle"></p>
         </div>
 
+        <div class="results__recommendation" id="resultsRecommendation" style="display:none">
+            <span class="results__rec-badge" id="recBadge"></span>
+            <span class="results__rec-confidence" id="recConfidence"></span>
+        </div>
+
         <div class="results__stats">
             <div class="results__stat">
                 <div class="results__stat-value" id="statAvg">—</div>
@@ -711,6 +716,17 @@
             <div class="results__stat">
                 <div class="results__stat-value" id="statAvgTime">—</div>
                 <div class="results__stat-label">Avg Time / Question</div>
+            </div>
+        </div>
+
+        <div class="results__strengths" id="resultsStrengths" style="display:none">
+            <div class="results__strengths-col results__strengths-col--good">
+                <p class="results__strengths-title">Strengths</p>
+                <ul class="results__strengths-list" id="strengthsList"></ul>
+            </div>
+            <div class="results__strengths-col results__strengths-col--weak">
+                <p class="results__strengths-title">Needs Improvement</p>
+                <ul class="results__strengths-list" id="weaknessesList"></ul>
             </div>
         </div>
 

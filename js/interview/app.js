@@ -1914,8 +1914,44 @@
         try { savedPlatform = localStorage.getItem(App.PLATFORM_KEY); } catch (e) { /* */ }
         switchPlatform(savedPlatform && App.PLATFORMS[savedPlatform] ? savedPlatform : 'ios');
 
-        var restored = App.restoreSession();
-        if (!restored) {
+        // Check for saved session — show confirmation modal instead of silent restore
+        var hasSavedSession = false;
+        try {
+            var rawSession = localStorage.getItem(App.SESSION_KEY);
+            if (rawSession) {
+                var sessionData = JSON.parse(rawSession);
+                if (sessionData && sessionData.version && sessionData.intervieweeName
+                    && Array.isArray(sessionData.sessionQuestions) && sessionData.sessionQuestions.length
+                    && Date.now() - sessionData.timestamp < 24 * 60 * 60 * 1000) {
+                    hasSavedSession = true;
+
+                    // Populate preview
+                    var resumeNameEl = document.getElementById('resumeName');
+                    var resumeMetaEl = document.getElementById('resumeMeta');
+                    if (resumeNameEl) resumeNameEl.textContent = sessionData.intervieweeName;
+                    if (resumeMetaEl) {
+                        var qCount = sessionData.ratings ? sessionData.ratings.length : 0;
+                        var timeLeft = sessionData.remainingSeconds ? App.formatTime(sessionData.remainingSeconds) : 'N/A';
+                        resumeMetaEl.textContent = qCount + ' questions answered \u00B7 ' + timeLeft + ' remaining';
+                    }
+
+                    var modal = document.getElementById('modalResumeSession');
+                    modal.style.display = '';
+
+                    document.getElementById('btnResumeContinue').addEventListener('click', function () {
+                        modal.style.display = 'none';
+                        App.restoreSession();
+                    });
+                    document.getElementById('btnResumeFresh').addEventListener('click', function () {
+                        modal.style.display = 'none';
+                        App.clearSession();
+                        selectAllTopics();
+                    });
+                }
+            }
+        } catch (e) { /* */ }
+
+        if (!hasSavedSession) {
             selectAllTopics();
         }
 

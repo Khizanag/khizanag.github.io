@@ -358,6 +358,100 @@
     letter-spacing: 0.04em;
 }
 
+/* --- Radar chart --- */
+.analytics__radar {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 16px 0;
+}
+
+.analytics__radar-svg {
+    width: 100%;
+    height: auto;
+}
+
+.analytics__radar-guide {
+    fill: none;
+    stroke: var(--color-white-a6);
+    stroke-width: 0.5;
+}
+
+.analytics__radar-axis {
+    stroke: var(--color-white-a6);
+    stroke-width: 0.5;
+}
+
+.analytics__radar-fill {
+    fill: rgba(90, 200, 250, 0.15);
+    stroke: #5ac8fa;
+    stroke-width: 2;
+}
+
+.analytics__radar-dot {
+    fill: #5ac8fa;
+    stroke: var(--color-gray-900);
+    stroke-width: 1.5;
+}
+
+.analytics__radar-label {
+    fill: var(--color-gray-400);
+    font-size: 10px;
+    font-family: var(--font-mono);
+}
+
+/* --- Weak topics --- */
+.analytics__weak-topics {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.analytics__weak-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-left: 3px solid rgba(255, 55, 95, 0.5);
+    background: var(--color-white-a2);
+    border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+}
+
+.analytics__weak-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-gray-200);
+    min-width: 120px;
+}
+
+.analytics__weak-score {
+    font-size: 13px;
+    font-family: var(--font-mono);
+    color: #ff375f;
+    font-weight: 600;
+}
+
+.analytics__weak-count {
+    font-size: 11px;
+    color: var(--color-gray-500);
+}
+
+.analytics__weak-hint {
+    font-size: 11px;
+    color: var(--color-gray-500);
+    font-style: italic;
+    margin-left: auto;
+}
+
+@media (max-width: 640px) {
+    .analytics__weak-item {
+        flex-wrap: wrap;
+    }
+    .analytics__weak-hint {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
 /* --- Empty analytics --- */
 .analytics__empty {
     text-align: center;

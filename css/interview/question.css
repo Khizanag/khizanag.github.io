@@ -136,6 +136,38 @@
     margin-right: auto;
 }
 
+/* --- Keyboard shortcut hints --- */
+.shortcut-hint {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 1px 5px;
+    background: var(--color-white-a8);
+    border: 1px solid var(--color-white-a12);
+    border-radius: 3px;
+    opacity: 0.5;
+    vertical-align: middle;
+    margin-left: 4px;
+    line-height: 1.4;
+}
+
+.rating__shortcut-hint {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--color-gray-500);
+    opacity: 0.5;
+    margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+    .shortcut-hint,
+    .rating__shortcut-hint {
+        display: none;
+    }
+}
+
 /* --- Save indicator --- */
 .q-save-indicator {
     font-size: 11px;

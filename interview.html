@@ -572,10 +572,12 @@
                     <button class="q-reveal__btn" id="btnHint">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                         Show Hint
+                        <kbd class="shortcut-hint">H</kbd>
                     </button>
                     <button class="q-reveal__btn" id="btnAnswer">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                         Show Answer
+                        <kbd class="shortcut-hint">A</kbd>
                     </button>
                 </div>
                 <div class="q-reveal__content" id="hintReveal">
@@ -615,6 +617,7 @@
                 <button class="rating__star" data-value="5" aria-label="5 stars — Perfect"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
             </div>
             <p class="rating__desc" id="ratingDesc"></p>
+            <span class="rating__shortcut-hint">Press 1-5 to rate</span>
             <div class="rating__nav">
                 <button class="rating__prev" id="btnPrev" style="display:none">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
@@ -622,10 +625,12 @@
                 </button>
                 <button class="rating__skip" id="btnSkip">
                     Skip
+                    <kbd class="shortcut-hint">S</kbd>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
                 </button>
                 <button class="rating__next" id="btnNext" disabled>
                     Next Question
+                    <kbd class="shortcut-hint">&crarr;</kbd>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
             </div>

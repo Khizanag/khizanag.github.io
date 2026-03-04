@@ -32,6 +32,7 @@
                 introNotes: s.introNotes,
                 wrapupNotes: s.wrapupNotes,
                 presenterMode: s.presenterMode || false,
+                _phaseStartQ: s._phaseStartQ || 0,
                 lcHintsRevealed: s.lcHintsRevealed || 0,
                 lcSolutionRevealed: dom.lcSolutionContent ? dom.lcSolutionContent.classList.contains('is-open') : false,
                 hintRevealed: dom.hintReveal.classList.contains('is-open'),
@@ -104,6 +105,7 @@
         }
         s.introNotes = data.introNotes || '';
         s.wrapupNotes = data.wrapupNotes || '';
+        s._phaseStartQ = data._phaseStartQ || 0;
 
         // Restore setup screen UI
         dom.interviewerInput.value = s.interviewerName;

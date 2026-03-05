@@ -2093,8 +2093,6 @@
     // Show loading state while checking auth
     var authLoading = document.getElementById('authLoading');
     var authFormArea = document.getElementById('authFormArea');
-    authLoading.classList.add('is-visible');
-    authFormArea.classList.add('is-hidden');
 
     var authResolved = false;
 
@@ -2103,13 +2101,51 @@
         authFormArea.classList.remove('is-hidden');
     }
 
+    // Check localStorage auth cache for instant restore
+    var cachedUser = null;
+    try {
+        var raw = localStorage.getItem('ios-interview-auth-cache');
+        if (raw) cachedUser = JSON.parse(raw);
+    } catch (e) { /* corrupt cache — ignore */ }
+
+    if (cachedUser) {
+        // Returning user — skip auth screen, go straight to dashboard
+        authResolved = true;
+        updateNavProfile(cachedUser);
+        App.initFeatureFlags();
+        initApp(cachedUser);
+    } else {
+        // No cache — show auth spinner as before
+        authLoading.classList.add('is-visible');
+        authFormArea.classList.add('is-hidden');
+    }
+
     document.addEventListener('firebase:authchange', function (e) {
         var user = e.detail.user;
 
+        if (authResolved) {
+            // Already on dashboard from cache — handle background confirmation
+            if (user) {
+                // Firebase confirmed — silently sync cloud data and update nav
+                updateNavProfile(user);
+                if (window.FirebaseService && window.FirebaseService.loadAllUserData) {
+                    window.FirebaseService.loadAllUserData().then(function (data) {
+                        if (data) writeCloudToLocal(data);
+                    }).catch(function () { /* */ });
+                }
+            } else {
+                // Session expired — redirect to auth
+                authResolved = false;
+                updateNavProfile(null);
+                showAuthForm();
+                App.showScreen('screen-auth');
+            }
+            return;
+        }
+
         if (user) {
-            // User is signed in (real or anonymous) — stay on loading, go to setup
+            // First auth resolution (no cache path) — proceed to setup
             updateNavProfile(user);
-            if (authResolved) return;
             authResolved = true;
             App.initFeatureFlags();
             if (window.FirebaseService && window.FirebaseService.loadAllUserData) {
@@ -2130,11 +2166,7 @@
         }
     });
 
-    // Fallback: if auth hasn't resolved within 3 seconds, unblock the UI.
-    // Firebase module may have loaded but onAuthStateChanged may be slow
-    // (e.g. IndexedDB auth state restoration). Show the auth form so the
-    // user isn't stuck on the spinner. If firebase:authchange fires later,
-    // it will still proceed to setup normally.
+    // Fallback: if auth hasn't resolved within 3 seconds, unblock the UI
     setTimeout(function () {
         if (authResolved) return;
         showAuthForm();

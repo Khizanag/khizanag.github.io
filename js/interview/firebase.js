@@ -99,6 +99,7 @@ async function continueAsGuest() {
 }
 
 async function signOutUser() {
+    try { localStorage.removeItem('ios-interview-auth-cache'); } catch (e) { /* */ }
     await firebaseSignOut(auth);
 }
 
@@ -136,6 +137,19 @@ async function linkEmail(email, password, displayName) {
 
 onAuthStateChanged(auth, function (user) {
     _currentUser = user;
+    try {
+        if (user) {
+            localStorage.setItem('ios-interview-auth-cache', JSON.stringify({
+                uid: user.uid,
+                isAnonymous: user.isAnonymous,
+                displayName: user.displayName || '',
+                photoURL: user.photoURL || '',
+                email: user.email || '',
+            }));
+        } else {
+            localStorage.removeItem('ios-interview-auth-cache');
+        }
+    } catch (e) { /* */ }
     if (user && !user.isAnonymous) {
         setDoc(doc(db, 'users', user.uid), {
             email: user.email || '',

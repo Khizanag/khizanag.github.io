@@ -3,21 +3,21 @@ import {
   useScrolled, useKeyboardNav,
   AnimatedGrid, AmbientBlobs,
   PresentationNav, ThankYouSection, PresentationFooter,
-} from "../../shared.jsx";
-import { P, PDim } from "./ui.jsx";
-import { HeroSection } from "./hero.jsx";
-import { GitHubRolesSection } from "./githubRoles.jsx";
-import { GitHubRolesTableSection } from "./githubRolesTable.jsx";
-import { ProblemSection } from "./problem.jsx";
-import { CoreInsightSection } from "./coreInsight.jsx";
-import { SolutionSection } from "./solution.jsx";
-import { CodeownersSection } from "./codeowners.jsx";
-import { CodeownersScenariosSection } from "./codeownersScenarios.jsx";
-import { AccessModelSection } from "./accessModel.jsx";
-import { BranchProtectionSection } from "./branchProtection.jsx";
-import { WorkflowSection } from "./workflow.jsx";
-import { RoleDistributionSection } from "./roleDistribution.jsx";
-import { SummarySection } from "./summary.jsx";
+} from "../../shared.tsx";
+import { P, PDim } from "./ui.tsx";
+import { HeroSection } from "./hero.tsx";
+import { GitHubRolesSection } from "./githubRoles.tsx";
+import { GitHubRolesTableSection } from "./githubRolesTable.tsx";
+import { ProblemSection } from "./problem.tsx";
+import { CoreInsightSection } from "./coreInsight.tsx";
+import { SolutionSection } from "./solution.tsx";
+import { CodeownersSection } from "./codeowners.tsx";
+import { CodeownersScenariosSection } from "./codeownersScenarios.tsx";
+import { AccessModelSection } from "./accessModel.tsx";
+import { BranchProtectionSection } from "./branchProtection.tsx";
+import { WorkflowSection } from "./workflow.tsx";
+import { RoleDistributionSection } from "./roleDistribution.tsx";
+import { SummarySection } from "./summary.tsx";
 
 const SECTION_IDS = [
   "s-hero", "s-roles", "s-roles-table", "s-problem", "s-insight", "s-solution",

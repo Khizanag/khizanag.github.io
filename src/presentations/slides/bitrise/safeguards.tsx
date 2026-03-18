@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, TagChip, CodeBlock } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, TagChip, CodeBlock } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 export function SafeguardsSection() {
   return (

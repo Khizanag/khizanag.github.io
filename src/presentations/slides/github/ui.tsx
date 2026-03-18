@@ -1,4 +1,4 @@
-import { C, useInView } from "../../shared.jsx";
+import { C, useInView } from "../../shared.tsx";
 
 export const P = C.accent;
 export const PDim = C.accentDim;
@@ -20,7 +20,16 @@ export const codeownersMultiTeam = `# Cross-team PR touching both paths?
 /Sources/PaymentsUI/   @org/payments-ios-team
 /Sources/AnalyticsUI/  @org/analytics-ios-team`;
 
-export function TierCard({ tier, title, members, role, color, delay = 0 }) {
+interface TierCardProps {
+  tier: number;
+  title: string;
+  members: string;
+  role: string;
+  color: string;
+  delay?: number;
+}
+
+export function TierCard({ tier, title, members, role, color, delay = 0 }: TierCardProps) {
   const [ref, inView] = useInView();
   return (
     <div

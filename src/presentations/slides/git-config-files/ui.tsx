@@ -1,9 +1,17 @@
-import { C, useInView } from "../../shared.jsx";
+import { C, useInView } from "../../shared.tsx";
 
 export const P = C.blue;
 export const PDim = C.blueDim;
 
-export function ConfigKeyRow({ name, type, def, desc, color = C.muted }) {
+interface ConfigKeyRowProps {
+  name: string;
+  type: string;
+  def: string;
+  desc: string;
+  color?: string;
+}
+
+export function ConfigKeyRow({ name, type, def, desc, color = C.muted }: ConfigKeyRowProps) {
   const [ref, inView] = useInView(0.1);
   return (
     <div ref={ref} style={{

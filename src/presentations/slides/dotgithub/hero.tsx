@@ -1,5 +1,5 @@
-import { C, PresentationHero } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, PresentationHero } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 export function HeroSection() {
   return (

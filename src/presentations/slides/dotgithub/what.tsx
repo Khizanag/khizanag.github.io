@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, CheckItem } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, CheckItem } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 const BEFORE = [
   { name: "CODEOWNERS",               tag: "governance" },
@@ -34,7 +34,7 @@ const AFTER_GITHUB = [
   { name: "dependabot.yml",           tag: "automation" },
 ];
 
-const TAG_COLORS = {
+const TAG_COLORS: Record<string, string> = {
   github:     P,
   source:     C.text,
   community:  C.accent,
@@ -51,9 +51,9 @@ const PATHS = [
 
 const ONLY_IN_GITHUB = ["FUNDING.yml", "dependabot.yml", "workflows/", "ISSUE_TEMPLATE/", "PULL_REQUEST_TEMPLATE/", "DISCUSSION_TEMPLATE/"];
 
-function FileRow({ name, sub }) {
+function FileRow({ name, sub }: { name: string; sub?: boolean }) {
   const tag = sub ? "github-sub" : null;
-  const color = TAG_COLORS[BEFORE.find(f => f.name === name)?.tag] ?? C.text;
+  const color = TAG_COLORS[BEFORE.find(f => f.name === name)?.tag as string] ?? C.text;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "4px 0", paddingLeft: sub ? 20 : 0 }}>
       {sub && <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: C.subtle }}>├─</span>}
@@ -82,7 +82,7 @@ export function WhatSection() {
               <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.muted }}>— config files at root</span>
             </div>
             <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: C.subtle, marginBottom: 8 }}>iOS-Payments/</div>
-            {BEFORE.map(({ name, tag }) => {
+            {BEFORE.map(({ name, tag }: { name: string; tag: string }) => {
               const color = TAG_COLORS[tag] ?? C.text;
               const dim = tag === "source";
               return (

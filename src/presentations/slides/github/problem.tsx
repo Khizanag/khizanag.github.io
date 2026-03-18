@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, InfoCard, CalloutBox } from "../../shared.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, InfoCard, CalloutBox } from "../../shared.tsx";
 
 export function ProblemSection() {
   return (

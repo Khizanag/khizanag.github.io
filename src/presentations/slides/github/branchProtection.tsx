@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, CheckItem } from "../../shared.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CheckItem } from "../../shared.tsx";
 
 export function BranchProtectionSection() {
   return (

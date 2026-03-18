@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, useInView } from "../../shared.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, useInView } from "../../shared.tsx";
 
 const ROLES = [
   {
@@ -43,7 +43,19 @@ const ROLES = [
   },
 ];
 
-function RoleCard({ role, delay }) {
+interface RoleCardProps {
+  role: {
+    name: string;
+    tag: string;
+    color: string;
+    idea: string;
+    power: string;
+    limit: string;
+  };
+  delay: number;
+}
+
+function RoleCard({ role, delay }: RoleCardProps) {
   const [ref, inView] = useInView();
   return (
     <div

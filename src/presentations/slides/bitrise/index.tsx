@@ -3,20 +3,20 @@ import {
   useScrolled, useKeyboardNav,
   AnimatedGrid, AmbientBlobs,
   PresentationNav, ThankYouSection, PresentationFooter,
-} from "../../shared.jsx";
-import { P, PDim } from "./ui.jsx";
-import { HeroSection } from "./hero.jsx";
-import { WhyItMattersSection } from "./whyItMatters.jsx";
-import { CurrentStateSection } from "./currentState.jsx";
-import { ProposalSection } from "./proposal.jsx";
-import { AdvantagesSection } from "./advantages.jsx";
-import { TradeOffsSection } from "./tradeOffs.jsx";
-import { SecuritySection } from "./security.jsx";
-import { CriticalThreatSection } from "./criticalThreat.jsx";
-import { SafeguardsSection } from "./safeguards.jsx";
-import { EnterpriseSection } from "./enterprise.jsx";
-import { ComparisonSection } from "./comparison.jsx";
-import { RecommendationSection } from "./recommendation.jsx";
+} from "../../shared.tsx";
+import { P, PDim } from "./ui.tsx";
+import { HeroSection } from "./hero.tsx";
+import { WhyItMattersSection } from "./whyItMatters.tsx";
+import { CurrentStateSection } from "./currentState.tsx";
+import { ProposalSection } from "./proposal.tsx";
+import { AdvantagesSection } from "./advantages.tsx";
+import { TradeOffsSection } from "./tradeOffs.tsx";
+import { SecuritySection } from "./security.tsx";
+import { CriticalThreatSection } from "./criticalThreat.tsx";
+import { SafeguardsSection } from "./safeguards.tsx";
+import { EnterpriseSection } from "./enterprise.tsx";
+import { ComparisonSection } from "./comparison.tsx";
+import { RecommendationSection } from "./recommendation.tsx";
 
 const SECTION_IDS = [
   "s-hero", "s-why", "s-current", "s-proposal",

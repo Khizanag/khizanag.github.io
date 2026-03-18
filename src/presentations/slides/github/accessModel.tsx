@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, KeyValueDiff } from "../../shared.jsx";
-import { TierCard } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, KeyValueDiff } from "../../shared.tsx";
+import { TierCard } from "./ui.tsx";
 
 export function AccessModelSection() {
   return (

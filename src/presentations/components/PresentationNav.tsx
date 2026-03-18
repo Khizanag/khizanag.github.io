@@ -1,7 +1,26 @@
-import { useState, useEffect } from "react";
-import { C } from "../tokens.js";
+import { type ReactNode, useState, useEffect } from "react";
+import { C } from "../tokens.ts";
 
-function FullscreenIcon({ isFullscreen }) {
+interface NavLink {
+  label: string;
+  id: string;
+}
+
+interface PresentationNavProps {
+  logo: ReactNode;
+  title: string;
+  links: NavLink[];
+  badge: string;
+  color: string;
+  colorDim: string;
+  scrolled: boolean;
+}
+
+interface FullscreenIconProps {
+  isFullscreen: boolean;
+}
+
+function FullscreenIcon({ isFullscreen }: FullscreenIconProps) {
   return isFullscreen ? (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
       <path d="M5 1H1v4M9 1h4v4M5 13H1V9M9 13h4V9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -13,7 +32,7 @@ function FullscreenIcon({ isFullscreen }) {
   );
 }
 
-export function PresentationNav({ logo, title, links, badge, color, colorDim, scrolled }) {
+export function PresentationNav({ logo, title, links, badge, color, colorDim, scrolled }: PresentationNavProps) {
   const [progress, setProgress] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isPrinting, setIsPrinting] = useState(false);
@@ -21,7 +40,7 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
 
   useEffect(() => {
     const mql = window.matchMedia("(max-width: 768px)");
-    const onChange = (e) => setIsMobile(e.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mql.addEventListener("change", onChange);
     return () => mql.removeEventListener("change", onChange);
   }, []);
@@ -44,7 +63,7 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
 
   useEffect(() => {
     if (isMobile) return;
-    const onKey = (e) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === "f" || e.key === "F") toggleFullscreen();
     };
     window.addEventListener("keydown", onKey);
@@ -69,7 +88,7 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
     }
   };
 
-  const scrollTo = (id) => {
+  const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 

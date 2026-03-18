@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, TabButton, PlainEnglishBox, useLocalTabNav } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { useState, useRef, type Dispatch, type SetStateAction } from "react";
+import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, TabButton, PlainEnglishBox, useLocalTabNav } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 // ─── Issue Template files ────────────────────────────────────────────────────
 
@@ -225,7 +225,7 @@ const MAIN_TABS = [
 ];
 
 
-function SubTab({ label, active, color, onClick }) {
+function SubTab({ label, active, color, onClick }: { label: string; active: boolean; color: string; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
@@ -247,10 +247,10 @@ export function TemplatesSection() {
   const tab = MAIN_TABS[mainIdx];
   const sub = tab.subtabs[subIdx];
 
-  const handleMain = (i) => { setMainIdx(i); setSubIdx(0); };
+  const handleMain = (i: number) => { setMainIdx(i); setSubIdx(0); };
   const mainIdxRef = useRef(mainIdx);
   mainIdxRef.current = mainIdx;
-  useLocalTabNav("s-templates", MAIN_TABS.length, mainIdxRef, handleMain);
+  useLocalTabNav("s-templates", MAIN_TABS.length, mainIdxRef, handleMain as Dispatch<SetStateAction<number>>);
 
   return (
     <section id="s-templates" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>

@@ -1,6 +1,12 @@
-import { C } from "../tokens.js";
+import { type ReactNode } from "react";
+import { C } from "../tokens.ts";
 
-export function SectionLabel({ children, color = C.accent }) {
+interface SectionLabelProps {
+  children: ReactNode;
+  color?: string;
+}
+
+export function SectionLabel({ children, color = C.accent }: SectionLabelProps) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
       <div style={{ width: 32, height: 1, background: color, flexShrink: 0 }} />
@@ -11,7 +17,13 @@ export function SectionLabel({ children, color = C.accent }) {
   );
 }
 
-export function SectionHeading({ children, sub, maxSubWidth = 560 }) {
+interface SectionHeadingProps {
+  children: ReactNode;
+  sub?: ReactNode;
+  maxSubWidth?: number;
+}
+
+export function SectionHeading({ children, sub, maxSubWidth = 560 }: SectionHeadingProps) {
   return (
     <>
       <h2 style={{
@@ -31,7 +43,13 @@ export function SectionHeading({ children, sub, maxSubWidth = 560 }) {
   );
 }
 
-export function TagChip({ children, color = C.accent, dot = true }) {
+interface TagChipProps {
+  children: ReactNode;
+  color?: string;
+  dot?: boolean;
+}
+
+export function TagChip({ children, color = C.accent, dot = true }: TagChipProps) {
   return (
     <div style={{
       display: "inline-flex", alignItems: "center", gap: dot ? 7 : 0,

@@ -1,13 +1,19 @@
-import { SLIDES } from "./registry.js";
-import { C } from "./tokens.js";
+import type { CSSProperties } from "react";
+import { SLIDES } from "./registry.ts";
+import { C } from "./tokens.ts";
 
-const FADE_STYLE = {
+interface SlideViewProps {
+  slideId: string;
+  onBack: () => void;
+}
+
+const FADE_STYLE: CSSProperties = {
   position: "fixed", bottom: 0, left: 0, right: 0, height: 160, zIndex: 50,
   background: `linear-gradient(to bottom, transparent, ${C.bg})`,
   pointerEvents: "none",
 };
 
-export function SlideView({ slideId, onBack }) {
+export function SlideView({ slideId, onBack }: SlideViewProps) {
   const slide = SLIDES.find((s) => s.id === slideId);
   const Component = slide?.component;
 

@@ -1,9 +1,15 @@
-import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, TagChip, useInView } from "../../shared.jsx";
-import { P, PDim } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, TagChip, useInView } from "../../shared.tsx";
+import { P, PDim } from "./ui.tsx";
 
-const ROLE_COLOR = { Admin: C.red, Maintain: C.yellow, Write: C.accent };
+const ROLE_COLOR: Record<string, string> = { Admin: C.red, Maintain: C.yellow, Write: C.accent };
 
-function AssignmentRow({ scope, role, note }) {
+interface AssignmentRowProps {
+  scope: string;
+  role: string;
+  note: string;
+}
+
+function AssignmentRow({ scope, role, note }: AssignmentRowProps) {
   return (
     <div style={{ display: "flex", alignItems: "baseline", gap: 10, padding: "9px 14px", background: C.bg, borderRadius: 8, border: `1px solid ${C.border}` }}>
       <TagChip color={ROLE_COLOR[role]}>{role.toUpperCase()}</TagChip>
@@ -44,7 +50,18 @@ const TIERS = [
   },
 ];
 
-function TierCard({ tier, index }) {
+interface TierCardLocalProps {
+  tier: {
+    title: string;
+    handle: string;
+    color: string;
+    description: string;
+    assignments: { scope: string; role: string; note: string }[];
+  };
+  index: number;
+}
+
+function TierCard({ tier, index }: TierCardLocalProps) {
   const [ref, inView] = useInView();
   return (
     <div

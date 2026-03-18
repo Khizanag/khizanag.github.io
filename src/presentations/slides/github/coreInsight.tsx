@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel } from "../../shared.jsx";
-import { P, PDim } from "./ui.jsx";
+import { C, Reveal, SectionLabel } from "../../shared.tsx";
+import { P, PDim } from "./ui.tsx";
 
 export function CoreInsightSection() {
   return (

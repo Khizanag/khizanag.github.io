@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, InfoCard, CalloutBox } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, InfoCard, CalloutBox } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 const CASES = [
   {

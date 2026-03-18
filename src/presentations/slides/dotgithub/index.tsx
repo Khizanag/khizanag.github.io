@@ -3,18 +3,18 @@ import {
   useScrolled, useKeyboardNav,
   AnimatedGrid, AmbientBlobs,
   PresentationNav, ThankYouSection, PresentationFooter,
-} from "../../shared.jsx";
-import { P, PDim } from "./ui.jsx";
-import { HeroSection } from "./hero.jsx";
-import { WhatSection } from "./what.jsx";
-import { DirectoryMapSection } from "./directoryMap.jsx";
-import { CommunityHealthSection } from "./communityHealth.jsx";
-import { TemplatesSection } from "./templates.jsx";
-import { AutomationSection } from "./automation.jsx";
-import { ExtrasSection } from "./extras.jsx";
-import { RealWorldSection } from "./realWorld.jsx";
-import { OrgLevelSection } from "./orgLevel.jsx";
-import { SummarySection } from "./summary.jsx";
+} from "../../shared.tsx";
+import { P, PDim } from "./ui.tsx";
+import { HeroSection } from "./hero.tsx";
+import { WhatSection } from "./what.tsx";
+import { DirectoryMapSection } from "./directoryMap.tsx";
+import { CommunityHealthSection } from "./communityHealth.tsx";
+import { TemplatesSection } from "./templates.tsx";
+import { AutomationSection } from "./automation.tsx";
+import { ExtrasSection } from "./extras.tsx";
+import { RealWorldSection } from "./realWorld.tsx";
+import { OrgLevelSection } from "./orgLevel.tsx";
+import { SummarySection } from "./summary.tsx";
 
 const SECTION_IDS = [
   "s-hero", "s-what", "s-map", "s-community", "s-templates",

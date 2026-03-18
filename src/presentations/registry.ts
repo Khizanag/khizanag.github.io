@@ -1,10 +1,31 @@
-import { C } from "./tokens.js";
-import BitriseConfigAnalysis from "./slides/bitrise/index.jsx";
-import GithubAccessStrategy from "./slides/github/index.jsx";
-import DotGithubPresentation from "./slides/dotgithub/index.jsx";
-import GitConfigPresentation from "./slides/git-config-files/index.jsx";
+import type { ComponentType } from "react";
+import { C } from "./tokens.ts";
+import BitriseConfigAnalysis from "./slides/bitrise/index.tsx";
+import GithubAccessStrategy from "./slides/github/index.tsx";
+import DotGithubPresentation from "./slides/dotgithub/index.tsx";
+import GitConfigPresentation from "./slides/git-config-files/index.tsx";
+import iOSPassiveIncome from "./slides/ios-passive-income/index.tsx";
 
-export const SLIDES = [
+export interface Slide {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  categoryColor: string;
+  date: string;
+  component: ComponentType;
+}
+
+export const SLIDES: Slide[] = [
+  {
+    id:            "ios-passive-income",
+    title:         "20 iOS Apps That Print Money",
+    subtitle:      "Research-backed passive income app ideas for indie iOS developers — each analyzed for market gap, monetization, tech stack, and realistic revenue.",
+    category:      "Indie Business",
+    categoryColor: C.accent,
+    date:          "Mar 2026",
+    component:     iOSPassiveIncome,
+  },
   {
     id:            "bitrise-config-analysis",
     title:         "Bitrise — CI as Code",

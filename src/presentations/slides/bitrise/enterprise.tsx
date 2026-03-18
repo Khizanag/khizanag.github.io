@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, TagChip, CheckItem, CodeBlock, CalloutBox } from "../../shared.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, TagChip, CheckItem, CodeBlock, CalloutBox } from "../../shared.tsx";
 
 export function EnterpriseSection() {
   return (

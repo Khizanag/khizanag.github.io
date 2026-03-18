@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, PlainEnglishBox } from "../../shared.jsx";
-import { P, ConfigKeyRow } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, PlainEnglishBox } from "../../shared.tsx";
+import { P, ConfigKeyRow } from "./ui.tsx";
 
 const KEYS = [
   { name: "path",     type: "string", def: "—",      desc: "Filesystem path relative to repo root where the submodule is checked out" },

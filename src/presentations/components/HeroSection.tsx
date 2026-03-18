@@ -1,4 +1,22 @@
-import { C } from "../tokens.js";
+import { type ReactNode } from "react";
+import { C } from "../tokens.ts";
+
+interface HeroStat {
+  value: ReactNode;
+  label: string;
+  color: string;
+}
+
+interface PresentationHeroProps {
+  id?: string;
+  badge: ReactNode;
+  title: ReactNode;
+  gradientLine: ReactNode;
+  subtitle: ReactNode;
+  stats: HeroStat[];
+  accentColor: string;
+  titleMaxWidth?: number;
+}
 
 export function PresentationHero({
   id = "s-hero",
@@ -9,7 +27,7 @@ export function PresentationHero({
   stats,
   accentColor,
   titleMaxWidth = 860,
-}) {
+}: PresentationHeroProps) {
   return (
     <section id={id} style={{
       minHeight: "100vh", position: "relative",

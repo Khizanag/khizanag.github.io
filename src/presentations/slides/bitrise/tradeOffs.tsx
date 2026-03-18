@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, FeatureCard } from "../../shared.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, FeatureCard } from "../../shared.tsx";
 
 export function TradeOffsSection() {
   return (

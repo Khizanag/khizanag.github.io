@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 const CATEGORIES = [
   {
@@ -43,7 +43,7 @@ const CATEGORIES = [
   },
 ];
 
-function TreeLine({ name, desc, sub, color }) {
+function TreeLine({ name, desc, sub, color }: { name: string; desc: string; sub?: boolean; color: string }) {
   return (
     <div style={{ display: "flex", alignItems: "baseline", gap: 10, padding: "6px 0", paddingLeft: sub ? 20 : 0 }}>
       <span style={{ color: C.subtle, fontSize: 11, flexShrink: 0, fontFamily: "'JetBrains Mono', monospace" }}>

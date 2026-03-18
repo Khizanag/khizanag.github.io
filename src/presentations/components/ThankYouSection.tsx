@@ -1,7 +1,14 @@
-import { C } from "../tokens.js";
-import { Reveal } from "./layout.jsx";
+import { C } from "../tokens.ts";
+import { Reveal } from "./layout.tsx";
 
-export function ThankYouSection({ id, label, color = C.accent, colorDim = C.accentDim }) {
+interface ThankYouSectionProps {
+  id: string;
+  label: string;
+  color?: string;
+  colorDim?: string;
+}
+
+export function ThankYouSection({ id, label, color = C.accent, colorDim = C.accentDim }: ThankYouSectionProps) {
   return (
     <section id={id} style={{
       minHeight: "100vh",

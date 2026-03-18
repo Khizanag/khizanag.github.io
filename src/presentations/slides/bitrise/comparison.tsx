@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.jsx";
-import { P, CompareRow } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
+import { P, CompareRow } from "./ui.tsx";
 
 export function ComparisonSection() {
   return (

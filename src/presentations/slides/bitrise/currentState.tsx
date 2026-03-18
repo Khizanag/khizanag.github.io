@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, TagChip, CheckItem } from "../../shared.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, TagChip, CheckItem } from "../../shared.tsx";
 
 export function CurrentStateSection() {
   return (

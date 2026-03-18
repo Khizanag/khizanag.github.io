@@ -58,4 +58,4 @@ export const C = {
   text:       "#e8edf5",
   muted:      "#5a6a82",
   subtle:     "#2a3548",
-};
+} as const satisfies Record<string, string>;

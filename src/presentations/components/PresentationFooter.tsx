@@ -1,6 +1,19 @@
-import { C } from "../tokens.js";
+import { type ReactNode } from "react";
+import { C } from "../tokens.ts";
 
-export function PresentationFooter({ logo, name, links, date }) {
+interface FooterLink {
+  label: string;
+  href?: string;
+}
+
+interface PresentationFooterProps {
+  logo: ReactNode;
+  name: string;
+  links: FooterLink[];
+  date: string;
+}
+
+export function PresentationFooter({ logo, name, links, date }: PresentationFooterProps) {
   const linkStyle = {
     fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: C.muted,
     borderBottom: `1px solid ${C.muted}30`, paddingBottom: 2, textDecoration: "none",

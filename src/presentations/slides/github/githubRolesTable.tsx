@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.jsx";
+import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
 
 const ROLES = [
   { name: "Read",     color: C.muted },
@@ -62,7 +62,13 @@ const TABLE = [
 
 const COLS = "2.2fr repeat(5, 1fr)";
 
-function Cell({ has, roleColor, isFirst }) {
+interface CellProps {
+  has: boolean;
+  roleColor: string;
+  isFirst: boolean;
+}
+
+function Cell({ has, roleColor, isFirst }: CellProps) {
   if (!has) return <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}><span style={{ color: C.subtle, fontSize: 15 }}>—</span></div>;
   if (isFirst) return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -74,7 +80,15 @@ function Cell({ has, roleColor, isFirst }) {
   return <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}><span style={{ color: `${C.accent}45`, fontSize: 14 }}>✓</span></div>;
 }
 
-function CategorySection({ category, rows, isOpen, onToggle, isFirst }) {
+interface CategorySectionProps {
+  category: string;
+  rows: { label: string; p: number[] }[];
+  isOpen: boolean;
+  onToggle: () => void;
+  isFirst: boolean;
+}
+
+function CategorySection({ category, rows, isOpen, onToggle, isFirst }: CategorySectionProps) {
   return (
     <div style={{ borderTop: isFirst ? "none" : `1px solid ${C.border}` }}>
       <div
@@ -119,7 +133,7 @@ export function GitHubRolesTableSection() {
   const allIndices = TABLE.map((_, i) => i);
   const [openSet, setOpenSet] = useState(new Set(allIndices));
 
-  const toggle = (i) => setOpenSet((prev) => {
+  const toggle = (i: number) => setOpenSet((prev) => {
     const next = new Set(prev);
     next.has(i) ? next.delete(i) : next.add(i);
     return next;

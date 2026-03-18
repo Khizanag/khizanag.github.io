@@ -1,7 +1,17 @@
-import { useInView } from "../hooks.js";
-import { C } from "../tokens.js";
+import { type ReactNode } from "react";
+import { useInView } from "../hooks.ts";
+import { C } from "../tokens.ts";
 
-export function InfoCard({ children, color = C.accent, title, tag, icon, delay = 0 }) {
+interface InfoCardProps {
+  children?: ReactNode;
+  color?: string;
+  title?: ReactNode;
+  tag?: ReactNode;
+  icon?: ReactNode;
+  delay?: number;
+}
+
+export function InfoCard({ children, color = C.accent, title, tag, icon, delay = 0 }: InfoCardProps) {
   const [ref, inView] = useInView();
   return (
     <div
@@ -38,7 +48,13 @@ export function InfoCard({ children, color = C.accent, title, tag, icon, delay =
   );
 }
 
-export function CheckItem({ children, active = true, delay = 0 }) {
+interface CheckItemProps {
+  children?: ReactNode;
+  active?: boolean;
+  delay?: number;
+}
+
+export function CheckItem({ children, active = true, delay = 0 }: CheckItemProps) {
   const [ref, inView] = useInView();
   const color = active ? C.accent : C.red;
   return (
@@ -65,7 +81,12 @@ export function CheckItem({ children, active = true, delay = 0 }) {
   );
 }
 
-export function PlainEnglishBox({ children, color }) {
+interface PlainEnglishBoxProps {
+  children?: ReactNode;
+  color: string;
+}
+
+export function PlainEnglishBox({ children, color }: PlainEnglishBoxProps) {
   return (
     <div style={{ background: C.surface, border: `1px solid ${color}30`, borderLeft: `3px solid ${color}`, borderRadius: 8, padding: "12px 14px" }}>
       <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 10, color, letterSpacing: "0.1em", marginBottom: 6 }}>IN PLAIN ENGLISH</div>
@@ -74,7 +95,16 @@ export function PlainEnglishBox({ children, color }) {
   );
 }
 
-export function FeatureCard({ icon, title, description, note, color = C.accent, delay = 0 }) {
+interface FeatureCardProps {
+  icon?: ReactNode;
+  title?: ReactNode;
+  description?: ReactNode;
+  note?: ReactNode;
+  color?: string;
+  delay?: number;
+}
+
+export function FeatureCard({ icon, title, description, note, color = C.accent, delay = 0 }: FeatureCardProps) {
   const [ref, inView] = useInView();
   return (
     <div
@@ -119,7 +149,14 @@ export function FeatureCard({ icon, title, description, note, color = C.accent, 
   );
 }
 
-export function CalloutBox({ children, color = C.accent, label, icon }) {
+interface CalloutBoxProps {
+  children?: ReactNode;
+  color?: string;
+  label?: ReactNode;
+  icon?: ReactNode;
+}
+
+export function CalloutBox({ children, color = C.accent, label, icon }: CalloutBoxProps) {
   return (
     <div style={{
       padding: 28, background: `${color}0a`, border: `1px solid ${color}30`,

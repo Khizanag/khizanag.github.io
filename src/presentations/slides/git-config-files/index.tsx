@@ -3,19 +3,19 @@ import {
   useScrolled, useKeyboardNav,
   AnimatedGrid, AmbientBlobs,
   PresentationNav, ThankYouSection, PresentationFooter,
-} from "../../shared.jsx";
-import { P, PDim } from "./ui.jsx";
-import { HeroSection } from "./hero.jsx";
-import { OverviewSection } from "./overview.jsx";
-import { CascadeSection } from "./cascade.jsx";
-import { SectionsSection } from "./sections.jsx";
-import { GitmodulesSection } from "./gitmodules.jsx";
-import { InternalsSection } from "./internals.jsx";
-import { LifecycleSection } from "./lifecycle.jsx";
-import { EdgeCasesSection } from "./edgeCases.jsx";
-import { BridgeSection } from "./bridge.jsx";
-import { SecuritySection } from "./security.jsx";
-import { SummarySection } from "./summary.jsx";
+} from "../../shared.tsx";
+import { P, PDim } from "./ui.tsx";
+import { HeroSection } from "./hero.tsx";
+import { OverviewSection } from "./overview.tsx";
+import { CascadeSection } from "./cascade.tsx";
+import { SectionsSection } from "./sections.tsx";
+import { GitmodulesSection } from "./gitmodules.tsx";
+import { InternalsSection } from "./internals.tsx";
+import { LifecycleSection } from "./lifecycle.tsx";
+import { EdgeCasesSection } from "./edgeCases.tsx";
+import { BridgeSection } from "./bridge.tsx";
+import { SecuritySection } from "./security.tsx";
+import { SummarySection } from "./summary.tsx";
 
 const SECTION_IDS = [
   "s-hero", "s-overview", "s-cascade", "s-sections", "s-gitmodules",

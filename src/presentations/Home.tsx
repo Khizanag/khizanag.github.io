@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { useScrolled, useInView } from "./hooks.js";
-import { C } from "./tokens.js";
-import { SLIDES } from "./registry.js";
+import { useScrolled, useInView } from "./hooks.ts";
+import { C } from "./tokens.ts";
+import { SLIDES, type Slide } from "./registry.ts";
 
-function PresentationCard({ slide, index, onOpen }) {
+interface PresentationCardProps {
+  slide: Slide;
+  index: number;
+  onOpen: (id: string) => void;
+}
+
+function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
   const [ref, inView] = useInView(0.1);
   const [hovered, setHovered] = useState(false);
   const delay = (index * 0.08).toFixed(2);
@@ -65,7 +71,13 @@ function PresentationCard({ slide, index, onOpen }) {
   );
 }
 
-function StatPill({ value, label, delay }) {
+interface StatPillProps {
+  value: string | number;
+  label: string;
+  delay: number;
+}
+
+function StatPill({ value, label, delay }: StatPillProps) {
   const [ref, inView] = useInView(0.1);
   return (
     <div ref={ref} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)", transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s` }}>
@@ -75,7 +87,11 @@ function StatPill({ value, label, delay }) {
   );
 }
 
-export function Home({ onOpen }) {
+interface HomeProps {
+  onOpen: (id: string) => void;
+}
+
+export function Home({ onOpen }: HomeProps) {
   const scrolled = useScrolled(40);
 
   return (

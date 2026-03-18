@@ -1,9 +1,16 @@
-import { C, useInView } from "../../shared.jsx";
+import { C, useInView } from "../../shared.tsx";
 
 export const P = C.accent;
 export const PDim = C.accentDim;
 
-export function StatBadge({ value, label, color = P, delay = 0 }) {
+interface StatBadgeProps {
+  value: string;
+  label: string;
+  color?: string;
+  delay?: number;
+}
+
+export function StatBadge({ value, label, color = P, delay = 0 }: StatBadgeProps) {
   const [ref, inView] = useInView();
   return (
     <div
@@ -26,7 +33,14 @@ export function StatBadge({ value, label, color = P, delay = 0 }) {
   );
 }
 
-export function RiskRow({ threat, severity, description, delay = 0 }) {
+interface RiskRowProps {
+  threat: string;
+  severity: string;
+  description: string;
+  delay?: number;
+}
+
+export function RiskRow({ threat, severity, description, delay = 0 }: RiskRowProps) {
   const [ref, inView] = useInView();
   const severityColor = { CRITICAL: C.red, HIGH: "#ff8c42", MEDIUM: C.yellow, LOW: C.muted }[severity] ?? C.muted;
   return (
@@ -53,7 +67,15 @@ export function RiskRow({ threat, severity, description, delay = 0 }) {
   );
 }
 
-export function CompareRow({ feature, bitriseIo, git, highlight = false, delay = 0 }) {
+interface CompareRowProps {
+  feature: string;
+  bitriseIo: string;
+  git: string;
+  highlight?: boolean;
+  delay?: number;
+}
+
+export function CompareRow({ feature, bitriseIo, git, highlight = false, delay = 0 }: CompareRowProps) {
   const [ref, inView] = useInView();
   return (
     <div

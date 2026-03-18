@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, CheckItem, useInView } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, CheckItem, useInView } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 const SUPPORTED = [
   { file: "CODE_OF_CONDUCT.md", note: "Applied across all repos" },
@@ -18,7 +18,7 @@ const NOT_SUPPORTED = [
   "PULL_REQUEST_TEMPLATE — must be in each repository",
 ];
 
-function Step({ n, title, body, color }) {
+function Step({ n, title, body, color }: { n: number; title: string; body: string; color: string }) {
   const [ref, inView] = useInView();
   return (
     <div ref={ref} style={{ display: "flex", gap: 16, opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)", transition: `opacity 0.5s ease ${n * 0.1}s, transform 0.5s ease ${n * 0.1}s` }}>

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
-import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, PlainEnglishBox, TabButton, useLocalTabNav } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, PlainEnglishBox, TabButton, useLocalTabNav } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 // ─── Real content from public repos ──────────────────────────────────────────
 
@@ -271,7 +271,7 @@ const REPOS = [
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-function LangBadge({ lang, color }) {
+function LangBadge({ lang, color }: { lang: string; color: string }) {
   return (
     <span style={{
       fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color,
@@ -285,14 +285,14 @@ function LangBadge({ lang, color }) {
 
 export function RealWorldSection() {
   const [openIdx, setOpenIdx]   = useState(0);
-  const [fileIdxMap, setFileIdxMap] = useState({});
+  const [fileIdxMap, setFileIdxMap] = useState<Record<string, number>>({});
   const openIdxRef = useRef(openIdx);
   // Use -1 when nothing is open so arrow-right from closed state opens index 0.
   openIdxRef.current = openIdx ?? -1;
   useLocalTabNav("s-real", REPOS.length, openIdxRef, setOpenIdx);
 
-  const getFileIdx = (repoId) => fileIdxMap[repoId] ?? 0;
-  const setFileIdx = (repoId, idx) => setFileIdxMap(prev => ({ ...prev, [repoId]: idx }));
+  const getFileIdx = (repoId: string) => fileIdxMap[repoId] ?? 0;
+  const setFileIdx = (repoId: string, idx: number) => setFileIdxMap(prev => ({ ...prev, [repoId]: idx }));
 
   return (
     <section id="s-real" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
@@ -320,7 +320,7 @@ export function RealWorldSection() {
                 }}>
                   {/* ── Header (always visible) ─────────────────────── */}
                   <button
-                    onClick={() => setOpenIdx(isOpen ? null : i)}
+                    onClick={() => setOpenIdx(isOpen ? 0 : i)}
                     style={{
                       width: "100%", display: "flex", alignItems: "center", gap: 14,
                       padding: "16px 22px", background: isOpen ? `${repo.color}08` : C.bg,

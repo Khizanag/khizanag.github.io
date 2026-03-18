@@ -1,7 +1,15 @@
-import { useInView } from "../hooks.js";
-import { C } from "../tokens.js";
+import { type CSSProperties, type ReactNode } from "react";
 
-export function Reveal({ children, delay = 0, style = {} }) {
+import { useInView } from "../hooks.ts";
+import { C } from "../tokens.ts";
+
+interface RevealProps {
+  children: ReactNode;
+  delay?: number;
+  style?: CSSProperties;
+}
+
+export function Reveal({ children, delay = 0, style = {} }: RevealProps) {
   const [ref, inView] = useInView();
   return (
     <div
@@ -18,7 +26,11 @@ export function Reveal({ children, delay = 0, style = {} }) {
   );
 }
 
-export function AnimatedGrid({ opacity = 0.3 }) {
+interface AnimatedGridProps {
+  opacity?: number;
+}
+
+export function AnimatedGrid({ opacity = 0.3 }: AnimatedGridProps) {
   return (
     <div style={{
       position:        "fixed",

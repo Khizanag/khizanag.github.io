@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, PlainEnglishBox, KeyValueDiff } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, PlainEnglishBox, KeyValueDiff } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 const INIT_DIFF = [
   {

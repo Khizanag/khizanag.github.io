@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { useState, type ReactNode } from "react";
+import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 const SCENARIOS = [
   {
@@ -113,7 +113,11 @@ const SCENARIOS = [
   },
 ];
 
-function Arrow({ color }) {
+interface ArrowProps {
+  color: string;
+}
+
+function Arrow({ color }: ArrowProps) {
   return (
     <div style={{ display: "flex", justifyContent: "center", margin: "2px 0" }}>
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -123,7 +127,15 @@ function Arrow({ color }) {
   );
 }
 
-function Panel({ label, bg, border, labelColor, children }) {
+interface PanelProps {
+  label: string;
+  bg: string;
+  border: string;
+  labelColor?: string;
+  children: ReactNode;
+}
+
+function Panel({ label, bg, border, labelColor, children }: PanelProps) {
   return (
     <div style={{ background: bg, border: `1px solid ${border}`, borderRadius: 12, padding: "16px 20px" }}>
       <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 10.5, letterSpacing: "0.12em", color: labelColor || C.muted, marginBottom: 10 }}>{label}</div>
@@ -132,7 +144,12 @@ function Panel({ label, bg, border, labelColor, children }) {
   );
 }
 
-function Dot({ color, children }) {
+interface DotProps {
+  color: string;
+  children: ReactNode;
+}
+
+function Dot({ color, children }: DotProps) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "4px 0" }}>
       <div style={{ width: 5, height: 5, borderRadius: "50%", background: color, flexShrink: 0 }} />

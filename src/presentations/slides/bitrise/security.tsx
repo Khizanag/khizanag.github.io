@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.jsx";
-import { StatBadge, RiskRow } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
+import { StatBadge, RiskRow } from "./ui.tsx";
 
 export function SecuritySection() {
   return (

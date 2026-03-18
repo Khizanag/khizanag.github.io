@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, CalloutBox } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 const ROWS = [
   { file: "CONTRIBUTING.md",         cat: "Community",   color: C.accent,  loc: ".github/ · root · docs/",  idea: "Contributor onboarding guide — linked on new issue & PR pages" },
@@ -18,7 +18,7 @@ const ROWS = [
   { file: "CITATION.cff",            cat: "Governance",  color: C.blue,    loc: ".github/ · root",          idea: "Academic citation metadata — 'Cite this repository' sidebar button" },
 ];
 
-const CAT_COLORS = { Community: C.accent, Templates: C.blue, Automation: C.yellow, Governance: P };
+const CAT_COLORS: Record<string, string> = { Community: C.accent, Templates: C.blue, Automation: C.yellow, Governance: P };
 
 export function SummarySection() {
   return (

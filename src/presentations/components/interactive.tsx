@@ -1,6 +1,15 @@
-import { C } from "../tokens.js";
+import { type ReactNode } from "react";
+import { C } from "../tokens.ts";
 
-export function TabButton({ active, color, icon, label, onClick }) {
+interface TabButtonProps {
+  active: boolean;
+  color: string;
+  icon?: ReactNode;
+  label: string;
+  onClick: () => void;
+}
+
+export function TabButton({ active, color, icon, label, onClick }: TabButtonProps) {
   return (
     <button
       onClick={onClick}

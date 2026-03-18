@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, FeatureCard } from "../../shared.jsx";
-import { P } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, FeatureCard } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
 export function AdvantagesSection() {
   return (

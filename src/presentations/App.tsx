@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { FONTS, KEYFRAMES } from "./tokens.js";
-import { Home } from "./Home.jsx";
-import { SlideView } from "./SlideView.jsx";
+import { FONTS, KEYFRAMES } from "./tokens.ts";
+import { Home } from "./Home.tsx";
+import { SlideView } from "./SlideView.tsx";
 
-function getHashId() {
+function getHashId(): string | null {
   const hash = window.location.hash.slice(1);
   return hash || null;
 }
 
 export default function App() {
-  const [activeId, setActiveId] = useState(getHashId);
+  const [activeId, setActiveId] = useState<string | null>(getHashId);
 
   useEffect(() => {
     const onHashChange = () => setActiveId(getHashId());
@@ -21,7 +21,7 @@ export default function App() {
     window.scrollTo({ top: 0 });
   }, [activeId]);
 
-  const openSlide = (id) => {
+  const openSlide = (id: string) => {
     window.location.hash = id;
   };
 

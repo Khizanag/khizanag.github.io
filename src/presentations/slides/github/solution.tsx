@@ -1,5 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox } from "../../shared.jsx";
-import { P, codeownersBasic, codeownersMultiTeam } from "./ui.jsx";
+import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox } from "../../shared.tsx";
+import { P, codeownersBasic, codeownersMultiTeam } from "./ui.tsx";
 
 export function SolutionSection() {
   return (

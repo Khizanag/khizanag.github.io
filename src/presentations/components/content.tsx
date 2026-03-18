@@ -1,7 +1,17 @@
-import { useInView } from "../hooks.js";
-import { C } from "../tokens.js";
+import { type ReactNode } from "react";
+import { useInView } from "../hooks.ts";
+import { C } from "../tokens.ts";
 
-export function WorkflowStep({ n, total, title, children, color = C.accent, delay = 0 }) {
+interface WorkflowStepProps {
+  n: number;
+  total: number;
+  title: string;
+  children: ReactNode;
+  color?: string;
+  delay?: number;
+}
+
+export function WorkflowStep({ n, total, title, children, color = C.accent, delay = 0 }: WorkflowStepProps) {
   const [ref, inView] = useInView();
   const isLast = n >= total;
   return (
@@ -34,7 +44,13 @@ export function WorkflowStep({ n, total, title, children, color = C.accent, dela
   );
 }
 
-export function CodeBlock({ children, filename = "code", highlights = [] }) {
+interface CodeBlockProps {
+  children: string;
+  filename?: string;
+  highlights?: number[];
+}
+
+export function CodeBlock({ children, filename = "code", highlights = [] }: CodeBlockProps) {
   const lines = (typeof children === "string" ? children : "").trim().split("\n");
   return (
     <div style={{ background: "#080d15", border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden", fontFamily: "'JetBrains Mono', monospace" }}>
@@ -75,7 +91,16 @@ export function CodeBlock({ children, filename = "code", highlights = [] }) {
   );
 }
 
-export function KeyValueDiff({ items }) {
+interface KeyValueDiffItem {
+  before: string;
+  after: string;
+}
+
+interface KeyValueDiffProps {
+  items: KeyValueDiffItem[];
+}
+
+export function KeyValueDiff({ items }: KeyValueDiffProps) {
   return (
     <div style={{
       padding: 28, background: C.bg, border: `1px solid ${C.border}`,

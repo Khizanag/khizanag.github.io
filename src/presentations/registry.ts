@@ -5,6 +5,7 @@ import GithubAccessStrategy from "./slides/github/index.tsx";
 import DotGithubPresentation from "./slides/dotgithub/index.tsx";
 import GitConfigPresentation from "./slides/git-config-files/index.tsx";
 import iOSPassiveIncome from "./slides/ios-passive-income/index.tsx";
+import CodeConnectPresentation from "./slides/code-connect/index.tsx";
 
 export interface Slide {
   id: string;
@@ -17,6 +18,15 @@ export interface Slide {
 }
 
 export const SLIDES: Slide[] = [
+  {
+    id:            "code-connect",
+    title:         "Figma Code Connect",
+    subtitle:      "How we bridged S.I.N.S. design system components in Figma with real Swift code — setup, patterns, coverage, and developer workflow.",
+    category:      "Design System",
+    categoryColor: C.purple,
+    date:          "Apr 2026",
+    component:     CodeConnectPresentation,
+  },
   {
     id:            "ios-passive-income",
     title:         "20 iOS Apps That Print Money",

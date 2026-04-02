@@ -7,7 +7,7 @@ const PATTERNS = [
         id: "props",
         icon: "📝",
         label: "Simple Props",
-        description: "Map Figma text properties directly to Swift parameters with @FigmaProp.",
+        description: "Map Figma text properties directly to Swift parameters with @FigmaProp. The rendered snippet updates live when designers change text in Figma's properties panel.",
         code: `@FigmaProp("✍️ Title")
 var title: String = "Title"
 
@@ -26,101 +26,167 @@ var body: some View {
         highlights: [1, 4],
     },
     {
+        id: "enums",
+        icon: "🔀",
+        label: "Enum Mapping",
+        description: "The most common pattern. Map Figma variant strings to Swift enum cases. Works with any CaseIterable enum. Must use display names only — no #ID suffixes.",
+        code: `@FigmaProp("Appearance", mapping: [
+    "Default": .default,
+    "Contrast": .contrast,
+    "Contrast onLight": .contrastOnLight,
+])
+var appearance: BannerCardSmall.Appearance = .default
+
+@FigmaProp("Size", mapping: [
+    "Medium": .medium,
+    "Large": .large,
+])
+var size: Chip.Size = .medium
+
+// Boolean enums (string-based in Figma)
+@FigmaProp("Active", mapping: ["True": true, "False": false])
+var active: Bool = false`,
+        filename: "BannerCardSmall.figma.swift",
+        highlights: [1, 8, 15],
+    },
+    {
         id: "variants",
         icon: "🎛",
         label: "Variant Dicts",
-        description: "Split structs by Figma variant to show clean, resolved code per variant — no conditionals.",
-        code: `// One struct per variant value
-struct PrimaryButtonCodeConnect: FigmaConnect {
-    let variant = ["Type": "Primary"]
-    var body: some View {
-        StandardButton(configuration: .primary(...))
-    }
+        description: "When Figma and Swift model the same concept differently, split into multiple structs. Example: Figma has 'Inverse' as a Variant, but Swift has it as an Appearance.",
+        code: `// Figma: Variant = "Primary" / "Outline" / "Dash"
+struct ChipCodeConnect: FigmaConnect {
+    let component = Chip.self
+    // No variant dict → matches all non-Inverse
+    @FigmaProp("Variant", mapping: [
+        "Primary": .primary,
+        "Outline": .outline,
+        "Dash": .dash,
+    ])
+    var chipVariant: Chip.Variant = .primary
 }
 
-struct SecondaryButtonCodeConnect: FigmaConnect {
-    let variant = ["Type": "Secondary"]
+// Figma: Variant = "Inverse"
+// Swift: appearance: .inverse (different axis!)
+struct ChipInverseCodeConnect: FigmaConnect {
+    let component = Chip.self
+    let variant = ["Variant": "Inverse"]
     var body: some View {
-        StandardButton(configuration: .secondary(...))
+        Chip(parameters: .init(
+            variant: .primary,
+            appearance: .inverse, // ← mapped here
+            ...
+        ))
     }
 }`,
-        filename: "StandardButton.figma.swift",
-        highlights: [3, 10],
+        filename: "Chip.figma.swift",
+        highlights: [5, 17],
     },
     {
         id: "visibility",
         icon: "👀",
         label: "Visibility Toggles",
-        description: "Designers use 👀 toggles to show/hide optional fields. Split by toggle state to avoid ternaries.",
-        code: `// 👀 Description = true → show the text
-struct WithDescCodeConnect: FigmaConnect {
-    let variant = ["👀 Description": "true"]
-    @FigmaProp("✍️ Description")
-    var description: String = "Description"
+        description: "Figma can't pass nil. Designers use 👀 toggles to show/hide. Split by toggle — never use ternaries in body (parser errors).",
+        code: `// 👀 Footer = true → show footer
+struct P2PCardWithFooter: FigmaConnect {
+    let variant = [
+        "Collapsed": "False",
+        "State": "Default",
+        "👀 Footer": true,
+    ]
     var body: some View {
-        ToggleCard(
-            parameters: .init(
-                description: description
-            )
-        )
+        P2PCard(parameters: .init(
+            variant: .expanded(.init(
+                ...,
+                footer: .init(
+                    amounts: [10_000, 50_000] as [Decimal]
+                )
+            ))
+        ))
     }
 }
 
-// 👀 Description = false → pass nil
-struct NoDescCodeConnect: FigmaConnect {
-    let variant = ["👀 Description": "false"]
+// 👀 Footer = false → pass nil
+struct P2PCardNoFooter: FigmaConnect {
+    let variant = [
+        "Collapsed": "False",
+        "State": "Default",
+        "👀 Footer": false,
+    ]
     var body: some View {
-        ToggleCard(
-            parameters: .init(
-                description: nil
-            )
-        )
+        P2PCard(parameters: .init(
+            variant: .expanded(.init(
+                ...,
+                footer: nil
+            ))
+        ))
     }
 }`,
-        filename: "ToggleCard.figma.swift",
-        highlights: [3, 15],
-    },
-    {
-        id: "text",
-        icon: "✍️",
-        label: "Text Props",
-        description: "Dynamic text content from Figma's component properties panel flows into the rendered snippet.",
-        code: `@FigmaProp("✍️ Label")
-var label: String = "Label"
-
-@FigmaProp("✍️ Error Message")
-var errorMessage: String = "Error"
-
-var body: some View {
-    InputField(
-        parameters: .init(
-            label: label,
-            errorMessage: errorMessage
-        )
-    )
-}`,
-        filename: "InputField.figma.swift",
-        highlights: [1, 4],
+        filename: "P2PCard.figma.swift",
+        highlights: [6, 23],
     },
     {
         id: "disabled",
         icon: "🚫",
         label: "Disabled State",
-        description: "Figma's Disabled boolean maps to the .disabled() view modifier — clean SwiftUI pattern.",
-        code: `@FigmaProp("Disabled")
-var isDisabled: Bool = false
+        description: "Some components use .disabled() modifier, others use isEnabled: false in init. Check the Parameters file to know which pattern your component uses.",
+        code: `// Pattern A: .disabled() modifier (BankCardButton)
+struct BankCardButtonDisabled: FigmaConnect {
+    let variant = ["Disabled": "True"]
+    var body: some View {
+        BankCardButton(parameters: .init(
+            appearance: appearance,
+            title: "Add card",
+            action: { /* TODO */ }
+        ))
+        .disabled(true) // SwiftUI modifier
+    }
+}
 
-var body: some View {
-    StandardButton(
-        configuration: .primary(
-            title: label,
-            action: { /* TODO: - Add action */ }
-        )
-    )
-    .disabled(isDisabled)
+// Pattern B: isEnabled parameter (NavigationButton)
+struct ButtonNavDisabled: FigmaConnect {
+    let variant = ["Disabled": "True"]
+    var body: some View {
+        NavigationButton(parameters: .init(
+            appearance: appearance,
+            step: step,
+            isEnabled: false, // Parameter, not modifier
+            action: { /* TODO */ }
+        ))
+    }
 }`,
-        filename: "StandardButton.figma.swift",
-        highlights: [1, 10],
+        filename: "BankCardButton.figma.swift",
+        highlights: [10, 21],
+    },
+    {
+        id: "comment",
+        icon: "💬",
+        label: "Comment-Only",
+        description: "For ViewModifiers, generic APIs, and components with no direct mapping. The file shows usage as code comments — no FigmaConnect struct.",
+        code: `// Shimmer.figma.swift — ViewModifier, not a View
+// On iOS, Shimmer is a ViewModifier:
+//
+//     SomeView()
+//         .shimmering(true)
+//
+//     SomeView()
+//         .shimmering(
+//             true,
+//             parameters: .init(overlayColor: .black)
+//         )
+//
+// Code Connect cannot map ViewModifiers.
+
+// TabNavigation.figma.swift — Generic ViewBuilder
+// TabNavigationView is generic:
+//
+// TabNavigationView(parameters: .init(
+//     tabs: $tabs,
+//     navigationPublisher: subject.eraseToAnyPublisher(),
+//     content: { tab in ... }
+// ))`,
+        filename: "Shimmer.figma.swift",
+        highlights: [],
     },
 ];
 
@@ -133,7 +199,7 @@ export function PatternsSection() {
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={P}>KEY PATTERNS</SectionLabel>
-                    <SectionHeading sub="Five repeatable patterns cover every component in the S.I.N.S. design system.">
+                    <SectionHeading sub="Seven repeatable patterns cover every component in the S.I.N.S. design system — from simple text props to comment-only documentation.">
                         Mapping patterns
                     </SectionHeading>
                 </Reveal>

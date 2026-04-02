@@ -18,10 +18,12 @@ const CATEGORIES = [
 const NOT_COVERED = [
     { name: "Accordion", reason: "No Swift implementation yet" },
     { name: "Step Indicator", reason: "No Swift implementation yet" },
+    { name: "Aspect Ratio", reason: "No Swift implementation yet" },
     { name: "Bank Card Stack", reason: "No Swift implementation" },
     { name: "List Actions", reason: "No Swift implementation" },
+    { name: "Pass Cell", reason: "No Swift implementation" },
     { name: "Header", reason: "Lives in presentation layer, not Core UI" },
-    { name: "Shimmer", reason: "ViewModifier — documented via comment-only file" },
+    { name: "Shimmer", reason: "ViewModifier (.shimmering()) — comment-only file" },
 ];
 
 export function CoverageSection() {

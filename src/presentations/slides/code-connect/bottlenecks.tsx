@@ -65,6 +65,17 @@ export function BottlenecksSection() {
                         <em> some</em> developer guidance — even the ones that can't be fully mapped.
                     </CalloutBox>
                 </Reveal>
+
+                <Reveal delay={0.5}>
+                    <CalloutBox color={C.blue} icon="🔬" label="DISCOVERED DURING AUDIT">
+                        <strong>Deprecated API drift</strong> — Code Connect bodies can silently use deprecated inits that still compile.
+                        We caught 6 instances: <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>toolbox:</code> → <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>slotEnd:</code> in Chip,
+                        deprecated <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>CardContentTopWrapper.init(description:)</code> in 3 files,
+                        wrong param name <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>item:</code> → <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>label:</code> in ToggleBadge,
+                        and internal <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>segments:</code> used instead of public <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>items:</code> in TermDialog.
+                        Regular audits against <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.blue }}>+Parameters.swift</code> files are essential.
+                    </CalloutBox>
+                </Reveal>
             </div>
         </section>
     );

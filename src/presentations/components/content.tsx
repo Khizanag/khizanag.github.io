@@ -68,7 +68,7 @@ export function CodeBlock({ children, filename = "code", highlights = [] }: Code
               display: "flex", gap: 20, padding: "3px 0",
               background: highlighted ? "rgba(0,255,136,0.07)" : "transparent",
               borderLeft: highlighted ? `2px solid ${C.accent}` : "2px solid transparent",
-              paddingLeft: highlighted ? 10 : 0,
+              paddingLeft: 10,
             }}>
               <span style={{ color: C.subtle, fontSize: 13, minWidth: 20, textAlign: "right", userSelect: "none" }}>{i + 1}</span>
               <span style={{ fontSize: 13, lineHeight: 1.7, color: C.text, whiteSpace: "pre" }}>

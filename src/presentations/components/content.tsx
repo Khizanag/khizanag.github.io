@@ -71,7 +71,7 @@ export function CodeBlock({ children, filename = "code", highlights = [] }: Code
               paddingLeft: highlighted ? 10 : 0,
             }}>
               <span style={{ color: C.subtle, fontSize: 13, minWidth: 20, textAlign: "right", userSelect: "none" }}>{i + 1}</span>
-              <span style={{ fontSize: 13, lineHeight: 1.7, color: C.text }}>
+              <span style={{ fontSize: 13, lineHeight: 1.7, color: C.text, whiteSpace: "pre" }}>
                 {line.startsWith("#")
                   ? <span style={{ color: C.muted }}>{line}</span>
                   : line.includes("@org/")

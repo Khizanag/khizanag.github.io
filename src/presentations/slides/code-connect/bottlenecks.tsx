@@ -17,7 +17,7 @@ export function BottlenecksSection() {
                     <LimitationCard
                         icon="🔗"
                         title='"Open in GitHub" disabled'
-                        description='The Swift parser (v1.4.1) returns an empty source field. The CLI auto-converts file paths to GitHub URLs, but the Swift parser does not emit them. "let component = X.self" is required but still produces no link.'
+                        description='The Swift parser (v1.4.1) returns an empty source field. Tracked in github.com/figma/code-connect/issues. "let component = X.self" is required but still produces no link. Expected fix in a future parser version.'
                         color={C.red}
                         delay={0}
                     />

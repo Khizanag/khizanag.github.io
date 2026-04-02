@@ -15,10 +15,10 @@ var title: String = "Title"
 var description: String = "Description"
 
 var body: some View {
-        InfoCard(parameters: .init(
-                title: title,
-                description: description
-        ))
+    InfoCard(parameters: .init(
+        title: title,
+        description: description
+    ))
 }`,
         filename: "InfoCard.figma.swift",
         highlights: [1, 4],
@@ -30,17 +30,17 @@ var body: some View {
         description: "Split structs by Figma variant to show clean, resolved code per variant — no conditionals.",
         code: `// One struct per variant value
 struct PrimaryButtonCodeConnect: FigmaConnect {
-        let variant = ["Type": "Primary"]
-        var body: some View {
-                StandardButton(configuration: .primary(...))
-        }
+    let variant = ["Type": "Primary"]
+    var body: some View {
+        StandardButton(configuration: .primary(...))
+    }
 }
 
 struct SecondaryButtonCodeConnect: FigmaConnect {
-        let variant = ["Type": "Secondary"]
-        var body: some View {
-                StandardButton(configuration: .secondary(...))
-        }
+    let variant = ["Type": "Secondary"]
+    var body: some View {
+        StandardButton(configuration: .secondary(...))
+    }
 }`,
         filename: "StandardButton.figma.swift",
         highlights: [3, 10],
@@ -52,24 +52,24 @@ struct SecondaryButtonCodeConnect: FigmaConnect {
         description: "Designers use 👀 toggles to show/hide optional fields. Split by toggle state to avoid ternaries.",
         code: `// 👀 Description = true → show the text
 struct WithDescCodeConnect: FigmaConnect {
-        let variant = ["👀 Description": "true"]
-        @FigmaProp("✍️ Description")
-        var description: String = "Description"
-        var body: some View {
-                ToggleCard(parameters: .init(
-                        description: description
-                ))
-        }
+    let variant = ["👀 Description": "true"]
+    @FigmaProp("✍️ Description")
+    var description: String = "Description"
+    var body: some View {
+        ToggleCard(parameters: .init(
+            description: description
+        ))
+    }
 }
 
 // 👀 Description = false → pass nil
 struct NoDescCodeConnect: FigmaConnect {
-        let variant = ["👀 Description": "false"]
-        var body: some View {
-                ToggleCard(parameters: .init(
-                        description: nil
-                ))
-        }
+    let variant = ["👀 Description": "false"]
+    var body: some View {
+        ToggleCard(parameters: .init(
+            description: nil
+        ))
+    }
 }`,
         filename: "ToggleCard.figma.swift",
         highlights: [3, 15],
@@ -86,10 +86,10 @@ var label: String = "Label"
 var errorMessage: String = "Error"
 
 var body: some View {
-        InputField(parameters: .init(
-                label: label,
-                errorMessage: errorMessage
-        ))
+    InputField(parameters: .init(
+        label: label,
+        errorMessage: errorMessage
+    ))
 }`,
         filename: "InputField.figma.swift",
         highlights: [1, 4],
@@ -103,11 +103,11 @@ var body: some View {
 var isDisabled: Bool = false
 
 var body: some View {
-        StandardButton(configuration: .primary(
-                title: label,
-                action: { /* TODO: - Add action */ }
-        ))
-        .disabled(isDisabled)
+    StandardButton(configuration: .primary(
+        title: label,
+        action: { /* TODO: - Add action */ }
+    ))
+    .disabled(isDisabled)
 }`,
         filename: "StandardButton.figma.swift",
         highlights: [1, 10],

@@ -20,18 +20,18 @@ export function HowItWorksSection() {
                             </div>
                             <CodeBlock filename="StandardButton.figma.swift" highlights={[2, 3, 5, 6, 9]}>
 {`struct StandardButtonCodeConnect: FigmaConnect {
-        let component = StandardButton.self
-        let figmaNodeUrl = "https://figma.com/...?node-id=1-2"
+    let component = StandardButton.self
+    let figmaNodeUrl = "https://figma.com/...?node-id=1-2"
 
-        @FigmaProp("✍️ Label")
-        var label: String = "Label"
+    @FigmaProp("✍️ Label")
+    var label: String = "Label"
 
-        var body: some View {
-                StandardButton(configuration: .primary(
-                        title: label,
-                        action: { /* TODO: - Add action */ }
-                ))
-        }
+    var body: some View {
+        StandardButton(configuration: .primary(
+            title: label,
+            action: { /* TODO: - Add action */ }
+        ))
+    }
 }`}
                             </CodeBlock>
                         </div>

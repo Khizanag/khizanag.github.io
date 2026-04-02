@@ -19,7 +19,7 @@ export function ValueSection() {
                     </Reveal>
                     <Reveal delay={0.08}>
                         <FeatureCard icon="🤖" title="AI-assisted generation" color={C.blue}
-                            description="Claude Code reads the Figma design via MCP, uses Code Connect snippets, and generates all 5 screen files following our architecture." />
+                            description="Copilot reads .github/instructions/ and Code Connect snippets to help generate all 5 screen files following our architecture." />
                     </Reveal>
                     <Reveal delay={0.16}>
                         <FeatureCard icon="📐" title="Consistent architecture" color={C.accent}

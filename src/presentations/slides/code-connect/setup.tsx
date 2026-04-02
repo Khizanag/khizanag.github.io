@@ -38,7 +38,7 @@ export function SetupSection() {
                             </div>
                             <CodeBlock filename="Package.swift" highlights={[2, 5]}>
 {`dependencies: [
-        .package(url: "https://github.com/figma/code-connect", from: "1.4.1"),
+    .package(url: "https://github.com/figma/code-connect", from: "1.4.1"),
 ],
 // Target dependency:
 .product(name: "CodeConnect", package: "code-connect")`}
@@ -59,13 +59,13 @@ export function SetupSection() {
                         </div>
                         <CodeBlock filename="figma.config.json" highlights={[3, 4, 5]}>
 {`{
-        "codeConnect": {
-                "parser": "swift",
-                "include": [
-                        "Sources/SpaceCore_UI_V2_CodeConnect/**",
-                        "Sources/SpaceCore_UI_V2/**"
-                ]
-        }
+    "codeConnect": {
+        "parser": "swift",
+        "include": [
+            "Sources/SpaceCore_UI_V2_CodeConnect/**",
+            "Sources/SpaceCore_UI_V2/**"
+        ]
+    }
 }`}
                         </CodeBlock>
                         <p style={{ color: C.muted, fontSize: 13, lineHeight: 1.6, marginTop: 12 }}>

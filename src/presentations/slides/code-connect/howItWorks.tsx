@@ -27,10 +27,12 @@ export function HowItWorksSection() {
     var label: String = "Label"
 
     var body: some View {
-        StandardButton(configuration: .primary(
-            title: label,
-            action: { /* TODO: - Add action */ }
-        ))
+        StandardButton(
+            configuration: .primary(
+                title: label,
+                action: { /* TODO: - Add action */ }
+            )
+        )
     }
 }`}
                             </CodeBlock>

@@ -15,10 +15,12 @@ var title: String = "Title"
 var description: String = "Description"
 
 var body: some View {
-    InfoCard(parameters: .init(
-        title: title,
-        description: description
-    ))
+    InfoCard(
+        parameters: .init(
+            title: title,
+            description: description
+        )
+    )
 }`,
         filename: "InfoCard.figma.swift",
         highlights: [1, 4],
@@ -56,9 +58,11 @@ struct WithDescCodeConnect: FigmaConnect {
     @FigmaProp("✍️ Description")
     var description: String = "Description"
     var body: some View {
-        ToggleCard(parameters: .init(
-            description: description
-        ))
+        ToggleCard(
+            parameters: .init(
+                description: description
+            )
+        )
     }
 }
 
@@ -66,9 +70,11 @@ struct WithDescCodeConnect: FigmaConnect {
 struct NoDescCodeConnect: FigmaConnect {
     let variant = ["👀 Description": "false"]
     var body: some View {
-        ToggleCard(parameters: .init(
-            description: nil
-        ))
+        ToggleCard(
+            parameters: .init(
+                description: nil
+            )
+        )
     }
 }`,
         filename: "ToggleCard.figma.swift",
@@ -86,10 +92,12 @@ var label: String = "Label"
 var errorMessage: String = "Error"
 
 var body: some View {
-    InputField(parameters: .init(
-        label: label,
-        errorMessage: errorMessage
-    ))
+    InputField(
+        parameters: .init(
+            label: label,
+            errorMessage: errorMessage
+        )
+    )
 }`,
         filename: "InputField.figma.swift",
         highlights: [1, 4],
@@ -103,10 +111,12 @@ var body: some View {
 var isDisabled: Bool = false
 
 var body: some View {
-    StandardButton(configuration: .primary(
-        title: label,
-        action: { /* TODO: - Add action */ }
-    ))
+    StandardButton(
+        configuration: .primary(
+            title: label,
+            action: { /* TODO: - Add action */ }
+        )
+    )
     .disabled(isDisabled)
 }`,
         filename: "StandardButton.figma.swift",

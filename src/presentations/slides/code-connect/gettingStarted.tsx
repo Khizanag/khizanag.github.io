@@ -61,6 +61,7 @@ Headline(
         subtitle: "Confirmation"
     )
 )
+
 // Copy → paste into your View file
 // Repeat for each component on the screen`}
                             </CodeBlock>

@@ -215,6 +215,16 @@ export function McpSetupSection() {
                 </Reveal>
 
                 <Reveal delay={0.3}>
+                    <CalloutBox color={C.red} icon="🖥" label="COMMON MISCONCEPTION: FIGMA DESKTOP APP">
+                        Neither option reads data from the <strong>Figma Mac/Windows desktop application</strong>.
+                        The word "local" in "local MCP server" means the Node.js process runs on your machine — but it still
+                        calls <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.red }}>api.figma.com</code> over
+                        the internet. The Figma desktop app is just a rendering shell; it doesn't expose any local API.
+                        Both MCP options require an internet connection to Figma's cloud.
+                    </CalloutBox>
+                </Reveal>
+
+                <Reveal delay={0.35}>
                     <CalloutBox color={C.accent} icon="💡" label="OUR RECOMMENDATION">
                         Use the <strong>official Figma Dev Mode MCP</strong> if your team has Dev Mode access (most paid Figma plans include it).
                         It's zero-maintenance and always current. Fall back to the community server if you need a free plan or want to

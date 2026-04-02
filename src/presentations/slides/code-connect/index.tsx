@@ -26,11 +26,12 @@ import { RealExampleSection } from "./realExample.tsx";
 import { PitfallsSection } from "./pitfalls.tsx";
 import { GettingStartedSection } from "./gettingStarted.tsx";
 import { FigmaMcpSection } from "./figmaMcp.tsx";
+import { McpSetupSection } from "./mcpSetup.tsx";
 
 const SECTION_IDS = [
     "s-hero", "s-problem", "s-what", "s-how", "s-setup",
     "s-patterns", "s-coverage", "s-bottlenecks", "s-workflow",
-    "s-mcp",
+    "s-mcp", "s-mcp-setup",
     "s-value", "s-tokens", "s-nav", "s-components", "s-instructions",
     "s-ai", "s-trust", "s-arch", "s-example", "s-pitfalls", "s-start",
     "s-thankyou",
@@ -79,6 +80,7 @@ export default function CodeConnectPresentation() {
                         { label: "Patterns",      id: "s-patterns" },
                         { label: "Coverage",      id: "s-coverage" },
                         { label: "Figma MCP",     id: "s-mcp" },
+                        { label: "MCP Setup",     id: "s-mcp-setup" },
                         { label: "Value",         id: "s-value" },
                         { label: "Tokens",        id: "s-tokens" },
                         { label: "Navigation",    id: "s-nav" },
@@ -114,6 +116,7 @@ export default function CodeConnectPresentation() {
                     <WorkflowSection />
 
                     <FigmaMcpSection />
+                    <McpSetupSection />
 
                     {/* Part 2: The developer toolkit */}
                     <ValueSection />

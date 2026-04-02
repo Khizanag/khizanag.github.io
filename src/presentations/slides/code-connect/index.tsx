@@ -25,10 +25,12 @@ import { InstructionFilesSection } from "./instructionFiles.tsx";
 import { RealExampleSection } from "./realExample.tsx";
 import { PitfallsSection } from "./pitfalls.tsx";
 import { GettingStartedSection } from "./gettingStarted.tsx";
+import { FigmaMcpSection } from "./figmaMcp.tsx";
 
 const SECTION_IDS = [
     "s-hero", "s-problem", "s-what", "s-how", "s-setup",
     "s-patterns", "s-coverage", "s-bottlenecks", "s-workflow",
+    "s-mcp",
     "s-value", "s-tokens", "s-nav", "s-components", "s-instructions",
     "s-ai", "s-trust", "s-arch", "s-example", "s-pitfalls", "s-start",
     "s-thankyou",
@@ -76,6 +78,7 @@ export default function CodeConnectPresentation() {
                         { label: "How It Works",  id: "s-how" },
                         { label: "Patterns",      id: "s-patterns" },
                         { label: "Coverage",      id: "s-coverage" },
+                        { label: "Figma MCP",     id: "s-mcp" },
                         { label: "Value",         id: "s-value" },
                         { label: "Tokens",        id: "s-tokens" },
                         { label: "Navigation",    id: "s-nav" },
@@ -110,6 +113,8 @@ export default function CodeConnectPresentation() {
                     <BottlenecksSection />
                     <WorkflowSection />
 
+                    <FigmaMcpSection />
+
                     {/* Part 2: The developer toolkit */}
                     <ValueSection />
                     <DesignTokensSection />
@@ -131,10 +136,10 @@ export default function CodeConnectPresentation() {
                         logo={FOOTER_LOGO}
                         name="Figma Code Connect &middot; S.I.N.S. Design System"
                         links={[
-                            { label: "Figma Code Connect Docs", href: "https://github.com/figma/code-connect" },
-                            { label: "S.I.N.S. Components v5.0" },
-                            { label: "iOS-Space-Core-UI-V2" },
-                            { label: "NewArch-Dishes (reference)" },
+                            { label: "Code Connect GitHub", href: "https://github.com/figma/code-connect" },
+                            { label: "NPM Package", href: "https://www.npmjs.com/package/@figma/code-connect" },
+                            { label: "Figma Dev Mode Docs", href: "https://help.figma.com/hc/en-us/articles/15023124644247-Guide-to-Dev-Mode" },
+                            { label: "MCP Protocol", href: "https://modelcontextprotocol.io" },
                         ]}
                         date="Apr 2026"
                     />

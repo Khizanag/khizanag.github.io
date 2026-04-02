@@ -14,7 +14,7 @@ export function WhatIsCodeConnectSection() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32 }}>
                     <FeatureCard icon="🔗" title="Official Figma Tool" color={P} delay={0}
-                        description="Built and maintained by Figma. Supports React, SwiftUI, Jetpack Compose, and more. Swift parser added in 2024."
+                        description={<>Built and maintained by <a href="https://figma.com" target="_blank" rel="noopener noreferrer" style={{ color: P, textDecoration: "none", borderBottom: `1px solid ${P}40` }}>Figma</a>. Supports React, SwiftUI, Jetpack Compose, and more. <a href="https://github.com/figma/code-connect" target="_blank" rel="noopener noreferrer" style={{ color: P, textDecoration: "none", borderBottom: `1px solid ${P}40` }}>Open-source on GitHub</a>. Swift parser added in 2024.</>}
                     />
                     <FeatureCard icon="👁" title="Dev Mode Integration" color={C.blue} delay={0.08}
                         description="When a designer selects a component in Figma, developers see the exact Swift code needed to instantiate it — parameters, variants, and all."
@@ -26,11 +26,11 @@ export function WhatIsCodeConnectSection() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 32 }}>
                     <FeatureCard icon="📦" title="NPM CLI" color={C.yellow} delay={0.24}
-                        description="The CLI tool (@figma/code-connect) parses .figma.swift files and publishes the code snippets to the Figma file via API."
+                        description={<>The CLI tool (<a href="https://www.npmjs.com/package/@figma/code-connect" target="_blank" rel="noopener noreferrer" style={{ color: C.yellow, textDecoration: "none", borderBottom: `1px solid ${C.yellow}40` }}>@figma/code-connect</a>) parses .figma.swift files and publishes the code snippets to the Figma file via API.</>}
                         note="v1.4.2 — latest as of April 2026"
                     />
                     <FeatureCard icon="📐" title="SPM Dependency" color={P} delay={0.32}
-                        description="The figma/code-connect Swift package provides FigmaConnect protocol and @FigmaProp property wrapper for type-safe mappings."
+                        description={<>The <a href="https://github.com/figma/code-connect" target="_blank" rel="noopener noreferrer" style={{ color: P, textDecoration: "none", borderBottom: `1px solid ${P}40` }}>figma/code-connect</a> Swift package provides FigmaConnect protocol and @FigmaProp property wrapper for type-safe mappings.</>}
                         note="v1.4.1 — added as a dependency in Package.swift"
                     />
                 </div>

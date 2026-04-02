@@ -21,7 +21,8 @@ export function SetupSection() {
                             </div>
                             <CodeBlock filename="terminal" highlights={[1]}>
 {`npm install @figma/code-connect@1.4.2
-# Provides: npx figma connect <parse|publish>`}
+# Provides: npx figma connect <parse|publish>
+# Docs: npmjs.com/package/@figma/code-connect`}
                             </CodeBlock>
                             <p style={{ color: C.muted, fontSize: 13, lineHeight: 1.6, marginTop: 12 }}>
                                 The CLI parses <code style={{ fontFamily: "'JetBrains Mono', monospace", color: P }}>*.figma.swift</code> files and publishes
@@ -83,7 +84,7 @@ export function SetupSection() {
                         <div>
                             <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 14, color: C.text }}>FIGMA_ACCESS_TOKEN</span>
                             <p style={{ color: C.muted, fontSize: 13, lineHeight: 1.6, margin: "4px 0 0" }}>
-                                A personal access token from Figma with file read/write permissions. Set as an environment variable before publishing.
+                                A <a href="https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens" target="_blank" rel="noopener noreferrer" style={{ color: P, textDecoration: "none", borderBottom: `1px solid ${P}40` }}>personal access token</a> from Figma with file read/write permissions. Set as an environment variable before publishing.
                             </p>
                         </div>
                     </div>

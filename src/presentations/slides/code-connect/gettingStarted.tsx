@@ -20,7 +20,7 @@ export function GettingStartedSection() {
 
                         <WorkflowStep n={2} total={5} title="Use the skill or copy manually" color={P} delay={0.08}>
                             <strong style={{ color: C.text }}>Option A:</strong> Run
-                            <code style={{ fontFamily: "'JetBrains Mono', monospace", color: P, fontSize: 13 }}> /figma-to-screen</code> in Claude Code with the Figma URL.
+                            <code style={{ fontFamily: "'JetBrains Mono', monospace", color: P, fontSize: 13 }}> /figma-to-screen</code> in your AI assistant with the Figma URL.
                             <br />
                             <strong style={{ color: C.text }}>Option B:</strong> Copy Code Connect snippets from Dev Mode and assemble the screen manually.
                         </WorkflowStep>
@@ -95,7 +95,7 @@ Headline(
                         <PlainEnglishBox color={C.accent}>
                             The reference implementation lives in <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.accent }}>NewArch-Dishes</code>.
                             The instruction files in <code style={{ fontFamily: "'JetBrains Mono', monospace", color: C.accent }}>.github/instructions/</code> apply to ALL Space-Feature-* modules.
-                            Copy them into your module to get the same AI-assisted workflow.
+                            Copy them into your module to get the same Copilot-assisted workflow.
                         </PlainEnglishBox>
                     </div>
                 </Reveal>

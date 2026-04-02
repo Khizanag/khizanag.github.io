@@ -7,7 +7,7 @@ export function AiWorkflowSection() {
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.blue}>AI-ASSISTED GENERATION</SectionLabel>
-                    <SectionHeading sub="Claude Code reads Figma via MCP, uses Code Connect snippets, and generates the full screen implementation.">
+                    <SectionHeading sub="Your AI assistant (Copilot / Claude Code) reads Figma, uses Code Connect snippets, and generates the full screen implementation.">
                         From Figma to working screen
                     </SectionHeading>
                 </Reveal>
@@ -47,7 +47,7 @@ export function AiWorkflowSection() {
 
                     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                         <Reveal delay={0.1}>
-                            <CodeBlock filename="Claude Code — invoke skill" highlights={[1]}>
+                            <CodeBlock filename="AI assistant — invoke skill" highlights={[1]}>
 {`/figma-to-screen \\
   --url "figma.com/design/abc/Loans?node-id=30045-159897" \\
   --screen_name LoansMain`}

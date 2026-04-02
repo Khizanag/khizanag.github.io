@@ -78,6 +78,24 @@ export function HowItWorksSection() {
                         and from that point on, anyone inspecting the component in Figma sees the real Swift API — not auto-generated CSS or SwiftUI guesses.
                     </PlainEnglishBox>
                 </Reveal>
+
+                <Reveal delay={0.25}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginTop: 24 }}>
+                        {[
+                            { icon: "🔑", title: "let component = X.self", desc: "Required for the 'Open in GitHub' button. Must match the actual Swift View struct name." },
+                            { icon: "📍", title: "Node IDs use dashes", desc: "Figma URLs show node-id=1:2 but Code Connect requires 1-2 (dashes, not colons)." },
+                            { icon: "⚠️", title: "No variable named 'variant'", desc: "The parser reserves 'variant' — use chipVariant, cardVariant, etc. instead." },
+                        ].map(({ icon, title, desc }) => (
+                            <div key={title} style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 10, padding: "16px 18px" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                                    <span style={{ fontSize: 16 }}>{icon}</span>
+                                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 600, fontSize: 12, color: P }}>{title}</span>
+                                </div>
+                                <div style={{ fontSize: 12, color: C.muted, lineHeight: 1.55 }}>{desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </Reveal>
             </div>
         </section>
     );

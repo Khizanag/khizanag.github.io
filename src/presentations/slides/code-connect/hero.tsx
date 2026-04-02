@@ -13,7 +13,7 @@ export function HeroSection() {
             stats={[
                 { value: "70",  label: "Components Connected", color: P },
                 { value: "249", label: "Total Connections",    color: C.blue },
-                { value: "5",   label: "Variant Patterns",     color: C.yellow },
+                { value: "7",   label: "Mapping Patterns",      color: C.yellow },
                 { value: "0",   label: "Deprecated APIs",      color: C.accent },
             ]}
         />

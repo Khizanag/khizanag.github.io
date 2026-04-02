@@ -17,14 +17,14 @@ Footer(
             parameters: .init(
                 primaryButtonParameters: .init(
                     style: .primaryBrand,
-                    content: .text("Continue"),  // ← placeholder
+                    content: .text("Continue"),
                     action: { }
                 )
             )
         )
     )
 )
-// Screenshot shows NO footer → skip entirely`,
+// ⚠️ Screenshot shows NO footer → skip entirely`,
             highlights: [2, 8, 14],
         },
     },
@@ -41,10 +41,12 @@ Footer(
 ProductHeadline(parameters: .init(...))
 
 // CORRECT — searched Component/ for "Headline":
-Headline(parameters: .init(
-    title: "Loans",
-    subtitle: "Application and management"
-))`,
+Headline(
+    parameters: .init(
+        title: "Loans",
+        subtitle: "Application and management"
+    )
+)`,
             highlights: [5, 8, 9, 10],
         },
     },
@@ -55,22 +57,26 @@ Headline(parameters: .init(
         example: {
             filename: "Placeholder values in Code Connect",
             code: `// Code Connect returned:
-ListViewItem(parameters: .init(
-    title: .init(text: "Title"),
-    values: .init(
-        value: "Value",          // ← placeholder
-        subValue: "Subvalue"     // ← placeholder
-    ),
-))
+ListViewItem(
+    parameters: .init(
+        title: .init(text: "Title"),
+        values: .init(
+            value: "Value",      // ← placeholder
+            subValue: "Subvalue" // ← placeholder
+        )
+    )
+)
 
 // Screenshot shows: text + chevron, NO values
 // CORRECT:
-ListViewItem(parameters: .init(
-    title: .init(text: item.title),
-    size: .medium,
-    trailingToolbox: Toolbox(parameters: .chevronRight),
-    action: { viewModel.handleIntent(.onFAQItemTap(item)) }
-))`,
+ListViewItem(
+    parameters: .init(
+        title: .init(text: item.title),
+        size: .medium,
+        trailingToolbox: Toolbox(parameters: .chevronRight),
+        action: { viewModel.handleIntent(.onFAQItemTap(item)) }
+    )
+)`,
             highlights: [5, 6, 13, 14, 15],
         },
     },
@@ -87,7 +93,7 @@ CardContentTopWrapper(
 
 // Actual API requires:
 CardContentTopWrapper(
-    descriptionGroup: .init(     // ← non-deprecated
+    descriptionGroup: .init(
         description: .one("Some text"),
         standardTextStyle: .secondary
     )

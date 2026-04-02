@@ -14,10 +14,18 @@ import { PatternsSection } from "./patterns.tsx";
 import { CoverageSection } from "./coverage.tsx";
 import { BottlenecksSection } from "./bottlenecks.tsx";
 import { WorkflowSection } from "./workflow.tsx";
+import { ValueSection } from "./value.tsx";
+import { AiWorkflowSection } from "./aiWorkflow.tsx";
+import { TrustRulesSection } from "./trustRules.tsx";
+import { ScreenArchitectureSection } from "./screenArchitecture.tsx";
+import { PitfallsSection } from "./pitfalls.tsx";
+import { GettingStartedSection } from "./gettingStarted.tsx";
 
 const SECTION_IDS = [
     "s-hero", "s-problem", "s-what", "s-how", "s-setup",
-    "s-patterns", "s-coverage", "s-bottlenecks", "s-workflow", "s-thankyou",
+    "s-patterns", "s-coverage", "s-bottlenecks", "s-workflow",
+    "s-value", "s-ai", "s-trust", "s-arch", "s-pitfalls", "s-start",
+    "s-thankyou",
 ];
 
 const NAV_LOGO = (
@@ -64,6 +72,12 @@ export default function CodeConnectPresentation() {
                         { label: "Patterns",    id: "s-patterns" },
                         { label: "Coverage",    id: "s-coverage" },
                         { label: "Workflow",    id: "s-workflow" },
+                        { label: "Value",       id: "s-value" },
+                        { label: "AI Flow",     id: "s-ai" },
+                        { label: "Trust Rules", id: "s-trust" },
+                        { label: "Architecture", id: "s-arch" },
+                        { label: "Pitfalls",    id: "s-pitfalls" },
+                        { label: "Get Started", id: "s-start" },
                     ]}
                     badge="iOS Chapter"
                     color={P}
@@ -77,6 +91,7 @@ export default function CodeConnectPresentation() {
                         <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C.border}, transparent)` }} />
                     </div>
 
+                    {/* Part 1: What is Code Connect */}
                     <ProblemSection />
                     <WhatIsCodeConnectSection />
                     <HowItWorksSection />
@@ -85,6 +100,14 @@ export default function CodeConnectPresentation() {
                     <CoverageSection />
                     <BottlenecksSection />
                     <WorkflowSection />
+
+                    {/* Part 2: Using it as a developer */}
+                    <ValueSection />
+                    <AiWorkflowSection />
+                    <TrustRulesSection />
+                    <ScreenArchitectureSection />
+                    <PitfallsSection />
+                    <GettingStartedSection />
 
                     <ThankYouSection id="s-thankyou" label="APRIL 2026" color={P} colorDim={PDim} />
 
@@ -95,6 +118,7 @@ export default function CodeConnectPresentation() {
                             { label: "Figma Code Connect Docs", href: "https://github.com/figma/code-connect" },
                             { label: "S.I.N.S. Components v5.0" },
                             { label: "iOS-Space-Core-UI-V2" },
+                            { label: "NewArch-Dishes (reference)" },
                         ]}
                         date="Apr 2026"
                     />

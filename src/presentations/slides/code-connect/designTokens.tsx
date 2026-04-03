@@ -112,7 +112,7 @@ export function DesignTokensSection() {
     const token = TOKENS[active];
 
     return (
-        <section id="s-tokens" style={{ padding: "96px 48px" }}>
+        <section id="s-tokens" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.blue}>DESIGN TOKENS</SectionLabel>

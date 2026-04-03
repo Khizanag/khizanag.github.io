@@ -141,7 +141,7 @@ export function TrustRulesSection() {
     const rule = RULES[active];
 
     return (
-        <section id="s-trust" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
+        <section id="s-trust" style={{ padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.yellow}>CODE CONNECT TRUST</SectionLabel>

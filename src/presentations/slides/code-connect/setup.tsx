@@ -3,7 +3,7 @@ import { P } from "./ui.tsx";
 
 export function SetupSection() {
     return (
-        <section id="s-setup" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
+        <section id="s-setup" style={{ padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.yellow}>SETUP</SectionLabel>

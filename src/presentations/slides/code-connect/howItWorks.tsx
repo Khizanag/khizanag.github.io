@@ -3,7 +3,7 @@ import { P } from "./ui.tsx";
 
 export function HowItWorksSection() {
     return (
-        <section id="s-how" style={{ padding: "96px 48px" }}>
+        <section id="s-how" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.blue}>HOW IT WORKS</SectionLabel>

@@ -63,7 +63,10 @@ export function useLocalTabNav(
 }
 
 function resolveCurrentIndex(sections: HTMLElement[]): number {
-  const ref = window.scrollY + window.innerHeight * 0.4;
+  // Find the section closest to the top of the viewport.
+  // Uses a small offset (15% of viewport) so that when a section's top
+  // is near the viewport top it's considered "current", not the previous one.
+  const ref = window.scrollY + window.innerHeight * 0.15;
   let best = 0;
   for (let i = 0; i < sections.length; i++) {
     const top = sections[i].getBoundingClientRect().top + window.scrollY;
@@ -81,9 +84,9 @@ export function useKeyboardNav(sectionIds: string[]): void {
     const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 
     const syncIndex = () => {
-      if (!navLock.current) {
-        indexRef.current = resolveCurrentIndex(sections);
-      }
+      // Never update index while a keyboard-initiated scroll is in progress
+      if (navLock.current) return;
+      indexRef.current = resolveCurrentIndex(sections);
     };
 
     const onScrollEnd = () => {
@@ -107,6 +110,10 @@ export function useKeyboardNav(sectionIds: string[]): void {
       if (navLock.current) return;
 
       const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+      // Re-resolve before computing next to avoid stale index
+      indexRef.current = resolveCurrentIndex(sections);
+
       const next = e.key === "ArrowRight"
         ? Math.min(indexRef.current + 1, sections.length - 1)
         : Math.max(indexRef.current - 1, 0);
@@ -116,12 +123,14 @@ export function useKeyboardNav(sectionIds: string[]): void {
       indexRef.current = next;
       navLock.current  = true;
 
+      // Fallback unlock in case scrollend doesn't fire (Safari, rapid keys)
+      if (fallbackRef.current) clearTimeout(fallbackRef.current);
       fallbackRef.current = setTimeout(() => {
         navLock.current = false;
         indexRef.current = resolveCurrentIndex(sections);
-      }, 2000);
+      }, 1200);
 
-      sections[next]?.scrollIntoView({ behavior: "smooth" });
+      sections[next]?.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
     window.addEventListener("keydown", onKey);

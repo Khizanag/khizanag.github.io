@@ -3,7 +3,7 @@ import { P } from "./ui.tsx";
 
 export function ScreenArchitectureSection() {
     return (
-        <section id="s-arch" style={{ padding: "96px 48px" }}>
+        <section id="s-arch" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={P}>SCREEN ARCHITECTURE</SectionLabel>

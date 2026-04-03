@@ -195,7 +195,7 @@ export function PatternsSection() {
     const pattern = PATTERNS.find((p) => p.id === active)!;
 
     return (
-        <section id="s-patterns" style={{ padding: "96px 48px" }}>
+        <section id="s-patterns" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={P}>KEY PATTERNS</SectionLabel>

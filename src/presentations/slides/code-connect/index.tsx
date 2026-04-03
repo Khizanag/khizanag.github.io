@@ -6,34 +6,43 @@ import {
 } from "../../shared.tsx";
 import { P, PDim } from "./ui.tsx";
 import { HeroSection } from "./hero.tsx";
+import { AgendaSection } from "./agenda.tsx";
 import { ProblemSection } from "./problem.tsx";
+import { ValueSection } from "./value.tsx";
 import { WhatIsCodeConnectSection } from "./whatIsCodeConnect.tsx";
+import { FigmaMcpSection } from "./figmaMcp.tsx";
+import { McpSetupSection } from "./mcpSetup.tsx";
 import { HowItWorksSection } from "./howItWorks.tsx";
 import { SetupSection } from "./setup.tsx";
 import { PatternsSection } from "./patterns.tsx";
 import { CoverageSection } from "./coverage.tsx";
 import { BottlenecksSection } from "./bottlenecks.tsx";
 import { WorkflowSection } from "./workflow.tsx";
-import { ValueSection } from "./value.tsx";
+import { DesignTokensSection } from "./designTokens.tsx";
+import { ComponentApiSection } from "./componentApi.tsx";
+import { NavigationDeepSection } from "./navigationDeep.tsx";
+import { InstructionFilesSection } from "./instructionFiles.tsx";
 import { AiWorkflowSection } from "./aiWorkflow.tsx";
 import { TrustRulesSection } from "./trustRules.tsx";
 import { ScreenArchitectureSection } from "./screenArchitecture.tsx";
-import { DesignTokensSection } from "./designTokens.tsx";
-import { NavigationDeepSection } from "./navigationDeep.tsx";
-import { ComponentApiSection } from "./componentApi.tsx";
-import { InstructionFilesSection } from "./instructionFiles.tsx";
 import { RealExampleSection } from "./realExample.tsx";
 import { PitfallsSection } from "./pitfalls.tsx";
 import { GettingStartedSection } from "./gettingStarted.tsx";
-import { FigmaMcpSection } from "./figmaMcp.tsx";
-import { McpSetupSection } from "./mcpSetup.tsx";
 
 const SECTION_IDS = [
-    "s-hero", "s-problem", "s-what", "s-how", "s-setup",
-    "s-patterns", "s-coverage", "s-bottlenecks", "s-workflow",
-    "s-mcp", "s-mcp-setup",
-    "s-value", "s-tokens", "s-nav", "s-components", "s-instructions",
+    // Intro
+    "s-hero", "s-agenda",
+    // Part 1: Problem & Why
+    "s-problem", "s-value",
+    // Part 2: Figma MCP & Code Connect
+    "s-what", "s-mcp", "s-mcp-setup",
+    // Part 3: Our Integration
+    "s-how", "s-setup", "s-patterns", "s-coverage", "s-bottlenecks", "s-workflow",
+    // Part 4: Developer Toolkit
+    "s-tokens", "s-components", "s-nav", "s-instructions",
+    // Part 5: AI-Assisted Development
     "s-ai", "s-trust", "s-arch", "s-example", "s-pitfalls", "s-start",
+    // Closing
     "s-thankyou",
 ];
 
@@ -75,22 +84,17 @@ export default function CodeConnectPresentation() {
                     logo={NAV_LOGO}
                     title="Code Connect"
                     links={[
+                        { label: "Agenda",        id: "s-agenda" },
                         { label: "Problem",       id: "s-problem" },
+                        { label: "Code Connect",  id: "s-what" },
+                        { label: "Figma MCP",     id: "s-mcp" },
                         { label: "How It Works",  id: "s-how" },
                         { label: "Patterns",      id: "s-patterns" },
                         { label: "Coverage",      id: "s-coverage" },
-                        { label: "Figma MCP",     id: "s-mcp" },
-                        { label: "MCP Setup",     id: "s-mcp-setup" },
-                        { label: "Value",         id: "s-value" },
                         { label: "Tokens",        id: "s-tokens" },
-                        { label: "Navigation",    id: "s-nav" },
                         { label: "Components",    id: "s-components" },
-                        { label: "Instructions",  id: "s-instructions" },
                         { label: "AI Flow",       id: "s-ai" },
-                        { label: "Trust Rules",   id: "s-trust" },
-                        { label: "Architecture",  id: "s-arch" },
                         { label: "Case Study",    id: "s-example" },
-                        { label: "Pitfalls",      id: "s-pitfalls" },
                         { label: "Get Started",   id: "s-start" },
                     ]}
                     badge="iOS Chapter"
@@ -105,9 +109,18 @@ export default function CodeConnectPresentation() {
                         <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C.border}, transparent)` }} />
                     </div>
 
-                    {/* Part 1: What is Code Connect */}
+                    <AgendaSection />
+
+                    {/* Part 1: The Problem & Why */}
                     <ProblemSection />
+                    <ValueSection />
+
+                    {/* Part 2: Figma MCP & Code Connect */}
                     <WhatIsCodeConnectSection />
+                    <FigmaMcpSection />
+                    <McpSetupSection />
+
+                    {/* Part 3: Our S.I.N.S. Integration */}
                     <HowItWorksSection />
                     <SetupSection />
                     <PatternsSection />
@@ -115,17 +128,13 @@ export default function CodeConnectPresentation() {
                     <BottlenecksSection />
                     <WorkflowSection />
 
-                    <FigmaMcpSection />
-                    <McpSetupSection />
-
-                    {/* Part 2: The developer toolkit */}
-                    <ValueSection />
+                    {/* Part 4: The Developer Toolkit */}
                     <DesignTokensSection />
-                    <NavigationDeepSection />
                     <ComponentApiSection />
+                    <NavigationDeepSection />
                     <InstructionFilesSection />
 
-                    {/* Part 3: AI-assisted workflow */}
+                    {/* Part 5: AI-Assisted Development */}
                     <AiWorkflowSection />
                     <TrustRulesSection />
                     <ScreenArchitectureSection />

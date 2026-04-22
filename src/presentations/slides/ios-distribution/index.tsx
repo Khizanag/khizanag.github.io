@@ -6,18 +6,30 @@ import {
 } from "../../shared.tsx";
 import { P, PDim } from "./ui.tsx";
 import { HeroSection } from "./hero.tsx";
+import { HookQuizSection } from "./hookQuiz.tsx";
 import { AgendaSection } from "./agenda.tsx";
+import { HistorySection } from "./history.tsx";
 import { JourneySection } from "./journey.tsx";
 import { EcosystemSection } from "./ecosystem.tsx";
 import { CodeSigningSection } from "./codeSigning.tsx";
+import { CodeSigningMechanicsSection } from "./codeSigningMechanics.tsx";
+import { ProvisioningDeepSection } from "./provisioningDeep.tsx";
+import { EntitlementsMatrixSection } from "./entitlementsMatrix.tsx";
+import { BinaryInternalsSection } from "./binaryInternals.tsx";
 import { MultiEnvironmentSection } from "./multiEnvironment.tsx";
 import { PushNotificationsSection } from "./pushNotifications.tsx";
 import { ChannelsSection } from "./channels.tsx";
 import { EnterpriseMdmSection } from "./enterpriseMdm.tsx";
+import { DmaEuropeSection } from "./dmaEurope.tsx";
 import { TestflightSection } from "./testflight.tsx";
+import { MetadataAndAsoSection } from "./metadataAndAso.tsx";
 import { ReviewProcessSection } from "./reviewProcess.tsx";
+import { InsideReviewRoomSection } from "./insideReviewRoom.tsx";
 import { GuidelinesSection } from "./guidelines.tsx";
+import { StoreKitPaymentsSection } from "./storeKitPayments.tsx";
 import { TopRejectionsSection } from "./topRejections.tsx";
+import { ErrorDecoderSection } from "./errorDecoder.tsx";
+import { CrashMonitoringSection } from "./crashMonitoring.tsx";
 import { WarStoryHeySection } from "./warStoryHey.tsx";
 import { WarStoryEpicSection } from "./warStoryEpic.tsx";
 import { WarStoryBeeperSection } from "./warStoryBeeper.tsx";
@@ -36,14 +48,18 @@ import { FutureSection } from "./future.tsx";
 import { TakeawaysSection } from "./takeaways.tsx";
 
 const SECTION_IDS = [
-    "s-hero", "s-agenda", "s-journey", "s-ecosystem",
-    "s-signing", "s-multienv", "s-push",
-    "s-channels", "s-enterprise",
-    "s-testflight", "s-review", "s-guidelines", "s-rejections",
+    "s-hero", "s-hook", "s-agenda", "s-history", "s-journey", "s-ecosystem",
+    "s-signing", "s-signing-deep", "s-provisioning", "s-entitlements", "s-binary",
+    "s-multienv", "s-push",
+    "s-channels", "s-enterprise", "s-dma",
+    "s-testflight", "s-metadata",
+    "s-review", "s-inside-review",
+    "s-guidelines", "s-storekit",
+    "s-rejections", "s-errors",
     "s-war-hey", "s-war-epic", "s-war-beeper", "s-war-more", "s-war-us",
     "s-game", "s-privacy",
     "s-phased", "s-expedited", "s-flags",
-    "s-cicd", "s-modular", "s-buildopt",
+    "s-cicd", "s-modular", "s-buildopt", "s-crashes",
     "s-compare", "s-future", "s-takeaways",
     "s-thankyou",
 ];
@@ -96,23 +112,34 @@ export default function IOSDistributionPresentation() {
 
                 <div style={{ position: "relative", zIndex: 1 }}>
                     <HeroSection />
+                    <HookQuizSection />
 
                     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 48px" }}>
                         <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C.border}, transparent)` }} />
                     </div>
 
                     <AgendaSection />
+                    <HistorySection />
                     <JourneySection />
                     <EcosystemSection />
                     <CodeSigningSection />
+                    <CodeSigningMechanicsSection />
+                    <ProvisioningDeepSection />
+                    <EntitlementsMatrixSection />
+                    <BinaryInternalsSection />
                     <MultiEnvironmentSection />
                     <PushNotificationsSection />
                     <ChannelsSection />
                     <EnterpriseMdmSection />
+                    <DmaEuropeSection />
                     <TestflightSection />
+                    <MetadataAndAsoSection />
                     <ReviewProcessSection />
+                    <InsideReviewRoomSection />
                     <GuidelinesSection />
+                    <StoreKitPaymentsSection />
                     <TopRejectionsSection />
+                    <ErrorDecoderSection />
                     <WarStoryHeySection />
                     <WarStoryEpicSection />
                     <WarStoryBeeperSection />
@@ -126,6 +153,7 @@ export default function IOSDistributionPresentation() {
                     <CICDSection />
                     <ModularizationSection />
                     <BuildOptimizationSection />
+                    <CrashMonitoringSection />
                     <ComparisonSection />
                     <FutureSection />
                     <TakeawaysSection />

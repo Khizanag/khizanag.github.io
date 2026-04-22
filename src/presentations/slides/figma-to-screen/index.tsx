@@ -7,23 +7,45 @@ import {
 import { P, PDim } from "./ui.tsx";
 import { HeroSection } from "./hero.tsx";
 import { ProblemSection } from "./problem.tsx";
-import { MentalModelsSection } from "./mentalModels.tsx";
-import { OverviewSection } from "./overview.tsx";
-import { DeepDiveSection } from "./deepDive.tsx";
-import { RoadmapSection } from "./roadmap.tsx";
+import { PillarsSection } from "./pillars.tsx";
+import { ArchitectureSection } from "./architecture.tsx";
+import { CodeConnectSection } from "./codeConnect.tsx";
+import { McpSection } from "./mcp.tsx";
+import { PrimitivesSection } from "./primitives.tsx";
+import { InstructionsSection } from "./instructions.tsx";
+import { SetupSection } from "./setup.tsx";
+import { ConsumerSection } from "./consumer.tsx";
+import { FlagshipSection } from "./flagship.tsx";
+import { PhasesSection } from "./phases.tsx";
+import { AgentsSection } from "./agents.tsx";
+import { ContextSection } from "./context.tsx";
 import { GatesSection } from "./gates.tsx";
-import { ResultsSection } from "./results.tsx";
+import { ExampleSection } from "./example.tsx";
+import { DoDontSection } from "./doDont.tsx";
+import { ProsConsSection } from "./prosCons.tsx";
+import { GettingStartedSection } from "./gettingStarted.tsx";
 import { WhatsNextSection } from "./whatsNext.tsx";
 
 const SECTION_IDS = [
     "s-hero",
     "s-problem",
-    "s-mental-models",
-    "s-overview",
-    "s-deep-dive",
-    "s-roadmap",
+    "s-pillars",
+    "s-architecture",
+    "s-code-connect",
+    "s-mcp",
+    "s-primitives",
+    "s-instructions",
+    "s-setup",
+    "s-consumer",
+    "s-flagship",
+    "s-phases",
+    "s-agents",
+    "s-context",
     "s-gates",
-    "s-results",
+    "s-example",
+    "s-do-dont",
+    "s-pros-cons",
+    "s-getting-started",
     "s-whats-next",
     "s-thankyou",
 ];
@@ -57,7 +79,6 @@ export default function FigmaToScreenPresentation() {
         <>
             <style>{FONTS}{KEYFRAMES}</style>
             <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif" }}>
-
                 <AnimatedGrid />
                 <AmbientBlobs />
 
@@ -66,49 +87,55 @@ export default function FigmaToScreenPresentation() {
                     logo={NAV_LOGO}
                     title="/figma-to-screen"
                     links={[
-                        { label: "Problem",       id: "s-problem" },
-                        { label: "Mental Models", id: "s-mental-models" },
-                        { label: "Overview",      id: "s-overview" },
-                        { label: "Deep Dive",     id: "s-deep-dive" },
-                        { label: "Roadmap",       id: "s-roadmap" },
-                        { label: "Gates",         id: "s-gates" },
-                        { label: "Results",       id: "s-results" },
-                        { label: "What's Next",   id: "s-whats-next" },
+                        { label: "Why",       id: "s-problem" },
+                        { label: "Pillars",   id: "s-pillars" },
+                        { label: "Stack",     id: "s-architecture" },
+                        { label: "Setup",     id: "s-setup" },
+                        { label: "Toolkit",   id: "s-consumer" },
+                        { label: "Flagship",  id: "s-flagship" },
+                        { label: "Pipeline",  id: "s-phases" },
+                        { label: "Example",   id: "s-example" },
+                        { label: "Do / Don't",id: "s-do-dont" },
+                        { label: "Start",     id: "s-getting-started" },
                     ]}
-                    badge="iOS Chapter"
+                    badge="iOS Chapter · Apr 2026"
                     color={P}
                     colorDim={PDim}
                 />
 
-                <div style={{ position: "relative", zIndex: 1 }}>
-                    <HeroSection />
+                <HeroSection />
+                <ProblemSection />
+                <PillarsSection />
+                <ArchitectureSection />
+                <CodeConnectSection />
+                <McpSection />
+                <PrimitivesSection />
+                <InstructionsSection />
+                <SetupSection />
+                <ConsumerSection />
+                <FlagshipSection />
+                <PhasesSection />
+                <AgentsSection />
+                <ContextSection />
+                <GatesSection />
+                <ExampleSection />
+                <DoDontSection />
+                <ProsConsSection />
+                <GettingStartedSection />
+                <WhatsNextSection />
 
-                    <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 48px" }}>
-                        <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C.border}, transparent)` }} />
-                    </div>
+                <ThankYouSection id="s-thankyou" label="APRIL 2026" color={P} colorDim={PDim} />
 
-                    <ProblemSection />
-                    <MentalModelsSection />
-                    <OverviewSection />
-                    <DeepDiveSection />
-                    <RoadmapSection />
-                    <GatesSection />
-                    <ResultsSection />
-                    <WhatsNextSection />
-
-                    <ThankYouSection id="s-thankyou" label="APRIL 2026" color={P} colorDim={PDim} />
-
-                    <PresentationFooter
-                        logo={FOOTER_LOGO}
-                        name="/figma-to-screen &middot; AI-orchestrated screen scaffolding"
-                        links={[
-                            { label: "Phases" },
-                            { label: "Roadmap" },
-                            { label: "Gates" },
-                        ]}
-                        date="iOS Chapter &middot; 2026"
-                    />
-                </div>
+                <PresentationFooter
+                    logo={FOOTER_LOGO}
+                    name="/figma-to-screen · iOS AI Infrastructure"
+                    links={[
+                        { label: "AGENTS.md" },
+                        { label: "figma-to-screen.prompt.md" },
+                        { label: "docs/ai-infra/" },
+                    ]}
+                    date="iOS Chapter · April 2026"
+                />
             </div>
         </>
     );

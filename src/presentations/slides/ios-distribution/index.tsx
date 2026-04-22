@@ -23,6 +23,7 @@ import { WarStorySpaceIntSection } from "./warStorySpaceInt.tsx";
 import { ReviewGameSection } from "./reviewGame.tsx";
 import { PrivacySection } from "./privacy.tsx";
 import { PhasedReleaseSection } from "./phasedRelease.tsx";
+import { ExpeditedReviewSection } from "./expeditedReview.tsx";
 import { CICDSection } from "./cicd.tsx";
 import { ComparisonSection } from "./comparison.tsx";
 import { FutureSection } from "./future.tsx";
@@ -32,7 +33,7 @@ const SECTION_IDS = [
     "s-hero", "s-agenda", "s-journey", "s-ecosystem", "s-signing", "s-channels",
     "s-testflight", "s-review", "s-guidelines", "s-rejections",
     "s-war-hey", "s-war-epic", "s-war-beeper", "s-war-more", "s-war-us",
-    "s-game", "s-privacy", "s-phased", "s-cicd", "s-compare", "s-future", "s-takeaways",
+    "s-game", "s-privacy", "s-phased", "s-expedited", "s-cicd", "s-compare", "s-future", "s-takeaways",
     "s-thankyou",
 ];
 
@@ -106,6 +107,7 @@ export default function IOSDistributionPresentation() {
                     <ReviewGameSection />
                     <PrivacySection />
                     <PhasedReleaseSection />
+                    <ExpeditedReviewSection />
                     <CICDSection />
                     <ComparisonSection />
                     <FutureSection />

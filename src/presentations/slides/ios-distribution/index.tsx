@@ -10,7 +10,10 @@ import { AgendaSection } from "./agenda.tsx";
 import { JourneySection } from "./journey.tsx";
 import { EcosystemSection } from "./ecosystem.tsx";
 import { CodeSigningSection } from "./codeSigning.tsx";
+import { MultiEnvironmentSection } from "./multiEnvironment.tsx";
+import { PushNotificationsSection } from "./pushNotifications.tsx";
 import { ChannelsSection } from "./channels.tsx";
+import { EnterpriseMdmSection } from "./enterpriseMdm.tsx";
 import { TestflightSection } from "./testflight.tsx";
 import { ReviewProcessSection } from "./reviewProcess.tsx";
 import { GuidelinesSection } from "./guidelines.tsx";
@@ -24,16 +27,24 @@ import { ReviewGameSection } from "./reviewGame.tsx";
 import { PrivacySection } from "./privacy.tsx";
 import { PhasedReleaseSection } from "./phasedRelease.tsx";
 import { ExpeditedReviewSection } from "./expeditedReview.tsx";
+import { FeatureFlagsSection } from "./featureFlags.tsx";
 import { CICDSection } from "./cicd.tsx";
+import { ModularizationSection } from "./modularization.tsx";
+import { BuildOptimizationSection } from "./buildOptimization.tsx";
 import { ComparisonSection } from "./comparison.tsx";
 import { FutureSection } from "./future.tsx";
 import { TakeawaysSection } from "./takeaways.tsx";
 
 const SECTION_IDS = [
-    "s-hero", "s-agenda", "s-journey", "s-ecosystem", "s-signing", "s-channels",
+    "s-hero", "s-agenda", "s-journey", "s-ecosystem",
+    "s-signing", "s-multienv", "s-push",
+    "s-channels", "s-enterprise",
     "s-testflight", "s-review", "s-guidelines", "s-rejections",
     "s-war-hey", "s-war-epic", "s-war-beeper", "s-war-more", "s-war-us",
-    "s-game", "s-privacy", "s-phased", "s-expedited", "s-cicd", "s-compare", "s-future", "s-takeaways",
+    "s-game", "s-privacy",
+    "s-phased", "s-expedited", "s-flags",
+    "s-cicd", "s-modular", "s-buildopt",
+    "s-compare", "s-future", "s-takeaways",
     "s-thankyou",
 ];
 
@@ -94,7 +105,10 @@ export default function IOSDistributionPresentation() {
                     <JourneySection />
                     <EcosystemSection />
                     <CodeSigningSection />
+                    <MultiEnvironmentSection />
+                    <PushNotificationsSection />
                     <ChannelsSection />
+                    <EnterpriseMdmSection />
                     <TestflightSection />
                     <ReviewProcessSection />
                     <GuidelinesSection />
@@ -108,7 +122,10 @@ export default function IOSDistributionPresentation() {
                     <PrivacySection />
                     <PhasedReleaseSection />
                     <ExpeditedReviewSection />
+                    <FeatureFlagsSection />
                     <CICDSection />
+                    <ModularizationSection />
+                    <BuildOptimizationSection />
                     <ComparisonSection />
                     <FutureSection />
                     <TakeawaysSection />

@@ -5,16 +5,16 @@ export function HeroSection() {
     return (
         <PresentationHero
             accentColor={P}
-            titleMaxWidth={880}
-            badge="AI INFRASTRUCTURE &middot; APR 2026"
+            titleMaxWidth={900}
+            badge="AI INFRASTRUCTURE · APR 2026"
             title="/figma-to-screen"
             gradientLine="From Figma URL to clean-architecture SwiftUI"
-            subtitle={<>A <strong style={{ color: P }}>17-agent pipeline</strong> that reads a Figma design and writes a pixel-perfect View, ViewModel, Router, Factory, DI, and navigator patch — with 7 tiered verification gates and a shared context artifact as the only source of truth.</>}
+            subtitle={<>A <strong style={{ color: P }}>3-pillar stack</strong> — Figma Code Connect, consumer slash commands, and a <strong style={{ color: P }}>17-agent orchestrator</strong> — that turns a design URL into a pixel-perfect View, a wired ViewModel, a patched Destination, and a committed SHA.</>}
             stats={[
-                { value: "8",   label: "Pipeline Phases",      color: P },
-                { value: "17",  label: "Specialized Agents",    color: C.blue },
-                { value: "7",   label: "Verification Gates",    color: C.yellow },
-                { value: "10",  label: "Roadmap Items Shipped", color: C.purple },
+                { value: "17",  label: "Specialized Agents",   color: P },
+                { value: "116", label: "Code Connect Maps",    color: C.purple },
+                { value: "8",   label: "Pipeline Phases",      color: C.blue },
+                { value: "7",   label: "Verification Gates",   color: C.yellow },
             ]}
         />
     );

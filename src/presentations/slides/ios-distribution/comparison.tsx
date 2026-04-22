@@ -38,12 +38,12 @@ export function ComparisonSection() {
 
                     <ComparisonRow label="ANNUAL COST" cells={["$99", "$25 one-time", "$0 (domain only)"]} />
                     <ComparisonRow label="STORE REVIEW" cells={[
-                        <span style={{ color: C.red }}>Human review, 24&ndash;48h</span>,
+                        <span style={{ color: C.red }}>Human review, 24–48h</span>,
                         "Automated + review for new apps, ~2h",
                         "None — you own the server",
                     ]} />
-                    <ComparisonRow label="FIRST RELEASE" cells={["1&ndash;7 days to approval", "Same day", "Minutes (deploy = release)"]} />
-                    <ComparisonRow label="UPDATES" cells={["1&ndash;7 days", "Hours, staged rollout", "Instant"]} />
+                    <ComparisonRow label="FIRST RELEASE" cells={["1–7 days to approval", "Same day", "Minutes (deploy = release)"]} />
+                    <ComparisonRow label="UPDATES" cells={["1–7 days", "Hours, staged rollout", "Instant"]} />
                     <ComparisonRow label="ROLLBACK" cells={[
                         <span style={{ color: C.red }}>Not supported</span>,
                         <span style={{ color: C.accent }}>Native staged rollout halt</span>,
@@ -61,14 +61,14 @@ export function ComparisonSection() {
                     ]} />
                     <ComparisonRow label="ALTERNATIVE STORES" cells={[
                         <span style={{ color: C.yellow }}>Only in EU (since 2024)</span>,
-                        <span style={{ color: C.accent }}>Yes &mdash; Amazon, Samsung, F-Droid, sideload</span>,
+                        <span style={{ color: C.accent }}>Yes — Amazon, Samsung, F-Droid, sideload</span>,
                         "—",
                     ]} />
                     <ComparisonRow label="GUIDELINES LENGTH" cells={["~180 numbered rules", "~80 policies", "Your TOS"]} />
                     <ComparisonRow label="PUSH NOTIFICATIONS" cells={[
                         "APNs, entitlement required",
                         "FCM, no entitlement",
-                        <span style={{ color: C.yellow }}>Web Push &mdash; limited on iOS</span>,
+                        <span style={{ color: C.yellow }}>Web Push — limited on iOS</span>,
                     ]} />
                     <ComparisonRow label="DEEP LINKS" cells={[
                         "Universal Links (ASAA JSON) + custom URL scheme",

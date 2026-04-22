@@ -17,43 +17,43 @@ export function TakeawaysSection() {
                         <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 18, color: P, marginBottom: 20, letterSpacing: "0.02em" }}>
                             Before every submission
                         </h3>
-                        <CheckItem>Check <b>demo account credentials</b> still work &mdash; log out &amp; back in from a fresh device.</CheckItem>
-                        <CheckItem>Update <b>release notes</b> &mdash; Apple reviews them as part of metadata (Guideline 2.3.7).</CheckItem>
+                        <CheckItem>Check <b>demo account credentials</b> still work — log out & back in from a fresh device.</CheckItem>
+                        <CheckItem>Update <b>release notes</b> — Apple reviews them as part of metadata (Guideline 2.3.7).</CheckItem>
                         <CheckItem>Verify <b>Privacy Manifest</b> matches nutrition labels in ASC.</CheckItem>
-                        <CheckItem>Screenshots reflect the <b>actual build</b> &mdash; reviewers compare.</CheckItem>
-                        <CheckItem>Enable <b>phased release</b> &mdash; safety net for production.</CheckItem>
-                        <CheckItem>Enable <b>manual release</b> &mdash; ship only when you&rsquo;re ready.</CheckItem>
+                        <CheckItem>Screenshots reflect the <b>actual build</b> — reviewers compare.</CheckItem>
+                        <CheckItem>Enable <b>phased release</b> — safety net for production.</CheckItem>
+                        <CheckItem>Enable <b>manual release</b> — ship only when you’re ready.</CheckItem>
                     </div>
 
                     <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 16, padding: "28px 32px" }}>
                         <h3 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 18, color: C.red, marginBottom: 20, letterSpacing: "0.02em" }}>
                             Top 5 rejection avoidances
                         </h3>
-                        <CheckItem active={false}><b>2.1</b> &mdash; broken demo account + missing login = #1 reason.</CheckItem>
-                        <CheckItem active={false}><b>2.3.3</b> &mdash; screenshots must match actual UI, no fakes.</CheckItem>
-                        <CheckItem active={false}><b>4.3</b> &mdash; no template clones, no copycat designs.</CheckItem>
-                        <CheckItem active={false}><b>5.1.1</b> &mdash; Privacy Policy URL must work, ATT must be correct.</CheckItem>
-                        <CheckItem active={false}><b>3.1.1</b> &mdash; digital goods = IAP only. No Stripe, no Apple Pay.</CheckItem>
+                        <CheckItem active={false}><b>2.1</b> — broken demo account + missing login = #1 reason.</CheckItem>
+                        <CheckItem active={false}><b>2.3.3</b> — screenshots must match actual UI, no fakes.</CheckItem>
+                        <CheckItem active={false}><b>4.3</b> — no template clones, no copycat designs.</CheckItem>
+                        <CheckItem active={false}><b>5.1.1</b> — Privacy Policy URL must work, ATT must be correct.</CheckItem>
+                        <CheckItem active={false}><b>3.1.1</b> — digital goods = IAP only. No Stripe, no Apple Pay.</CheckItem>
                     </div>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 32 }}>
                     <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: "24px 28px" }}>
-                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: C.muted, letterSpacing: "0.1em", marginBottom: 10 }}>IF YOU&rsquo;RE AN ENGINEER</div>
+                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: C.muted, letterSpacing: "0.1em", marginBottom: 10 }}>IF YOU’RE AN ENGINEER</div>
                         <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7 }}>
-                            Your .ipa is a signed zip. Your provisioning profile dies. Your cert dies. Your entitlements must match. Read rejection emails carefully &mdash; the clause number tells you exactly where to look in the guidelines.
+                            Your .ipa is a signed zip. Your provisioning profile dies. Your cert dies. Your entitlements must match. Read rejection emails carefully — the clause number tells you exactly where to look in the guidelines.
                         </p>
                     </div>
                     <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: "24px 28px" }}>
-                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: C.muted, letterSpacing: "0.1em", marginBottom: 10 }}>IF YOU&rsquo;RE PM / BA</div>
+                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: C.muted, letterSpacing: "0.1em", marginBottom: 10 }}>IF YOU’RE PM / BA</div>
                         <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7 }}>
-                            Budget 24&ndash;72h of review time per release. Budget double that for the first release of a new feature. Metadata (screenshots, promotional text, keywords) is reviewed too &mdash; treat it as code.
+                            Budget 24–72h of review time per release. Budget double that for the first release of a new feature. Metadata (screenshots, promotional text, keywords) is reviewed too — treat it as code.
                         </p>
                     </div>
                     <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: "24px 28px" }}>
-                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: C.muted, letterSpacing: "0.1em", marginBottom: 10 }}>IF YOU&rsquo;RE QA</div>
+                        <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: C.muted, letterSpacing: "0.1em", marginBottom: 10 }}>IF YOU’RE QA</div>
                         <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7 }}>
-                            TestFlight builds expire after 90 days. Run &lsquo;first launch&rsquo; tests (no prior install, no cached data). Test in airplane mode &mdash; reviewers often do. Test demo account on a clean sim.
+                            TestFlight builds expire after 90 days. Run ‘first launch’ tests (no prior install, no cached data). Test in airplane mode — reviewers often do. Test demo account on a clean sim.
                         </p>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ export function TakeawaysSection() {
                         <li><b>Privacy Manifest reference:</b> developer.apple.com/documentation/bundleresources/privacy_manifest_files</li>
                         <li><b>App Store Connect API:</b> developer.apple.com/documentation/appstoreconnectapi (automate submissions)</li>
                         <li><b>HIG:</b> developer.apple.com/design/human-interface-guidelines</li>
-                        <li><b>WWDC &lsquo;What&rsquo;s New in App Store Connect&rsquo;:</b> watch every June</li>
+                        <li><b>WWDC ‘What’s New in App Store Connect’:</b> watch every June</li>
                     </ul>
                 </CalloutBox>
             </div>

@@ -7,7 +7,7 @@ const STORIES = [
         app: "XcodeGhost",
         verdict: "banned" as const,
         title: "The malware that got into 4000 App Store apps",
-        body: "Chinese developers downloaded Xcode from a local mirror because Apple's CDN was slow. The mirror had a tampered Xcode that injected malware into every build. WeChat, Didi, Angry Birds 2 &mdash; all infected. First case of App Store-wide supply chain compromise. Response: Xcode now shows a warning when not code-signed by Apple, and ASC scans for known XcodeGhost signatures.",
+        body: "Chinese developers downloaded Xcode from a local mirror because Apple's CDN was slow. The mirror had a tampered Xcode that injected malware into every build. WeChat, Didi, Angry Birds 2 — all infected. First case of App Store-wide supply chain compromise. Response: Xcode now shows a warning when not code-signed by Apple, and ASC scans for known XcodeGhost signatures.",
         lesson: "Always download Xcode from developer.apple.com. Never from a mirror. This is why our CI pins Xcode version.",
     },
     {
@@ -15,15 +15,15 @@ const STORIES = [
         app: "Uber",
         verdict: "resolved" as const,
         title: "Fingerprinting iPhones past Tim Cook's limit",
-        body: "Uber tagged iPhones with a persistent device fingerprint that survived app deletion &mdash; to prevent fraudulent driver sign-ups. Tim Cook personally called CEO Travis Kalanick to his office. Uber had ~30 days to remove the code or face App Store ban. Code removed in v3.213.",
-        lesson: "&ldquo;Works for fraud prevention&rdquo; is not an excuse for private API use. Guideline 2.5.1 applies to everyone.",
+        body: "Uber tagged iPhones with a persistent device fingerprint that survived app deletion — to prevent fraudulent driver sign-ups. Tim Cook personally called CEO Travis Kalanick to his office. Uber had ~30 days to remove the code or face App Store ban. Code removed in v3.213.",
+        lesson: "“Works for fraud prevention” is not an excuse for private API use. Guideline 2.5.1 applies to everyone.",
     },
     {
         year: "JAN 2022",
         app: "Wordle clones",
         verdict: "banned" as const,
         title: "The 'Wordle!' copycat massacre",
-        body: "Days after Wordle went viral (Josh Wardle's free browser game, no iOS app), dozens of clones named &ldquo;Wordle - The App&rdquo; hit the App Store. Most were $0.99, many had in-app subscriptions. Apple pulled them under Guideline 4.3 (spam) and 5.2 (IP). One dev, Zach Shakked, kept his clone monetized with ads for 48 hours and earned $200K before removal.",
+        body: "Days after Wordle went viral (Josh Wardle's free browser game, no iOS app), dozens of clones named “Wordle - The App” hit the App Store. Most were $0.99, many had in-app subscriptions. Apple pulled them under Guideline 4.3 (spam) and 5.2 (IP). One dev, Zach Shakked, kept his clone monetized with ads for 48 hours and earned $200K before removal.",
         lesson: "If a game goes viral on the web, do NOT race to put a clone on the App Store. Copycat rejections are fast and permanent.",
     },
     {
@@ -31,8 +31,8 @@ const STORIES = [
         app: "Clubhouse / Houseparty",
         verdict: "resolved" as const,
         title: "Guideline 4.2.7 — game-streaming apps",
-        body: "Microsoft and NVIDIA tried to ship cloud game-streaming apps (xCloud, GeForce NOW). Apple rejected under a rule that said each streamed game had to be individually approved. Microsoft: &ldquo;We never imagined we'd need to ship Super Mario as a separate App Store app.&rdquo; Apple later loosened the rule in 2024 after EU pressure.",
-        lesson: "Guidelines evolve. What&rsquo;s banned today may be allowed next year &mdash; but don&rsquo;t bet a release on it.",
+        body: "Microsoft and NVIDIA tried to ship cloud game-streaming apps (xCloud, GeForce NOW). Apple rejected under a rule that said each streamed game had to be individually approved. Microsoft: “We never imagined we'd need to ship Super Mario as a separate App Store app.” Apple later loosened the rule in 2024 after EU pressure.",
+        lesson: "Guidelines evolve. What’s banned today may be allowed next year — but don’t bet a release on it.",
     },
     {
         year: "APR 2021",
@@ -47,7 +47,7 @@ const STORIES = [
         app: "PCalc / Flighty / Halide",
         verdict: "resolved" as const,
         title: "The Core Technology Fee crisis (EU)",
-        body: "When the EU DMA forced Apple to allow alternative app stores, Apple introduced a &lsquo;Core Technology Fee&rsquo; (&euro;0.50 per first annual install above 1M). Indie apps with viral moments would owe Apple millions. After weeks of pushback from Marco Arment, James Thomson, others, Apple updated the terms: free apps, educational, nonprofits exempt. Commercial terms remain complex.",
+        body: "When the EU DMA forced Apple to allow alternative app stores, Apple introduced a ‘Core Technology Fee’ (€0.50 per first annual install above 1M). Indie apps with viral moments would owe Apple millions. After weeks of pushback from Marco Arment, James Thomson, others, Apple updated the terms: free apps, educational, nonprofits exempt. Commercial terms remain complex.",
         lesson: "New revenue terms can appear overnight. Always read the latest developer agreement before a major release.",
     },
 ];
@@ -58,7 +58,7 @@ export function WarStoriesMoreSection() {
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.red}>RAPID-FIRE WAR STORIES</SectionLabel>
-                    <SectionHeading sub="Six more real cases, each with a one-line takeaway. These are the stories that don&rsquo;t make it onto the main App Store review page &mdash; but changed the rules anyway.">
+                    <SectionHeading sub="Six more real cases, each with a one-line takeaway. These are the stories that don’t make it onto the main App Store review page — but changed the rules anyway.">
                         Six more cases worth knowing
                     </SectionHeading>
                 </Reveal>

@@ -171,7 +171,7 @@ export function QuoteBlock({ quote, author, role, color = P }: QuoteBlockProps) 
                 fontFamily: "'DM Sans', sans-serif", fontStyle: "italic", fontSize: 16,
                 color: C.text, lineHeight: 1.7, marginBottom: 16,
             }}>
-                &ldquo;{quote}&rdquo;
+                “{quote}”
             </p>
             <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
                 <div style={{ width: 28, height: 1, background: color }} />

@@ -32,7 +32,7 @@ export function WarStorySpaceIntSection() {
                             PRESENTER NOTE
                         </div>
                         <div style={{ fontSize: 13, color: C.muted, lineHeight: 1.65 }}>
-                            Fill these three cards with real TBC UZ rejection stories before the talk. Check ASC &gt; Resolution Center for raw text of each rejection. Keep customer data anonymized. Three concrete cases &gt; one vague recap.
+                            Fill these three cards with real TBC UZ rejection stories before the talk. Check ASC › Resolution Center for raw text of each rejection. Keep customer data anonymized. Three concrete cases › one vague recap.
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@ export function WarStorySpaceIntSection() {
                 </div>
 
                 <CalloutBox color={C.accent} icon="📝" label="WHERE TO FIND THE RAW MATERIAL">
-                    <b>App Store Connect</b> &rarr; Your App &rarr; App Store tab &rarr; filter by &lsquo;Rejected&rsquo;. Each has a Resolution Center thread with the exact guideline quote and reviewer comments. We&rsquo;ve had 50+ submissions; aim for 3 stories with the widest range of lessons.
+                    <b>App Store Connect</b> → Your App → App Store tab → filter by ‘Rejected’. Each has a Resolution Center thread with the exact guideline quote and reviewer comments. We’ve had 50+ submissions; aim for 3 stories with the widest range of lessons.
                 </CalloutBox>
             </div>
         </section>

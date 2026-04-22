@@ -7,7 +7,7 @@ export function GuidelinesSection() {
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={P}>APP REVIEW GUIDELINES</SectionLabel>
-                    <SectionHeading sub="~180 numbered rules, grouped into 5 pillars. You don&rsquo;t have to memorize them. You have to know where to look.">
+                    <SectionHeading sub="~180 numbered rules, grouped into 5 pillars. You don’t have to memorize them. You have to know where to look.">
                         The five pillars
                     </SectionHeading>
                 </Reveal>
@@ -52,10 +52,10 @@ export function GuidelinesSection() {
                     <InfoCard color={C.accent} tag="5.x" title="Legal" icon="⚖️">
                         <ul style={{ margin: 0, paddingLeft: 18, color: C.muted, fontSize: 12, lineHeight: 1.8 }}>
                             <li>Privacy policy required</li>
-                            <li>Data collection &amp; storage</li>
+                            <li>Data collection & storage</li>
                             <li>Intellectual property</li>
-                            <li>Gambling &amp; contests</li>
-                            <li>VPN &amp; CMS rules</li>
+                            <li>Gambling & contests</li>
+                            <li>VPN & CMS rules</li>
                         </ul>
                     </InfoCard>
                 </div>
@@ -69,17 +69,17 @@ export function GuidelinesSection() {
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
                     <InfoCard color={C.red} tag="2.1" title="App Completeness">
                         <p style={{ color: C.muted, fontSize: 13, lineHeight: 1.7 }}>
-                            &ldquo;Apps should be <b>fully functional</b> with all URLs, logins, and non-obvious features explained.&rdquo; The most common rejection reason. Always provide a <b>demo account</b>. Mark features requiring special hardware/conditions.
+                            “Apps should be <b>fully functional</b> with all URLs, logins, and non-obvious features explained.” The most common rejection reason. Always provide a <b>demo account</b>. Mark features requiring special hardware/conditions.
                         </p>
                     </InfoCard>
                     <InfoCard color={C.red} tag="3.1.1" title="In-App Purchase">
                         <p style={{ color: C.muted, fontSize: 13, lineHeight: 1.7 }}>
-                            &ldquo;If you want to unlock features or functionality within your app, you must use <b>in-app purchase</b>.&rdquo; Apple&rsquo;s 30%/15% cut. The rule that triggered Epic vs Apple. Banking apps exempt &mdash; but financial UGC can still trip this.
+                            “If you want to unlock features or functionality within your app, you must use <b>in-app purchase</b>.” Apple’s 30%/15% cut. The rule that triggered Epic vs Apple. Banking apps exempt — but financial UGC can still trip this.
                         </p>
                     </InfoCard>
-                    <InfoCard color={C.red} tag="5.1.1" title="Data Collection &amp; Storage">
+                    <InfoCard color={C.red} tag="5.1.1" title="Data Collection & Storage">
                         <p style={{ color: C.muted, fontSize: 13, lineHeight: 1.7 }}>
-                            &ldquo;Apps must secure user consent before collecting data, and provide information on what data is collected and how it&rsquo;s used.&rdquo; Privacy Manifest, Nutrition Labels, ATT prompt all enforce this. Misreporting data = instant rejection.
+                            “Apps must secure user consent before collecting data, and provide information on what data is collected and how it’s used.” Privacy Manifest, Nutrition Labels, ATT prompt all enforce this. Misreporting data = instant rejection.
                         </p>
                     </InfoCard>
                 </div>

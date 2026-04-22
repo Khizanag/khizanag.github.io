@@ -20,7 +20,7 @@ const TOP_10 = [
         id: "4.3",
         rank: 3,
         title: "Spam / duplicate content",
-        desc: "Template apps, low-quality clones, repackaging free content. Fix: if you ship 5 &ldquo;Radio for X&rdquo; apps with the same codebase, consolidate to one.",
+        desc: "Template apps, low-quality clones, repackaging free content. Fix: if you ship 5 “Radio for X” apps with the same codebase, consolidate to one.",
         pct: "11%",
     },
     {
@@ -34,7 +34,7 @@ const TOP_10 = [
         id: "3.1.1",
         rank: 5,
         title: "Unlocking features outside IAP",
-        desc: "Subscription sold on your website, unlocked in-app without IAP. Fix: use IAP; or qualify as a &lsquo;reader&rsquo; app; or use the new external-link entitlement.",
+        desc: "Subscription sold on your website, unlocked in-app without IAP. Fix: use IAP; or qualify as a ‘reader’ app; or use the new external-link entitlement.",
         pct: "7%",
     },
     {
@@ -48,14 +48,14 @@ const TOP_10 = [
         id: "4.0",
         rank: 7,
         title: "Design: confusing, buggy, inconsistent",
-        desc: "Navigation gets stuck, buttons don't do what they say, text cut off. The catch-all &ldquo;poor quality&rdquo; clause. Fix: fix the bugs.",
+        desc: "Navigation gets stuck, buttons don't do what they say, text cut off. The catch-all “poor quality” clause. Fix: fix the bugs.",
         pct: "4%",
     },
     {
         id: "1.1.6",
         rank: 8,
         title: "Inaccurate or false claims",
-        desc: "&ldquo;World's best X&rdquo; unprovable superlatives. Medical/financial claims without evidence. Fix: remove unsubstantiated superlatives.",
+        desc: "“World's best X” unprovable superlatives. Medical/financial claims without evidence. Fix: remove unsubstantiated superlatives.",
         pct: "3%",
     },
     {
@@ -69,7 +69,7 @@ const TOP_10 = [
         id: "1.2",
         rank: 10,
         title: "User-Generated Content without moderation",
-        desc: "Social features with no report/block/filter mechanism. Kids see adult content = instant pull from store. Fix: implement moderation day-one, not &ldquo;later.&rdquo;",
+        desc: "Social features with no report/block/filter mechanism. Kids see adult content = instant pull from store. Fix: implement moderation day-one, not “later.”",
         pct: "2%",
     },
 ];
@@ -122,7 +122,7 @@ export function TopRejectionsSection() {
                 </div>
 
                 <CalloutBox color={P} icon="📊" label="THE DEMO-ACCOUNT RULE">
-                    One-third of all rejections go away if you give reviewers a working demo account. In ASC &gt; App Review Information &gt; Sign-In Info. We check ours every release.
+                    One-third of all rejections go away if you give reviewers a working demo account. In ASC › App Review Information › Sign-In Info. We check ours every release.
                 </CalloutBox>
             </div>
         </section>

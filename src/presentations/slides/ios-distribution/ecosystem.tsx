@@ -8,7 +8,7 @@ export function EcosystemSection() {
                 <Reveal>
                     <SectionLabel color={P}>THE ECOSYSTEM</SectionLabel>
                     <SectionHeading sub="Three types of Apple Developer accounts. Pick wrong and you block your own release.">
-                        Developer Programs &amp; Roles
+                        Developer Programs & Roles
                     </SectionHeading>
                 </Reveal>
 
@@ -18,7 +18,7 @@ export function EcosystemSection() {
                             Ships to the public App Store. TestFlight up to 10,000 external testers. Personal or company.
                         </p>
                         <PlainEnglishBox color={P}>
-                            What 99% of apps use. What TBC UZ uses. What you&rsquo;ll use for your side project.
+                            What 99% of apps use. What TBC UZ uses. What you’ll use for your side project.
                         </PlainEnglishBox>
                     </InfoCard>
 
@@ -27,7 +27,7 @@ export function EcosystemSection() {
                             In-house distribution only. No App Store. 100+ employee requirement. Revocable by Apple at any time.
                         </p>
                         <PlainEnglishBox color={C.purple}>
-                            Internal tools only. Getting harder to qualify for &mdash; Apple cracked down after Facebook and Google abused it in 2019.
+                            Internal tools only. Getting harder to qualify for — Apple cracked down after Facebook and Google abused it in 2019.
                         </PlainEnglishBox>
                     </InfoCard>
 
@@ -80,7 +80,7 @@ export function EcosystemSection() {
                     border: `1px solid ${C.red}25`, borderLeft: `3px solid ${C.red}`,
                     borderRadius: 8, fontSize: 13, color: C.muted,
                 }}>
-                    <b style={{ color: C.red }}>⚠ Principle of Least Privilege:</b> Give CI service accounts the <b>Developer</b> role, not Admin. Compromised CI token shouldn&rsquo;t be able to transfer your app to someone else.
+                    <b style={{ color: C.red }}>⚠ Principle of Least Privilege:</b> Give CI service accounts the <b>Developer</b> role, not Admin. Compromised CI token shouldn’t be able to transfer your app to someone else.
                 </div>
             </div>
         </section>

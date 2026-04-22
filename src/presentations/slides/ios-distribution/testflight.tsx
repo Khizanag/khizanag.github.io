@@ -7,7 +7,7 @@ export function TestflightSection() {
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={P}>TESTFLIGHT</SectionLabel>
-                    <SectionHeading sub="Apple&rsquo;s built-in beta distribution. Free since 2015. Underused outside engineering teams.">
+                    <SectionHeading sub="Apple’s built-in beta distribution. Free since 2015. Underused outside engineering teams.">
                         The best kept secret at Apple
                     </SectionHeading>
                 </Reveal>
@@ -40,8 +40,8 @@ export function TestflightSection() {
                     <FeatureCard icon="📲" title="Install via TestFlight app" color={P} delay={0}
                         description="Single tap from invite email. Future builds auto-update if enabled. Tester can launch by tapping the app or jumping back to TestFlight."
                     />
-                    <FeatureCard icon="📸" title="Screenshot &rarr; feedback" color={C.yellow} delay={0.08}
-                        description="Tester takes a screenshot of the bug. TestFlight intercepts with a &lsquo;Send to developer&rsquo; sheet. Screenshot + comment lands in App Store Connect instantly."
+                    <FeatureCard icon="📸" title="Screenshot → feedback" color={C.yellow} delay={0.08}
+                        description="Tester takes a screenshot of the bug. TestFlight intercepts with a ‘Send to developer’ sheet. Screenshot + comment lands in App Store Connect instantly."
                     />
                     <FeatureCard icon="💥" title="Automatic crash reports" color={C.red} delay={0.16}
                         description="Every crash is captured with symbolication, device, iOS version, memory state. Shows up in ASC within minutes. No SDK needed."
@@ -49,13 +49,13 @@ export function TestflightSection() {
                 </div>
 
                 <CalloutBox color={C.accent} icon="🎯" label="UNDERUSED FEATURE — BUILD GROUPS">
-                    You can split external testers into groups and send different builds to each. Example: &ldquo;Uzbekistan pilot&rdquo; gets a feature flag enabled, &ldquo;VIP customers&rdquo; gets the stable build. Each group has its own feedback stream.
+                    You can split external testers into groups and send different builds to each. Example: “Uzbekistan pilot” gets a feature flag enabled, “VIP customers” gets the stable build. Each group has its own feedback stream.
                 </CalloutBox>
 
                 <div style={{ marginTop: 24 }}>
                     <CalloutBox color={C.red} icon="⚠" label="WHAT STILL CATCHES TEAMS OUT">
-                        <b>Build expiry.</b> After 90 days, testers can no longer launch. Nothing in the app changes; Apple just refuses to let it run. For long-running pilots, build a &ldquo;refresh&rdquo; cycle. <br />
-                        <b>Review for first build only.</b> If you&rsquo;ve bumped the version number, you&rsquo;re back in review, not a cached pass. <br />
+                        <b>Build expiry.</b> After 90 days, testers can no longer launch. Nothing in the app changes; Apple just refuses to let it run. For long-running pilots, build a “refresh” cycle. <br />
+                        <b>Review for first build only.</b> If you’ve bumped the version number, you’re back in review, not a cached pass. <br />
                         <b>Public link is public.</b> Competitors can and do sign up.
                     </CalloutBox>
                 </div>

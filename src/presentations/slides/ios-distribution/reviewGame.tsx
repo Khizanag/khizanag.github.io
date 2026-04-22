@@ -16,23 +16,23 @@ const CASES: Case[] = [
         app: "ABCMouse clone",
         verdict: "reject",
         guideline: "1.3",
-        explanation: "Guideline 1.3 &mdash; Kids Category apps can only show contextually appropriate ads. Dating ads are explicitly banned. Real case: Duolingo ABC had a similar bug in 2021 and pulled their own build to fix.",
+        explanation: "Guideline 1.3 — Kids Category apps can only show contextually appropriate ads. Dating ads are explicitly banned. Real case: Duolingo ABC had a similar bug in 2021 and pulled their own build to fix.",
     },
     {
-        scenario: "A banking app hides a prominent &lsquo;Delete Account&rsquo; flow behind 7 taps in Settings &rarr; Support &rarr; Other &rarr; ...",
+        scenario: "A banking app hides a prominent ‘Delete Account’ flow behind 7 taps in Settings → Support → Other → ...",
         app: "Typical bank",
         verdict: "reject",
         guideline: "5.1.1(v)",
         explanation: "Since 2022, account deletion must be as easy as account creation, and available in-app (not just via support email). This is why we added the direct Close Account screen in our Settings.",
     },
     {
-        scenario: "A fitness app uses HealthKit. It writes step count &amp; heart rate to HealthKit to show users' progress. Privacy Manifest declares 'no data collection'.",
+        scenario: "A fitness app uses HealthKit. It writes step count & heart rate to HealthKit to show users' progress. Privacy Manifest declares 'no data collection'.",
         app: "Running tracker",
         verdict: "pass",
-        explanation: "HealthKit data written to the user's own HealthKit store does NOT count as 'collected' &mdash; it never leaves the device to your server. This is one of the subtle Privacy Manifest carve-outs. If you DID upload heart rate to your backend, it would reject.",
+        explanation: "HealthKit data written to the user's own HealthKit store does NOT count as 'collected' — it never leaves the device to your server. This is one of the subtle Privacy Manifest carve-outs. If you DID upload heart rate to your backend, it would reject.",
     },
     {
-        scenario: "A video app asks to track the user's activity across apps &amp; websites. User taps &lsquo;Ask App Not to Track&rsquo;. App still tracks using IP address fingerprinting.",
+        scenario: "A video app asks to track the user's activity across apps & websites. User taps ‘Ask App Not to Track’. App still tracks using IP address fingerprinting.",
         app: "Social video app",
         verdict: "reject",
         guideline: "5.1.2",
@@ -46,20 +46,20 @@ const CASES: Case[] = [
         explanation: "NFTs purchased in-app must use IAP. Apple Pay is not IAP. Real case: OpenSea's iOS app had to remove all purchase capabilities in 2022, became browse-only.",
     },
     {
-        scenario: "A dating app has a &lsquo;Report User&rsquo; button, end-user moderation queue with 24h SLA, and a Block function.",
+        scenario: "A dating app has a ‘Report User’ button, end-user moderation queue with 24h SLA, and a Block function.",
         app: "Dating app",
         verdict: "pass",
         explanation: "Meets Guideline 1.2 (UGC moderation) requirements: report mechanism, timely action on reports, ability to block abusive users, published community guidelines. These 4 ingredients are the minimum bar.",
     },
     {
-        scenario: "A password manager app uses Keychain Sharing with an Action Extension, but declares the extension's bundle ID is &lsquo;com.example.app.helper.v2.final.temp&rsquo;.",
+        scenario: "A password manager app uses Keychain Sharing with an Action Extension, but declares the extension's bundle ID is ‘com.example.app.helper.v2.final.temp’.",
         app: "1Password clone",
         verdict: "reject",
         guideline: "2.3.1",
-        explanation: "Guideline 2.3.1 &mdash; accurate metadata includes bundle identifiers. Reviewer will push back on suspicious-looking internal identifiers. Also triggers paranoia about hidden functionality.",
+        explanation: "Guideline 2.3.1 — accurate metadata includes bundle identifiers. Reviewer will push back on suspicious-looking internal identifiers. Also triggers paranoia about hidden functionality.",
     },
     {
-        scenario: "A music streaming app shows a small link: &lsquo;Upgrade on our website &rarr;&rsquo; that opens Safari to a pricing page.",
+        scenario: "A music streaming app shows a small link: ‘Upgrade on our website →’ that opens Safari to a pricing page.",
         app: "Spotify-like",
         verdict: "pass",
         explanation: "As of 2024, after the Epic ruling, 'reader apps' can link to external purchase pages in the US, EU, Netherlands, South Korea, and Japan. Still must apply for the External Link Account Entitlement. Would have been a rejection pre-2024.",
@@ -81,8 +81,8 @@ export function ReviewGameSection() {
         <section id="s-game" style={{ padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
-                    <SectionLabel color={C.yellow}>INTERACTIVE &middot; AUDIENCE GAME</SectionLabel>
-                    <SectionHeading sub="Eight real scenarios. Audience votes PASS or REJECT. We reveal the answer &amp; guideline. Use &larr; &rarr; to cycle.">
+                    <SectionLabel color={C.yellow}>INTERACTIVE · AUDIENCE GAME</SectionLabel>
+                    <SectionHeading sub="Eight real scenarios. Audience votes PASS or REJECT. We reveal the answer & guideline. Use ← → to cycle.">
                         Will it pass review?
                     </SectionHeading>
                 </Reveal>

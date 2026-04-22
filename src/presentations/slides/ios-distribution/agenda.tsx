@@ -8,7 +8,7 @@ export function AgendaSection() {
                 <Reveal>
                     <SectionLabel color={P}>AGENDA · 75 MIN</SectionLabel>
                     <SectionHeading sub="Five acts — from the plumbing nobody explained you, to the cases that almost killed real products.">
-                        What we&rsquo;ll cover today
+                        What we’ll cover today
                     </SectionHeading>
                 </Reveal>
 
@@ -53,7 +53,7 @@ export function AgendaSection() {
                         title="Interactive"
                         color={C.blue}
                         delay={0.4}
-                        description="&ldquo;Will it pass review?&rdquo; game. Live poll. Your rejection stories. Q&A at the end. (8 min)"
+                        description="“Will it pass review?” game. Live poll. Your rejection stories. Q&A at the end. (8 min)"
                     />
                 </div>
 

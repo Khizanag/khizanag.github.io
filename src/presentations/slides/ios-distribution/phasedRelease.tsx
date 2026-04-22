@@ -17,7 +17,7 @@ export function PhasedReleaseSection() {
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={P}>PHASED RELEASE</SectionLabel>
-                    <SectionHeading sub="The safety net between &lsquo;release&rsquo; and &lsquo;global reach&rsquo;. Built into App Store Connect, free, rarely used well.">
+                    <SectionHeading sub="The safety net between ‘release’ and ‘global reach’. Built into App Store Connect, free, rarely used well.">
                         Rolling out over 7 days
                     </SectionHeading>
                 </Reveal>
@@ -57,7 +57,7 @@ export function PhasedReleaseSection() {
                         <b>Pause</b> phased release at any day (manual in ASC). <b>Resume</b> when fixed. <b>Re-submit</b> a new version to replace the paused one. Crash reports keep flowing the whole time.
                     </CalloutBox>
                     <CalloutBox color={C.red} icon="✕" label="WHAT YOU CAN'T DO">
-                        <b>Roll back</b> to a previous version — Apple does not support this. The only &lsquo;rollback&rsquo; is submitting the old version as a new build with a higher build number, via expedited review.
+                        <b>Roll back</b> to a previous version — Apple does not support this. The only ‘rollback’ is submitting the old version as a new build with a higher build number, via expedited review.
                     </CalloutBox>
                     <CalloutBox color={C.yellow} icon="⚠" label="WHEN IT DOESN'T HELP">
                         Server-side bugs don't care about phased rollout. New entitlements (Push, Sign-in-with-Apple env) flip instantly for everyone. Only binary-level regressions are contained.

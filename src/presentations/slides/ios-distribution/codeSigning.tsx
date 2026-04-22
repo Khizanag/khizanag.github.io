@@ -7,7 +7,7 @@ export function CodeSigningSection() {
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={P}>CODE SIGNING</SectionLabel>
-                    <SectionHeading sub="The topic every iOS developer pretends to understand. It&rsquo;s not that hard &mdash; just four entities in a chain of trust.">
+                    <SectionHeading sub="The topic every iOS developer pretends to understand. It’s not that hard — just four entities in a chain of trust.">
                         The four horsemen of provisioning
                     </SectionHeading>
                 </Reveal>
@@ -74,22 +74,22 @@ export function CodeSigningSection() {
 
                     <div>
                         <CalloutBox color={P} icon="🔍" label="IN PLAIN ENGLISH">
-                            It&rsquo;s literally just a signed XML file. You can open it with <code style={{ color: P, background: `${P}15`, padding: "1px 6px", borderRadius: 4 }}>security cms -D -i profile.mobileprovision</code> and read it.
+                            It’s literally just a signed XML file. You can open it with <code style={{ color: P, background: `${P}15`, padding: "1px 6px", borderRadius: 4 }}>security cms -D -i profile.mobileprovision</code> and read it.
                         </CalloutBox>
 
                         <div style={{ marginTop: 16 }}>
                             <CalloutBox color={C.red} icon="🔥" label="THE CLASSIC ERRORS">
-                                <b>&ldquo;No signing certificate&rdquo;</b> — Keychain lost the private key. <br />
-                                <b>&ldquo;Provisioning profile doesn&rsquo;t include this device&rdquo;</b> — Register UDID or use a wildcard dev profile. <br />
-                                <b>&ldquo;Identity not trusted&rdquo;</b> — WWDR intermediate cert expired. Re-download from Apple. <br />
-                                <b>&ldquo;Could not find Developer ID Application&rdquo;</b> — Wrong cert type for the target channel.
+                                <b>“No signing certificate”</b> — Keychain lost the private key. <br />
+                                <b>“Provisioning profile doesn’t include this device”</b> — Register UDID or use a wildcard dev profile. <br />
+                                <b>“Identity not trusted”</b> — WWDR intermediate cert expired. Re-download from Apple. <br />
+                                <b>“Could not find Developer ID Application”</b> — Wrong cert type for the target channel.
                             </CalloutBox>
                         </div>
                     </div>
                 </div>
 
                 <CalloutBox color={C.accent} icon="✅" label="HOW TBC UZ HANDLES THIS">
-                    We use <b>manual signing</b> via fastlane <code style={{ color: C.accent }}>match</code> pattern &mdash; certs &amp; profiles encrypted in a private Git repo, pulled during CI. Xcode&rsquo;s automatic signing is disabled on CI to prevent surprises. One profile per target per environment.
+                    We use <b>manual signing</b> via fastlane <code style={{ color: C.accent }}>match</code> pattern — certs & profiles encrypted in a private Git repo, pulled during CI. Xcode’s automatic signing is disabled on CI to prevent surprises. One profile per target per environment.
                 </CalloutBox>
             </div>
         </section>

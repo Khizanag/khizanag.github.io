@@ -8,7 +8,7 @@ export function JourneySection() {
                 <Reveal>
                     <SectionLabel color={P}>THE JOURNEY</SectionLabel>
                     <SectionHeading sub="A real release timeline for a typical TBC UZ build. Numbers are medians from our last 30 production builds.">
-                        git push &rarr; tapping Install
+                        git push → tapping Install
                     </SectionHeading>
                 </Reveal>
 
@@ -20,11 +20,11 @@ export function JourneySection() {
                     <TimelineRow when="T + 45 min" title="Build appears in TestFlight" detail="Processing finishes. Build becomes available to Internal Testing group (no Apple review needed)." color={C.yellow} delay={0.2} />
                     <TimelineRow when="T + 2h" title="Submitted for External TestFlight review" detail="For new versions only. Apple does a lighter review (~24h median). Subsequent builds on the same version skip this." color={C.yellow} delay={0.25} />
                     <TimelineRow when="T + 24h" title="Submitted for App Store review" detail="Manual + automated checks. Median 24h, but can be 1h or 7 days. Expedited review possible for emergencies." color={C.red} delay={0.3} />
-                    <TimelineRow when="T + 48h" title="Release to App Store" detail="Manual release or automatic. Phased release rollout starts: 1% &rarr; 2% &rarr; 5% &rarr; 10% &rarr; 20% &rarr; 50% &rarr; 100% over 7 days." color={C.accent} delay={0.35} />
+                    <TimelineRow when="T + 48h" title="Release to App Store" detail="Manual release or automatic. Phased release rollout starts: 1% → 2% → 5% → 10% → 20% → 50% → 100% over 7 days." color={C.accent} delay={0.35} />
                 </div>
 
                 <CalloutBox color={P} icon="⏱️" label="THE UNCOMFORTABLE TRUTH">
-                    From &ldquo;code is done&rdquo; to &ldquo;user has it installed&rdquo; is typically <b>2&ndash;3 days</b> on iOS. On Android with staged rollout it&rsquo;s ~4 hours. This shapes how we think about hotfixes, rollbacks, and release planning.
+                    From “code is done” to “user has it installed” is typically <b>2–3 days</b> on iOS. On Android with staged rollout it’s ~4 hours. This shapes how we think about hotfixes, rollbacks, and release planning.
                 </CalloutBox>
             </div>
         </section>

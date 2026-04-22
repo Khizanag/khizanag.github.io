@@ -97,7 +97,7 @@ export function ChannelsSection() {
                 </div>
 
                 <CalloutBox color={P} icon="💡" label="A USEFUL MENTAL MODEL">
-                    Walk up the ladder: <b>Local &rarr; Ad Hoc &rarr; TF Internal &rarr; TF External &rarr; App Store</b>. Each step reaches more people and adds more review. We ship to TF Internal on every master commit, promote to TF External weekly, submit to App Store every 2&ndash;3 weeks.
+                    Walk up the ladder: <b>Local → Ad Hoc → TF Internal → TF External → App Store</b>. Each step reaches more people and adds more review. We ship to TF Internal on every master commit, promote to TF External weekly, submit to App Store every 2–3 weeks.
                 </CalloutBox>
             </div>
         </section>

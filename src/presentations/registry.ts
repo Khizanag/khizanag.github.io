@@ -6,6 +6,8 @@ import DotGithubPresentation from "./slides/dotgithub/index.tsx";
 import GitConfigPresentation from "./slides/git-config-files/index.tsx";
 import iOSPassiveIncome from "./slides/ios-passive-income/index.tsx";
 import CodeConnectPresentation from "./slides/code-connect/index.tsx";
+import NativeVsTemplatesPresentation from "./slides/native-vs-templates/index.tsx";
+import FigmaToScreenPresentation from "./slides/figma-to-screen/index.tsx";
 
 export interface Slide {
   id: string;
@@ -18,6 +20,24 @@ export interface Slide {
 }
 
 export const SLIDES: Slide[] = [
+  {
+    id:            "figma-to-screen",
+    title:         "/figma-to-screen Pipeline",
+    subtitle:      "How an AI-orchestrated pipeline turns a Figma URL into a clean-architecture SwiftUI screen — 17 agents, 8 phases, 7 verification gates, and a shared JSON context as the single source of truth.",
+    category:      "AI Infrastructure",
+    categoryColor: C.accent,
+    date:          "Apr 2026",
+    component:     FigmaToScreenPresentation,
+  },
+  {
+    id:            "native-vs-templates",
+    title:         "Native vs Templates",
+    subtitle:      "Figma Code Connect: Should iOS & Android teams write Swift/Kotlin or TypeScript? A deep comparison of both approaches — setup, features, limitations, community, MCP, and future direction.",
+    category:      "Design System",
+    categoryColor: C.blue,
+    date:          "Apr 2026",
+    component:     NativeVsTemplatesPresentation,
+  },
   {
     id:            "code-connect",
     title:         "Figma Code Connect",

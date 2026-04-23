@@ -41,7 +41,7 @@ export function WhatIsSection() {
                             icon="🧭"
                             title="Who it is for"
                             color={P}
-                            description="Senior engineers who want the boring parts gone but the architectural discipline preserved — and senior designers who want their Figma tokens, variants, and components to survive the trip into code without translation."
+                            description="Every iOS engineer on the team — from the developer shipping their first screen to the architect enforcing module boundaries. The boring parts are gone, the architectural discipline is preserved, and designers get their Figma tokens, variants, and components surviving the trip into code without translation."
                         />
                     </Reveal>
                 </div>

@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, InfoCard, CheckItem, CalloutBox } from "../../shared.tsx";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox } from "../../shared.tsx";
 
 const PROBLEM_KEYFRAMES = `
 @keyframes file-pop {
@@ -182,20 +182,6 @@ export function ProblemSection() {
                         </div>
                     </div>
                 </Reveal>
-
-                {/* What kept going wrong */}
-                <div style={{ marginTop: 24 }}>
-                    <Reveal delay={0.38}>
-                        <InfoCard icon="🚨" title="What kept going wrong" color={C.red} tag="OBSERVED">
-                            <CheckItem active={false}>Placeholder shapes leaked into committed Views</CheckItem>
-                            <CheckItem active={false}>The same invariant re-implemented 3 different ways</CheckItem>
-                            <CheckItem active={false}>Scaffolders re-reading the View to extract state</CheckItem>
-                            <CheckItem active={false}>Self-audits missing what the first pass missed</CheckItem>
-                            <CheckItem active={false}>L10n accessors compiling against stale SwiftGen</CheckItem>
-                            <CheckItem active={false}>Logs written before work was actually verified</CheckItem>
-                        </InfoCard>
-                    </Reveal>
-                </div>
 
                 <Reveal delay={0.46}>
                     <div style={{ marginTop: 20 }}>

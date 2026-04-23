@@ -1,12 +1,14 @@
 import { C, Reveal, SectionLabel, SectionHeading, CheckItem, CalloutBox } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P, TimingBadge } from "./ui.tsx";
 
 export function TakeawaysSection() {
     return (
         <section id="s-takeaways" style={{ padding: "96px 48px" }}>
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>
                 <Reveal>
-                    <SectionLabel color={P}>THE CHEAT SHEET</SectionLabel>
+                    <SectionLabel color={P}>
+                        THE CHEAT SHEET <TimingBadge minutes="1:30" color={P} />
+                    </SectionLabel>
                     <SectionHeading sub="If you remember one thing from each section, let it be this. Print, pin to your monitor, save your next release.">
                         Takeaways
                     </SectionHeading>

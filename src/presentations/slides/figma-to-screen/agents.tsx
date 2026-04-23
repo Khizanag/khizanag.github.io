@@ -24,7 +24,6 @@ export function AgentsSection() {
                             <AgentRow name="destination-patcher"     role="codegen"      description="Patches Destination.swift + root Injection.swift with MARK anchors" delay={0.2} />
                             <AgentRow name="screen-verifier"         role="gate"         description="7 gates, T1/T2 tiered — build, lint, imports, DI, L10n, SwiftGen, copyright" delay={0.24} />
                             <AgentRow name="session-logger"          role="codegen"      description="Writes the run log; gates the user-facing reply via schema validator" delay={0.28} />
-                            <AgentRow name="create-hotfix"           role="orchestrator" description="Separate flow — branches from release tag, pins modules, opens PR" delay={0.32} />
                         </div>
                     </div>
 

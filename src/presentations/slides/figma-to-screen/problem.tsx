@@ -71,7 +71,7 @@ const MODIFIED_FILES = LAYER_FILES.reduce(
 );
 const CREATED_FILES = TOTAL_FILES - MODIFIED_FILES;
 
-const MODIFIED_COLOR = C.red;
+const MODIFIED_COLOR = C.yellow;
 
 export function ProblemSection() {
     return (

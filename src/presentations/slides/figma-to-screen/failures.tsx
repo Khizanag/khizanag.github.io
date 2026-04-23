@@ -10,8 +10,8 @@ const FAILURES: Array<{ symptom: string; cause: string; recovery: string; color:
     },
     {
         symptom: "screen-verifier: T1 SwiftLint failure",
-        cause:   "Generated file missed a project-specific rule (often trailing comma in 4+ arg init).",
-        recovery:"Open the named file, fix the violation, re-run `screen-verifier` only — no full pipeline restart.",
+        cause:   "A generated file tripped a project-specific rule (often trailing comma in a 4+ arg init, or an empty line after `// MARK:`).",
+        recovery: "The orchestrator auto-fixes and re-runs `screen-verifier` — up to 3 attempts. Only after that does it hand control to you, with the exact file, line, and rule in the session log.",
         color:   C.red,
     },
     {

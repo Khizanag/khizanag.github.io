@@ -14,14 +14,11 @@ import { CodeConnectTeaserSection } from "./codeConnectTeaser.tsx";
 import { UserFlowSection } from "./userFlow.tsx";
 import { PillarsSection } from "./pillars.tsx";
 import { ArchitectureSection } from "./architecture.tsx";
-import { WhatIsMcpSection } from "./whatIsMcp.tsx";
 import { McpSection } from "./mcp.tsx";
-import { CodeConnectFlowSection } from "./codeConnectFlow.tsx";
 import { CodeConnectSection } from "./codeConnect.tsx";
 import { WhyTypescriptSection } from "./whyTypescript.tsx";
 import { PrimitivesSection } from "./primitives.tsx";
 import { InstructionsSection } from "./instructions.tsx";
-import { SetupSection } from "./setup.tsx";
 import { ConsumerSection } from "./consumer.tsx";
 import { FlagshipSection } from "./flagship.tsx";
 import { PhasesSection } from "./phases.tsx";
@@ -60,14 +57,14 @@ const CHAPTERS: ChapterInfo[] = [
     {
         n: 4, id: "s-ch-4", color: C.purple,
         title: "Reading the Design",
-        subtitle: "How the AI actually looks at Figma — the system architecture, MCP protocol primer, and our 4-tool root batch.",
-        slides: ["System architecture", "What MCP is", "MCP in our pipeline"],
+        subtitle: "How the AI actually looks at Figma — the system architecture and our MCP tool batch.",
+        slides: ["System architecture", "MCP — the protocol layer"],
     },
     {
         n: 5, id: "s-ch-5", color: C.yellow,
         title: "Mapping to Swift",
         subtitle: "Code Connect in depth — how Figma props resolve to exact SwiftUI init calls via 116 TypeScript mappings.",
-        slides: ["Code Connect flow", "Code Connect deep-dive"],
+        slides: ["Code Connect — end to end"],
     },
     {
         n: 6, id: "s-ch-6", color: C.accent,
@@ -76,7 +73,6 @@ const CHAPTERS: ChapterInfo[] = [
         slides: [
             "Primitives",
             "Instruction tiers",
-            "Setup",
             "Consumer side",
             "The flagship command",
             "8 phases",
@@ -126,17 +122,14 @@ const SECTION_IDS = [
     // Chapter 4
     "s-ch-4",
     "s-architecture",
-    "s-what-is-mcp",
     "s-mcp",
     // Chapter 5
     "s-ch-5",
-    "s-cc-flow",
     "s-code-connect",
     // Chapter 6
     "s-ch-6",
     "s-primitives",
     "s-instructions",
-    "s-setup",
     "s-consumer",
     "s-flagship",
     "s-phases",
@@ -230,17 +223,14 @@ export default function FigmaToScreenPresentation() {
 
                 <ChapterSection chapter={CHAPTERS[3]} total={TOTAL_CHAPTERS} />
                 <ArchitectureSection />
-                <WhatIsMcpSection />
                 <McpSection />
 
                 <ChapterSection chapter={CHAPTERS[4]} total={TOTAL_CHAPTERS} />
-                <CodeConnectFlowSection />
                 <CodeConnectSection />
 
                 <ChapterSection chapter={CHAPTERS[5]} total={TOTAL_CHAPTERS} />
                 <PrimitivesSection />
                 <InstructionsSection />
-                <SetupSection />
                 <ConsumerSection />
                 <FlagshipSection />
                 <PhasesSection />

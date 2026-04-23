@@ -6,9 +6,9 @@ export function McpSection() {
         <section id="s-mcp" style={{ padding: "96px 48px" }}>
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
-                    <SectionLabel color={C.blue}>BUILDING BLOCK 2 · THE PROTOCOL LAYER</SectionLabel>
+                    <SectionLabel color={C.blue}>THE PROTOCOL LAYER</SectionLabel>
                     <SectionHeading sub="Model Context Protocol — an open spec (Anthropic, late 2024) that lets any tool expose its data to any AI editor in a uniform way. Figma ships one. Our agents call it.">
-                        MCP — the IDE&apos;s bridge to Figma
+                        MCP — what it is, and how we use it
                     </SectionHeading>
                 </Reveal>
 

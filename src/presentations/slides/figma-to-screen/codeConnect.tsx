@@ -12,7 +12,19 @@ export function CodeConnectSection() {
                     </SectionHeading>
                 </Reveal>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: 28, marginTop: 28 }}>
+                {/* 3-stage ribbon — how a prop change in Figma becomes a new Swift snippet in Dev Mode */}
+                <Reveal delay={0.04}>
+                    <div style={{
+                        marginTop: 28,
+                        display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16,
+                    }}>
+                        <StageCard n={1} title="Designer changes a variant" body="Pick a different Size, toggle an icon — Figma updates the component props." color={C.purple} />
+                        <StageCard n={2} title="Mapping resolves the props" body="figma.enum / figma.boolean / figma.string read each prop and pick the correct Swift branch." color={P} />
+                        <StageCard n={3} title="Dev Mode shows Swift" body="The example() callback returns the exact initializer your codebase uses. No guesses." color={C.accent} />
+                    </div>
+                </Reveal>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1.15fr 1fr", gap: 28, marginTop: 24 }}>
                     <Reveal delay={0}>
                         <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: "18px 20px" }}>
                             <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 11, color: C.purple, letterSpacing: "0.12em", marginBottom: 12 }}>
@@ -78,5 +90,29 @@ export default {
                 </Reveal>
             </div>
         </section>
+    );
+}
+
+function StageCard({ n, title, body, color }: { n: number; title: string; body: string; color: string }) {
+    return (
+        <div style={{
+            background: C.surface,
+            border: `1px solid ${C.border}`,
+            borderTop: `3px solid ${color}`,
+            borderRadius: 10,
+            padding: "16px 18px",
+            display: "flex", gap: 12, alignItems: "flex-start",
+        }}>
+            <div style={{
+                width: 28, height: 28, borderRadius: 8,
+                background: `${color}18`, border: `1px solid ${color}50`, color,
+                flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 13,
+            }}>{n}</div>
+            <div>
+                <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 13, color: C.text }}>{title}</div>
+                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.muted, marginTop: 4, lineHeight: 1.55 }}>{body}</div>
+            </div>
+        </div>
     );
 }

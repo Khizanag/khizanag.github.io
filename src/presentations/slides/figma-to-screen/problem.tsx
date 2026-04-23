@@ -15,7 +15,7 @@ export function ProblemSection() {
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 32 }}>
                     <Reveal delay={0}>
                         <InfoCard icon="📐" title="What a new screen needs" color={P} tag="HAND-AUTHORED">
-                            <CheckItem active>View.swift that matches Figma pixel-for-pixel</CheckItem>
+                            <CheckItem active>View.swift that matches Figma — pixel-for-pixel for any Code-Connected component (raw frames fall back to manual layout)</CheckItem>
                             <CheckItem active>ViewModel with State, Intent, and SideEffect</CheckItem>
                             <CheckItem active>Router protocol + Default implementation</CheckItem>
                             <CheckItem active>ViewFactory protocol + Default implementation</CheckItem>

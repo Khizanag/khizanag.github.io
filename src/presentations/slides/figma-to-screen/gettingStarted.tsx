@@ -47,8 +47,8 @@ export function GettingStartedSection() {
 
                 <Reveal delay={0.42}>
                     <div style={{ marginTop: 28 }}>
-                        <CalloutBox color={P} icon="🚀" label="FIRST WIN">
-                            Your first <code>/figma-to-screen</code> should save roughly a day of manual scaffolding. By the third one the 20-minute path is a 3-minute path — the caches are warm and you know which prompts need which inputs.
+                        <CalloutBox color={P} icon="🚀" label="FIRST WIN — MEASURED">
+                            Your first run replaces <strong>~12 hand-copied files</strong> and <strong>2 central-file patches</strong> with a single command. Median end-to-end runtime is <strong>7m 18s</strong>; by the third run on the same module, discovery cache is warm and the path drops to <strong>~3 minutes</strong> of attended time.
                         </CalloutBox>
                     </div>
                 </Reveal>

@@ -8,6 +8,7 @@ import { P, PDim } from "./ui.tsx";
 import { HeroSection } from "./hero.tsx";
 import { ProblemSection } from "./problem.tsx";
 import { WhatIsSection } from "./whatIs.tsx";
+import { GlossarySection } from "./glossary.tsx";
 import { CodeConnectTeaserSection } from "./codeConnectTeaser.tsx";
 import { UserFlowSection } from "./userFlow.tsx";
 import { PillarsSection } from "./pillars.tsx";
@@ -24,18 +25,23 @@ import { ConsumerSection } from "./consumer.tsx";
 import { FlagshipSection } from "./flagship.tsx";
 import { PhasesSection } from "./phases.tsx";
 import { AgentsSection } from "./agents.tsx";
+import { GovernanceSection } from "./governance.tsx";
 import { CachingSection } from "./caching.tsx";
 import { GatesSection } from "./gates.tsx";
+import { FailuresSection } from "./failures.tsx";
 import { ExampleSection } from "./example.tsx";
+import { DayTwoSection } from "./dayTwo.tsx";
 import { DoDontSection } from "./doDont.tsx";
 import { ProsConsSection } from "./prosCons.tsx";
 import { GettingStartedSection } from "./gettingStarted.tsx";
+import { TelemetrySection } from "./telemetry.tsx";
 import { WhatsNextSection } from "./whatsNext.tsx";
 
 const SECTION_IDS = [
     "s-hero",
     "s-problem",
     "s-what-is",
+    "s-glossary",
     "s-cc-teaser",
     "s-user-flow",
     "s-pillars",
@@ -50,14 +56,18 @@ const SECTION_IDS = [
     "s-flagship",
     "s-phases",
     "s-agents",
+    "s-governance",
     "s-caching",
     "s-gates",
+    "s-failures",
     "s-example",
+    "s-day-two",
     "s-code-connect",
     "s-why-ts",
     "s-do-dont",
     "s-pros-cons",
     "s-getting-started",
+    "s-telemetry",
     "s-whats-next",
     "s-thankyou",
 ];
@@ -118,6 +128,7 @@ export default function FigmaToScreenPresentation() {
                 <HeroSection />
                 <ProblemSection />
                 <WhatIsSection />
+                <GlossarySection />
                 <CodeConnectTeaserSection />
                 <UserFlowSection />
                 <PillarsSection />
@@ -132,14 +143,18 @@ export default function FigmaToScreenPresentation() {
                 <FlagshipSection />
                 <PhasesSection />
                 <AgentsSection />
+                <GovernanceSection />
                 <CachingSection />
                 <GatesSection />
+                <FailuresSection />
                 <ExampleSection />
+                <DayTwoSection />
                 <CodeConnectSection />
                 <WhyTypescriptSection />
                 <DoDontSection />
                 <ProsConsSection />
                 <GettingStartedSection />
+                <TelemetrySection />
                 <WhatsNextSection />
 
                 <ThankYouSection id="s-thankyou" label="APRIL 2026" color={P} colorDim={PDim} />

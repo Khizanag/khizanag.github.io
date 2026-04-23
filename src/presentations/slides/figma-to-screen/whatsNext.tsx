@@ -24,9 +24,9 @@ export function WhatsNextSection() {
                     <Reveal delay={0.1}>
                         <FeatureCard
                             icon="📊"
-                            title="Pipeline telemetry"
+                            title="Telemetry → KPIs"
                             color={C.blue}
-                            description="Parse session JSON logs into aggregate stats. Which gates fail most? Which agents take longest? Which phases hit the cache? Feed that back into the next sweep."
+                            description="Today's per-run logs become weekly KPIs (covered in the Telemetry section): adoption, cost, gate-failure trend, top missing mappings. Feed back into the next sweep of agent prompts."
                         />
                     </Reveal>
                     <Reveal delay={0.2}>

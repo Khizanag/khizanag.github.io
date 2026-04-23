@@ -115,6 +115,17 @@ private extension Destination {
                         + <span style={{ color: P }}>Router</span>, <span style={{ color: P }}>Factory</span>, <span style={{ color: P }}>Injection</span>, <span style={{ color: P }}>root Injection registration</span>, <span style={{ color: P }}>session log</span> — all written in the same run.
                     </div>
                 </Reveal>
+
+                <Reveal delay={0.54}>
+                    <div style={{
+                        marginTop: 18, padding: "14px 18px",
+                        background: `${C.purple}08`, border: `1px solid ${C.purple}40`, borderLeft: `3px solid ${C.purple}`,
+                        borderRadius: 10, fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: C.text, lineHeight: 1.55,
+                    }}>
+                        <strong style={{ color: C.purple }}>Swift 6 strict concurrency baked in.</strong>{" "}
+                        Every scaffolded ViewModel ships with <code>@MainActor</code>; repositories are <code>Sendable</code> protocols; data sources are <code>actor</code>-isolated. The layer-scaffolder template enforces it — you can&apos;t opt out by accident.
+                    </div>
+                </Reveal>
             </div>
         </section>
     );

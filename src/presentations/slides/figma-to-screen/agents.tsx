@@ -4,7 +4,7 @@ import { P, AgentRow } from "./ui.tsx";
 export function AgentsSection() {
     return (
         <section id="s-agents" style={{ padding: "96px 48px" }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <div style={{ maxWidth: 1400, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.purple}>AGENT CATALOG</SectionLabel>
                     <SectionHeading sub="Every agent has a single job and a tight tool grant. Orchestrators delegate, read-only agents can&apos;t mutate the repo, code-gen agents write one thing.">

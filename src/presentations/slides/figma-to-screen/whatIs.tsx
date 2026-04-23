@@ -1,6 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
 import { P } from "./ui.tsx";
-import { WhatIsSteps } from "./whatIsSteps.tsx";
 import { HeroTransform, OutcomeRibbon, IllusCard } from "./whatIsExtras.tsx";
 
 export function WhatIsSection() {
@@ -11,7 +10,7 @@ export function WhatIsSection() {
             <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative" }}>
                 <Reveal>
                     <SectionLabel color={P}>THE ELEVATOR PITCH</SectionLabel>
-                    <SectionHeading sub="Before we go under the hood, here is the whole thing — the transformation, the six frames that make it happen, the numbers that come out, and who it's for.">
+                    <SectionHeading sub="Before we go under the hood, here is the whole thing — the transformation, the numbers that come out, and who it's for. We unpack the step-by-step one slide from now.">
                         What is this infrastructure?
                     </SectionHeading>
                 </Reveal>
@@ -23,32 +22,20 @@ export function WhatIsSection() {
                     </div>
                 </Reveal>
 
-                {/* Divider label: HOW */}
-                <Reveal delay={0.18}>
-                    <DividerLabel text="HOW IT WORKS · SIX FRAMES" color={C.blue} />
-                </Reveal>
-
-                {/* 2 — 6-step walkthrough */}
-                <Reveal delay={0.22}>
-                    <div style={{ marginTop: 8 }}>
-                        <WhatIsSteps />
-                    </div>
-                </Reveal>
-
                 {/* Divider label: NUMBERS */}
-                <Reveal delay={0.32}>
+                <Reveal delay={0.2}>
                     <DividerLabel text="WHAT COMES OUT" color={C.accent} />
                 </Reveal>
 
-                {/* 3 — Outcome ribbon (5 animated stat cards) */}
-                <Reveal delay={0.36}>
+                {/* 2 — Outcome ribbon (5 animated stat cards) */}
+                <Reveal delay={0.26}>
                     <div style={{ marginTop: 8 }}>
                         <OutcomeRibbon />
                     </div>
                 </Reveal>
 
                 {/* Divider label: CONTEXT */}
-                <Reveal delay={0.46}>
+                <Reveal delay={0.36}>
                     <DividerLabel text="WHY · FOR WHOM · AGAINST WHAT" color={P} />
                 </Reveal>
 

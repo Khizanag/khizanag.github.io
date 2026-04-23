@@ -108,6 +108,8 @@ export function useKeyboardNav(sectionIds: string[]): void {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
       if (navLock.current) return;
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) return;
 
       const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 

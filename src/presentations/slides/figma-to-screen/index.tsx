@@ -7,10 +7,16 @@ import {
 import { P, PDim } from "./ui.tsx";
 import { HeroSection } from "./hero.tsx";
 import { ProblemSection } from "./problem.tsx";
+import { WhatIsSection } from "./whatIs.tsx";
+import { CodeConnectTeaserSection } from "./codeConnectTeaser.tsx";
+import { UserFlowSection } from "./userFlow.tsx";
 import { PillarsSection } from "./pillars.tsx";
 import { ArchitectureSection } from "./architecture.tsx";
-import { CodeConnectSection } from "./codeConnect.tsx";
+import { WhatIsMcpSection } from "./whatIsMcp.tsx";
 import { McpSection } from "./mcp.tsx";
+import { CodeConnectFlowSection } from "./codeConnectFlow.tsx";
+import { CodeConnectSection } from "./codeConnect.tsx";
+import { WhyTypescriptSection } from "./whyTypescript.tsx";
 import { PrimitivesSection } from "./primitives.tsx";
 import { InstructionsSection } from "./instructions.tsx";
 import { SetupSection } from "./setup.tsx";
@@ -29,10 +35,16 @@ import { WhatsNextSection } from "./whatsNext.tsx";
 const SECTION_IDS = [
     "s-hero",
     "s-problem",
+    "s-what-is",
+    "s-cc-teaser",
+    "s-user-flow",
     "s-pillars",
     "s-architecture",
-    "s-code-connect",
+    "s-what-is-mcp",
     "s-mcp",
+    "s-cc-flow",
+    "s-code-connect",
+    "s-why-ts",
     "s-primitives",
     "s-instructions",
     "s-setup",
@@ -87,16 +99,16 @@ export default function FigmaToScreenPresentation() {
                     logo={NAV_LOGO}
                     title="/figma-to-screen"
                     links={[
-                        { label: "Why",       id: "s-problem" },
-                        { label: "Pillars",   id: "s-pillars" },
-                        { label: "Stack",     id: "s-architecture" },
-                        { label: "Setup",     id: "s-setup" },
-                        { label: "Toolkit",   id: "s-consumer" },
-                        { label: "Flagship",  id: "s-flagship" },
-                        { label: "Pipeline",  id: "s-phases" },
-                        { label: "Example",   id: "s-example" },
-                        { label: "Do / Don't",id: "s-do-dont" },
-                        { label: "Start",     id: "s-getting-started" },
+                        { label: "Why",         id: "s-problem" },
+                        { label: "What",        id: "s-what-is" },
+                        { label: "User Flow",   id: "s-user-flow" },
+                        { label: "Pillars",     id: "s-pillars" },
+                        { label: "MCP",         id: "s-what-is-mcp" },
+                        { label: "Code Connect",id: "s-cc-flow" },
+                        { label: "Flagship",    id: "s-flagship" },
+                        { label: "Pipeline",    id: "s-phases" },
+                        { label: "Do / Don't",  id: "s-do-dont" },
+                        { label: "Start",       id: "s-getting-started" },
                     ]}
                     badge="iOS Chapter · Apr 2026"
                     color={P}
@@ -105,10 +117,16 @@ export default function FigmaToScreenPresentation() {
 
                 <HeroSection />
                 <ProblemSection />
+                <WhatIsSection />
+                <CodeConnectTeaserSection />
+                <UserFlowSection />
                 <PillarsSection />
                 <ArchitectureSection />
-                <CodeConnectSection />
+                <WhatIsMcpSection />
                 <McpSection />
+                <CodeConnectFlowSection />
+                <CodeConnectSection />
+                <WhyTypescriptSection />
                 <PrimitivesSection />
                 <InstructionsSection />
                 <SetupSection />

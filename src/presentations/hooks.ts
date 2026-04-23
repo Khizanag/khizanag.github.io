@@ -146,6 +146,29 @@ export function useKeyboardNav(sectionIds: string[]): void {
       indexRef.current = next;
       navLock.current  = true;
 
+      // Briefly dim the target as it arrives so every slide has a
+      // visible transition, even when Reveal animations fired during
+      // the scroll (IntersectionObserver threshold 0.15 triggers on
+      // partial overlap, so by the time the scroll settles there's
+      // nothing left to animate — feels abrupt otherwise).
+      const targetSection = sections[next];
+      if (targetSection) {
+        targetSection.style.transition = "opacity 0.45s ease, transform 0.45s ease";
+        targetSection.style.opacity    = "0";
+        targetSection.style.transform  = "translateY(14px)";
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            targetSection.style.opacity   = "1";
+            targetSection.style.transform = "translateY(0)";
+            setTimeout(() => {
+              targetSection.style.transition = "";
+              targetSection.style.transform  = "";
+              targetSection.style.opacity    = "";
+            }, 500);
+          }, 120);
+        });
+      }
+
       // Fallback unlock in case scrollend doesn't fire (Safari, rapid keys)
       if (fallbackRef.current) clearTimeout(fallbackRef.current);
       fallbackRef.current = setTimeout(() => {

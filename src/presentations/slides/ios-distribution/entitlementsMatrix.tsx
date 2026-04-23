@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, PlainEnglishBox } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P, TimingBadge } from "./ui.tsx";
 
 const ENTITLEMENTS = [
     { key: "com.apple.developer.applesignin",             lvl: "Auto",     note: "SIWA. Flip a capability switch. Required if you offer any 3rd-party social login." },
@@ -36,7 +36,7 @@ export function EntitlementsMatrixSection() {
         <section id="s-entitlements" style={{ padding: "96px 48px" }}>
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
-                    <SectionLabel color={P}>ENTITLEMENTS MATRIX</SectionLabel>
+                    <SectionLabel color={P}>ENTITLEMENTS MATRIX <TimingBadge minutes="2:30" color={P} reference /></SectionLabel>
                     <SectionHeading sub="Entitlements are how your binary asks the kernel for capabilities. Some are auto-granted. A surprisingly long list needs explicit Apple review — and the approval path is very different per entitlement.">
                         Capabilities that cost you a rejection — and which don&rsquo;t
                     </SectionHeading>

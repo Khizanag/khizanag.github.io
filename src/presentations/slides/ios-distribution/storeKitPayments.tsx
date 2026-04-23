@@ -95,6 +95,17 @@ case .userCancelled, .pending: break
                         Never validate receipts on-device alone — trivially bypassed with a jailbreak. Server receives the transaction, POSTs to Apple&rsquo;s <code>verifyReceipt</code> (or verifies JWS in StoreKit 2), then grants entitlement. Cache the latest receipt server-side — users DO get new devices and expect restores.
                     </CalloutBox>
                 </div>
+
+                <div style={{ marginTop: 20 }}>
+                    <CalloutBox color={P} icon="📡" label="SERVER-TO-SERVER NOTIFICATIONS V2 — THE 'SENIOR THING'">
+                        <p style={{ margin: "0 0 6px 0", fontSize: 13, color: C.muted, lineHeight: 1.65 }}>
+                            Apple pushes <b>App Store Server Notifications v2</b> to your backend for every subscription event — renewals, refunds, grace periods, family-sharing changes, <b>billing retries</b>, even consumption-request outcomes. Without it, you&rsquo;re polling <code>verifyReceipt</code> and will miss state transitions.
+                        </p>
+                        <p style={{ margin: 0, fontSize: 13, color: C.muted, lineHeight: 1.65 }}>
+                            V2 payload is <b>JWS-signed</b> — verify with Apple&rsquo;s root cert. Enable per-environment (sandbox + production) in ASC → App Information → App Store Server Notifications. Budget 2–3 days to wire correctly; test with Apple&rsquo;s <code>sendTestNotification</code> endpoint before shipping.
+                        </p>
+                    </CalloutBox>
+                </div>
             </div>
         </section>
     );

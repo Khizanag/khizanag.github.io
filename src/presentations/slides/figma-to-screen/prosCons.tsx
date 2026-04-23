@@ -38,8 +38,30 @@ export function ProsConsSection() {
                     </Reveal>
                 </div>
 
-                <Reveal delay={0.2}>
-                    <div style={{ marginTop: 24 }}>
+                <Reveal delay={0.18}>
+                    <div style={{
+                        marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 14,
+                    }}>
+                        {[
+                            { label: "COST PER RUN",       value: "~$0.40",  sub: "LLM + MCP, p50",         color: C.accent },
+                            { label: "MEDIAN RUNTIME",     value: "7m 18s",   sub: "end-to-end, attended",   color: C.blue },
+                            { label: "FILES WRITTEN",      value: "~12",      sub: "per Presentation run",   color: C.purple },
+                            { label: "HAND-FIX RATE",      value: "~2 TODOs", sub: "median per ViewModel",   color: C.yellow },
+                        ].map(stat => (
+                            <div key={stat.label} style={{
+                                background: C.surface, border: `1px solid ${C.border}`, borderTop: `2px solid ${stat.color}`,
+                                borderRadius: 10, padding: "14px 16px",
+                            }}>
+                                <div style={{ fontFamily: "'Syne', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", color: C.muted, marginBottom: 6 }}>{stat.label}</div>
+                                <div style={{ fontFamily: "'Syne', sans-serif", fontSize: 22, fontWeight: 800, color: stat.color, marginBottom: 2 }}>{stat.value}</div>
+                                <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11.5, color: C.muted }}>{stat.sub}</div>
+                            </div>
+                        ))}
+                    </div>
+                </Reveal>
+
+                <Reveal delay={0.26}>
+                    <div style={{ marginTop: 20 }}>
                         <CalloutBox color={P} icon="⚖️" label="WHEN NOT TO USE IT">
                             One-off prototypes. Showroom demo screens.
                             Screens whose Figma version is still in flux (regenerate every iteration).

@@ -43,8 +43,6 @@ const SECTION_IDS = [
     "s-what-is-mcp",
     "s-mcp",
     "s-cc-flow",
-    "s-code-connect",
-    "s-why-ts",
     "s-primitives",
     "s-instructions",
     "s-setup",
@@ -55,6 +53,8 @@ const SECTION_IDS = [
     "s-context",
     "s-gates",
     "s-example",
+    "s-code-connect",
+    "s-why-ts",
     "s-do-dont",
     "s-pros-cons",
     "s-getting-started",
@@ -125,8 +125,6 @@ export default function FigmaToScreenPresentation() {
                 <WhatIsMcpSection />
                 <McpSection />
                 <CodeConnectFlowSection />
-                <CodeConnectSection />
-                <WhyTypescriptSection />
                 <PrimitivesSection />
                 <InstructionsSection />
                 <SetupSection />
@@ -137,6 +135,8 @@ export default function FigmaToScreenPresentation() {
                 <ContextSection />
                 <GatesSection />
                 <ExampleSection />
+                <CodeConnectSection />
+                <WhyTypescriptSection />
                 <DoDontSection />
                 <ProsConsSection />
                 <GettingStartedSection />

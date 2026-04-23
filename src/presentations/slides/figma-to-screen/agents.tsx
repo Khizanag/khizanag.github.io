@@ -12,7 +12,7 @@ export function AgentsSection() {
                     </SectionHeading>
                 </Reveal>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 28 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginTop: 28 }}>
                     <div>
                         <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 12, color: P, letterSpacing: "0.12em", marginBottom: 10 }}>MONOREPO ROOT · SCAFFOLDING</div>
                         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -28,7 +28,7 @@ export function AgentsSection() {
                     </div>
 
                     <div>
-                        <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 12, color: C.blue, letterSpacing: "0.12em", marginBottom: 10 }}>CORE UI V2 · CONSUMER + AUTHOR</div>
+                        <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 12, color: C.blue, letterSpacing: "0.12em", marginBottom: 10 }}>CORE UI V2 · CONSUMER</div>
                         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                             <AgentRow name="figma-to-view"            role="codegen" description="Generate a SwiftUI View from a Figma URL using Core UI V2" delay={0} />
                             <AgentRow name="figma-review"             role="read"    description="Audit an existing View against Figma, RED/YELLOW/GREEN report" delay={0.04} />
@@ -37,9 +37,15 @@ export function AgentsSection() {
                             <AgentRow name="token-lookup"             role="read"    description="Hex / px / font → DesignSystem.* accessor" delay={0.16} />
                             <AgentRow name="design-system-batch-lookup" role="read"  description="Batched variant of the three lookups for large inventories" delay={0.2} />
                             <AgentRow name="unstick"                  role="read"    description="Dev Mode broken / missing mapping recovery — triage + plan" delay={0.24} />
-                            <AgentRow name="connect-component"        role="codegen" description="Add a new Figma ↔ Swift Code Connect mapping" delay={0.28} />
-                            <AgentRow name="code-connect-review"      role="read"    description="Read-only pre-commit scan of Code Connect changes" delay={0.32} />
-                            <AgentRow name="publish-code-connect"     role="codegen" description="Validate and publish mappings to Figma (write to shared system)" delay={0.36} />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 12, color: C.yellow, letterSpacing: "0.12em", marginBottom: 10 }}>CORE UI V2 · AUTHOR</div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                            <AgentRow name="connect-component"        role="codegen" description="Add a new Figma ↔ Swift Code Connect mapping" delay={0} />
+                            <AgentRow name="code-connect-review"      role="read"    description="Read-only pre-commit scan of Code Connect changes" delay={0.04} />
+                            <AgentRow name="publish-code-connect"     role="codegen" description="Validate and publish mappings to Figma (write to shared system)" delay={0.08} />
                         </div>
                     </div>
                 </div>

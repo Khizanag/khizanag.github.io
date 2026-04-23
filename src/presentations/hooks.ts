@@ -63,17 +63,37 @@ export function useLocalTabNav(
 }
 
 function resolveCurrentIndex(sections: HTMLElement[]): number {
-  // Find the section that owns the viewport top.
-  // A section is "current" once its top has crossed slightly past the
-  // viewport top (4% of viewport). Smaller offset = tighter snap, fewer
-  // off-by-one errors when smooth-scroll lands ~1px short.
-  const ref = window.scrollY + window.innerHeight * 0.04;
-  let best = 0;
+  // Pick the section with the largest visible intersection with the
+  // viewport. If two overlap the viewport by the same amount (common at
+  // section boundaries), prefer the one whose top is closer to the
+  // viewport top — that's the one the user is "reading".
+  //
+  // Why not a scrollY + Nvh threshold? Because section heights vary
+  // (hero ~100vh, short callouts ~40vh, tall ones ~160vh). Any fixed
+  // threshold picks the wrong section at boundaries for one of those
+  // cases, which manifests as an arrow-key press that either skips a
+  // slide or appears to do nothing.
+  const vh = window.innerHeight;
+  let bestIdx = 0;
+  let bestVisible = -1;
+  let bestTopDist = Infinity;
+
   for (let i = 0; i < sections.length; i++) {
-    const top = sections[i].getBoundingClientRect().top + window.scrollY;
-    if (top <= ref) best = i;
+    const rect    = sections[i].getBoundingClientRect();
+    const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+    const topDist = Math.abs(rect.top);
+
+    if (visible > bestVisible + 0.5) {
+      bestVisible = visible;
+      bestTopDist = topDist;
+      bestIdx     = i;
+    } else if (Math.abs(visible - bestVisible) <= 0.5 && topDist < bestTopDist) {
+      bestTopDist = topDist;
+      bestIdx     = i;
+    }
   }
-  return best;
+
+  return bestIdx;
 }
 
 export function useKeyboardNav(sectionIds: string[]): void {

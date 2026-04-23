@@ -103,6 +103,19 @@ final class MetricKitBridge: NSObject, MXMetricManagerSubscriber {
                         Missing a dSYM = symbolication fails = every crash looks like &lsquo;0x1042a8b10 + 0x48&rsquo;. Automate upload in CI (Sentry + Crashlytics both ship Fastlane actions). Keep archived dSYMs <b>forever</b> — 3-year-old crashes from old OS versions still arrive.
                     </CalloutBox>
                 </div>
+
+                <div style={{ marginTop: 20, padding: "20px 24px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12 }}>
+                    <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: C.muted, letterSpacing: "0.12em", marginBottom: 12 }}>
+                        BUDGET REALITY (2026, 100k monthly crash events)
+                    </div>
+                    <ul style={{ margin: 0, padding: "0 0 0 20px", color: C.text, fontSize: 12, lineHeight: 1.95 }}>
+                        <li><b>Firebase Crashlytics</b> — free (unlimited events, Google retention rules apply)</li>
+                        <li><b>Apple MetricKit</b> — free, but 24-hour aggregate only, no session replay, no breadcrumbs</li>
+                        <li><b>Sentry</b> — ~$26–$80/mo at 100k events; rich breadcrumbs + session replay + source maps</li>
+                        <li><b>Bugsnag</b> — from $59/mo; strong stability-score SLA features</li>
+                        <li><b>Instabug / Embrace</b> — enterprise quotes; Instabug strong on in-app bug reports, Embrace on session-level timelines</li>
+                    </ul>
+                </div>
             </div>
         </section>
     );

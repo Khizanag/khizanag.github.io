@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { C, Reveal, SectionLabel, SectionHeading, useLocalTabNav } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P, TimingBadge } from "./ui.tsx";
 
 const ERRORS: Array<{ code: string; label: string; cause: string; fix: string }> = [
     {
@@ -76,7 +76,7 @@ export function ErrorDecoderSection() {
         <section id="s-errors" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
-                    <SectionLabel color={P}>ITMS ERROR DECODER</SectionLabel>
+                    <SectionLabel color={P}>ITMS ERROR DECODER <TimingBadge minutes="2:00" color={P} reference /></SectionLabel>
                     <SectionHeading sub="The ten ITMS-* codes every senior iOS engineer has seen at midnight before a release. What actually causes them, and the single-line fix.">
                         Decode what ASC is actually telling you
                     </SectionHeading>

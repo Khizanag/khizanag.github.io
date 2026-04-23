@@ -96,6 +96,28 @@ TBC-odr-contactless-pack                         12 MB  ← when user enables Ap
                         <code>otool -L</code> shows linked dylibs. <code>nm</code> shows symbols. <code>strings</code> shows embedded URLs/keys. <code>codesign -dvvv --entitlements :-</code> shows entitlements. <b>Review your own binary before submission</b> — find the secrets you forgot to strip.
                     </CalloutBox>
                 </div>
+
+                <div style={{ marginTop: 20 }}>
+                    <CodeBlock filename="uploading — altool (legacy) → notarytool (current)">
+{`# Upload to App Store Connect (current, 2026)
+$ xcrun altool --upload-app \\
+    --type ios \\
+    --file TBC-Prod.ipa \\
+    --apiKey "$APP_STORE_CONNECT_API_KEY_ID" \\
+    --apiIssuer "$APP_STORE_CONNECT_API_ISSUER"
+
+# Notarize a macOS build (Catalyst / Mac app — not needed for pure iOS)
+$ xcrun notarytool submit TBC-Mac.pkg \\
+    --key AuthKey.p8 \\
+    --key-id "$APP_STORE_CONNECT_API_KEY_ID" \\
+    --issuer "$APP_STORE_CONNECT_API_ISSUER" \\
+    --wait
+
+# Fetch the notarization log for a rejected submission
+$ xcrun notarytool log <submission-id> --key AuthKey.p8 \\
+    --key-id KEY --issuer ISSUER notary-log.json`}
+                    </CodeBlock>
+                </div>
             </div>
         </section>
     );

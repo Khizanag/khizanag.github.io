@@ -5,6 +5,7 @@ import {
     PresentationNav, ThankYouSection, PresentationFooter,
 } from "../../shared.tsx";
 import { P, PDim } from "./ui.tsx";
+import { ChapterSection, type ChapterInfo } from "./chapter.tsx";
 import { HeroSection } from "./hero.tsx";
 import { ProblemSection } from "./problem.tsx";
 import { WhatIsSection } from "./whatIs.tsx";
@@ -37,18 +38,102 @@ import { GettingStartedSection } from "./gettingStarted.tsx";
 import { TelemetrySection } from "./telemetry.tsx";
 import { WhatsNextSection } from "./whatsNext.tsx";
 
+const CHAPTERS: ChapterInfo[] = [
+    {
+        n: 1, id: "s-ch-1", color: C.red,
+        title: "The Problem",
+        subtitle: "Why we built this in the first place — the cost of shipping a single new screen by hand.",
+        slides: ["Screen scaffolding is expensive"],
+    },
+    {
+        n: 2, id: "s-ch-2", color: P,
+        title: "The Pitch",
+        subtitle: "What this infrastructure is, the terms we'll use for the rest of the talk, and the 'aha' idea behind Code Connect.",
+        slides: ["Elevator pitch", "Glossary", "Code Connect — the idea"],
+    },
+    {
+        n: 3, id: "s-ch-3", color: C.blue,
+        title: "The Experience",
+        subtitle: "What using it feels like as a developer — one URL, one command — and the three pillars everything stands on.",
+        slides: ["User flow", "The three pillars"],
+    },
+    {
+        n: 4, id: "s-ch-4", color: C.purple,
+        title: "Reading the Design",
+        subtitle: "How the AI actually looks at Figma — the system architecture, MCP protocol primer, and our 4-tool root batch.",
+        slides: ["System architecture", "What MCP is", "MCP in our pipeline"],
+    },
+    {
+        n: 5, id: "s-ch-5", color: C.yellow,
+        title: "Mapping to Swift",
+        subtitle: "Code Connect in depth — how Figma props resolve to exact SwiftUI init calls via 116 TypeScript mappings.",
+        slides: ["Code Connect flow", "Code Connect deep-dive"],
+    },
+    {
+        n: 6, id: "s-ch-6", color: C.accent,
+        title: "The Orchestrator",
+        subtitle: "Inside /figma-to-screen — agents, instructions, phases, caching, gates, and how failures recover.",
+        slides: [
+            "Primitives",
+            "Instruction tiers",
+            "Setup",
+            "Consumer side",
+            "The flagship command",
+            "8 phases",
+            "17 agents",
+            "Governance",
+            "Caching",
+            "Verification gates",
+            "Failure modes",
+        ],
+    },
+    {
+        n: 7, id: "s-ch-7", color: C.blue,
+        title: "In Practice",
+        subtitle: "A real run end-to-end, plus what 'day two' looks like when the design or the code evolves.",
+        slides: ["Example output", "Day two"],
+    },
+    {
+        n: 8, id: "s-ch-8", color: C.purple,
+        title: "Authoring & Trade-offs",
+        subtitle: "For people adding mappings: why TypeScript beats Swift, do's and don'ts, and the honest costs.",
+        slides: ["Why TypeScript", "Do / Don't", "Pros & cons"],
+    },
+    {
+        n: 9, id: "s-ch-9", color: P,
+        title: "Adopting It",
+        subtitle: "How to get your first screen green, what telemetry we emit, and what ships next.",
+        slides: ["Getting started", "Telemetry", "What's next"],
+    },
+];
+
+const TOTAL_CHAPTERS = CHAPTERS.length;
+
 const SECTION_IDS = [
     "s-hero",
+    // Chapter 1
+    "s-ch-1",
     "s-problem",
+    // Chapter 2
+    "s-ch-2",
     "s-what-is",
     "s-glossary",
     "s-cc-teaser",
+    // Chapter 3
+    "s-ch-3",
     "s-user-flow",
     "s-pillars",
+    // Chapter 4
+    "s-ch-4",
     "s-architecture",
     "s-what-is-mcp",
     "s-mcp",
+    // Chapter 5
+    "s-ch-5",
     "s-cc-flow",
+    "s-code-connect",
+    // Chapter 6
+    "s-ch-6",
     "s-primitives",
     "s-instructions",
     "s-setup",
@@ -60,12 +145,17 @@ const SECTION_IDS = [
     "s-caching",
     "s-gates",
     "s-failures",
+    // Chapter 7
+    "s-ch-7",
     "s-example",
     "s-day-two",
-    "s-code-connect",
+    // Chapter 8
+    "s-ch-8",
     "s-why-ts",
     "s-do-dont",
     "s-pros-cons",
+    // Chapter 9
+    "s-ch-9",
     "s-getting-started",
     "s-telemetry",
     "s-whats-next",
@@ -109,16 +199,15 @@ export default function FigmaToScreenPresentation() {
                     logo={NAV_LOGO}
                     title="/figma-to-screen"
                     links={[
-                        { label: "Why",         id: "s-problem" },
-                        { label: "What",        id: "s-what-is" },
-                        { label: "User Flow",   id: "s-user-flow" },
-                        { label: "Pillars",     id: "s-pillars" },
-                        { label: "MCP",         id: "s-what-is-mcp" },
-                        { label: "Code Connect",id: "s-cc-flow" },
-                        { label: "Flagship",    id: "s-flagship" },
-                        { label: "Pipeline",    id: "s-phases" },
-                        { label: "Do / Don't",  id: "s-do-dont" },
-                        { label: "Start",       id: "s-getting-started" },
+                        { label: "1 · Problem",      id: "s-ch-1" },
+                        { label: "2 · Pitch",        id: "s-ch-2" },
+                        { label: "3 · Experience",   id: "s-ch-3" },
+                        { label: "4 · Figma",        id: "s-ch-4" },
+                        { label: "5 · Swift",        id: "s-ch-5" },
+                        { label: "6 · Orchestrator", id: "s-ch-6" },
+                        { label: "7 · In Practice",  id: "s-ch-7" },
+                        { label: "8 · Trade-offs",   id: "s-ch-8" },
+                        { label: "9 · Adopt",        id: "s-ch-9" },
                     ]}
                     badge="iOS Chapter · Apr 2026"
                     color={P}
@@ -126,16 +215,29 @@ export default function FigmaToScreenPresentation() {
                 />
 
                 <HeroSection />
+
+                <ChapterSection chapter={CHAPTERS[0]} total={TOTAL_CHAPTERS} />
                 <ProblemSection />
+
+                <ChapterSection chapter={CHAPTERS[1]} total={TOTAL_CHAPTERS} />
                 <WhatIsSection />
                 <GlossarySection />
                 <CodeConnectTeaserSection />
+
+                <ChapterSection chapter={CHAPTERS[2]} total={TOTAL_CHAPTERS} />
                 <UserFlowSection />
                 <PillarsSection />
+
+                <ChapterSection chapter={CHAPTERS[3]} total={TOTAL_CHAPTERS} />
                 <ArchitectureSection />
                 <WhatIsMcpSection />
                 <McpSection />
+
+                <ChapterSection chapter={CHAPTERS[4]} total={TOTAL_CHAPTERS} />
                 <CodeConnectFlowSection />
+                <CodeConnectSection />
+
+                <ChapterSection chapter={CHAPTERS[5]} total={TOTAL_CHAPTERS} />
                 <PrimitivesSection />
                 <InstructionsSection />
                 <SetupSection />
@@ -147,12 +249,17 @@ export default function FigmaToScreenPresentation() {
                 <CachingSection />
                 <GatesSection />
                 <FailuresSection />
+
+                <ChapterSection chapter={CHAPTERS[6]} total={TOTAL_CHAPTERS} />
                 <ExampleSection />
                 <DayTwoSection />
-                <CodeConnectSection />
+
+                <ChapterSection chapter={CHAPTERS[7]} total={TOTAL_CHAPTERS} />
                 <WhyTypescriptSection />
                 <DoDontSection />
                 <ProsConsSection />
+
+                <ChapterSection chapter={CHAPTERS[8]} total={TOTAL_CHAPTERS} />
                 <GettingStartedSection />
                 <TelemetrySection />
                 <WhatsNextSection />

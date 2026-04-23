@@ -4,6 +4,110 @@ import { C, useInView } from "../../shared.tsx";
 export const P = C.blue;
 export const PDim = C.blueDim;
 
+/*
+ * CALLOUT COLOR SEMANTICS (audited — April 2026)
+ *   C.red     → blocker / rejection / crash / hard warning
+ *   C.yellow  → gotcha / edge case / trap
+ *   C.accent  → insight / what worked / recommended path
+ *   P (blue)  → example / neutral info / chapter tag
+ *   C.purple  → case study / timeline
+ */
+
+/* ===================================================================== *
+ *  ActDivider — full-bleed chapter marker between the 9 acts.
+ *  Short number + big chapter title + one-line thesis + speaker timing.
+ * ===================================================================== */
+interface ActDividerProps {
+    id: string;
+    act: string;       // "ACT 03"
+    title: string;     // "GETTING IT OUT"
+    subtitle: string;  // one-line thesis for the next block
+    timing: string;    // e.g. "8 min · 5 slides"
+    color?: string;
+}
+
+export function ActDivider({ id, act, title, subtitle, timing, color = P }: ActDividerProps) {
+    return (
+        <section id={id} style={{ padding: "80px 48px", position: "relative" }}>
+            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+                <div style={{
+                    padding: "56px 48px",
+                    background: `linear-gradient(135deg, ${color}12, ${color}03)`,
+                    border: `1px solid ${color}30`,
+                    borderRadius: 20,
+                    position: "relative",
+                    overflow: "hidden",
+                }}>
+                    <div style={{
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: 11, color, letterSpacing: "0.25em", fontWeight: 700, marginBottom: 12,
+                    }}>
+                        {act}
+                    </div>
+                    <h2 style={{
+                        fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 56,
+                        color: C.text, lineHeight: 1.05, letterSpacing: "-0.01em", marginBottom: 16,
+                    }}>
+                        {title}
+                    </h2>
+                    <p style={{
+                        fontSize: 16, color: C.muted, lineHeight: 1.6, maxWidth: 720, marginBottom: 24,
+                    }}>
+                        {subtitle}
+                    </p>
+                    <div style={{
+                        display: "inline-flex", alignItems: "center", gap: 8,
+                        padding: "6px 14px", background: `${color}15`, border: `1px solid ${color}30`,
+                        borderRadius: 6, fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: 11, color, letterSpacing: "0.1em", fontWeight: 700,
+                    }}>
+                        <span>⏱</span> {timing}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ===================================================================== *
+ *  TimingBadge — tiny "2:30" chip for slide headers.
+ *  Use next to a SectionLabel to signal speaker-budget per slide.
+ * ===================================================================== */
+interface TimingBadgeProps {
+    minutes: string;   // "2:30" or "~1 min" or "ref"
+    color?: string;
+    reference?: boolean; // if true → render as grey "REFERENCE" pill
+}
+
+export function TimingBadge({ minutes, color = P, reference }: TimingBadgeProps) {
+    if (reference) {
+        return (
+            <span style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                padding: "3px 9px", marginLeft: 10,
+                background: `${C.muted}14`, border: `1px solid ${C.muted}30`,
+                borderRadius: 4, fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 9, color: C.muted, letterSpacing: "0.12em", fontWeight: 700,
+                verticalAlign: "middle",
+            }}>
+                REFERENCE · SKIM
+            </span>
+        );
+    }
+    return (
+        <span style={{
+            display: "inline-flex", alignItems: "center", gap: 5,
+            padding: "3px 9px", marginLeft: 10,
+            background: `${color}14`, border: `1px solid ${color}30`,
+            borderRadius: 4, fontFamily: "'JetBrains Mono', monospace",
+            fontSize: 9, color, letterSpacing: "0.1em", fontWeight: 700,
+            verticalAlign: "middle",
+        }}>
+            ⏱ {minutes}
+        </span>
+    );
+}
+
 interface GuidelineChipProps {
     id: string;
     label: string;

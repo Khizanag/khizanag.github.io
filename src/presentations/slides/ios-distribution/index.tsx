@@ -4,9 +4,10 @@ import {
     AnimatedGrid, AmbientBlobs,
     PresentationNav, ThankYouSection, PresentationFooter,
 } from "../../shared.tsx";
-import { P, PDim } from "./ui.tsx";
+import { P, PDim, ActDivider } from "./ui.tsx";
 import { HeroSection } from "./hero.tsx";
 import { HookQuizSection } from "./hookQuiz.tsx";
+import { HookQuizAnswersSection } from "./hookQuizAnswers.tsx";
 import { AgendaSection } from "./agenda.tsx";
 import { HistorySection } from "./history.tsx";
 import { JourneySection } from "./journey.tsx";
@@ -29,6 +30,7 @@ import { GuidelinesSection } from "./guidelines.tsx";
 import { StoreKitPaymentsSection } from "./storeKitPayments.tsx";
 import { TopRejectionsSection } from "./topRejections.tsx";
 import { ErrorDecoderSection } from "./errorDecoder.tsx";
+import { WhenReviewGoesWrongSection } from "./whenReviewGoesWrong.tsx";
 import { CrashMonitoringSection } from "./crashMonitoring.tsx";
 import { WarStoryHeySection } from "./warStoryHey.tsx";
 import { WarStoryEpicSection } from "./warStoryEpic.tsx";
@@ -45,22 +47,43 @@ import { ModularizationSection } from "./modularization.tsx";
 import { BuildOptimizationSection } from "./buildOptimization.tsx";
 import { ComparisonSection } from "./comparison.tsx";
 import { FutureSection } from "./future.tsx";
+import { ShipDayChecklistSection } from "./shipDayChecklist.tsx";
 import { TakeawaysSection } from "./takeaways.tsx";
 
+// Chapter structure (v2 per AUDIT §8):
+//   00 Opening  · 01 Plumbing  · 02 Distribution  · 03 Gauntlet
+//   04 Commerce · 05 Release   · 06 War Stories   · 07 Eng-Ops  · 08 Close
 const SECTION_IDS = [
-    "s-hero", "s-hook", "s-agenda", "s-history", "s-journey", "s-ecosystem",
-    "s-signing", "s-signing-deep", "s-provisioning", "s-entitlements", "s-binary",
-    "s-multienv", "s-push",
+    // 00 Opening
+    "s-hero", "s-hook", "s-agenda", "s-history",
+    // 01 Plumbing
+    "s-div-01",
+    "s-journey", "s-ecosystem",
+    "s-signing", "s-signing-deep", "s-provisioning", "s-entitlements",
+    "s-push",
+    // 02 Distribution
+    "s-div-02",
     "s-channels", "s-enterprise", "s-dma",
     "s-testflight", "s-metadata",
-    "s-review", "s-inside-review",
-    "s-guidelines", "s-storekit",
-    "s-rejections", "s-errors",
+    // 03 Gauntlet
+    "s-div-03",
+    "s-review", "s-inside-review", "s-guidelines",
+    "s-rejections", "s-game", "s-review-wrong", "s-errors",
+    // 04 Commerce
+    "s-div-04",
+    "s-storekit",
+    // 05 Release Management
+    "s-div-05",
+    "s-privacy", "s-phased", "s-expedited", "s-flags",
+    // 06 War Stories
+    "s-div-06",
     "s-war-hey", "s-war-epic", "s-war-beeper", "s-war-more", "s-war-us",
-    "s-game", "s-privacy",
-    "s-phased", "s-expedited", "s-flags",
-    "s-cicd", "s-modular", "s-buildopt", "s-crashes",
-    "s-compare", "s-future", "s-takeaways",
+    // 07 Engineering Ops
+    "s-div-07",
+    "s-cicd", "s-modular", "s-buildopt", "s-binary", "s-multienv", "s-crashes",
+    // 08 Close
+    "s-div-08",
+    "s-hook-answers", "s-compare", "s-future", "s-shipday", "s-takeaways",
     "s-thankyou",
 ];
 
@@ -95,15 +118,14 @@ export default function IOSDistributionPresentation() {
                     logo={NAV_LOGO}
                     title="iOS Distribution · 75 min"
                     links={[
-                        { label: "Journey",      id: "s-journey" },
-                        { label: "Channels",     id: "s-channels" },
-                        { label: "Review",       id: "s-review" },
-                        { label: "Rejections",   id: "s-rejections" },
-                        { label: "War Stories",  id: "s-war-hey" },
-                        { label: "Game",         id: "s-game" },
-                        { label: "Privacy",      id: "s-privacy" },
-                        { label: "CI/CD",        id: "s-cicd" },
-                        { label: "Future",       id: "s-future" },
+                        { label: "Plumbing",     id: "s-div-01" },
+                        { label: "Distribute",   id: "s-div-02" },
+                        { label: "Review",       id: "s-div-03" },
+                        { label: "Commerce",     id: "s-div-04" },
+                        { label: "Release",      id: "s-div-05" },
+                        { label: "War Stories",  id: "s-div-06" },
+                        { label: "Eng Ops",      id: "s-div-07" },
+                        { label: "Close",        id: "s-div-08" },
                     ]}
                     badge="iOS Chapter · Tech Talk"
                     color={P}
@@ -111,6 +133,7 @@ export default function IOSDistributionPresentation() {
                 />
 
                 <div style={{ position: "relative", zIndex: 1 }}>
+                    {/* ─── 00 OPENING ───────────────────────────────────── */}
                     <HeroSection />
                     <HookQuizSection />
 
@@ -120,42 +143,125 @@ export default function IOSDistributionPresentation() {
 
                     <AgendaSection />
                     <HistorySection />
+
+                    {/* ─── 01 PLUMBING ──────────────────────────────────── */}
+                    <ActDivider
+                        id="s-div-01"
+                        act="ACT 01"
+                        title="THE PLUMBING"
+                        subtitle="What Apple actually validates before your build is even accepted — identity, provisioning, entitlements, binary anatomy. 15 minutes of the machinery nobody draws for you."
+                        timing="15 min · 7 slides"
+                        color={C.purple}
+                    />
                     <JourneySection />
                     <EcosystemSection />
                     <CodeSigningSection />
                     <CodeSigningMechanicsSection />
                     <ProvisioningDeepSection />
                     <EntitlementsMatrixSection />
-                    <BinaryInternalsSection />
-                    <MultiEnvironmentSection />
                     <PushNotificationsSection />
+
+                    {/* ─── 02 DISTRIBUTION ──────────────────────────────── */}
+                    <ActDivider
+                        id="s-div-02"
+                        act="ACT 02"
+                        title="GETTING IT OUT"
+                        subtitle="Every path from CI to user: App Store, TestFlight, Ad Hoc, Enterprise, Unlisted, Marketplace — plus how the DMA redrew the EU map in 2024."
+                        timing="10 min · 5 slides"
+                        color={C.yellow}
+                    />
                     <ChannelsSection />
                     <EnterpriseMdmSection />
                     <DmaEuropeSection />
                     <TestflightSection />
                     <MetadataAndAsoSection />
+
+                    {/* ─── 03 GAUNTLET ──────────────────────────────────── */}
+                    <ActDivider
+                        id="s-div-03"
+                        act="ACT 03"
+                        title="THE GAUNTLET"
+                        subtitle="App Store Review from both sides of the glass. How reviewers work, what the top-10 rejection reasons really mean, and what to do when Apple says no."
+                        timing="12 min · 7 slides"
+                        color={C.red}
+                    />
                     <ReviewProcessSection />
                     <InsideReviewRoomSection />
                     <GuidelinesSection />
-                    <StoreKitPaymentsSection />
                     <TopRejectionsSection />
+                    <ReviewGameSection />
+                    <WhenReviewGoesWrongSection />
                     <ErrorDecoderSection />
+
+                    {/* ─── 04 COMMERCE ──────────────────────────────────── */}
+                    <ActDivider
+                        id="s-div-04"
+                        act="ACT 04"
+                        title="THE TOLL"
+                        subtitle="StoreKit commissions, the Reader rule, Small Business Program, DMA carve-outs. What Apple actually charges in 2026 — and when it doesn't."
+                        timing="5 min · 1 slide"
+                        color={C.accent}
+                    />
+                    <StoreKitPaymentsSection />
+
+                    {/* ─── 05 RELEASE MANAGEMENT ───────────────────────── */}
+                    <ActDivider
+                        id="s-div-05"
+                        act="ACT 05"
+                        title="RELEASE MANAGEMENT"
+                        subtitle="Phased rollout, expedited review, feature flags, privacy manifest. How to un-break production without a resubmit."
+                        timing="6 min · 4 slides"
+                        color={C.blue}
+                    />
+                    <PrivacySection />
+                    <PhasedReleaseSection />
+                    <ExpeditedReviewSection />
+                    <FeatureFlagsSection />
+
+                    {/* ─── 06 WAR STORIES ──────────────────────────────── */}
+                    <ActDivider
+                        id="s-div-06"
+                        act="ACT 06"
+                        title="WAR STORIES"
+                        subtitle="HEY. Epic. Beeper. XcodeGhost. SpaceInt's own near-misses. Five case studies where the system bit back — and what we learned."
+                        timing="12 min · 5 slides"
+                        color={C.purple}
+                    />
                     <WarStoryHeySection />
                     <WarStoryEpicSection />
                     <WarStoryBeeperSection />
                     <WarStoriesMoreSection />
                     <WarStorySpaceIntSection />
-                    <ReviewGameSection />
-                    <PrivacySection />
-                    <PhasedReleaseSection />
-                    <ExpeditedReviewSection />
-                    <FeatureFlagsSection />
+
+                    {/* ─── 07 ENGINEERING OPS ──────────────────────────── */}
+                    <ActDivider
+                        id="s-div-07"
+                        act="ACT 07"
+                        title="ENGINEERING OPS"
+                        subtitle="CI/CD, modularization, build optimization, crash monitoring. Shipping at scale — the SpaceInt Bitrise pipeline in practice."
+                        timing="6 min · 6 slides"
+                        color={C.yellow}
+                    />
                     <CICDSection />
                     <ModularizationSection />
                     <BuildOptimizationSection />
+                    <BinaryInternalsSection />
+                    <MultiEnvironmentSection />
                     <CrashMonitoringSection />
+
+                    {/* ─── 08 CLOSE ────────────────────────────────────── */}
+                    <ActDivider
+                        id="s-div-08"
+                        act="ACT 08"
+                        title="WRAPPING UP"
+                        subtitle="Callback to the opening quiz. Cross-platform comparison. Where Apple is heading. The ship-day checklist you screenshot. Q&A."
+                        timing="8 min · 5 slides + Q&A"
+                        color={C.accent}
+                    />
+                    <HookQuizAnswersSection />
                     <ComparisonSection />
                     <FutureSection />
+                    <ShipDayChecklistSection />
                     <TakeawaysSection />
 
                     <ThankYouSection id="s-thankyou" label="iOS CHAPTER · APRIL 2026" color={P} colorDim={PDim} />

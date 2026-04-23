@@ -12,10 +12,20 @@ export function ProsConsSection() {
                     </SectionHeading>
                 </Reveal>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginTop: 28 }}>
-                    <Reveal delay={0}>
+                <Reveal delay={0.04}>
+                    <div style={{ marginTop: 20, marginBottom: 20 }}>
+                        <CalloutBox color={C.blue} icon="🎯" label="SCOPE OF THIS TALK">
+                            Today we cover the <strong>Presentation layer</strong> end-to-end — View, ViewModel, Router, Factory, DI, Destination, localisation.
+                            The Domain and Data layers are <strong>not</strong> auto-scaffolded yet — but the pre-architecture is already in place:
+                            Repository protocols, UseCase seams, DataSource stubs, and a layer-scaffolder template that makes adding them a small, low-risk follow-up.
+                        </CalloutBox>
+                    </div>
+                </Reveal>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginTop: 12 }}>
+                    <Reveal delay={0.08}>
                         <InfoCard icon="✨" title="Where it wins" color={C.accent} tag="WINS">
-                            <CheckItem active>~12 boilerplate files per screen, gone</CheckItem>
+                            <CheckItem active>12 boilerplate files per screen, gone</CheckItem>
                             <CheckItem active>Zero drift between modules — templates are the law</CheckItem>
                             <CheckItem active>Design tokens resolved automatically from Figma variables</CheckItem>
                             <CheckItem active>Mandatory @figma-review blocks self-audit escape</CheckItem>
@@ -25,28 +35,27 @@ export function ProsConsSection() {
                         </InfoCard>
                     </Reveal>
 
-                    <Reveal delay={0.1}>
+                    <Reveal delay={0.16}>
                         <InfoCard icon="⚠️" title="Where it doesn't" color={C.red} tag="LIMITS">
                             <CheckItem active={false}>Requires Figma desktop + MCP running locally</CheckItem>
                             <CheckItem active={false}>Novel UI patterns still need hand-authoring</CheckItem>
-                            <CheckItem active={false}>Business logic lands as TODOs — you fill them in</CheckItem>
+                            <CheckItem active={false}>Domain / Data layers not yet auto-scaffolded</CheckItem>
                             <CheckItem active={false}>Dead mappings ⇒ guessed Swift ⇒ wrong code</CheckItem>
-                            <CheckItem active={false}>First run on a new module warms the discovery cache — ~2x slower</CheckItem>
+                            <CheckItem active={false}>First run on a new module warms the discovery cache — 2× slower</CheckItem>
                             <CheckItem active={false}>Can&apos;t scaffold Snapshot / Contract test targets yet</CheckItem>
                             <CheckItem active={false}>No @screen-remover yet — deletions are manual</CheckItem>
                         </InfoCard>
                     </Reveal>
                 </div>
 
-                <Reveal delay={0.18}>
+                <Reveal delay={0.22}>
                     <div style={{
-                        marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 14,
+                        marginTop: 24, display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14,
                     }}>
                         {[
-                            { label: "COST PER RUN",       value: "~$0.40",  sub: "LLM + MCP, p50",         color: C.accent },
-                            { label: "MEDIAN RUNTIME",     value: "7m 18s",   sub: "end-to-end, attended",   color: C.blue },
-                            { label: "FILES WRITTEN",      value: "~12",      sub: "per Presentation run",   color: C.purple },
-                            { label: "HAND-FIX RATE",      value: "~2 TODOs", sub: "median per ViewModel",   color: C.yellow },
+                            { label: "MEDIAN RUNTIME",     value: "7m 18s",  sub: "end-to-end, attended",   color: C.blue },
+                            { label: "FILES WRITTEN",      value: "12",      sub: "per /figma-to-screen run", color: C.purple },
+                            { label: "HAND-FIX RATE",      value: "2 TODOs", sub: "median per ViewModel",   color: C.yellow },
                         ].map(stat => (
                             <div key={stat.label} style={{
                                 background: C.surface, border: `1px solid ${C.border}`, borderTop: `2px solid ${stat.color}`,

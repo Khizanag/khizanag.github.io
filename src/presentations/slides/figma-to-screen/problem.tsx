@@ -1,5 +1,4 @@
 import { C, Reveal, SectionLabel, SectionHeading, InfoCard, CheckItem, CalloutBox } from "../../shared.tsx";
-import { P } from "./ui.tsx";
 
 const PROBLEM_KEYFRAMES = `
 @keyframes file-pop {
@@ -13,58 +12,66 @@ const PROBLEM_KEYFRAMES = `
 }
 `;
 
-type LayerFiles = { layer: string; color: string; files: string[] };
+type FileEntry = { name: string; modified?: boolean };
+type LayerFiles = { layer: string; color: string; files: FileEntry[] };
 
 const LAYER_FILES: LayerFiles[] = [
     {
         layer: "PRESENTATION",
         color: C.blue,
         files: [
-            "DishDetailsView.swift",
-            "DishDetailsViewModel.swift",
-            "DefaultDishDetailsViewModel.swift",
-            "DishDetailsState.swift",
-            "DishDetailsIntent.swift",
-            "DishDetailsRouter.swift",
-            "DefaultDishDetailsRouter.swift",
-            "DishDetailsViewFactory.swift",
-            "DefaultDishDetailsViewFactory.swift",
-            "DishDetailsInjection.swift",
-            "Destination.swift  ⚠ patch",
-            "Injection.swift  ⚠ patch",
-            "en.lproj/Localizable.strings",
-            "ru.lproj/Localizable.strings",
-            "uz.lproj/Localizable.strings",
+            { name: "ScreenView.swift" },
+            { name: "ScreenViewModel.swift" },
+            { name: "DefaultScreenViewModel.swift" },
+            { name: "ScreenState.swift" },
+            { name: "ScreenIntent.swift" },
+            { name: "ScreenRouter.swift" },
+            { name: "DefaultScreenRouter.swift" },
+            { name: "ScreenViewFactory.swift" },
+            { name: "DefaultScreenViewFactory.swift" },
+            { name: "ScreenInjection.swift" },
+            { name: "Destination.swift", modified: true },
+            { name: "Injection.swift", modified: true },
+            { name: "en.lproj/Localizable.strings", modified: true },
+            { name: "ru.lproj/Localizable.strings", modified: true },
+            { name: "uz.lproj/Localizable.strings", modified: true },
         ],
     },
     {
         layer: "DOMAIN",
         color: C.purple,
         files: [
-            "GetDishDetailsUseCase.swift",
-            "DefaultGetDishDetailsUseCase.swift",
-            "DishDetailsRepository.swift",
-            "Dish.swift  (model)",
-            "DishDetailsInjection+Domain.swift",
+            { name: "GetScreenDataUseCase.swift" },
+            { name: "DefaultGetScreenDataUseCase.swift" },
+            { name: "ScreenRepository.swift" },
+            { name: "ScreenModel.swift" },
+            { name: "ScreenInjection+Domain.swift" },
         ],
     },
     {
         layer: "DATA",
         color: C.yellow,
         files: [
-            "DefaultDishDetailsRepository.swift",
-            "DishDetailsRemoteDataSource.swift",
-            "DefaultDishDetailsRemoteDataSource.swift",
-            "DishDTO.swift",
-            "DishDTOToDomainMapper.swift",
-            "DefaultDishDTOToDomainMapper.swift",
-            "GetDishDetailsRequest.swift",
-            "DishDetailsInjection+Data.swift",
+            { name: "DefaultScreenRepository.swift" },
+            { name: "ScreenRemoteDataSource.swift" },
+            { name: "DefaultScreenRemoteDataSource.swift" },
+            { name: "ScreenDTO.swift" },
+            { name: "ScreenDTOToDomainMapper.swift" },
+            { name: "DefaultScreenDTOToDomainMapper.swift" },
+            { name: "GetScreenDataRequest.swift" },
+            { name: "ScreenInjection+Data.swift" },
         ],
     },
 ];
 
 const TOTAL_FILES = LAYER_FILES.reduce((sum, l) => sum + l.files.length, 0);
+const MODIFIED_FILES = LAYER_FILES.reduce(
+    (sum, l) => sum + l.files.filter((f) => f.modified).length,
+    0,
+);
+const CREATED_FILES = TOTAL_FILES - MODIFIED_FILES;
+
+const MODIFIED_COLOR = C.red;
 
 export function ProblemSection() {
     return (
@@ -73,14 +80,24 @@ export function ProblemSection() {
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
                 <Reveal>
                     <SectionLabel color={C.red}>THE PROBLEM</SectionLabel>
-                    <SectionHeading sub={`A new screen used to mean ${TOTAL_FILES} hand-authored files across Presentation, Domain, and Data — plus patches to two central files. Easy to miss a step, and the first miss usually shows up in Dev Mode after QA.`}>
+                    <SectionHeading sub={`A new screen used to mean ${CREATED_FILES} new files created and ${MODIFIED_FILES} central files modified by hand. Easy to miss a step, and the first miss usually shows up in Dev Mode after QA.`}>
                         Screen scaffolding is mechanical, but expensive
                     </SectionHeading>
                 </Reveal>
 
+                {/* Legend */}
+                <Reveal delay={0.04}>
+                    <div style={{
+                        display: "flex", gap: 20, justifyContent: "center", marginTop: 18, marginBottom: 10,
+                    }}>
+                        <LegendDot color={C.blue}      label="CREATED" />
+                        <LegendDot color={MODIFIED_COLOR} label="MODIFIED (central file)" dashed />
+                    </div>
+                </Reveal>
+
                 {/* The full inventory — 3 layers, organized by colour */}
                 <Reveal delay={0.08}>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 18, marginTop: 28 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 18, marginTop: 14 }}>
                         {LAYER_FILES.map((layer, li) => (
                             <div key={layer.layer} style={{
                                 background: C.surface, border: `1px solid ${C.border}`,
@@ -101,25 +118,31 @@ export function ProblemSection() {
                                     }}>{layer.files.length}</div>
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                                    {layer.files.map((file, fi) => (
-                                        <div key={file} style={{
-                                            display: "flex", alignItems: "center", gap: 8,
-                                            padding: "5px 10px", borderRadius: 6,
-                                            background: C.bg, border: `1px solid ${C.border}`,
-                                            fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5,
-                                            color: file.includes("⚠") ? C.yellow : C.muted,
-                                            animation: `file-pop 0.4s ease ${0.15 + li * 0.08 + fi * 0.03}s both`,
-                                        }}>
-                                            <span style={{
-                                                width: 6, height: 6, borderRadius: 2,
-                                                background: file.includes("⚠") ? C.yellow : layer.color,
-                                                flexShrink: 0,
-                                            }} />
-                                            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                                                {file}
-                                            </span>
-                                        </div>
-                                    ))}
+                                    {layer.files.map((file, fi) => {
+                                        const color = file.modified ? MODIFIED_COLOR : layer.color;
+                                        return (
+                                            <div key={file.name} style={{
+                                                display: "flex", alignItems: "center", gap: 8,
+                                                padding: "5px 10px", borderRadius: 6,
+                                                background: C.bg,
+                                                border: file.modified
+                                                    ? `1px dashed ${MODIFIED_COLOR}60`
+                                                    : `1px solid ${C.border}`,
+                                                fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5,
+                                                color: file.modified ? MODIFIED_COLOR : C.muted,
+                                                animation: `file-pop 0.4s ease ${0.15 + li * 0.08 + fi * 0.03}s both`,
+                                            }}>
+                                                <span style={{
+                                                    width: 10, textAlign: "center",
+                                                    color, fontWeight: 700, fontSize: 11,
+                                                    flexShrink: 0,
+                                                }}>{file.modified ? "~" : "+"}</span>
+                                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                                    {file.name}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         ))}
@@ -142,7 +165,10 @@ export function ProblemSection() {
                             <div style={{
                                 fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: C.text, lineHeight: 1.55,
                             }}>
-                                For <strong style={{ color: C.text }}>one</strong> new screen. Copied from a neighbour, renamed by hand, registered by hand, localised by hand — and <strong style={{ color: C.red }}>one missing line anywhere</strong> surfaces as a silent runtime bug.
+                                <strong style={{ color: C.blue }}>{CREATED_FILES} created</strong>
+                                {" · "}
+                                <strong style={{ color: MODIFIED_COLOR }}>{MODIFIED_FILES} modified</strong>
+                                {" "}for <strong style={{ color: C.text }}>one</strong> new screen. Copied from a neighbour, renamed by hand, registered by hand, localised by hand — and <strong style={{ color: C.red }}>one missing line anywhere</strong> surfaces as a silent runtime bug.
                             </div>
                         </div>
                         <div style={{
@@ -181,5 +207,24 @@ export function ProblemSection() {
                 </Reveal>
             </div>
         </section>
+    );
+}
+
+function LegendDot({ color, label, dashed }: { color: string; label: string; dashed?: boolean }) {
+    return (
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                width: 22, height: 18, borderRadius: 4,
+                background: C.bg,
+                border: dashed ? `1px dashed ${color}80` : `1px solid ${color}80`,
+                fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 700,
+                color,
+            }}>{dashed ? "~" : "+"}</span>
+            <span style={{
+                fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 10.5,
+                letterSpacing: "0.12em", color: C.muted,
+            }}>{label}</span>
+        </div>
     );
 }

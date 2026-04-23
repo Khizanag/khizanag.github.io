@@ -8,6 +8,7 @@ import iOSPassiveIncome from "./slides/ios-passive-income/index.tsx";
 import CodeConnectPresentation from "./slides/code-connect/index.tsx";
 import NativeVsTemplatesPresentation from "./slides/native-vs-templates/index.tsx";
 import FigmaToScreenPresentation from "./slides/figma-to-screen/index.tsx";
+import IOSDistributionPresentation from "./slides/ios-distribution/index.tsx";
 
 export interface Slide {
   id: string;
@@ -20,6 +21,15 @@ export interface Slide {
 }
 
 export const SLIDES: Slide[] = [
+  {
+    id:            "ios-distribution",
+    title:         "From git push to App Store",
+    subtitle:      "A 75-minute deep dive into iOS distribution, App Store Connect, App Review Guidelines, and real-world war stories — HEY, Epic, Beeper, XcodeGhost, and more — plus our own CI/CD pipeline and a live review game.",
+    category:      "iOS Distribution",
+    categoryColor: C.blue,
+    date:          "Apr 2026",
+    component:     IOSDistributionPresentation,
+  },
   {
     id:            "figma-to-screen",
     title:         "/figma-to-screen Pipeline",

@@ -63,10 +63,11 @@ export function useLocalTabNav(
 }
 
 function resolveCurrentIndex(sections: HTMLElement[]): number {
-  // Find the section closest to the top of the viewport.
-  // Uses a small offset (15% of viewport) so that when a section's top
-  // is near the viewport top it's considered "current", not the previous one.
-  const ref = window.scrollY + window.innerHeight * 0.15;
+  // Find the section that owns the viewport top.
+  // A section is "current" once its top has crossed slightly past the
+  // viewport top (4% of viewport). Smaller offset = tighter snap, fewer
+  // off-by-one errors when smooth-scroll lands ~1px short.
+  const ref = window.scrollY + window.innerHeight * 0.04;
   let best = 0;
   for (let i = 0; i < sections.length; i++) {
     const top = sections[i].getBoundingClientRect().top + window.scrollY;

@@ -32,7 +32,7 @@ export function PresentationHero({
     <section id={id} style={{
       minHeight: "100vh", position: "relative",
       display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
-      textAlign: "center", padding: "120px 48px 80px",
+      textAlign: "center", padding: "120px 48px 140px",
     }}>
       <div style={{ animation: "fadeUp 0.7s ease 0.1s both" }}>
         <div style={{
@@ -81,9 +81,9 @@ export function PresentationHero({
         ))}
       </div>
 
-      <div style={{ animation: "fadeIn 1s ease 1.2s both", position: "absolute", bottom: 48, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <div style={{ animation: "fadeIn 1s ease 1.2s both", position: "absolute", bottom: 28, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, pointerEvents: "none" }}>
         <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: C.subtle, letterSpacing: "0.12em" }}>SCROLL</span>
-        <div style={{ width: 1, height: 40, background: `linear-gradient(${accentColor}, transparent)` }} />
+        <div style={{ width: 1, height: 32, background: `linear-gradient(${accentColor}, transparent)` }} />
       </div>
     </section>
   );

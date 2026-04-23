@@ -43,6 +43,50 @@ export function GlossarySection() {
                         </Reveal>
                     ))}
                 </div>
+
+                {/* Transition → the foundational idea */}
+                <Reveal delay={0.4}>
+                    <div style={{
+                        marginTop: 36,
+                        display: "flex", alignItems: "center", gap: 16,
+                        padding: "18px 22px",
+                        background: `linear-gradient(90deg, ${C.surface}, ${C.bg})`,
+                        border: `1px solid ${C.border}`,
+                        borderLeft: `3px solid ${C.purple}`,
+                        borderRadius: 10,
+                    }}>
+                        <div style={{
+                            fontFamily: "'Syne', sans-serif", fontSize: 10, fontWeight: 800,
+                            letterSpacing: "0.22em", color: C.purple,
+                            padding: "4px 10px", borderRadius: 50,
+                            background: `${C.purple}15`, border: `1px solid ${C.purple}40`,
+                            whiteSpace: "nowrap",
+                        }}>
+                            NEXT UP
+                        </div>
+                        <div style={{
+                            fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: C.text, lineHeight: 1.55,
+                            flex: 1,
+                        }}>
+                            Out of those ten, one deserves its own slide. Before agents, MCP, templates, or gates —
+                            everything this deck describes rests on <strong style={{ color: C.purple }}>Code Connect</strong>.
+                            Here is the one idea to hold on to.
+                        </div>
+                        <div style={{
+                            fontFamily: "'JetBrains Mono', monospace", fontSize: 18, color: C.purple,
+                            animation: "arrow-nudge 1.8s ease-in-out infinite",
+                        }}>
+                            ↓
+                        </div>
+                    </div>
+                </Reveal>
+
+                <style>{`
+                    @keyframes arrow-nudge {
+                        0%, 100% { transform: translateY(0); opacity: 0.7; }
+                        50%      { transform: translateY(4px); opacity: 1; }
+                    }
+                `}</style>
             </div>
         </section>
     );

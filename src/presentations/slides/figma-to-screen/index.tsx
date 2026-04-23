@@ -24,7 +24,7 @@ import { ConsumerSection } from "./consumer.tsx";
 import { FlagshipSection } from "./flagship.tsx";
 import { PhasesSection } from "./phases.tsx";
 import { AgentsSection } from "./agents.tsx";
-import { ContextSection } from "./context.tsx";
+import { CachingSection } from "./caching.tsx";
 import { GatesSection } from "./gates.tsx";
 import { ExampleSection } from "./example.tsx";
 import { DoDontSection } from "./doDont.tsx";
@@ -50,7 +50,7 @@ const SECTION_IDS = [
     "s-flagship",
     "s-phases",
     "s-agents",
-    "s-context",
+    "s-caching",
     "s-gates",
     "s-example",
     "s-code-connect",
@@ -132,7 +132,7 @@ export default function FigmaToScreenPresentation() {
                 <FlagshipSection />
                 <PhasesSection />
                 <AgentsSection />
-                <ContextSection />
+                <CachingSection />
                 <GatesSection />
                 <ExampleSection />
                 <CodeConnectSection />

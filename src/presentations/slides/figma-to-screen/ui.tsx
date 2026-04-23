@@ -248,19 +248,21 @@ export function AgentRow({ name, role, description, delay = 0 }: AgentRowProps) 
         <div
             ref={ref}
             style={{
-                display: "grid", gridTemplateColumns: "220px 110px 1fr", gap: 14, alignItems: "center",
-                padding: "11px 14px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8,
+                display: "flex", flexDirection: "column", gap: 6,
+                padding: "10px 14px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8,
                 opacity: inView ? 1 : 0, transform: inView ? "translateX(0)" : "translateX(-8px)",
                 transition: `opacity 0.4s ease ${delay}s, transform 0.4s ease ${delay}s`,
             }}
         >
-            <code style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: C.text, fontWeight: 600 }}>@{name}</code>
-            <span style={{
-                fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 9, color: meta.color, letterSpacing: "0.1em",
-                background: `${meta.color}15`, border: `1px solid ${meta.color}40`, padding: "3px 7px",
-                borderRadius: 4, textAlign: "center", justifySelf: "start",
-            }}>{meta.label}</span>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: C.muted, lineHeight: 1.5 }}>{description}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                <code style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: C.text, fontWeight: 600 }}>@{name}</code>
+                <span style={{
+                    fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 9, color: meta.color, letterSpacing: "0.1em",
+                    background: `${meta.color}15`, border: `1px solid ${meta.color}40`, padding: "2px 6px",
+                    borderRadius: 4,
+                }}>{meta.label}</span>
+            </div>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11.5, color: C.muted, lineHeight: 1.5 }}>{description}</span>
         </div>
     );
 }

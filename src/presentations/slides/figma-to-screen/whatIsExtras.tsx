@@ -48,10 +48,11 @@ export function HeroTransform() {
             ref={ref}
             style={{
                 position: "relative",
-                background: C.surface, border: `1px solid ${C.border}`,
-                borderRadius: 14, padding: "24px 28px",
-                display: "grid", gridTemplateColumns: "1fr 72px 1fr",
-                alignItems: "center", gap: 20,
+                background: `linear-gradient(180deg, ${C.surface}, ${C.bg})`,
+                border: `1px solid ${C.border}`,
+                borderRadius: 16, padding: "28px 32px",
+                display: "grid", gridTemplateColumns: "1fr 1px 96px 1px 1fr",
+                alignItems: "stretch", gap: 24,
                 overflow: "hidden",
                 opacity: inView ? 1 : 0,
                 transform: inView ? "translateY(0)" : "translateY(14px)",
@@ -63,15 +64,21 @@ export function HeroTransform() {
             {/* glow sweep */}
             <div style={{
                 position: "absolute", inset: 0, pointerEvents: "none",
-                background: `linear-gradient(100deg, transparent 40%, ${P}18 50%, transparent 60%)`,
-                animation: inView ? "glow-sweep 4s ease-in-out 0.6s infinite" : "none",
+                background: `linear-gradient(100deg, transparent 40%, ${P}12 50%, transparent 60%)`,
+                animation: inView ? "glow-sweep 5s ease-in-out 0.6s infinite" : "none",
             }} />
 
             {/* BEFORE — chaotic files */}
             <BeforeFileCloud active={inView} />
 
+            {/* Left divider */}
+            <div style={{ background: `linear-gradient(180deg, transparent, ${C.border}, transparent)` }} />
+
             {/* ARROW */}
             <ArrowWithCommand active={inView} />
+
+            {/* Right divider */}
+            <div style={{ background: `linear-gradient(180deg, transparent, ${C.border}, transparent)` }} />
 
             {/* AFTER — clean branch */}
             <AfterBranch active={inView} />
@@ -79,50 +86,73 @@ export function HeroTransform() {
     );
 }
 
-function BeforeFileCloud({ active }: { active: boolean }) {
-    const files = [
-        { t: "View",          x: -60, y: -14, r: -5,  d: 0.10 },
-        { t: "ViewModel",     x:   0, y: -20, r:  3,  d: 0.18 },
-        { t: "Router",        x:  60, y: -10, r:  6,  d: 0.26 },
-        { t: "Factory",       x: -50, y:  10, r:  4,  d: 0.34 },
-        { t: "Destination",   x:  20, y:  14, r: -6,  d: 0.42 },
-        { t: "Injection",     x:  70, y:  18, r:  2,  d: 0.50 },
-        { t: "Repository",    x: -20, y:  36, r: -3,  d: 0.58 },
-        { t: "UseCase",       x:  50, y:  38, r:  5,  d: 0.66 },
-    ];
+function PanelHeader({ label, color, align }: { label: string; color: string; align: "left" | "right" }) {
     return (
         <div style={{
-            position: "relative", height: 140,
-            display: "flex", alignItems: "center", justifyContent: "center",
+            display: "flex", alignItems: "center", gap: 8,
+            justifyContent: align === "left" ? "flex-start" : "flex-end",
+            marginBottom: 14,
         }}>
-            <div style={{
-                position: "absolute", top: -6, left: 4,
+            {align === "left" && <span style={{ width: 6, height: 6, borderRadius: "50%", background: color, boxShadow: `0 0 8px ${color}` }} />}
+            <span style={{
                 fontFamily: "'Syne', sans-serif", fontSize: 10, fontWeight: 800,
-                letterSpacing: "0.18em", color: C.red,
+                letterSpacing: "0.22em", color,
             }}>
-                BEFORE · 28 FILES
+                {label}
+            </span>
+            {align === "right" && <span style={{ width: 6, height: 6, borderRadius: "50%", background: color, boxShadow: `0 0 8px ${color}` }} />}
+        </div>
+    );
+}
+
+function BeforeFileCloud({ active }: { active: boolean }) {
+    const files = [
+        { t: "View.swift",         x: -86, y:  -6, r: -4, d: 0.10 },
+        { t: "ViewModel.swift",    x:   6, y: -22, r:  3, d: 0.18 },
+        { t: "Router.swift",       x:  92, y:  -8, r:  5, d: 0.26 },
+        { t: "Factory.swift",      x: -80, y:  24, r: -3, d: 0.34 },
+        { t: "Destination.swift",  x:  14, y:  10, r: -5, d: 0.42 },
+        { t: "Injection.swift",    x: 100, y:  28, r:  4, d: 0.50 },
+        { t: "Repository.swift",   x: -60, y:  54, r: -2, d: 0.58 },
+        { t: "UseCase.swift",      x:  52, y:  46, r:  6, d: 0.66 },
+    ];
+    return (
+        <div style={{ display: "flex", flexDirection: "column", minHeight: 180 }}>
+            <PanelHeader label="BEFORE · 28 FILES · HAND-AUTHORED" color={C.red} align="left" />
+            <div style={{
+                position: "relative", flex: 1,
+                display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+                <div style={{ position: "relative", width: "100%", height: 140 }}>
+                    {files.map((f) => (
+                        <div
+                            key={f.t}
+                            style={{
+                                position: "absolute", left: "50%", top: "50%",
+                                "--tx": `${f.x}px`, "--ty": `${f.y}px`, "--r": `${f.r}deg`,
+                                transform: `translate(calc(-50% + ${f.x}px), calc(-50% + ${f.y}px)) rotate(${f.r}deg)`,
+                                padding: "5px 10px", borderRadius: 5,
+                                background: C.bg, border: `1px solid ${C.red}50`,
+                                boxShadow: `0 2px 10px ${C.red}12`,
+                                fontFamily: "'JetBrains Mono', monospace", fontSize: 10,
+                                color: C.red, whiteSpace: "nowrap",
+                                opacity: active ? 1 : 0,
+                                animation: active
+                                    ? `rise-fade 0.5s ease ${f.d}s both, file-wobble 4s ease-in-out ${1.8 + f.d}s infinite`
+                                    : "none",
+                            } as React.CSSProperties}
+                        >
+                            {f.t}
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div style={{ position: "relative", width: 220, height: 110 }}>
-                {files.map((f) => (
-                    <div
-                        key={f.t}
-                        style={{
-                            position: "absolute", left: "50%", top: "50%",
-                            "--tx": `${f.x}px`, "--ty": `${f.y}px`, "--r": `${f.r}deg`,
-                            transform: `translate(${f.x}px, ${f.y}px) rotate(${f.r}deg)`,
-                            padding: "3px 8px", borderRadius: 4,
-                            background: C.bg, border: `1px solid ${C.red}40`,
-                            fontFamily: "'JetBrains Mono', monospace", fontSize: 9.5,
-                            color: C.red, whiteSpace: "nowrap",
-                            opacity: active ? 1 : 0,
-                            animation: active
-                                ? `rise-fade 0.4s ease ${f.d}s both, file-wobble 3s ease-in-out ${1.5 + f.d}s infinite`
-                                : "none",
-                        } as React.CSSProperties}
-                    >
-                        {f.t}.swift
-                    </div>
-                ))}
+            <div style={{
+                fontFamily: "'DM Sans', sans-serif", fontSize: 11,
+                color: C.muted, textAlign: "center", marginTop: 6,
+                letterSpacing: "0.02em",
+            }}>
+                + 20 more across Domain, Data, Mapper, DTO, DI…
             </div>
         </div>
     );
@@ -131,32 +161,34 @@ function BeforeFileCloud({ active }: { active: boolean }) {
 function ArrowWithCommand({ active }: { active: boolean }) {
     return (
         <div style={{
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            gap: 12, minHeight: 180,
         }}>
             <div style={{
-                fontFamily: "'JetBrains Mono', monospace", fontSize: 10,
+                fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5,
                 color: P, fontWeight: 700, whiteSpace: "nowrap",
-                padding: "4px 8px", borderRadius: 50,
-                background: `${P}15`, border: `1px solid ${P}50`,
+                padding: "6px 12px", borderRadius: 50,
+                background: `${P}15`, border: `1px solid ${P}60`,
+                boxShadow: `0 0 16px ${P}25`,
                 opacity: active ? 1 : 0,
                 animation: active ? "rise-fade 0.5s ease 0.8s both" : "none",
             }}>
                 /figma-to-screen
             </div>
-            <svg width="48" height="28" viewBox="0 0 48 28" fill="none"
+            <svg width="56" height="28" viewBox="0 0 56 28" fill="none"
                 style={{ opacity: active ? 1 : 0, transition: "opacity 0.4s ease 1s" }}>
                 <path
-                    d="M2 14 H42 M36 8 L42 14 L36 20"
+                    d="M4 14 H48 M42 8 L48 14 L42 20"
                     stroke={P} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                     strokeDasharray="4 4"
                     style={{ animation: active ? "dash 1s linear infinite" : "none" }}
                 />
             </svg>
             <div style={{
-                fontFamily: "'DM Sans', sans-serif", fontSize: 9,
-                color: C.muted, letterSpacing: "0.08em", textTransform: "uppercase",
+                fontFamily: "'Syne', sans-serif", fontSize: 9, fontWeight: 700,
+                color: C.muted, letterSpacing: "0.18em", textTransform: "uppercase",
             }}>
-                one command
+                ONE COMMAND
             </div>
         </div>
     );
@@ -171,29 +203,25 @@ function AfterBranch({ active }: { active: boolean }) {
         { icon: "→", t: "session log written",          c: C.blue,   d: 1.5 },
     ];
     return (
-        <div style={{ position: "relative", height: 140 }}>
+        <div style={{ display: "flex", flexDirection: "column", minHeight: 180 }}>
+            <PanelHeader label="AFTER · 1 COMMIT · VERIFIED" color={P} align="right" />
             <div style={{
-                position: "absolute", top: -6, right: 4,
-                fontFamily: "'Syne', sans-serif", fontSize: 10, fontWeight: 800,
-                letterSpacing: "0.18em", color: P,
-            }}>
-                AFTER · 1 COMMIT
-            </div>
-            <div style={{
-                position: "absolute", inset: "12px 0 0 0",
-                padding: "10px 12px", borderRadius: 8,
-                background: C.bg, border: `1px solid ${P}35`,
-                fontFamily: "'JetBrains Mono', monospace", fontSize: 10.5,
-                display: "flex", flexDirection: "column", gap: 6,
+                flex: 1,
+                padding: "14px 16px", borderRadius: 10,
+                background: C.bg, border: `1px solid ${P}30`,
+                boxShadow: `inset 0 0 20px ${P}06`,
+                fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
+                display: "flex", flexDirection: "column", justifyContent: "center", gap: 9,
             }}>
                 {lines.map((l) => (
                     <div key={l.t} style={{
-                        display: "flex", alignItems: "center", gap: 8,
+                        display: "flex", alignItems: "center", gap: 10,
                         opacity: active ? 1 : 0,
                         animation: active ? `rise-fade 0.4s ease ${l.d}s both` : "none",
                     }}>
                         <span style={{
-                            color: l.c, fontSize: 11, fontWeight: 700,
+                            color: l.c, fontSize: 12, fontWeight: 700,
+                            minWidth: 14, textAlign: "center",
                             animation: active ? `check-pop 0.4s ease ${l.d}s both` : "none",
                         }}>{l.icon}</span>
                         <span style={{ color: C.text }}>{l.t}</span>

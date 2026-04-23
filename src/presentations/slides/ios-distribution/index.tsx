@@ -19,15 +19,22 @@ import { EntitlementsMatrixSection } from "./entitlementsMatrix.tsx";
 import { BinaryInternalsSection } from "./binaryInternals.tsx";
 import { MultiEnvironmentSection } from "./multiEnvironment.tsx";
 import { PushNotificationsSection } from "./pushNotifications.tsx";
+import { PushOperationalSection } from "./pushOperational.tsx";
+import { UniversalLinksSection } from "./universalLinks.tsx";
+import { AppAttestSection } from "./appAttest.tsx";
+import { AtsSection } from "./ats.tsx";
 import { ChannelsSection } from "./channels.tsx";
 import { EnterpriseMdmSection } from "./enterpriseMdm.tsx";
 import { DmaEuropeSection } from "./dmaEurope.tsx";
 import { TestflightSection } from "./testflight.tsx";
 import { MetadataAndAsoSection } from "./metadataAndAso.tsx";
+import { AscRolesSection } from "./ascRoles.tsx";
+import { RegionRatingSection } from "./regionRating.tsx";
 import { ReviewProcessSection } from "./reviewProcess.tsx";
 import { InsideReviewRoomSection } from "./insideReviewRoom.tsx";
 import { GuidelinesSection } from "./guidelines.tsx";
 import { StoreKitPaymentsSection } from "./storeKitPayments.tsx";
+import { PriceTiersSection } from "./priceTiers.tsx";
 import { TopRejectionsSection } from "./topRejections.tsx";
 import { ErrorDecoderSection } from "./errorDecoder.tsx";
 import { WhenReviewGoesWrongSection } from "./whenReviewGoesWrong.tsx";
@@ -39,10 +46,12 @@ import { WarStoriesMoreSection } from "./warStoriesMore.tsx";
 import { WarStorySpaceIntSection } from "./warStorySpaceInt.tsx";
 import { ReviewGameSection } from "./reviewGame.tsx";
 import { PrivacySection } from "./privacy.tsx";
+import { PrivacyDeepSection } from "./privacyDeep.tsx";
 import { PhasedReleaseSection } from "./phasedRelease.tsx";
 import { ExpeditedReviewSection } from "./expeditedReview.tsx";
 import { FeatureFlagsSection } from "./featureFlags.tsx";
 import { CICDSection } from "./cicd.tsx";
+import { SigningAutomationSection } from "./signingAutomation.tsx";
 import { ModularizationSection } from "./modularization.tsx";
 import { BuildOptimizationSection } from "./buildOptimization.tsx";
 import { ComparisonSection } from "./comparison.tsx";
@@ -60,27 +69,28 @@ const SECTION_IDS = [
     "s-div-01",
     "s-journey", "s-ecosystem",
     "s-signing", "s-signing-deep", "s-provisioning", "s-entitlements",
-    "s-push",
+    "s-push", "s-push-ops",
+    "s-universal-links", "s-app-attest", "s-ats",
     // 02 Distribution
     "s-div-02",
     "s-channels", "s-enterprise", "s-dma",
-    "s-testflight", "s-metadata",
+    "s-testflight", "s-metadata", "s-asc-roles", "s-region-rating",
     // 03 Gauntlet
     "s-div-03",
     "s-review", "s-inside-review", "s-guidelines",
     "s-rejections", "s-game", "s-review-wrong", "s-errors",
     // 04 Commerce
     "s-div-04",
-    "s-storekit",
+    "s-storekit", "s-price-tiers",
     // 05 Release Management
     "s-div-05",
-    "s-privacy", "s-phased", "s-expedited", "s-flags",
+    "s-privacy", "s-privacy-deep", "s-phased", "s-expedited", "s-flags",
     // 06 War Stories
     "s-div-06",
     "s-war-hey", "s-war-epic", "s-war-beeper", "s-war-more", "s-war-us",
     // 07 Engineering Ops
     "s-div-07",
-    "s-cicd", "s-modular", "s-buildopt", "s-binary", "s-multienv", "s-crashes",
+    "s-cicd", "s-signing-automation", "s-modular", "s-buildopt", "s-binary", "s-multienv", "s-crashes",
     // 08 Close
     "s-div-08",
     "s-hook-answers", "s-compare", "s-future", "s-shipday", "s-takeaways",
@@ -160,6 +170,10 @@ export default function IOSDistributionPresentation() {
                     <ProvisioningDeepSection />
                     <EntitlementsMatrixSection />
                     <PushNotificationsSection />
+                    <PushOperationalSection />
+                    <UniversalLinksSection />
+                    <AppAttestSection />
+                    <AtsSection />
 
                     {/* ─── 02 DISTRIBUTION ──────────────────────────────── */}
                     <ActDivider
@@ -175,6 +189,8 @@ export default function IOSDistributionPresentation() {
                     <DmaEuropeSection />
                     <TestflightSection />
                     <MetadataAndAsoSection />
+                    <AscRolesSection />
+                    <RegionRatingSection />
 
                     {/* ─── 03 GAUNTLET ──────────────────────────────────── */}
                     <ActDivider
@@ -203,6 +219,7 @@ export default function IOSDistributionPresentation() {
                         color={C.accent}
                     />
                     <StoreKitPaymentsSection />
+                    <PriceTiersSection />
 
                     {/* ─── 05 RELEASE MANAGEMENT ───────────────────────── */}
                     <ActDivider
@@ -214,6 +231,7 @@ export default function IOSDistributionPresentation() {
                         color={C.blue}
                     />
                     <PrivacySection />
+                    <PrivacyDeepSection />
                     <PhasedReleaseSection />
                     <ExpeditedReviewSection />
                     <FeatureFlagsSection />
@@ -243,6 +261,7 @@ export default function IOSDistributionPresentation() {
                         color={C.yellow}
                     />
                     <CICDSection />
+                    <SigningAutomationSection />
                     <ModularizationSection />
                     <BuildOptimizationSection />
                     <BinaryInternalsSection />

@@ -17,10 +17,22 @@ export interface Slide {
   category: string;
   categoryColor: string;
   date: string;
-  component: ComponentType;
+  /** React component for in-app presentations. Omit for externally-hosted decks (e.g. Slidev). */
+  component?: ComponentType;
+  /** External URL for decks hosted outside the React app (e.g. Slidev under /presentations/<deck>/). */
+  externalUrl?: string;
 }
 
 export const SLIDES: Slide[] = [
+  {
+    id:            "anatomy-source-to-binary",
+    title:         "From Source to Binary",
+    subtitle:      "Visual demo deck for the \"Anatomy of an App Release\" talk — Swift compilation pipeline traced through eight stages, from `func greet` to ARM64 machine code, with live syntax-coloured token transitions and Mach-O assembly excerpts.",
+    category:      "Compiler Internals",
+    categoryColor: C.purple,
+    date:          "May 2026",
+    externalUrl:   "/presentations/anatomy-source-to-binary/",
+  },
   {
     id:            "ios-distribution",
     title:         "From git push to App Store",

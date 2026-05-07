@@ -1,1 +1,0 @@
-import{o as t,e as a,g as s,F as n}from"./modules/vue-DRD2_753.js";import{u as r}from"./slidev/context-COPLPGQp.js";const u={__name:"AmbientBackground",setup(o){return r(),(i,e)=>(t(),a(n,null,[e[0]||(e[0]=s("div",{class:"gigai-grid"},null,-1)),e[1]||(e[1]=s("div",{class:"gigai-ambient"},null,-1))],64))}};export{u as _};

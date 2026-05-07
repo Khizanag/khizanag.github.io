@@ -25,15 +25,6 @@ export interface Slide {
 
 export const SLIDES: Slide[] = [
   {
-    id:            "anatomy-source-to-binary",
-    title:         "From Source to Binary",
-    subtitle:      "Visual demo deck for the \"Anatomy of an App Release\" talk — Swift compilation pipeline traced through eight stages, from `func greet` to ARM64 machine code, with live syntax-coloured token transitions and Mach-O assembly excerpts.",
-    category:      "Compiler Internals",
-    categoryColor: C.purple,
-    date:          "May 2026",
-    externalUrl:   "/presentations/anatomy-source-to-binary/",
-  },
-  {
     id:            "ios-distribution",
     title:         "From git push to App Store",
     subtitle:      "A 75-minute deep dive into iOS distribution, App Store Connect, App Review Guidelines, and real-world war stories — HEY, Epic, Beeper, XcodeGhost, and more — plus our own CI/CD pipeline and a live review game.",

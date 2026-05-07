@@ -1,0 +1,1 @@
+import{f as o,o as t,e as s,d as a,i as r}from"./modules/vue-DRD2_753.js";import{u as n}from"./slidev/context-COPLPGQp.js";import{_ as i}from"./AmbientBackground-BSEtPDZF.js";const _={class:"slidev-layout gigai-default"},p=o({__name:"default",setup(l){return n(),(e,c)=>(t(),s("div",_,[a(i),r(e.$slots,"default")]))}});export{p as _};

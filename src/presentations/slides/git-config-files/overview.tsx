@@ -27,9 +27,9 @@ const INI_SYNTAX = `# Comments start with # or ;
     name = Giga Khizanishvili
     email = giga@example.com
 
-[submodule "iOS-Space-Feature-Home"]
+[submodule "iOS-Acme-Feature-Home"]
     path = Features/Home
-    url = git@github.com:AcmeCorp/iOS-Space-Feature-Home.git`;
+    url = git@github.com:AcmeCorp/iOS-Acme-Feature-Home.git`;
 
 export function OverviewSection() {
   return (

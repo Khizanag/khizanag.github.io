@@ -585,12 +585,6 @@ img, svg {
     pointer-events: none;
 }
 
-.about__photo-placeholder {
-    color: var(--color-gray-400);
-    font-size: 14px;
-    font-weight: 500;
-}
-
 .about__photo svg {
     width: 56px;
     height: 56px;

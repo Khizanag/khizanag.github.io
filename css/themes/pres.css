@@ -256,10 +256,6 @@ footer,
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.about__photo-placeholder {
-    color: #5a6a82;
-}
-
 .about__photo svg {
     color: #5a6a82;
 }
@@ -1068,7 +1064,6 @@ footer,
 .theme-light .about__text strong { color: #1d1d1f; }
 .theme-light .about__photo { background: linear-gradient(160deg, #ffffff 0%, #f5f5f7 100%); }
 .theme-light .about__photo::after { border: 1px solid rgba(0, 0, 0, 0.08); }
-.theme-light .about__photo-placeholder { color: #86868b; }
 .theme-light .about__photo svg { color: #86868b; }
 .theme-light .about__float-card {
     background: #ffffff;

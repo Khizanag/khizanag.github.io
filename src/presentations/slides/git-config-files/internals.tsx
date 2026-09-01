@@ -26,14 +26,14 @@ const COMPONENTS = [
 ];
 
 const TREE_LINES = [
-  { text: "iOS-Space/", color: C.text, indent: 0 },
+  { text: "iOS-Acme/", color: C.text, indent: 0 },
   { text: "├── .git/", color: C.muted, indent: 1 },
   { text: "│   └── modules/", color: C.purple, indent: 2 },
-  { text: "│       ├── iOS-Space-Feature-Home/", color: C.purple, indent: 3 },
+  { text: "│       ├── iOS-Acme-Feature-Home/", color: C.purple, indent: 3 },
   { text: "│       │   ├── HEAD", color: C.subtle, indent: 4 },
   { text: "│       │   ├── objects/", color: C.subtle, indent: 4 },
   { text: "│       │   └── refs/", color: C.subtle, indent: 4 },
-  { text: "│       └── iOS-Space-Design-System/", color: C.purple, indent: 3 },
+  { text: "│       └── iOS-Acme-Design-System/", color: C.purple, indent: 3 },
   { text: "├── .gitmodules", color: P, indent: 1 },
   { text: "├── Features/", color: C.text, indent: 1 },
   { text: "│   └── Home/", color: C.accent, indent: 2 },

@@ -115,7 +115,7 @@ const ADVANCED_CODE = `[filter "lfs"]
     required = true
 
 [maintenance]
-    repo = /Users/giga/iOS-Space
+    repo = /Users/giga/iOS-Acme
     auto = true
     strategy = incremental          # Git 2.32+
 

@@ -53,16 +53,16 @@ const LOCAL_CODE = `# .git/config  (inside each repository)
     logallrefupdates = true
 
 [remote "origin"]
-    url = git@github.com:AcmeCorp/iOS-Space.git
+    url = git@github.com:AcmeCorp/iOS-Acme.git
     fetch = +refs/heads/*:refs/remotes/origin/*
 
 [branch "master"]
     remote = origin
     merge = refs/heads/master
 
-[submodule "iOS-Space-Feature-Home"]
+[submodule "iOS-Acme-Feature-Home"]
     active = true
-    url = git@github.com:AcmeCorp/iOS-Space-Feature-Home.git`;
+    url = git@github.com:AcmeCorp/iOS-Acme-Feature-Home.git`;
 
 const WORKTREE_CODE = `# .git/config.worktree  (Git 2.20+)
 # Per-worktree overrides — different settings per checkout

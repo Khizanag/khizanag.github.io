@@ -4,13 +4,6 @@
 Personal portfolio/resume website for Giga Khizanishvili, hosted via GitHub Pages.
 Static HTML/CSS/JS pages + React/Vite presentations. Build tools at root level (`package.json`, `vite.config.js`).
 
-## Git Identity
-- **Always use this identity for commits in this repo:**
-  - Name: `Giga Khizanishvili`
-  - Email: `khizanag@gmail.com`
-- This is configured via local git config (`user.name` and `user.email`)
-- **Never** use the work email (`giga.khizanishvili@space.ge`) for this repository
-
 ## Workflow Rules
 - **Always commit directly to `master`** — no feature branches
 - **Always push to remote after every commit**

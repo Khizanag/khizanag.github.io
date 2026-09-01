@@ -17,8 +17,8 @@ const INIT_DIFF = [
 ];
 
 const URL_REWRITE = `# .gitmodules (committed, shared with everyone)
-[submodule "iOS-Space-Feature-Home"]
-    url = https://github.com/AcmeCorp/iOS-Space-Feature-Home.git
+[submodule "iOS-Acme-Feature-Home"]
+    url = https://github.com/AcmeCorp/iOS-Acme-Feature-Home.git
 
 # ~/.gitconfig (personal, never committed)
 [url "git@github.com:"]

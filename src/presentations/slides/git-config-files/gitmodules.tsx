@@ -11,23 +11,23 @@ const KEYS = [
   { name: "fetchRecurseSubmodules", type: "bool", def: "true", desc: "Whether git fetch recurses into this submodule automatically" },
 ];
 
-const IOS_EXAMPLE = `# .gitmodules — iOS-Space monorepo
-[submodule "iOS-Space-Feature-Home"]
+const IOS_EXAMPLE = `# .gitmodules — iOS-Acme monorepo
+[submodule "iOS-Acme-Feature-Home"]
     path = Features/Home
-    url = git@github.com:AcmeCorp/iOS-Space-Feature-Home.git
+    url = git@github.com:AcmeCorp/iOS-Acme-Feature-Home.git
     branch = .
     update = checkout
 
-[submodule "iOS-Space-Feature-Auth"]
+[submodule "iOS-Acme-Feature-Auth"]
     path = Features/Auth
-    url = git@github.com:AcmeCorp/iOS-Space-Feature-Auth.git
+    url = git@github.com:AcmeCorp/iOS-Acme-Feature-Auth.git
     branch = master
     update = checkout
     ignore = dirty
 
-[submodule "iOS-Space-Design-System"]
+[submodule "iOS-Acme-Design-System"]
     path = Design/System
-    url = git@github.com:AcmeCorp/iOS-Space-Design-System.git
+    url = git@github.com:AcmeCorp/iOS-Acme-Design-System.git
     branch = master
     shallow = true`;
 

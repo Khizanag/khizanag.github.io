@@ -1,5 +1,5 @@
 import {
-  C, FONTS, KEYFRAMES,
+  C,
   useScrolled, useKeyboardNav,
   AnimatedGrid, AmbientBlobs,
   PresentationNav, ThankYouSection, PresentationFooter,
@@ -48,7 +48,6 @@ export default function GitConfigPresentation() {
 
   return (
     <>
-      <style>{FONTS}{KEYFRAMES}</style>
       <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif" }}>
 
         <AnimatedGrid />

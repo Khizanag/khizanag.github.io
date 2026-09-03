@@ -41,6 +41,8 @@ npm run lint
 npm run build
 ```
 
+`npm run test:rules` checks `firestore.rules` against the Firestore emulator; it needs Java installed.
+
 ## Deployment
 
 Pushing to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): it typechecks, lints, tests, and builds the presentations app, assembles the static pages plus the build output into `_site`, and deploys the result to GitHub Pages.

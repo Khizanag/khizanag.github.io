@@ -112,6 +112,8 @@ npm run lint
 npm run build
 ```
 
+`npm run test:rules` runs `tests/firestore/` against the Firestore emulator; it needs Java, so CI leaves it out.
+
 ## Presentations
 
 - Source lives in `src/presentations/` (React + Vite + TypeScript)

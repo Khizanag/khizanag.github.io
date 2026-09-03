@@ -353,7 +353,7 @@
             var labelPos = polarToXY(angle, maxR + 18);
             var topicLabel = App.TOPIC_LABELS[key] || key;
             if (topicLabel.length > 12) topicLabel = topicLabel.slice(0, 10) + '..';
-            labels += '<text x="' + labelPos.x + '" y="' + labelPos.y + '" class="analytics__radar-label" text-anchor="middle" dominant-baseline="middle">' + topicLabel + '</text>';
+            labels += '<text x="' + labelPos.x + '" y="' + labelPos.y + '" class="analytics__radar-label" text-anchor="middle" dominant-baseline="middle">' + escapeHtml(topicLabel) + '</text>';
         });
 
         // Data polygon — convert 1-5 averages to 0-100 scores

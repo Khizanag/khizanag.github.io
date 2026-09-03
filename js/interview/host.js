@@ -191,7 +191,7 @@
         if (nameEl) nameEl.textContent = user.displayName || user.email || '';
         if (avatarEl) {
             avatarEl.textContent = '';
-            if (user.photoURL) {
+            if (InterviewUtils.isSafeImageUrl(user.photoURL)) {
                 avatarEl.classList.remove('nav__user-avatar--placeholder');
                 var img = document.createElement('img');
                 img.src = user.photoURL;

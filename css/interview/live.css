@@ -20,16 +20,16 @@
 }
 
 .lobby__title {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-display);
     font-size: 28px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--color-gray-50);
     margin: 0 0 6px;
 }
 
 .lobby__subtitle {
     font-size: 14px;
-    color: var(--text-tertiary);
+    color: var(--color-gray-400);
     margin: 0;
 }
 
@@ -45,7 +45,7 @@
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--text-tertiary);
+    color: var(--color-gray-400);
     margin-bottom: 10px;
 }
 
@@ -55,11 +55,11 @@
     font-size: clamp(28px, 8vw, 48px);
     font-weight: 600;
     letter-spacing: 8px;
-    color: var(--text-primary);
+    color: var(--color-gray-50);
     padding: 16px 32px;
-    border: 2px dashed var(--border-secondary);
+    border: 2px dashed var(--color-white-a15);
     border-radius: 14px;
-    background: var(--bg-card);
+    background: var(--color-white-a4);
     user-select: all;
 }
 
@@ -69,19 +69,19 @@
     gap: 6px;
     margin-top: 12px;
     padding: 8px 16px;
-    border: 1px solid var(--border-primary);
+    border: 1px solid var(--color-white-a10);
     border-radius: 8px;
     background: transparent;
-    color: var(--text-secondary);
+    color: var(--color-gray-200);
     font-size: 13px;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .lobby__copy-btn:hover {
-    background: var(--bg-hover);
-    color: var(--accent);
+    background: var(--color-white-a8);
+    color: var(--color-blue);
 }
 
 .lobby__copy-btn.is-copied {
@@ -91,11 +91,11 @@
 
 /* Config summary card */
 .lobby__config {
-    border: 1px solid var(--border-primary);
+    border: 1px solid var(--color-white-a10);
     border-radius: 14px;
     padding: 20px 24px;
     margin-bottom: 24px;
-    background: var(--bg-card);
+    background: var(--color-white-a4);
 }
 
 .lobby__config-title {
@@ -103,7 +103,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--text-tertiary);
+    color: var(--color-gray-400);
     margin: 0 0 12px;
 }
 
@@ -115,11 +115,11 @@
 }
 
 .lobby__config-key {
-    color: var(--text-tertiary);
+    color: var(--color-gray-400);
 }
 
 .lobby__config-value {
-    color: var(--text-primary);
+    color: var(--color-gray-50);
     font-weight: 500;
 }
 
@@ -133,7 +133,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--text-tertiary);
+    color: var(--color-gray-400);
     margin: 0 0 12px;
 }
 
@@ -149,8 +149,8 @@
     gap: 12px;
     padding: 10px 14px;
     border-radius: 10px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-primary);
+    background: var(--color-white-a4);
+    border: 1px solid var(--color-white-a10);
     animation: lobbyJoin 0.3s ease-out;
 }
 
@@ -163,13 +163,13 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: var(--bg-hover);
+    background: var(--color-white-a8);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--color-gray-200);
     overflow: hidden;
 }
 
@@ -183,7 +183,7 @@
     flex: 1;
     font-size: 14px;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--color-gray-50);
 }
 
 .lobby__badge {
@@ -229,7 +229,7 @@
     border-radius: 12px;
     background: #ff3b30;
     color: #fff;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-display);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -244,24 +244,24 @@
     align-items: center;
     gap: 6px;
     padding: 14px 24px;
-    border: 1px solid var(--border-primary);
+    border: 1px solid var(--color-white-a10);
     border-radius: 12px;
     background: transparent;
-    color: var(--text-secondary);
-    font-family: 'Outfit', sans-serif;
+    color: var(--color-gray-200);
+    font-family: var(--font-display);
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
 }
 
-.lobby__cancel-btn:hover { background: var(--bg-hover); }
+.lobby__cancel-btn:hover { background: var(--color-white-a8); }
 
 .lobby__waiting {
     text-align: center;
     padding: 24px;
     font-size: 14px;
-    color: var(--text-tertiary);
+    color: var(--color-gray-400);
 }
 
 /* ============================================
@@ -281,11 +281,11 @@
     align-items: center;
     gap: 8px;
     padding: 16px 28px;
-    border: 1.5px solid var(--border-primary);
+    border: 1.5px solid var(--color-white-a10);
     border-radius: 100px;
     background: transparent;
-    color: var(--text-secondary);
-    font-family: 'Outfit', sans-serif;
+    color: var(--color-gray-200);
+    font-family: var(--font-display);
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
@@ -294,8 +294,8 @@
 
 .btn-live-create:hover,
 .btn-live-join:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    border-color: var(--color-blue);
+    color: var(--color-blue);
     background: rgba(0, 122, 255, 0.06);
 }
 
@@ -305,8 +305,8 @@
 }
 
 .btn-live-create:disabled:hover {
-    border-color: var(--border-primary);
-    color: var(--text-secondary);
+    border-color: var(--color-white-a10);
+    color: var(--color-gray-200);
     background: transparent;
 }
 
@@ -362,10 +362,10 @@
     text-align: center;
     text-transform: uppercase;
     padding: 14px 20px;
-    border: 2px solid var(--border-secondary);
+    border: 2px solid var(--color-white-a15);
     border-radius: 12px;
-    background: var(--bg-card);
-    color: var(--text-primary);
+    background: var(--color-white-a4);
+    color: var(--color-gray-50);
     width: 100%;
     box-sizing: border-box;
     outline: none;
@@ -373,7 +373,7 @@
 }
 
 .live-code-input:focus {
-    border-color: var(--accent);
+    border-color: var(--color-blue);
 }
 
 .live-code-input::placeholder {
@@ -383,13 +383,13 @@
 }
 
 .modal__input {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-size: 14px;
     padding: 12px 16px;
-    border: 1.5px solid var(--border-secondary);
+    border: 1.5px solid var(--color-white-a15);
     border-radius: 10px;
-    background: var(--bg-card);
-    color: var(--text-primary);
+    background: var(--color-white-a4);
+    color: var(--color-gray-50);
     width: 100%;
     box-sizing: border-box;
     outline: none;
@@ -397,7 +397,7 @@
 }
 
 .modal__input:focus {
-    border-color: var(--accent);
+    border-color: var(--color-blue);
 }
 
 .modal__field {

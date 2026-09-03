@@ -333,7 +333,7 @@
             var pct = topicCounts[t] > 0 ? Math.round((topicMastered[t] / topicCounts[t]) * 100) : 0;
             var label = App.TOPIC_LABELS[t] || t;
             html += '<div class="fc__mastery-row">' +
-                '<span class="fc__mastery-label">' + label + '</span>' +
+                '<span class="fc__mastery-label">' + escapeHtml(label) + '</span>' +
                 '<div class="fc__mastery-track"><div class="fc__mastery-fill" style="width:' + pct + '%"></div></div>' +
                 '<span class="fc__mastery-pct">' + pct + '%</span>' +
             '</div>';

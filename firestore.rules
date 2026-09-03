@@ -1,0 +1,88 @@
+rules_version = '2';
+
+// Anything not matched below is denied: the interview tool only ever touches
+// /users/{uid}, /config/features and /liveSessions/{code}.
+service cloud.firestore {
+    match /databases/{database}/documents {
+
+        function isSignedIn() {
+            return request.auth != null;
+        }
+
+        function isOwner(uid) {
+            return isSignedIn() && request.auth.uid == uid;
+        }
+
+        // The profile document plus every per-user subcollection the app writes:
+        // history, gamification, sr, customQuestions and streak.
+        match /users/{uid} {
+            allow read, write: if isOwner(uid);
+
+            match /{document=**} {
+                allow read, write: if isOwner(uid);
+            }
+        }
+
+        // Feature flags are fetched on `firebase:ready`, before sign-in resolves,
+        // so this read cannot require an authenticated user. Flags are edited in
+        // the Firebase console only.
+        match /config/{document} {
+            allow get: if true;
+            allow write: if false;
+        }
+
+        match /liveSessions/{code} {
+
+            function sessionFields() {
+                return ['hostUid', 'status', 'createdAt', 'config', 'participants', 'live', 'results'];
+            }
+
+            function isValidParticipant(entry) {
+                return entry.keys().hasOnly(['name', 'role', 'joinedAt', 'photoURL'])
+                    && entry.name is string && entry.name.size() <= 100
+                    && entry.role is string && entry.role.size() <= 20
+                    && entry.joinedAt is string && entry.joinedAt.size() <= 40
+                    && entry.photoURL is string && entry.photoURL.size() <= 2048;
+            }
+
+            function isValidNewSession() {
+                let data = request.resource.data;
+                return data.keys().hasAll(sessionFields())
+                    && data.keys().hasOnly(sessionFields())
+                    && data.hostUid == request.auth.uid
+                    && data.status == 'lobby'
+                    && data.createdAt is string && data.createdAt.size() <= 40
+                    && data.config is map && data.config.size() <= 20
+                    && data.live is map
+                    && data.results == null
+                    && data.participants.keys().hasOnly([request.auth.uid])
+                    && isValidParticipant(data.participants[request.auth.uid]);
+            }
+
+            function isHost() {
+                return isSignedIn() && resource.data.hostUid == request.auth.uid;
+            }
+
+            function touchesOnlySessionState() {
+                return request.resource.data.diff(resource.data).affectedKeys()
+                    .hasOnly(['live', 'status', 'results']);
+            }
+
+            // Join writes participants.<uid>, leave deletes it; both land as a
+            // single-key diff of the participants map.
+            function touchesOnlyOwnParticipant() {
+                let after = request.resource.data.participants;
+                return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['participants'])
+                    && after.diff(resource.data.participants).affectedKeys().hasOnly([request.auth.uid])
+                    && (!(request.auth.uid in after) || isValidParticipant(after[request.auth.uid]));
+            }
+
+            // Sessions are addressed by their 6-character code, never listed.
+            allow get: if isSignedIn();
+            allow create: if isSignedIn() && code.size() == 6 && isValidNewSession();
+            allow update: if isSignedIn()
+                && (touchesOnlyOwnParticipant() || (isHost() && touchesOnlySessionState()));
+            allow delete: if isHost();
+        }
+    }
+}

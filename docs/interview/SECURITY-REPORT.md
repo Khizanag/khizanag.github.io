@@ -10,7 +10,7 @@
 
 ## Executive Summary
 
-Overall security posture is **moderate** for a client-side practice tool. Major XSS vectors have been fixed. Remaining risks are inherent to the client-side architecture (localStorage tampering, no CSP headers on GitHub Pages). The most actionable item is verifying Firebase Firestore security rules.
+Overall security posture is **moderate** for a client-side practice tool. Major XSS vectors have been fixed. Remaining risks are inherent to the client-side architecture (localStorage tampering, no CSP headers on GitHub Pages). The most actionable item is deploying `firestore.rules`: the access model is versioned in this repo but is not enforced until `firebase deploy --only firestore:rules` runs.
 
 ---
 
@@ -20,8 +20,15 @@ Overall security posture is **moderate** for a client-side practice tool. Major 
 
 | # | Issue | File | Status |
 |---|-------|------|--------|
-| 1 | **Firestore rules unknown** — API key is public (expected for web Firebase). If Firestore rules are permissive, anyone can read/write all user data. | `js/interview/firebase.js:35-43` | **Verify in Firebase Console** |
+| 1 | **Firestore rules versioned** — API key is public (expected for web Firebase). Access is pinned by `firestore.rules` in this repo rather than by unreviewed console state, but the file governs live Firestore only after `firebase deploy --only firestore:rules`; until then the console state stands. | `firestore.rules`, `js/interview/firebase.js:35-43` | Fixed in repo — pending deploy |
 | 2 | **Popup window uses `doc.write()` + `window.opener`** — deprecated API, fragile cross-window reference. Low real-world risk since popup is same-origin. | `js/interview/app.js:1315`, `js/interview/app.js:1341` | Open (low practical risk) |
+
+The access model in `firestore.rules`:
+
+- `/users/{uid}` and every subcollection under it (history, gamification, sr, customQuestions, streak): read and write only by that signed-in uid.
+- `/config/{document}`: unauthenticated `get` (feature flags load on `firebase:ready`, before sign-in resolves); writes denied — flags are edited in the console.
+- `/liveSessions/{code}`: `get` for signed-in users and no listing; create only by the host uid with the exact field set the client writes; update limited to the host's `live`/`status`/`results` or a writer's own `participants.<uid>` entry; delete only by the host.
+- Every other path is denied.
 
 ### High
 
@@ -38,7 +45,7 @@ Overall security posture is **moderate** for a client-side practice tool. Major 
 | 6 | **localStorage data tamperable** — history, XP, flashcard progress can be modified via DevTools. Mitigated by Firebase as source of truth for authenticated users. | Multiple files | Accepted risk |
 | 7 | **No X-Frame-Options / frame-busting** — page can be embedded in iframes. Limited risk since no sensitive form actions exist. | All HTML pages | Open |
 | 8 | **photoURL not URL-validated** — Firebase user photo URLs are set as `img.src` directly. Mitigated by `referrerPolicy: 'no-referrer'`. | `js/interview/app.js:1818,1849` | Mitigated |
-| 9 | **Anonymous auth** allows unlimited account creation. Should have Firestore write quotas. | `js/interview/firebase.js:98` | Depends on rules |
+| 9 | **Anonymous auth** allows unlimited account creation. Security rules cannot express rate limits, so quotas need App Check or a server-side gate. | `js/interview/firebase.js:98` | Open (not expressible in rules) |
 
 ### Low / Info
 
@@ -69,11 +76,8 @@ These were identified and addressed during this audit:
 ## Recommendations
 
 ### Must Do
-1. **Verify Firestore security rules** in Firebase Console:
-   - Users can only read/write their own data: `request.auth.uid == uid`
-   - Feature flags are read-only: `allow write: if false`
-   - Live sessions validate participant membership
-   - Anonymous users have write quotas
+1. **Deploy `firestore.rules`** — `firebase deploy --only firestore:rules`. The access model is versioned and emulator-verified; Firestore keeps enforcing the console state until it is deployed.
+   - Anonymous users still have no write quotas — rules cannot express rate limits (finding 9); needs App Check or a server-side gate
 
 ### Should Do
 2. **Add CSP meta tag** to all six interview-tool pages:
@@ -113,7 +117,7 @@ These were identified and addressed during this audit:
 |--------|-----------|--------|------------|
 | XSS via user input | Low (fixed) | High | escapeHtml on all dynamic content |
 | localStorage tampering | Medium | Low | Firebase is source of truth; local data is convenience cache |
-| Firebase data breach | Low | High | Firestore rules (verify!) |
+| Firebase data breach | Low | High | `firestore.rules` (deploy pending) |
 | Clickjacking | Low | Low | No sensitive actions exposed |
 | Code sandbox escape | Low | Medium | Intentional feature; local-only impact |
 | CDN compromise | Very Low | Critical | Consider SRI hashes |
@@ -122,4 +126,4 @@ These were identified and addressed during this audit:
 
 ## Conclusion
 
-For a **client-side practice/interview tool** hosted on GitHub Pages, the security posture is appropriate. All user-input XSS vectors have been patched. The primary actionable item is **verifying Firestore security rules** — this is the only finding that could have real-world impact on user data.
+For a **client-side practice/interview tool** hosted on GitHub Pages, the security posture is appropriate. All user-input XSS vectors have been patched. The primary actionable item is **deploying `firestore.rules`** — this is the only finding that could have real-world impact on user data, and the versioned access model does not take effect until it is deployed.

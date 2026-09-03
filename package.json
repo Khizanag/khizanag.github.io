@@ -1,8 +1,11 @@
 {
-  "name": "presentations",
+  "name": "khizanag.github.io",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -288,6 +288,7 @@ export function RealWorldSection() {
   const [fileIdxMap, setFileIdxMap] = useState<Record<string, number>>({});
   const openIdxRef = useRef(openIdx);
   // Use -1 when nothing is open so arrow-right from closed state opens index 0.
+  // eslint-disable-next-line react-hooks/refs -- read back only from a keydown handler, never during render
   openIdxRef.current = openIdx ?? -1;
   useLocalTabNav("s-real", REPOS.length, openIdxRef, setOpenIdx);
 

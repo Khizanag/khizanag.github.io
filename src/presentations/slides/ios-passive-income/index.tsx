@@ -34,7 +34,7 @@ const FOOTER_LOGO = (
   </div>
 );
 
-export default function iOSPassiveIncome() {
+export default function IOSPassiveIncome() {
   const scrolled = useScrolled(60);
   useKeyboardNav(SECTION_IDS);
 

@@ -139,6 +139,7 @@ const PRECEDENCE = [
 export function CascadeSection() {
   const [active, setActive] = useState(0);
   const activeRef = useRef(active);
+  // eslint-disable-next-line react-hooks/refs -- read back only from a keydown handler, never during render
   activeRef.current = active;
   useLocalTabNav("s-cascade", TABS.length, activeRef, setActive);
 

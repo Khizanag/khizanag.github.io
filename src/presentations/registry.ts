@@ -5,7 +5,7 @@ const BitriseConfigAnalysis = lazy(() => import("./slides/bitrise/index.tsx"));
 const GithubAccessStrategy = lazy(() => import("./slides/github/index.tsx"));
 const DotGithubPresentation = lazy(() => import("./slides/dotgithub/index.tsx"));
 const GitConfigPresentation = lazy(() => import("./slides/git-config-files/index.tsx"));
-const iOSPassiveIncome = lazy(() => import("./slides/ios-passive-income/index.tsx"));
+const IOSPassiveIncome = lazy(() => import("./slides/ios-passive-income/index.tsx"));
 
 export interface Slide {
   id: string;
@@ -25,7 +25,7 @@ export const SLIDES: Slide[] = [
     category:      "Indie Business",
     categoryColor: C.accent,
     date:          "Mar 2026",
-    component:     iOSPassiveIncome,
+    component:     IOSPassiveIncome,
   },
   {
     id:            "bitrise-config-analysis",

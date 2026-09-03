@@ -20,6 +20,9 @@
         videoRecording: false,
     };
 
+    App.FEATURES_STORAGE_KEY = STORAGE_KEY;
+    App.FEATURE_DEFAULTS = DEFAULTS;
+
     function loadLocalOverrides() {
         try {
             var raw = localStorage.getItem(STORAGE_KEY);

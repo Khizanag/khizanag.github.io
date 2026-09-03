@@ -1,10 +1,11 @@
-import type { ComponentType } from "react";
+import { lazy, type ComponentType, type LazyExoticComponent } from "react";
 import { C } from "./tokens.ts";
-import BitriseConfigAnalysis from "./slides/bitrise/index.tsx";
-import GithubAccessStrategy from "./slides/github/index.tsx";
-import DotGithubPresentation from "./slides/dotgithub/index.tsx";
-import GitConfigPresentation from "./slides/git-config-files/index.tsx";
-import iOSPassiveIncome from "./slides/ios-passive-income/index.tsx";
+
+const BitriseConfigAnalysis = lazy(() => import("./slides/bitrise/index.tsx"));
+const GithubAccessStrategy = lazy(() => import("./slides/github/index.tsx"));
+const DotGithubPresentation = lazy(() => import("./slides/dotgithub/index.tsx"));
+const GitConfigPresentation = lazy(() => import("./slides/git-config-files/index.tsx"));
+const iOSPassiveIncome = lazy(() => import("./slides/ios-passive-income/index.tsx"));
 
 export interface Slide {
   id: string;
@@ -13,7 +14,7 @@ export interface Slide {
   category: string;
   categoryColor: string;
   date: string;
-  component: ComponentType;
+  component: LazyExoticComponent<ComponentType>;
 }
 
 export const SLIDES: Slide[] = [

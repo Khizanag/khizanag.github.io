@@ -1,4 +1,4 @@
-import { useEffect, type CSSProperties } from "react";
+import { Suspense, useEffect, type CSSProperties } from "react";
 import { SLIDES } from "./registry.ts";
 import { CalloutBox, SectionHeading, SectionLabel } from "./shared.tsx";
 import { C } from "./tokens.ts";
@@ -15,6 +15,12 @@ const FADE_STYLE: CSSProperties = {
   position: "fixed", bottom: 0, left: 0, right: 0, height: 160, zIndex: 50,
   background: `linear-gradient(to bottom, transparent, ${C.bg})`,
   pointerEvents: "none",
+};
+
+const LOADING_STYLE: CSSProperties = {
+  background: C.bg, minHeight: "100vh", color: C.muted,
+  display: "flex", alignItems: "center", justifyContent: "center",
+  fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: "0.18em",
 };
 
 interface NotFoundProps {
@@ -84,7 +90,14 @@ export function SlideView({ slideId, onBack }: SlideViewProps) {
         </svg>
         All presentations
       </button>
-      {slide ? <slide.component /> : <NotFound slideId={slideId} />}
+      {slide
+        ? (
+          <Suspense fallback={<div style={LOADING_STYLE}>LOADING</div>}>
+            <slide.component />
+          </Suspense>
+        )
+        : <NotFound slideId={slideId} />
+      }
     </div>
   );
 }

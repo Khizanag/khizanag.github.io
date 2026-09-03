@@ -267,6 +267,7 @@
 6. **Inconsistent error handling** — some Firebase calls have `.catch()`, others don't
 7. **No Firestore security rules** — live sessions collection needs proper authorization
 8. **Question bank size disparity** — iOS has 10x more questions than other platforms
+9. **Global-namespace coupling** — ~25 classic scripts share state through `InterviewApp` with a strict per-page include order; see [ARCHITECTURE.md](./ARCHITECTURE.md)
 
 ---
 

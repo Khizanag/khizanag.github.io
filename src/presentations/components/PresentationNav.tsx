@@ -127,13 +127,14 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
 
       <div style={{ display: "flex", gap: 4 }}>
         {links.map(({ label, id }) => (
-          <span
+          <button
             key={label}
+            type="button"
             onClick={() => scrollTo(id)}
-            style={{ padding: "6px 12px", fontSize: 12, color: C.muted, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", borderRadius: 8 }}
+            style={{ padding: "6px 12px", fontSize: 12, color: C.muted, cursor: "pointer", fontFamily: "'DM Sans', sans-serif", borderRadius: 8, background: "transparent", border: "none" }}
           >
             {label}
-          </span>
+          </button>
         ))}
       </div>
 

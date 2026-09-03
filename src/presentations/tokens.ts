@@ -1,5 +1,27 @@
+export const C = {
+  bg:         "#05080f",
+  surface:    "#0c1018",
+  surfaceHi:  "#111820",
+  border:     "#1a2235",
+  borderHi:   "#2a3a55",
+  accent:     "#00ff88",
+  accentDim:  "rgba(0,255,136,0.10)",
+  blue:       "#4d9fff",
+  blueDim:    "rgba(77,159,255,0.10)",
+  purple:     "#a78bfa",
+  purpleDim:  "rgba(167,139,250,0.10)",
+  yellow:     "#ffd60a",
+  yellowDim:  "rgba(255,214,10,0.10)",
+  red:        "#ff4d6d",
+  redDim:     "rgba(255,77,109,0.10)",
+  text:       "#e8edf5",
+  muted:      "#5a6a82",
+  subtle:     "#2a3548",
+} as const satisfies Record<string, string>;
+
 export const FONTS = `
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+button:focus-visible, a:focus-visible { outline: 2px solid ${C.accent}; outline-offset: 3px; }
 @media print {
   @page { margin: 0; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -37,24 +59,3 @@ export const KEYFRAMES = `
   100% { transform: translateY(100vh); }
 }
 `;
-
-export const C = {
-  bg:         "#05080f",
-  surface:    "#0c1018",
-  surfaceHi:  "#111820",
-  border:     "#1a2235",
-  borderHi:   "#2a3a55",
-  accent:     "#00ff88",
-  accentDim:  "rgba(0,255,136,0.10)",
-  blue:       "#4d9fff",
-  blueDim:    "rgba(77,159,255,0.10)",
-  purple:     "#a78bfa",
-  purpleDim:  "rgba(167,139,250,0.10)",
-  yellow:     "#ffd60a",
-  yellowDim:  "rgba(255,214,10,0.10)",
-  red:        "#ff4d6d",
-  redDim:     "rgba(255,77,109,0.10)",
-  text:       "#e8edf5",
-  muted:      "#5a6a82",
-  subtle:     "#2a3548",
-} as const satisfies Record<string, string>;

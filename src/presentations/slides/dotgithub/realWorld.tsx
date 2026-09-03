@@ -325,7 +325,7 @@ export function RealWorldSection() {
                       width: "100%", display: "flex", alignItems: "center", gap: 14,
                       padding: "16px 22px", background: isOpen ? `${repo.color}08` : C.bg,
                       border: "none", cursor: "pointer", textAlign: "left",
-                      transition: "background 0.2s", outline: "none",
+                      transition: "background 0.2s",
                     }}
                   >
                     <span style={{ fontSize: 22, flexShrink: 0 }}>{repo.icon}</span>

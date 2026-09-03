@@ -233,7 +233,7 @@ function SubTab({ label, active, color, onClick }: { label: string; active: bool
         padding: "5px 12px", borderRadius: 8, border: `1px solid ${active ? color : C.border}`,
         background: active ? `${color}15` : "transparent", color: active ? color : C.muted,
         fontFamily: "'JetBrains Mono', monospace", fontSize: 11, cursor: "pointer",
-        transition: "all 0.15s", outline: "none",
+        transition: "all 0.15s",
       }}
     >
       {label}

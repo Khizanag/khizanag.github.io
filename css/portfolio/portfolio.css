@@ -72,7 +72,7 @@ img, svg {
 
     html { scroll-behavior: auto; }
 
-    .marquee-track { animation: none; }
+    .marquee__track { animation: none; }
 
     .rv {
         opacity: 1;

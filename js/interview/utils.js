@@ -48,35 +48,7 @@ var InterviewUtils = (function () {
         }
     }
 
-    function storageGetRaw(key, fallback) {
-        try {
-            var val = localStorage.getItem(key);
-            return val !== null ? val : fallback;
-        } catch (e) {
-            logError('storageGetRaw', e);
-            return fallback;
-        }
-    }
-
-    function storageSetRaw(key, value) {
-        try {
-            localStorage.setItem(key, String(value));
-        } catch (e) {
-            logError('storageSetRaw', e);
-        }
-    }
-
     // ---- Date Helpers ----
-
-    function todayISO() {
-        return new Date().toISOString().slice(0, 10);
-    }
-
-    function yesterdayISO() {
-        var d = new Date();
-        d.setDate(d.getDate() - 1);
-        return d.toISOString().slice(0, 10);
-    }
 
     function formatDate(isoString, options) {
         if (!isoString) return '';
@@ -87,19 +59,6 @@ var InterviewUtils = (function () {
     function formatDateLong(isoString) {
         return formatDate(isoString, {
             weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
-        });
-    }
-
-    // ---- Theme Toggle ----
-
-    var THEME_KEY = 'ios-interview-theme';
-
-    function initThemeToggle(buttonId) {
-        var btn = document.getElementById(buttonId || 'btnTheme');
-        if (!btn) return;
-        btn.addEventListener('click', function () {
-            var isLight = document.documentElement.classList.toggle('theme-light');
-            storageSetRaw(THEME_KEY, isLight ? 'light' : 'dark');
         });
     }
 
@@ -132,16 +91,6 @@ var InterviewUtils = (function () {
         }
     }
 
-    function getErrors() {
-        return _errors.slice();
-    }
-
-    // ---- Unique ID ----
-
-    function generateId() {
-        return Date.now() + '-' + Math.random().toString(36).substr(2, 6);
-    }
-
     // ---- Rating Color ----
 
     function ratingColor(avg) {
@@ -158,17 +107,10 @@ var InterviewUtils = (function () {
         isSafeImageUrl: isSafeImageUrl,
         storageGet: storageGet,
         storageSet: storageSet,
-        storageGetRaw: storageGetRaw,
-        storageSetRaw: storageSetRaw,
-        todayISO: todayISO,
-        yesterdayISO: yesterdayISO,
         formatDate: formatDate,
         formatDateLong: formatDateLong,
-        initThemeToggle: initThemeToggle,
         debounce: debounce,
         logError: logError,
-        getErrors: getErrors,
-        generateId: generateId,
         ratingColor: ratingColor,
     };
 })();

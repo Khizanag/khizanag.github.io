@@ -463,13 +463,6 @@
         return DOMAINS.filter(function (d) { return d.tier === tier; });
     }
 
-    // Get domains that depend on a given domain
-    function getDependents(domainId) {
-        return DOMAINS.filter(function (d) {
-            return d.requires.indexOf(domainId) !== -1;
-        });
-    }
-
     // SVG ring circumference (radius = 15, so C = 2 * PI * 15 ≈ 94.25)
     var RING_C = 2 * Math.PI * 15;
 

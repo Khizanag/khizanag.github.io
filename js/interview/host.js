@@ -445,21 +445,6 @@
 
         // Apply mode from body data attribute
         setMode(pageMode);
-
-        // Fallback: if no Firebase, handle gracefully
-        setTimeout(function () {
-            if (!window.FirebaseService) {
-                isGuest = true;
-                if (s.practiceMode) {
-                    dom.hostContent.classList.add('is-active');
-                    if (dom.hostSignin) dom.hostSignin.classList.remove('is-active');
-                } else {
-                    // No Firebase and interview mode — show sign-in prompt
-                    dom.hostContent.classList.remove('is-active');
-                    if (dom.hostSignin) dom.hostSignin.classList.add('is-active');
-                }
-            }
-        }, 3000);
     }
 
     bindEvents();

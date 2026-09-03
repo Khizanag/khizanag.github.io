@@ -173,6 +173,7 @@ const WORKFLOWS = [
 export function AutomationSection() {
   const [activeW, setActiveW] = useState(0);
   const activeWRef = useRef(activeW);
+  // eslint-disable-next-line react-hooks/refs -- read back only from a keydown handler, never during render
   activeWRef.current = activeW;
   useLocalTabNav("s-automation", WORKFLOWS.length, activeWRef, setActiveW);
   const w = WORKFLOWS[activeW];

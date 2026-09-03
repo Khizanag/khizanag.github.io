@@ -249,6 +249,7 @@ export function TemplatesSection() {
 
   const handleMain = (i: number) => { setMainIdx(i); setSubIdx(0); };
   const mainIdxRef = useRef(mainIdx);
+  // eslint-disable-next-line react-hooks/refs -- read back only from a keydown handler, never during render
   mainIdxRef.current = mainIdx;
   useLocalTabNav("s-templates", MAIN_TABS.length, mainIdxRef, handleMain as Dispatch<SetStateAction<number>>);
 

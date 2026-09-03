@@ -171,6 +171,7 @@ const FILES = [
 export function CommunityHealthSection() {
   const [active, setActive] = useState(0);
   const activeRef = useRef(active);
+  // eslint-disable-next-line react-hooks/refs -- read back only from a keydown handler, never during render
   activeRef.current = active;
   useLocalTabNav("s-community", FILES.length, activeRef, setActive);
   const file = FILES[active];

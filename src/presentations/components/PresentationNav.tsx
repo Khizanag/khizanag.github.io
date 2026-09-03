@@ -32,6 +32,14 @@ function FullscreenIcon({ isFullscreen }: FullscreenIconProps) {
   );
 }
 
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen?.();
+  } else {
+    document.exitFullscreen?.();
+  }
+}
+
 export function PresentationNav({ logo, title, links, badge, color, colorDim, scrolled }: PresentationNavProps) {
   const [progress, setProgress] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -78,14 +86,6 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
     window.addEventListener("afterprint", onAfterPrint);
     setIsPrinting(true);
     setTimeout(() => window.print(), 80);
-  };
-
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen?.();
-    } else {
-      document.exitFullscreen?.();
-    }
   };
 
   const scrollTo = (id: string) => {

@@ -1,5 +1,6 @@
-import type { CSSProperties } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { SLIDES } from "./registry.ts";
+import { CalloutBox, SectionHeading, SectionLabel } from "./shared.tsx";
 import { C } from "./tokens.ts";
 
 interface SlideViewProps {
@@ -7,14 +8,46 @@ interface SlideViewProps {
   onBack: () => void;
 }
 
+// Read at module load so a deck title can never end up as the fallback.
+const BASE_TITLE = document.title;
+
 const FADE_STYLE: CSSProperties = {
   position: "fixed", bottom: 0, left: 0, right: 0, height: 160, zIndex: 50,
   background: `linear-gradient(to bottom, transparent, ${C.bg})`,
   pointerEvents: "none",
 };
 
+interface NotFoundProps {
+  slideId: string;
+}
+
+function NotFound({ slideId }: NotFoundProps) {
+  return (
+    <div style={{
+      background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif",
+      display: "flex", alignItems: "center", justifyContent: "center", padding: "96px 32px",
+    }}>
+      <div style={{ maxWidth: 520 }}>
+        <SectionLabel color={C.red}>NOT FOUND</SectionLabel>
+        <SectionHeading sub="This presentation is not in the collection — it may have been renamed or retired.">
+          No such presentation
+        </SectionHeading>
+        <CalloutBox color={C.red} label="REQUESTED">
+          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, color: C.text }}>#{slideId}</span>
+        </CalloutBox>
+      </div>
+    </div>
+  );
+}
+
 export function SlideView({ slideId, onBack }: SlideViewProps) {
   const slide = SLIDES.find((s) => s.id === slideId);
+
+  useEffect(() => {
+    if (!slide) return;
+    document.title = `${slide.title} — Giga Khizanishvili`;
+    return () => { document.title = BASE_TITLE; };
+  }, [slide]);
 
   return (
     <div>
@@ -51,7 +84,7 @@ export function SlideView({ slideId, onBack }: SlideViewProps) {
         </svg>
         All presentations
       </button>
-      {slide && <slide.component />}
+      {slide ? <slide.component /> : <NotFound slideId={slideId} />}
     </div>
   );
 }

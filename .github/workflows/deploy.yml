@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -26,8 +28,17 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Install and build presentations
-        run: npm ci && npm run build
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build presentations
+        run: npm run build
 
       - name: Assemble site
         run: |
@@ -38,9 +49,11 @@ jobs:
           cp -r dist/presentations _site/presentations
 
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
 
   deploy:
     needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

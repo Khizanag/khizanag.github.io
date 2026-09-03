@@ -22,10 +22,6 @@ export default function App() {
     window.scrollTo({ top: 0 });
   }, [activeId]);
 
-  const openSlide = (id: string) => {
-    window.location.hash = id;
-  };
-
   const goHome = () => {
     history.pushState(null, "", window.location.pathname);
     setActiveId(null);
@@ -40,7 +36,7 @@ export default function App() {
             <SlideView slideId={activeId} onBack={goHome} />
           </ErrorBoundary>
         )
-        : <Home onOpen={openSlide} />
+        : <Home />
       }
     </>
   );

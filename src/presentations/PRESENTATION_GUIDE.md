@@ -25,8 +25,6 @@ All reusable building blocks live in `src/shared.jsx`. Import what you need:
 ```jsx
 import {
   C,               // color palette
-  FONTS,           // Google Fonts import string
-  KEYFRAMES,       // CSS keyframe animations string
   useInView,       // IntersectionObserver hook
   useScrolled,     // scroll position hook
   Reveal,          // scroll-entrance animation wrapper
@@ -62,13 +60,12 @@ Every presentation is a **single default-exported React component**.
 Use shared tokens and components — no need to redefine them per slide.
 
 ```jsx
-import { C, FONTS, KEYFRAMES, Reveal, SectionLabel, SectionHeading,
+import { C, Reveal, SectionLabel, SectionHeading,
          AnimatedGrid, AmbientBlobs } from "../src/shared.jsx";
 
 export default function YourTopicName() {
   return (
     <>
-      <style>{FONTS}{KEYFRAMES}</style>
       <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif" }}>
 
         <AnimatedGrid />

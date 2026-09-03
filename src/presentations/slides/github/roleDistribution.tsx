@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, TagChip, useInView } from "../../shared.tsx";
-import { P, PDim } from "./ui.tsx";
+import { P } from "./ui.tsx";
 
 const ROLE_COLOR: Record<string, string> = { Admin: C.red, Maintain: C.yellow, Write: C.accent };
 

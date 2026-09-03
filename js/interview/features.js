@@ -46,28 +46,33 @@
 
     var _unsubscribe = null;
 
-    App.initFeatureFlags = function () {
-        var local = loadLocalOverrides();
-
-        if (!window.FirebaseService) {
-            App.features = Object.assign({}, DEFAULTS, local);
-            App.applyFeatureFlags();
-            return;
-        }
-
+    function loadRemoteOverrides(local) {
         window.FirebaseService.loadFeatureFlags().then(function (remote) {
             App.features = Object.assign({}, DEFAULTS, local, remote);
             App.applyFeatureFlags();
-        }).catch(function () {
-            App.features = Object.assign({}, DEFAULTS, local);
-            App.applyFeatureFlags();
-        });
+        }).catch(function () { /* keep the local flags already applied */ });
 
         if (_unsubscribe) _unsubscribe();
         _unsubscribe = window.FirebaseService.subscribeFeatureFlags(function (remote) {
             App.features = Object.assign({}, DEFAULTS, local, remote);
             App.applyFeatureFlags();
         });
+    }
+
+    App.initFeatureFlags = function () {
+        var local = loadLocalOverrides();
+
+        App.features = Object.assign({}, DEFAULTS, local);
+        App.applyFeatureFlags();
+
+        if (window.FirebaseService) {
+            loadRemoteOverrides(local);
+            return;
+        }
+
+        document.addEventListener('firebase:ready', function () {
+            loadRemoteOverrides(local);
+        }, { once: true });
     };
 
 })(InterviewApp);

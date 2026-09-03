@@ -442,6 +442,8 @@ function subscribeFeatureFlags(callback) {
 // ---- Public API ----
 
 window.FirebaseService = {
+    ready: true,
+
     get currentUser() { return _currentUser; },
     get isAnonymous() { return _currentUser ? _currentUser.isAnonymous : false; },
 
@@ -487,3 +489,6 @@ window.FirebaseService = {
     // Helpers
     isCloudAvailable: isCloudAvailable,
 };
+
+// Classic page scripts run before this deferred module, so they wait on this event.
+document.dispatchEvent(new CustomEvent('firebase:ready'));

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FONTS, KEYFRAMES } from "./tokens.ts";
 import { Home } from "./Home.tsx";
 import { SlideView } from "./SlideView.tsx";
+import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 
 function getHashId(): string | null {
   const hash = window.location.hash.slice(1);
@@ -34,7 +35,11 @@ export default function App() {
     <>
       <style>{FONTS}{KEYFRAMES}</style>
       {activeId
-        ? <SlideView slideId={activeId} onBack={goHome} />
+        ? (
+          <ErrorBoundary key={activeId} onReset={goHome}>
+            <SlideView slideId={activeId} onBack={goHome} />
+          </ErrorBoundary>
+        )
         : <Home onOpen={openSlide} />
       }
     </>

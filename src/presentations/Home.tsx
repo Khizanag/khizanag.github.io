@@ -14,13 +14,7 @@ function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
   const [hovered, setHovered] = useState(false);
   const delay = (index * 0.08).toFixed(2);
 
-  const handleClick = () => {
-    if (slide.externalUrl) {
-      window.open(slide.externalUrl, "_blank", "noopener,noreferrer");
-    } else {
-      onOpen(slide.id);
-    }
-  };
+  const handleClick = () => onOpen(slide.id);
 
   return (
     <div

@@ -15,8 +15,19 @@
     window.QuestionsReady = Promise.all(
         entries.map(function (entry) {
             return fetch(basePath + entry.file)
-                .then(function (res) { return res.json(); })
+                .then(function (res) {
+                    if (!res.ok) throw new Error(entry.file + ' responded ' + res.status);
+                    return res.json();
+                })
                 .then(function (data) { window[entry.global] = data; });
         })
-    );
+    ).catch(function (error) {
+        window.QuestionsLoadError = error;
+        // Runs before utils.js defines InterviewUtils, so log directly.
+        if (typeof console !== 'undefined' && console.error) {
+            console.error('[Interview] Question bank load failed:', error);
+        }
+        document.dispatchEvent(new CustomEvent('questions:error', { detail: { error: error } }));
+        throw error;
+    });
 })();

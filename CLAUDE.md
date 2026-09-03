@@ -89,7 +89,7 @@ Other trees:
 - When adding new styles, place them in the appropriate subdirectory
 - `css/core/design-system.css` owns the `:root` tokens, the `.theme-light` overrides that `js/shared/theme-toggle.js` switches on, and the fixed background layers (`body::before` grid, `body::after` blobs)
 - `css/themes/pres.css` is the site theme — it overrides the `:root` tokens and adds structural CSS via the cascade, and is pulled in through the `<link id="themeCSS">` tag
-- `index.html`, `jobs.html`, `roadmap.html`, and `404.html` load it **after** the page CSS; `psd.html` loads it before `css/interview/base.css` and `css/psd/psd.css`; the interview pages use `css/interview/base.css` and no theme link
+- `index.html`, `jobs.html`, `roadmap.html`, and `404.html` load it **after** the page CSS; `psd.html` loads it before `css/psd/psd.css`; the interview pages use `css/interview/base.css` and no theme link
 - All sections must have `position: relative; z-index: 1` to sit above the fixed backgrounds
 
 ## Question Bank Rules

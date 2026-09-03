@@ -1,220 +1,253 @@
 # Presentation Guide
 
-A minimal React + Vite setup for building scroll-based research presentations.
-Each presentation is a single self-contained `.jsx` file.
-
----
+Scroll-based tech-talk decks in React, TypeScript and Vite. Each deck is a directory
+under `slides/`, lazy-loaded from the registry and rendered as one scrolling page.
 
 ## Running locally
 
 ```bash
-cd Presentations
+npm ci
 npm run dev
-# → http://localhost:5173
 ```
 
-The home screen lists all registered presentations as cards.
-Click a card to open it full-screen. Use **← All presentations** to go back.
+Open <http://localhost:5173/presentations/> — the Vite root is `src/presentations` and
+`base` is `/presentations/`.
 
----
+The home screen lists every registered deck as a card. Opening one sets the URL hash
+(`#dotgithub-directory`) and renders it full-screen; the fixed **All presentations**
+button clears the hash and returns home. An unknown hash renders a "No such
+presentation" screen, and a deck that throws is caught by `ErrorBoundary`.
 
-## Shared components
+## File structure
 
-All reusable building blocks live in `src/shared.jsx`. Import what you need:
-
-```jsx
-import {
-  C,               // color palette
-  useInView,       // IntersectionObserver hook
-  useScrolled,     // scroll position hook
-  Reveal,          // scroll-entrance animation wrapper
-  SectionLabel,    // "─── SECTION LABEL" row
-  SectionHeading,  // large h2 + optional subtitle
-  TagChip,         // small pill badge
-  InfoCard,        // surface card with accent top line
-  CheckItem,       // ✓ / ✕ checklist row
-  WorkflowStep,    // numbered timeline step
-  CodeBlock,       // Mac-style syntax code block
-  KeyValueDiff,    // before/after struck-through comparison
-  CalloutBox,      // highlighted insight / warning box
-  AnimatedGrid,    // fixed background dot grid
-  AmbientBlobs,    // fixed background gradient blobs
-} from "../src/shared.jsx";
+```text
+src/presentations/
+├── index.html        ← Vite entry; loads Syne, DM Sans and JetBrains Mono
+├── main.tsx          ← React entry point
+├── App.tsx           ← hash routing, global <style>, ErrorBoundary
+├── Home.tsx          ← card grid over SLIDES
+├── SlideView.tsx     ← Suspense fallback, back button, not-found screen
+├── registry.ts       ← Slide interface + SLIDES array of lazy imports
+├── tokens.ts         ← C, FONTS, KEYFRAMES
+├── hooks.ts          ← useInView, useScrolled, useLocalTabNav, useKeyboardNav
+├── shared.tsx        ← the barrel every deck imports from
+├── components/       ← reusable presentation components
+└── slides/
+    └── <deck-id>/
+        ├── index.tsx ← default-exported deck component
+        ├── ui.tsx    ← deck accent colour + deck-local components
+        ├── hero.tsx
+        └── …         ← one file per section
 ```
 
----
+Build config sits at the repository root — `package.json` and `vite.config.js`, which
+sets the Vite root to `src/presentations`, the base to `/presentations/` and the build
+output to `dist/presentations` (not tracked in Git).
 
-## Adding a new presentation
+## Shared building blocks
 
-### 1. Create the file
+Decks import from `shared.tsx`, never from the individual files behind it:
 
+```tsx
+import { C, Reveal, SectionHeading, useKeyboardNav } from "../../shared.tsx";
 ```
-slides/your-topic-name.jsx
+
+| Source file                         | Exports                                                    |
+|-------------------------------------|------------------------------------------------------------|
+| `tokens.ts`                         | `C`, `FONTS`, `KEYFRAMES`                                  |
+| `hooks.ts`                          | `useInView`, `useScrolled`, `useKeyboardNav`, `useLocalTabNav` |
+| `components/layout.tsx`             | `Reveal`, `AnimatedGrid`, `AmbientBlobs`                   |
+| `components/typography.tsx`         | `SectionLabel`, `SectionHeading`, `TagChip`                |
+| `components/cards.tsx`              | `InfoCard`, `CheckItem`, `CalloutBox`, `PlainEnglishBox`, `FeatureCard` |
+| `components/content.tsx`            | `WorkflowStep`, `CodeBlock`, `KeyValueDiff`                |
+| `components/interactive.tsx`        | `TabButton`                                                |
+| `components/HeroSection.tsx`        | `PresentationHero`                                         |
+| `components/PresentationNav.tsx`    | `PresentationNav`                                          |
+| `components/ThankYouSection.tsx`    | `ThankYouSection`                                          |
+| `components/PresentationFooter.tsx` | `PresentationFooter`                                       |
+| `components/ErrorBoundary.tsx`      | `ErrorBoundary`                                            |
+
+## Adding a new deck
+
+### 1. Create the directory
+
+`slides/<deck-id>/`, kebab-case. The URL comes from the registry `id`, not the folder.
+
+### 2. Pin the accent colour in `ui.tsx`
+
+```tsx
+import { C } from "../../shared.tsx";
+
+export const P = C.purple;
+export const PDim = C.purpleDim;
 ```
 
-Use kebab-case. The filename becomes the presentation's `id`.
+Deck-local components — stat badges, comparison rows — belong in the same file.
 
-### 2. Scaffold the component
+### 3. Write one file per section
 
-Every presentation is a **single default-exported React component**.
-Use shared tokens and components — no need to redefine them per slide.
+Each section file exports a named component whose root `<section>` carries the `id` used
+for keyboard navigation:
 
-```jsx
-import { C, Reveal, SectionLabel, SectionHeading,
-         AnimatedGrid, AmbientBlobs } from "../src/shared.jsx";
+```tsx
+import { Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
+import { P } from "./ui.tsx";
 
-export default function YourTopicName() {
+export function WhatSection() {
   return (
-    <>
-      <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif" }}>
-
-        <AnimatedGrid />
-        <AmbientBlobs />
-
-        <div style={{ position: "relative", zIndex: 1 }}>
-
-          {/* Hero */}
-          <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "120px 48px 80px" }}>
-            <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: "clamp(44px, 6vw, 80px)", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
-              Your Title
-            </h1>
-            <p style={{ fontSize: 18, color: C.muted, lineHeight: 1.7, maxWidth: 540, marginTop: 24 }}>
-              One-paragraph summary of the topic.
-            </p>
-          </section>
-
-          {/* Section example */}
-          <section style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 48px" }}>
-            <Reveal>
-              <SectionLabel color={C.accent}>THE POINT</SectionLabel>
-              <SectionHeading sub="A brief supporting sentence that adds context.">
-                Main Section Title
-              </SectionHeading>
-            </Reveal>
-            {/* content */}
-          </section>
-
-        </div>
-      </div>
-    </>
+    <section id="s-what" style={{ maxWidth: 1100, margin: "0 auto", padding: "80px 48px" }}>
+      <Reveal>
+        <SectionLabel color={P}>THE POINT</SectionLabel>
+        <SectionHeading sub="A supporting sentence.">Main Section Title</SectionHeading>
+      </Reveal>
+    </section>
   );
 }
 ```
 
-### 3. Register it in `src/App.jsx`
+### 4. Compose them in `index.tsx`
 
-Add an import and an entry to the `SLIDES` array:
+Both `PresentationNav` and `PresentationFooter` require a `logo` node.
 
-```jsx
-// 1. Import at the top of App.jsx
-import YourTopicName from "../slides/your-topic-name.jsx";
+```tsx
+import {
+  C, useScrolled, useKeyboardNav, AnimatedGrid, AmbientBlobs,
+  PresentationNav, ThankYouSection, PresentationFooter,
+} from "../../shared.tsx";
+import { P, PDim } from "./ui.tsx";
+import { HeroSection } from "./hero.tsx";
+import { WhatSection } from "./what.tsx";
 
-// 2. Add to SLIDES array
+const SECTION_IDS = ["s-hero", "s-what", "s-thankyou"];
+
+const LOGO = <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, color: P }}>YD</span>;
+
+export default function YourDeck() {
+  const scrolled = useScrolled(60);
+  useKeyboardNav(SECTION_IDS);
+
+  return (
+    <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif" }}>
+      <AnimatedGrid />
+      <AmbientBlobs />
+      <PresentationNav
+        logo={LOGO} scrolled={scrolled} title="Your Deck" badge="Giga Khizanishvili"
+        links={[{ label: "The Point", id: "s-what" }]} color={P} colorDim={PDim}
+      />
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <HeroSection />
+        <WhatSection />
+        <ThankYouSection id="s-thankyou" label="2026" color={P} colorDim={PDim} />
+        <PresentationFooter logo={LOGO} name="Your Deck · Giga Khizanishvili" links={[]} date="2026" />
+      </div>
+    </div>
+  );
+}
+```
+
+### 5. Register it in `registry.ts`
+
+```ts
+const YourDeck = lazy(() => import("./slides/your-deck/index.tsx"));
+
 {
-  id:            "your-topic-name",
+  id:            "your-deck",
   title:         "Short display title",
-  subtitle:      "One sentence describing the content.",
-  category:      "Architecture",          // see categories below
-  categoryColor: C.accent,               // pick a token from C
+  subtitle:      "One or two sentences describing the content.",
+  category:      "Architecture",
+  categoryColor: C.accent,
   date:          "Mar 2026",
-  component:     YourTopicName,
+  component:     YourDeck,
 },
 ```
 
-**Available categories and suggested colors:**
+`id` becomes the URL hash. `category` is a free-form string rendered upper-cased on the
+card; these are the pairings currently in use:
 
-| Category       | Color token  | Hex       |
-|----------------|-------------|-----------|
-| Architecture   | `C.accent`  | `#00ff88` |
-| CI/CD          | `C.blue`    | `#4d9fff` |
-| Process        | `C.purple`  | `#a78bfa` |
-| Security       | `C.red`     | `#ff4d6d` |
-| Tooling        | `C.yellow`  | `#ffd60a` |
+| Category       | Colour     |
+|----------------|------------|
+| Architecture   | `C.accent` |
+| CI/CD          | `C.blue`   |
+| Git Internals  | `C.blue`   |
+| GitHub         | `C.purple` |
+| Indie Business | `C.accent` |
 
----
+## Design tokens
 
-## Design system
+### Colours
+
+```ts
+export const C = {
+  bg:         "#05080f",
+  surface:    "#0c1018",
+  surfaceHi:  "#111820",
+  border:     "#1a2235",
+  borderHi:   "#2a3a55",
+  accent:     "#00ff88",
+  accentDim:  "rgba(0,255,136,0.10)",
+  blue:       "#4d9fff",
+  blueDim:    "rgba(77,159,255,0.10)",
+  purple:     "#a78bfa",
+  purpleDim:  "rgba(167,139,250,0.10)",
+  yellow:     "#ffd60a",
+  red:        "#ff4d6d",
+  text:       "#e8edf5",
+  muted:      "#5a6a82",
+  subtle:     "#2a3548",
+} as const satisfies Record<string, string>;
+```
+
+`FONTS` (reset, focus ring, print rules) and `KEYFRAMES` (`fadeUp`, `fadeIn`,
+`gridMove`, `pulse-glow`) are injected once by `App.tsx` — never redeclare them in a deck.
 
 ### Typography
 
-| Role           | Font             | Usage                       |
-|----------------|------------------|-----------------------------|
-| Headlines      | Syne 800         | `h1`, `h2`, section labels  |
-| UI labels      | Syne 600–700     | buttons, tags, nav          |
-| Body text      | DM Sans 300–400  | paragraphs, descriptions    |
-| Code / mono    | JetBrains Mono   | code blocks, metadata chips |
+| Role       | Font                   | Usage                       |
+|------------|------------------------|-----------------------------|
+| Headlines  | Syne 700–800           | `h1`, `h2`, hero titles     |
+| UI labels  | Syne 600–700           | buttons, tags, nav          |
+| Body text  | DM Sans 300–500        | paragraphs, descriptions    |
+| Code, meta | JetBrains Mono 300–600 | code blocks, metadata chips |
 
-### Colors
+## Keyboard navigation
 
-```js
-const C = {
-  bg:        "#05080f",   // page background
-  surface:   "#0c1018",   // cards, panels
-  border:    "#1a2235",   // dividers, card borders
-  accent:    "#00ff88",   // primary CTA, success
-  blue:      "#4d9fff",   // info, links
-  purple:    "#a78bfa",   // secondary accent
-  yellow:    "#ffd60a",   // warnings, highlights
-  red:       "#ff4d6d",   // errors, problems
-  text:      "#e8edf5",   // primary text
-  muted:     "#5a6a82",   // secondary text
-};
+```ts
+useKeyboardNav(sectionIds: string[]): void
 ```
 
-### Spacing rhythm
+Arrow keys move between the listed section ids, smooth-scrolling and briefly fading the
+target in. Keystrokes inside an `input`, `textarea` or `contenteditable` are ignored.
 
-Use multiples of **8px** for padding and gaps: `8 16 24 32 48 64 80 96 120`.
-
-### Section anatomy
-
-Every section follows the same pattern:
-
-```
-label row   →  short horizontal line + ALL-CAPS category tag
-headline    →  Syne 800, large, tight tracking
-subtext     →  DM Sans 300, muted, max-width ~560px
-content     →  cards / code / diagram
+```ts
+useLocalTabNav(
+  sectionId: string,
+  count: number,
+  indexRef: RefObject<number>,
+  setIndex: Dispatch<SetStateAction<number>>,
+): void
 ```
 
----
+Arrow keys switch tabs inside one section while that section fills the viewport. It
+listens in the capture phase, so at the first or last tab the event falls through to
+`useKeyboardNav` and section navigation continues as normal:
 
-## Common patterns
-
-### Alternating surface sections
-
-Alternate `background: C.bg` ↔ `background: C.surface` with `borderTop/Bottom: \`1px solid ${C.border}\`` to create visual rhythm as you scroll.
-
-### Sticky nav with blur
-
-```jsx
-import { useScrolled } from "../src/shared.jsx";
-
-const scrolled = useScrolled(); // inside your component
-
-<nav style={{
-  position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-  background: scrolled ? "rgba(5,8,15,0.88)" : "transparent",
-  backdropFilter: scrolled ? "blur(24px)" : "none",
-  borderBottom: `1px solid ${scrolled ? C.border : "transparent"}`,
-  transition: "all 0.4s ease",
-  padding: "0 48px", height: 64,
-  display: "flex", alignItems: "center",
-}} />
+```tsx
+const [active, setActive] = useState(0);
+const activeRef = useRef(active);
+activeRef.current = active;
+useLocalTabNav("s-community", FILES.length, activeRef, setActive);
 ```
 
----
+`useInView(threshold = 0.15)` returns `[ref, inView]` for entrance animations, and
+`useScrolled(threshold = 60)` returns the boolean the sticky nav blurs on.
 
-## File structure
+## Verification
 
+```bash
+npm run typecheck
+npm run lint
+npm test
+npm run build
 ```
-Presentations/
-├── slides/                    ← one .jsx file per presentation
-│   └── github-access-strategy.jsx
-├── src/
-│   ├── App.jsx                ← home page + slide registry (edit this)
-│   └── main.jsx               ← React entry point (don't touch)
-├── index.html
-├── vite.config.js
-├── package.json
-└── PRESENTATION_GUIDE.md      ← you are here
-```
+
+`.github/workflows/deploy.yml` runs the same four before assembling and deploying the site.

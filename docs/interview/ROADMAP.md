@@ -83,7 +83,7 @@
 
 ### 3.1 Advanced Analytics Dashboard
 
-- [ ] Topic heatmap — visual grid showing strength/weakness per topic over time
+- [ ] Topic heatmap — visual grid showing strength/weakness per topic over time (per-topic strength already ships via `renderTopicHeatmap()` in `js/interview/analytics.js:152`; the over-time axis is still missing)
 - [ ] Difficulty distribution chart — what level questions are being asked most
 - [ ] Time-per-question analysis — scatter plot of time vs rating
 - [ ] Progress over time — track improvement across sessions for same topics
@@ -91,7 +91,7 @@
 
 ### 3.2 Interview Report Enhancements
 
-- [ ] PDF export with styled formatting (replace plain text download)
+- [x] PDF export with styled formatting (replace plain text download) — Print / PDF button in `interview.html:819`, handler in `js/interview/app.js:1229-1231`, print rules in `css/interview/responsive.css:94`
 - [ ] Share results via link (generate temporary public URL)
 - [ ] Email results directly to hiring manager
 - [ ] Include time-per-question in report breakdown
@@ -99,9 +99,9 @@
 
 ### 3.3 Spaced Repetition Improvements
 
-- [ ] Add SRS difficulty buttons (Easy/Good/Hard/Again) instead of binary
+- [x] Add SRS difficulty buttons (Easy/Good/Hard/Again) instead of binary — buttons in `interview.html:958-977`, intervals in `js/interview/flashcard.js:220-236`
 - [ ] Show review forecast — "12 cards due tomorrow, 8 in 3 days"
-- [ ] Track mastery percentage per topic
+- [x] Track mastery percentage per topic — `renderMasteryBars()` in `js/interview/flashcard.js:303-342`
 - [ ] Daily review reminders via browser notifications
 - [ ] Import/export flashcard decks
 
@@ -185,7 +185,7 @@
   - Interview flow (start, rate, next, skip, end, results)
   - Live session flow (create, join, sync, end)
   - Flashcard flow (review, streak tracking)
-- [ ] Add unit tests for question picker algorithm
+- [x] Add unit tests for question picker algorithm — `selectQuestion` covered by three cases in `tests/interview/scoring.test.cjs`
 - [ ] Add accessibility audit automation (axe-core)
 
 ### 6.4 Monitoring & Error Tracking
@@ -220,7 +220,7 @@
 ### 8.1 Keyboard Navigation
 
 - [ ] Full keyboard navigation for all screens (Tab, Enter, Escape)
-- [ ] Keyboard shortcuts reference sheet (accessible via `?` key)
+- [x] Keyboard shortcuts reference sheet (accessible via `?` key) — `?` handler in `js/interview/app.js:1251`, overlay built in `js/interview/app.js:2183`
 - [ ] Focus management on screen transitions
 - [ ] Skip-to-content links for all major sections
 
@@ -229,7 +229,7 @@
 - [ ] WCAG 2.1 AA compliance audit
 - [ ] Screen reader testing (VoiceOver, NVDA)
 - [ ] Color contrast verification (especially in light theme)
-- [ ] Reduced motion support (`prefers-reduced-motion`)
+- [x] Reduced motion support (`prefers-reduced-motion`) — global animation/transition override in `css/interview/base.css:99`
 - [ ] High contrast mode support
 
 ### 8.3 Visual Polish
@@ -259,9 +259,9 @@
 
 ## Known Technical Debt
 
-1. **Single HTML file** — interview.html is ~3000+ lines. Consider splitting into web components or a lightweight framework
+1. **Single HTML file** — interview.html is ~1465 lines. Consider splitting into web components or a lightweight framework
 2. **No build pipeline** — raw JS/CSS without minification, bundling, or tree-shaking
-3. **No tests** — zero automated test coverage
+3. **Thin test coverage** — `tests/interview/scoring.test.cjs` (24 cases, run by `npm test`) covers the adaptive scoring engine only; no coverage of the UI, live sessions, or storage layers
 4. **String-based HTML** — innerHTML concatenation in several places (XSS risk pattern, harder to maintain)
 5. **Magic numbers** — some timeouts and thresholds lack named constants
 6. **Inconsistent error handling** — some Firebase calls have `.catch()`, others don't
@@ -270,4 +270,4 @@
 
 ---
 
-*Last updated: 2026-02-21*
+*Last updated: 2026-09-03*

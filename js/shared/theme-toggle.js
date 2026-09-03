@@ -11,20 +11,27 @@
  *
  * Pages should also include this inline script in <head> to
  * prevent flash-of-wrong-theme on load:
- *   <script>(function(){try{var t=localStorage.getItem('site-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();</script>
+ *   <script>(function(){try{var t=localStorage.getItem('site-theme')||localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();</script>
  */
 (function () {
     'use strict';
 
     var STORAGE_KEY = 'site-theme';
+    var LEGACY_STORAGE_KEY = 'ios-interview-theme';
+
+    try {
+        var legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (localStorage.getItem(STORAGE_KEY) === null && legacy !== null) {
+            localStorage.setItem(STORAGE_KEY, legacy);
+        }
+    } catch (e) {}
+
     var btn = document.getElementById('btnTheme');
     if (!btn) return;
 
     btn.addEventListener('click', function () {
         var isLight = document.documentElement.classList.toggle('theme-light');
         try { localStorage.setItem(STORAGE_KEY, isLight ? 'light' : 'dark'); } catch (e) {}
-        // Also sync legacy key used by interview pages
-        try { localStorage.setItem('ios-interview-theme', isLight ? 'light' : 'dark'); } catch (e) {}
 
         // Burst animation
         btn.classList.remove('is-animating');

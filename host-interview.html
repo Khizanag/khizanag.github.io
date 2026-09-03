@@ -18,9 +18,7 @@
     <link rel="stylesheet" href="css/interview/templates.css">
     <link rel="stylesheet" href="css/interview/live.css">
     <link rel="stylesheet" href="css/interview/responsive.css">
-    <script>
-    (function(){try{var t=localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();
-    </script>
+    <script>(function(){try{var t=localStorage.getItem('site-theme')||localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();</script>
 </head>
 <body data-host-mode="interview">
 

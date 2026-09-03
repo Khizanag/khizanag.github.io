@@ -6,28 +6,24 @@ import { SLIDES, type Slide } from "./registry.ts";
 interface PresentationCardProps {
   slide: Slide;
   index: number;
-  onOpen: (id: string) => void;
 }
 
-function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
-  const [ref, inView] = useInView<HTMLButtonElement>(0.1);
+function PresentationCard({ slide, index }: PresentationCardProps) {
+  const [ref, inView] = useInView<HTMLAnchorElement>(0.1);
   const [hovered, setHovered] = useState(false);
   const delay = (index * 0.08).toFixed(2);
 
-  const handleClick = () => onOpen(slide.id);
-
   return (
-    <button
+    <a
       ref={ref}
-      type="button"
-      onClick={handleClick}
+      href={`#${slide.id}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
         background: hovered ? C.surfaceHi : C.surface,
         border: `1px solid ${hovered ? C.borderHi : C.border}`,
         borderRadius: 20, padding: 36, cursor: "pointer",
-        font: "inherit", color: "inherit", textAlign: "left", width: "100%",
+        font: "inherit", color: "inherit", textDecoration: "none", textAlign: "left", width: "100%",
         position: "relative", overflow: "hidden",
         opacity: inView ? 1 : 0,
         transform: inView ? (hovered ? "translateY(-4px)" : "translateY(0)") : "translateY(28px)",
@@ -71,7 +67,7 @@ function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
           </svg>
         </div>
       </div>
-    </button>
+    </a>
   );
 }
 
@@ -91,11 +87,7 @@ function StatPill({ value, label, delay }: StatPillProps) {
   );
 }
 
-interface HomeProps {
-  onOpen: (id: string) => void;
-}
-
-export function Home({ onOpen }: HomeProps) {
+export function Home() {
   const scrolled = useScrolled(40);
 
   return (
@@ -178,7 +170,7 @@ export function Home({ onOpen }: HomeProps) {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 24 }}>
             {SLIDES.map((slide, i) => (
-              <PresentationCard key={slide.id} slide={slide} index={i} onOpen={onOpen} />
+              <PresentationCard key={slide.id} slide={slide} index={i} />
             ))}
           </div>
         </section>

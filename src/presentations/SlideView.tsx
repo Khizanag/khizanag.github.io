@@ -15,7 +15,6 @@ const FADE_STYLE: CSSProperties = {
 
 export function SlideView({ slideId, onBack }: SlideViewProps) {
   const slide = SLIDES.find((s) => s.id === slideId);
-  const Component = slide?.component;
 
   return (
     <div>
@@ -52,7 +51,7 @@ export function SlideView({ slideId, onBack }: SlideViewProps) {
         </svg>
         All presentations
       </button>
-      {Component && <Component />}
+      {slide && <slide.component />}
     </div>
   );
 }

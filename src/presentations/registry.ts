@@ -13,10 +13,7 @@ export interface Slide {
   category: string;
   categoryColor: string;
   date: string;
-  /** React component for in-app presentations. Omit for externally-hosted decks (e.g. Slidev). */
-  component?: ComponentType;
-  /** External URL for decks hosted outside the React app (e.g. Slidev under /presentations/<deck>/). */
-  externalUrl?: string;
+  component: ComponentType;
 }
 
 export const SLIDES: Slide[] = [

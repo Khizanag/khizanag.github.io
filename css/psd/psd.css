@@ -1,4 +1,132 @@
 /* ============================================
+   BASE LAYOUT — formerly inherited from the interview base sheet
+   ============================================ */
+
+:root {
+    --container-max: 720px;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--color-black);
+    color: var(--color-gray-50);
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+::selection {
+    background: var(--color-blue-a30);
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--nav-height);
+    background: var(--color-black-a80);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--color-white-a8);
+}
+
+.nav__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 22px;
+}
+
+.nav__back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--color-blue);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    transition: opacity 0.3s;
+}
+
+.nav__back:hover { opacity: 0.7; }
+
+.nav__back svg {
+    width: 16px;
+    height: 16px;
+}
+
+.nav__title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray-50);
+    letter-spacing: -0.01em;
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+}
+
+.container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 22px;
+    position: relative;
+    z-index: 1;
+}
+
+.screen {
+    display: none;
+    padding-top: calc(var(--nav-height) + 48px);
+    padding-bottom: 80px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+    z-index: 1;
+}
+
+.screen.is-active {
+    display: block;
+    animation: screen-in 0.5s var(--ease-out-expo);
+}
+
+@keyframes screen-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
    PSD ACCENT — Neon green (matches presentations theme)
    Override teal tokens so all var(--color-teal*) resolve to green
    ============================================ */

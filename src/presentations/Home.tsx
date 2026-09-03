@@ -10,15 +10,16 @@ interface PresentationCardProps {
 }
 
 function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
-  const [ref, inView] = useInView(0.1);
+  const [ref, inView] = useInView<HTMLButtonElement>(0.1);
   const [hovered, setHovered] = useState(false);
   const delay = (index * 0.08).toFixed(2);
 
   const handleClick = () => onOpen(slide.id);
 
   return (
-    <div
+    <button
       ref={ref}
+      type="button"
       onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -26,6 +27,7 @@ function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
         background: hovered ? C.surfaceHi : C.surface,
         border: `1px solid ${hovered ? C.borderHi : C.border}`,
         borderRadius: 20, padding: 36, cursor: "pointer",
+        font: "inherit", color: "inherit", textAlign: "left", width: "100%",
         position: "relative", overflow: "hidden",
         opacity: inView ? 1 : 0,
         transform: inView ? (hovered ? "translateY(-4px)" : "translateY(0)") : "translateY(28px)",
@@ -33,7 +35,7 @@ function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
         boxShadow: hovered
           ? `0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px ${slide.categoryColor}20`
           : "0 4px 16px rgba(0,0,0,0.2)",
-        display: "flex", flexDirection: "column", gap: 0,
+        display: "flex", flexDirection: "column", alignItems: "stretch", gap: 0,
       }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${slide.categoryColor}, transparent)`, opacity: hovered ? 1 : 0.4, transition: "opacity 0.3s" }} />
@@ -69,7 +71,7 @@ function PresentationCard({ slide, index, onOpen }: PresentationCardProps) {
           </svg>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 

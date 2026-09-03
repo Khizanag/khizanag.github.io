@@ -12,6 +12,7 @@ interface TabButtonProps {
 export function TabButton({ active, color, icon, label, onClick }: TabButtonProps) {
   return (
     <button
+      type="button"
       onClick={onClick}
       style={{
         display: "flex", alignItems: "center", gap: 8, padding: "9px 18px",
@@ -19,7 +20,7 @@ export function TabButton({ active, color, icon, label, onClick }: TabButtonProp
         border: `1px solid ${active ? color : C.border}`,
         color: active ? color : C.muted,
         cursor: "pointer", transition: "all 0.18s",
-        fontFamily: "'JetBrains Mono', monospace", fontSize: 12, outline: "none",
+        fontFamily: "'JetBrains Mono', monospace", fontSize: 12,
       }}
     >
       {icon && <span style={{ fontSize: 14 }}>{icon}</span>}

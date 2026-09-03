@@ -39,7 +39,7 @@
         var toast = document.createElement('div');
         toast.id = 'liveToast';
         toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
-            'padding:12px 24px;border-radius:12px;font-family:Inter,sans-serif;font-size:14px;' +
+            'padding:12px 24px;border-radius:12px;font-family:var(--font-body);font-size:14px;' +
             'font-weight:500;z-index:9999;animation:lobbyJoin 0.3s ease-out;max-width:90vw;text-align:center;' +
             (isError
                 ? 'background:rgba(255,59,48,0.95);color:#fff;'

@@ -774,6 +774,13 @@
     //  START SESSION (shared between btnStart and pending session)
     // ===========================================================
 
+    function reportQuestionsLoadError(error) {
+        InterviewUtils.logError('questions:load', error);
+        if (App.showToast) {
+            App.showToast('Could not load question banks. Reload to try again.', { type: 'warning', duration: 6000 });
+        }
+    }
+
     function startSession() {
         s.currentQ = 0;
         s.currentRating = 0;
@@ -850,7 +857,9 @@
         s.timeLimitMin = config.timeLimitMin || 60;
         s.candidateLevel = config.candidateLevel !== undefined ? config.candidateLevel : null;
 
-        window.QuestionsReady.then(function () { startSession(); });
+        window.QuestionsReady
+            .then(function () { startSession(); })
+            .catch(reportQuestionsLoadError);
     }
 
     // ===========================================================
@@ -1085,7 +1094,9 @@
                     ? s.intervieweeName
                     : (s.interviewerName && s.intervieweeName);
                 if (s.selectedTopics.length === 0 || !validNames) return;
-                window.QuestionsReady.then(function () { startSession(); });
+                window.QuestionsReady
+                    .then(function () { startSession(); })
+                    .catch(reportQuestionsLoadError);
             });
         }
 

@@ -17,6 +17,16 @@ var InterviewUtils = (function () {
             .replace(/'/g, '&#39;');
     }
 
+    // ---- Image URL Safety ----
+
+    function isSafeImageUrl(url) {
+        try {
+            return new URL(url).protocol === 'https:';
+        } catch (e) {
+            return false;
+        }
+    }
+
     // ---- LocalStorage Helpers ----
 
     function storageGet(key, fallback) {
@@ -145,6 +155,7 @@ var InterviewUtils = (function () {
 
     return {
         escapeHtml: escapeHtml,
+        isSafeImageUrl: isSafeImageUrl,
         storageGet: storageGet,
         storageSet: storageSet,
         storageGetRaw: storageGetRaw,

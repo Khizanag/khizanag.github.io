@@ -163,7 +163,7 @@
         uids.forEach(function (uid) {
             var p = participants[uid];
             var initial = (p.name || '?').charAt(0).toUpperCase();
-            var avatarContent = p.photoURL
+            var avatarContent = InterviewUtils.isSafeImageUrl(p.photoURL)
                 ? '<img src="' + escapeHtml(p.photoURL) + '" alt="">'
                 : escapeHtml(initial);
             var roleName = p.role || 'spectator';

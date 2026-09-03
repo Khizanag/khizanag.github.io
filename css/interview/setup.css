@@ -392,54 +392,6 @@
     color: var(--color-blue);
 }
 
-/* --- Question count stepper --- */
-.stepper {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.stepper__btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--color-white-a12);
-    background: var(--color-white-a4);
-    color: var(--color-gray-200);
-    font-size: 22px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    font-family: var(--font-display);
-}
-
-.stepper__btn:hover {
-    background: var(--color-white-a10);
-    border-color: var(--color-white-a20);
-}
-
-.stepper__btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
-
-.stepper__value {
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 700;
-    min-width: 48px;
-    text-align: center;
-    letter-spacing: -0.02em;
-}
-
-.stepper__hint {
-    font-size: 13px;
-    color: var(--color-gray-500);
-    margin-left: 8px;
-}
-
 /* --- Interview plan --- */
 .plan {
     display: flex;

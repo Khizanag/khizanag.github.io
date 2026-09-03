@@ -1,24 +1,8 @@
 (function () {
     'use strict';
 
-    var STORAGE_KEY = 'ios-interview-features';
-
-    var DEFAULTS = {
-        liveSessions: true,
-        flashcards: true,
-        analytics: true,
-        sandbox: true,
-        gamification: true,
-        customQuestions: true,
-        questionBank: true,
-        interviewGuide: true,
-        templates: true,
-        liveCoding: true,
-        aiFeatures: false,
-        teamMode: false,
-        exportImport: false,
-        videoRecording: false,
-    };
+    var STORAGE_KEY = InterviewApp.FEATURES_STORAGE_KEY;
+    var DEFAULTS = InterviewApp.FEATURE_DEFAULTS;
 
     var FEATURE_META = {
         liveSessions:   { icon: '📡', name: 'Live Sessions',     desc: 'Real-time collaborative interview sessions' },

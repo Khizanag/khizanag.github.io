@@ -51,17 +51,6 @@ const PATHS = [
 
 const ONLY_IN_GITHUB = ["FUNDING.yml", "dependabot.yml", "workflows/", "ISSUE_TEMPLATE/", "PULL_REQUEST_TEMPLATE/", "DISCUSSION_TEMPLATE/"];
 
-function FileRow({ name, sub }: { name: string; sub?: boolean }) {
-  const tag = sub ? "github-sub" : null;
-  const color = TAG_COLORS[BEFORE.find(f => f.name === name)?.tag as string] ?? C.text;
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "4px 0", paddingLeft: sub ? 20 : 0 }}>
-      {sub && <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: C.subtle }}>├─</span>}
-      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color }}>{name}</span>
-    </div>
-  );
-}
-
 export function WhatSection() {
   return (
     <section id="s-what" style={{ maxWidth: 1100, margin: "0 auto", padding: "96px 48px" }}>

@@ -11,9 +11,7 @@ export const C = {
   purple:     "#a78bfa",
   purpleDim:  "rgba(167,139,250,0.10)",
   yellow:     "#ffd60a",
-  yellowDim:  "rgba(255,214,10,0.10)",
   red:        "#ff4d6d",
-  redDim:     "rgba(255,77,109,0.10)",
   text:       "#e8edf5",
   muted:      "#5a6a82",
   subtle:     "#2a3548",
@@ -45,17 +43,5 @@ export const KEYFRAMES = `
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 20px rgba(0,255,136,0.3); }
   50%       { box-shadow: 0 0 40px rgba(0,255,136,0.6); }
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
-}
-@keyframes scanline {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
 }
 `;

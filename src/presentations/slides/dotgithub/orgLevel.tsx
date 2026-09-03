@@ -1,4 +1,4 @@
-import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, CheckItem, useInView } from "../../shared.tsx";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, useInView } from "../../shared.tsx";
 import { P } from "./ui.tsx";
 
 const SUPPORTED = [

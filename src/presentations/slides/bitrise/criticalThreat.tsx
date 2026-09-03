@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, TagChip, InfoCard, CheckItem } from "../../shared.tsx";
-import { P, PDim } from "./ui.tsx";
+import { P } from "./ui.tsx";
 
 export function CriticalThreatSection() {
   const steps = [

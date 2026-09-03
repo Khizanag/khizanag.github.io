@@ -5,16 +5,17 @@
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUncheckedSideEffectImports": true,
     "noEmit": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["src/presentations/*"]
-    }
+    "isolatedModules": true
   },
   "include": ["src/presentations/**/*.ts", "src/presentations/**/*.tsx"],
   "exclude": ["node_modules", "dist"]

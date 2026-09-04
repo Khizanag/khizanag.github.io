@@ -1,6 +1,3 @@
 User-agent: *
-Disallow: /config
-Disallow: /history
-Disallow: /host-interview
 
 Sitemap: https://khizanag.github.io/sitemap.xml

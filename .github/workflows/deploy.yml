@@ -69,7 +69,7 @@ jobs:
           for forbidden in _site/node_modules _site/src; do
               test ! -e "$forbidden" || { echo "must not ship: $forbidden"; exit 1; }
           done
-          leaked=$(find _site \( -name '*.md' -o -name 'package*.json' \) -print)
+          leaked=$(find _site \( -name '*.test.*' -o -name '*.md' -o -name 'package*.json' \) -print)
           if [ -n "$leaked" ]; then
               echo "must not ship:"
               echo "$leaked"

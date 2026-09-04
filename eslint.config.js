@@ -1,4 +1,4 @@
-// Only the presentations app is linted; the classic scripts in js/ and tests/ are out of scope for now.
+// Only the presentations app is linted; the classic scripts in js/ are out of scope for now.
 import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -7,7 +7,7 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["dist/**", "node_modules/**", "js/**", "tests/**"],
+    ignores: ["dist/**", "node_modules/**", "js/**"],
   },
   {
     files: ["src/presentations/**/*.{ts,tsx}"],

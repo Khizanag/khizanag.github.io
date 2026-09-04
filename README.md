@@ -7,9 +7,11 @@ Personal portfolio and resume site for Giga Khizanishvili, deployed to [khizanag
 - [Portfolio](index.html) — resume, experience, and project highlights
 - [iOS Career Hub](jobs.html) — job search tracker and resources
 - [iOS Mastery Roadmap](roadmap.html) — knowledge map for senior iOS developers
-- [Interview Tool](interview.html) — mock interview practice, with companion pages [Guide](guide.html), [History](history.html), [Host Interview](host-interview.html), [Practice](practice.html), and [Config](config.html)
 - [PSD Study Hub](psd.html) — Professional Scrum Developer certification study tool
+- [Not found](404.html) — custom 404 page for unknown URLs
 - [Presentations](https://khizanag.github.io/presentations/) — scroll-based tech-talk decks, built from `src/presentations/`
+
+The mock interview tool moved to [Interview Lab](https://interview-lab-khizanag.web.app/), which lives in its own `Khizanag/interview-lab` repository.
 
 ## Development
 
@@ -26,7 +28,7 @@ Run the presentations app locally:
 npm run dev
 ```
 
-Preview the static pages (portfolio, jobs, roadmap, interview, psd) with any static file server, for example:
+Preview the static pages (portfolio, jobs, roadmap, psd) with any static file server, for example:
 
 ```bash
 npx serve .
@@ -36,21 +38,15 @@ npx serve .
 
 ```bash
 npm run typecheck
-npm test
 npm run lint
 npm run build
 ```
 
-`npm run test:rules` checks `firestore.rules` against the Firestore emulator; it needs Java installed.
-
 ## Deployment
 
-Pushing to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): it typechecks, lints, tests, and builds the presentations app, assembles the static pages plus the build output into `_site`, and deploys the result to GitHub Pages.
+Pushing to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): it typechecks, lints, and builds the presentations app, assembles the static pages plus the build output into `_site`, smoke-checks what would ship, and deploys the result to GitHub Pages.
 
 ## Docs
 
 - [CLAUDE.md](CLAUDE.md) — repo conventions and structure
 - [Presentation Guide](src/presentations/PRESENTATION_GUIDE.md) — presentations app internals
-- [Interview Tool Architecture](docs/interview/ARCHITECTURE.md)
-- [Interview Tool Security Report](docs/interview/SECURITY-REPORT.md)
-- [Interview Tool Roadmap](docs/interview/ROADMAP.md)

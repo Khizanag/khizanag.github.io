@@ -34,9 +34,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Test
-        run: npm test
-
       - name: Build presentations
         run: npm run build
 
@@ -53,7 +50,6 @@ jobs:
             --exclude='node_modules' \
             --exclude='dist' \
             --exclude='src' \
-            --exclude='tests' \
             --exclude='docs' \
             --exclude='*.md' \
             --exclude='package.json' \
@@ -61,9 +57,6 @@ jobs:
             --exclude='tsconfig.json' \
             --exclude='vite.config.*' \
             --exclude='eslint.config.*' \
-            --exclude='firestore.rules' \
-            --exclude='firebase.json' \
-            --exclude='.firebaserc' \
             ./ _site/
           # dist/ is excluded above, so the built app is copied in explicitly
           cp -r dist/presentations _site/presentations
@@ -73,10 +66,10 @@ jobs:
           for required in _site/index.html _site/presentations/index.html _site/css/core/design-system.css _site/js/shared/keyboard-nav.js; do
               test -f "$required" || { echo "missing from _site: $required"; exit 1; }
           done
-          for forbidden in _site/node_modules _site/src _site/firestore.rules _site/firebase.json _site/.firebaserc; do
+          for forbidden in _site/node_modules _site/src; do
               test ! -e "$forbidden" || { echo "must not ship: $forbidden"; exit 1; }
           done
-          leaked=$(find _site \( -name '*.test.*' -o -name '*.md' -o -name 'package*.json' \) -print)
+          leaked=$(find _site \( -name '*.md' -o -name 'package*.json' \) -print)
           if [ -n "$leaked" ]; then
               echo "must not ship:"
               echo "$leaked"

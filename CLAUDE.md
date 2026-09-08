@@ -101,6 +101,7 @@ npm run build
 
 - GitHub Pages deploys via GitHub Actions (`.github/workflows/deploy.yml`)
 - Push to `main` runs: typecheck → lint → build → assemble → smoke-check → deploy
+- Assembly and its smoke check live in `scripts/assemble.sh` (`npm run assemble`), so CI and a local run stay identical
 - Assembly uses `rsync` to copy the static pages, excluding `src/`, Markdown, and the tooling config; the built presentations are then copied in explicitly
 - The smoke check fails the run if a required file is missing or if source, Markdown, or manifests would ship
 - Pull requests against `main` run the same checks but do not deploy

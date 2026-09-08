@@ -879,10 +879,6 @@ a {
 @media (max-width: 640px) {
     .rm-section { padding: 64px 20px; }
 
-    .nav__links.is-open .nav__link {
-        font-size: 14px;
-    }
-
     .rm-hero {
         padding: calc(var(--nav-height) + 48px) 20px 48px;
     }
@@ -946,8 +942,6 @@ a {
     .nav, .rm-progress, .g-btt, .hero__scroll, .rm-controls { display: none; }
     .rm-hero { padding-top: 40px; }
     body { background: #fff; }
-    .s-dark { background: #fff; color: #000; }
-    .s-dark .section-desc { color: #333; }
     .s-light { background: #fff; color: #000; }
     [data-anim] { opacity: 1; transform: none; }
     .rm-node__ring { display: none; }

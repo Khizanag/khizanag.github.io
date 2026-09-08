@@ -42,7 +42,7 @@ Root assets: `cv.pdf`, `favicon.svg`, `robots.txt`, `sitemap.xml`.
 - `portfolio/` — `portfolio.js`
 - `jobs/` — `jobs.js`
 - `roadmap/` — `roadmap.js`
-- `psd/` — `questions.js`, `app.js`
+- `psd/` — `app.js` (question bank loaded from `js/psd/questions.json`)
 
 `src/presentations/` — React + Vite + TypeScript source for the tech-talk decks (2-space indent, double quotes).
 

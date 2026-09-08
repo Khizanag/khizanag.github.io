@@ -72,20 +72,25 @@
 
     function loadQuestions() {
         renderBankStatus('Loading questions\u2026', false);
+        var failed = false;
         fetch(QUESTIONS_URL)
             .then(function (response) {
                 if (!response.ok) throw new Error('HTTP ' + response.status);
                 return response.json();
             })
-            .then(function (questions) {
-                PSD_QUESTIONS = questions;
+            .then(function (questions) { PSD_QUESTIONS = questions; })
+            // The catch covers the fetch only, so a fault in the render below
+            // still reaches the console instead of reading as a failed download.
+            .catch(function () {
+                failed = true;
+                renderBankStatus('Could not load the questions.', true);
+            })
+            .then(function () {
+                if (failed) return;
                 buildCategoryChips();
                 buildCatGrid();
                 updateFilteredCount();
                 bindEvents();
-            })
-            .catch(function () {
-                renderBankStatus('Could not load the questions.', true);
             });
     }
 

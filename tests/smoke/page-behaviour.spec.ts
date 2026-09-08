@@ -21,11 +21,14 @@ const PAGES: PageBehaviour[] = [
 async function scrollToBottom(page: Page) {
   await page.evaluate(async () => {
     const step = Math.round(window.innerHeight * 0.5);
+    const twoFrames = () =>
+      new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     for (let y = 0; y <= document.documentElement.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await new Promise((resolve) => setTimeout(resolve, 60));
+      await twoFrames();
     }
     window.scrollTo(0, document.documentElement.scrollHeight);
+    await twoFrames();
   });
 }
 
@@ -39,16 +42,36 @@ for (const { path, reveal, progressBar } of PAGES) {
 
     await scrollToBottom(page);
 
-    // The observers shrink their root by up to 60px at the bottom, so a target that ends the
-    // walk inside that band, or has no box at all, can never intersect and must not be counted.
-    const observableTargetsRevealed = () =>
+    // Ask an observer configured exactly like the page's own which targets intersect at the
+    // bottom; every one of those must be revealed. Clipped or offset targets never intersect.
+    const unrevealedIntersectingTargets = () =>
       page.evaluate(
-        ({ selector, margin }) => {
-          const targets = Array.from(document.querySelectorAll<HTMLElement>(selector));
-          const observable = targets.filter((el) => {
-            const rect = el.getBoundingClientRect();
-            return rect.width > 0 && rect.height > 0 && rect.top < window.innerHeight - margin;
-          });
+        (selector) =>
+          new Promise<string[]>((resolve) => {
+            const script = document.querySelector<HTMLScriptElement>('script[src$="reveal.js"]');
+            const threshold = parseFloat(script?.dataset.threshold ?? "0.12");
+            const rootMargin = script?.dataset.rootMargin ?? "0px 0px -40px 0px";
+            const describe = (el: Element) =>
+              `${el.tagName.toLowerCase()}.${Array.from(el.classList).join(".")}`;
+            const observer = new IntersectionObserver(
+              (entries) => {
+                observer.disconnect();
+                resolve(
+                  entries
+                    .filter((entry) => entry.isIntersecting && !entry.target.classList.contains("is-visible"))
+                    .map((entry) => describe(entry.target)),
+                );
+              },
+              { threshold, rootMargin },
+            );
+            document.querySelectorAll(selector).forEach((el) => observer.observe(el));
+          }),
+        reveal,
+      );
+
+    await expect.poll(unrevealedIntersectingTargets, { timeout: SETTLE_TIMEOUT }).toEqual([]);
+    expect(await page.locator(`${reveal}.is-visible`).count()).toBeGreaterThan(0);
+  });
           return observable.length > 0 && observable.every((el) => el.classList.contains("is-visible"));
         },
         { selector: reveal, margin: 60 },

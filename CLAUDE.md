@@ -38,7 +38,7 @@ Root assets: `cv.pdf`, `favicon.svg`, `robots.txt`, `sitemap.xml`.
 
 `js/` — classic scripts (IIFE, globals, 4-space indent, single quotes):
 
-- `shared/` — `keyboard-nav.js`, `fullscreen.js`, `scroll-top.js`, `theme-toggle.js`
+- `shared/` — `keyboard-nav.js`, `fullscreen.js`, `mobile-nav.js`, `reading-progress.js`, `reveal.js`, `scroll-top.js`, `smooth-scroll.js`, `theme-toggle.js`
 - `portfolio/` — `portfolio.js`
 - `jobs/` — `jobs.js`
 - `roadmap/` — `roadmap.js`

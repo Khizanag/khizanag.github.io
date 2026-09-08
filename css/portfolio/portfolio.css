@@ -1599,6 +1599,9 @@ img, svg {
         gap: 20px;
     }
 
+    /* Top-level links only — the dropdown keeps the shared 14px */
+    .nav__links.is-open > li > .nav__link { font-size: 12px; }
+
     /* Flatten dropdown in mobile hamburger */
     .nav__dropdown-trigger { display: none; }
     .nav__dropdown-menu {

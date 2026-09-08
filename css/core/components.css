@@ -1,6 +1,6 @@
 /* ============================================
    COMPONENTS — Nav, section header, section variants
-   Shared across index.html, jobs.html and roadmap.html
+   Shared across index.html, jobs.html, roadmap.html and psd.html
    ============================================ */
 
 /* ============================================
@@ -163,4 +163,14 @@
         gap: 16px;
         border-bottom: var(--border-dark);
     }
+
+    .nav__links.is-open .nav__link { font-size: 14px; }
+}
+
+/* ============================================
+   PRINT
+   ============================================ */
+@media print {
+    .s-dark { background: #fff; color: #000; }
+    .s-dark .section-desc { color: #333; }
 }

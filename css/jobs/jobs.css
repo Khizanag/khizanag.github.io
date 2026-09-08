@@ -925,10 +925,6 @@ a {
 @media (max-width: 640px) {
     .j-section { padding: 64px 20px; }
 
-    .nav__links.is-open .nav__link {
-        font-size: 14px;
-    }
-
     .j-hero {
         min-height: auto;
         padding: calc(var(--nav-height) + 48px) 20px 48px;
@@ -965,7 +961,5 @@ a {
     .nav, .j-progress, .g-btt, .hero__scroll { display: none; }
     .j-hero { padding-top: 40px; }
     body { background: #fff; }
-    .s-dark { background: #fff; color: #000; }
-    .s-dark .section-desc { color: #333; }
     [data-anim] { opacity: 1; transform: none; }
 }

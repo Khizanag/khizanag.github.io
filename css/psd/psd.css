@@ -45,54 +45,26 @@ body {
     }
 }
 
+/* Nav deltas over css/core/components.css and the presentations theme */
 .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
     height: var(--nav-height);
-    background: var(--color-black-a80);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid var(--color-white-a8);
 }
 
 .nav__inner {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    height: 100%;
-    display: flex;
-    align-items: center;
+    justify-content: normal;
     gap: 12px;
-    padding: 0 22px;
 }
 
 .nav__back {
-    display: flex;
-    align-items: center;
     gap: 8px;
-    text-decoration: none;
     color: var(--color-blue);
-    font-size: 13px;
     font-weight: 500;
-    font-family: var(--font-body);
-    transition: opacity 0.3s;
-}
-
-.nav__back:hover { opacity: 0.7; }
-
-.nav__back svg {
-    width: 16px;
-    height: 16px;
 }
 
 .nav__title {
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 600;
     color: var(--color-gray-50);
-    letter-spacing: -0.01em;
     flex: 1;
     text-align: center;
     min-width: 0;

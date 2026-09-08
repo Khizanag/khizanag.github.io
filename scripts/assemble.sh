@@ -40,7 +40,7 @@ cp -r dist/presentations _site/presentations
 for required in _site/index.html _site/presentations/index.html _site/css/core/design-system.css _site/js/shared/keyboard-nav.js; do
     test -f "$required" || { echo "missing from _site: $required"; exit 1; }
 done
-for forbidden in _site/node_modules _site/src; do
+for forbidden in _site/node_modules _site/src _site/scripts _site/tests; do
     test ! -e "$forbidden" || { echo "must not ship: $forbidden"; exit 1; }
 done
 leaked=$(find _site \( -name '*.test.*' -o -name '*.md' -o -name 'package*.json' \) -print)

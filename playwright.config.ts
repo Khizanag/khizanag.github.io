@@ -24,6 +24,6 @@ export default defineConfig({
   webServer: {
     command: "node tests/support/serve.mjs",
     url: BASE_URL,
-    reuseExistingServer: true,
+    reuseExistingServer: !process.env.CI,
   },
 });

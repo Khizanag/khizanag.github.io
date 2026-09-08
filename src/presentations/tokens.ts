@@ -85,7 +85,7 @@ export const HOVERS = `
   color: ${C.muted};
   transition: border-color 0.2s, color 0.2s;
 }
-.deck-nav-button:disabled { color: var(--nav-accent); }
+.deck-nav-button:disabled { border-color: var(--nav-accent-60); color: var(--nav-accent); }
 .deck-nav-button:hover:not(:disabled) { border-color: var(--nav-accent-60); color: var(--nav-accent); }
 
 .deck-back-button {

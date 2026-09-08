@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FONTS, KEYFRAMES } from "./tokens.ts";
+import { FONTS, HOVERS, KEYFRAMES } from "./tokens.ts";
 import { Home } from "./Home.tsx";
 import { SlideView } from "./SlideView.tsx";
 import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <>
-      <style>{FONTS}{KEYFRAMES}</style>
+      <style>{FONTS}{KEYFRAMES}{HOVERS}</style>
       {activeId
         ? (
           <ErrorBoundary key={activeId} onReset={goHome}>

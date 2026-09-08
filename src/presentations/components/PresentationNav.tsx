@@ -1,4 +1,4 @@
-import { type ReactNode, useState, useEffect } from "react";
+import { type CSSProperties, type ReactNode, useState, useEffect } from "react";
 import { C } from "../tokens.ts";
 
 interface NavLink {
@@ -94,6 +94,8 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
 
   return (
     <nav data-noprint style={{
+      "--nav-accent": color,
+      "--nav-accent-60": `${color}60`,
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
       padding: "0 48px", height: 64,
       display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -101,7 +103,7 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
       backdropFilter: scrolled ? "blur(24px)" : "none",
       borderBottom: `1px solid ${scrolled ? C.border : "transparent"}`,
       transition: "background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease",
-    }}>
+    } as CSSProperties}>
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `${color}18` }}>
         <div style={{
           height: "100%",
@@ -140,19 +142,17 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
 
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <button
+          className="deck-nav-button"
           onClick={handleExportPDF}
           title="Save as PDF"
           disabled={isPrinting}
           style={{
-            height: 32, borderRadius: 8, border: `1px solid ${C.border}`,
-            background: "transparent", color: isPrinting ? color : C.muted, cursor: isPrinting ? "default" : "pointer",
+            height: 32, borderRadius: 8,
+            background: "transparent", cursor: isPrinting ? "default" : "pointer",
             display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
             padding: "0 10px",
-            transition: "border-color 0.2s, color 0.2s",
             opacity: isPrinting ? 0.7 : 1,
           }}
-          onMouseEnter={(e) => { if (!isPrinting) { e.currentTarget.style.borderColor = `${color}60`; e.currentTarget.style.color = color; } }}
-          onMouseLeave={(e) => { if (!isPrinting) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.muted; } }}
         >
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
             <path d="M6.5 1v7M3.5 5.5l3 3 3-3M1 9.5v1a1 1 0 001 1h9a1 1 0 001-1v-1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -164,16 +164,14 @@ export function PresentationNav({ logo, title, links, badge, color, colorDim, sc
 
         {!isMobile && (
           <button
+            className="deck-nav-button"
             onClick={toggleFullscreen}
             title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
             style={{
-              width: 32, height: 32, borderRadius: 8, border: `1px solid ${C.border}`,
-              background: "transparent", color: C.muted, cursor: "pointer",
+              width: 32, height: 32, borderRadius: 8,
+              background: "transparent", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
-              transition: "border-color 0.2s, color 0.2s",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${color}60`; e.currentTarget.style.color = color; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.muted; }}
           >
             <FullscreenIcon isFullscreen={isFullscreen} />
           </button>

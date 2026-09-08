@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { type CSSProperties, useState, useRef } from "react";
 import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, PlainEnglishBox, TabButton, useLocalTabNav } from "../../shared.tsx";
 import { P } from "./ui.tsx";
 
@@ -393,14 +393,13 @@ export function RealWorldSection() {
                             href={`https://github.com/${repo.name}/blob/${repo.branch}/${file.path}`}
                             target="_blank"
                             rel="noreferrer"
+                            className="repo-source-link"
                             style={{
+                              "--repo-tint": `${repo.color}08`,
                               display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8,
-                              padding: "10px 14px", background: C.surface, borderRadius: 8,
+                              padding: "10px 14px", borderRadius: 8,
                               border: `1px solid ${repo.color}30`, textDecoration: "none",
-                              transition: "background 0.15s",
-                            }}
-                            onMouseEnter={e => e.currentTarget.style.background = `${repo.color}08`}
-                            onMouseLeave={e => e.currentTarget.style.background = C.surface}
+                            } as CSSProperties}
                           >
                             <div>
                               <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 10, color: repo.color, letterSpacing: "0.1em", marginBottom: 4 }}>

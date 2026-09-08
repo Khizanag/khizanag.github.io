@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type CSSProperties } from "react";
 import { useScrolled, useInView, useKeyboardNav } from "./hooks.ts";
 import { C } from "./tokens.ts";
 import { SLIDES, type Slide } from "./registry.ts";
@@ -12,32 +12,27 @@ interface PresentationCardProps {
 
 function PresentationCard({ slide, index }: PresentationCardProps) {
   const [ref, inView] = useInView<HTMLAnchorElement>(0.1);
-  const [hovered, setHovered] = useState(false);
   const delay = (index * 0.08).toFixed(2);
 
   return (
     <a
       ref={ref}
       href={`#${slide.id}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className={inView ? "deck-card deck-card--in-view" : "deck-card"}
       style={{
-        background: hovered ? C.surfaceHi : C.surface,
-        border: `1px solid ${hovered ? C.borderHi : C.border}`,
+        "--card-accent": slide.categoryColor,
+        "--card-accent-10": `${slide.categoryColor}10`,
+        "--card-accent-20": `${slide.categoryColor}20`,
+        "--card-accent-60": `${slide.categoryColor}60`,
         borderRadius: 20, padding: 36, cursor: "pointer",
         font: "inherit", color: "inherit", textDecoration: "none", textAlign: "left", width: "100%",
         position: "relative", overflow: "hidden",
-        opacity: inView ? 1 : 0,
-        transform: inView ? (hovered ? "translateY(-4px)" : "translateY(0)") : "translateY(28px)",
         transition: `opacity 0.6s ease ${delay}s, transform 0.4s ease, background 0.2s, border-color 0.2s`,
-        boxShadow: hovered
-          ? `0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px ${slide.categoryColor}20`
-          : "0 4px 16px rgba(0,0,0,0.2)",
         display: "flex", flexDirection: "column", alignItems: "stretch", gap: 0,
-      }}
+      } as CSSProperties}
     >
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${slide.categoryColor}, transparent)`, opacity: hovered ? 1 : 0.4, transition: "opacity 0.3s" }} />
-      <div style={{ position: "absolute", bottom: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${slide.categoryColor}08 0%, transparent 70%)`, opacity: hovered ? 1 : 0, transition: "opacity 0.4s", pointerEvents: "none" }} />
+      <div className="deck-card__bar" style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, ${slide.categoryColor}, transparent)` }} />
+      <div className="deck-card__glow" style={{ position: "absolute", bottom: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${slide.categoryColor}08 0%, transparent 70%)`, pointerEvents: "none" }} />
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 28 }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "5px 12px", background: `${slide.categoryColor}12`, border: `1px solid ${slide.categoryColor}30`, borderRadius: 50 }}>
@@ -57,15 +52,15 @@ function PresentationCard({ slide, index }: PresentationCardProps) {
       </p>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 13, color: hovered ? slide.categoryColor : C.muted, transition: "color 0.2s", letterSpacing: "0.02em" }}>
+        <div className="deck-card__cta" style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: "0.02em" }}>
           Open presentation
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: hovered ? "translateX(4px)" : "translateX(0)", transition: "transform 0.2s" }}>
+          <svg className="deck-card__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <div style={{ width: 32, height: 32, borderRadius: "50%", border: `1px solid ${hovered ? slide.categoryColor + "60" : C.border}`, display: "flex", alignItems: "center", justifyContent: "center", transition: "border-color 0.2s, background 0.2s", background: hovered ? `${slide.categoryColor}10` : "transparent" }}>
+        <div className="deck-card__badge" style={{ width: 32, height: 32, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-            <path d="M2 11L11 2M11 2H5M11 2v6" stroke={hovered ? slide.categoryColor : C.muted} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M2 11L11 2M11 2H5M11 2v6" stroke={C.muted} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
       </div>
@@ -103,7 +98,7 @@ export function Home() {
 
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "0 48px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between", background: scrolled ? "rgba(5,8,15,0.85)" : "transparent", backdropFilter: scrolled ? "blur(24px) saturate(160%)" : "none", borderBottom: `1px solid ${scrolled ? C.border : "transparent"}`, transition: "background 0.4s, backdrop-filter 0.4s, border-color 0.4s" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <a href="../" style={{ display: "flex", alignItems: "center", gap: 7, textDecoration: "none", color: C.muted, fontFamily: "'Syne', sans-serif", fontWeight: 600, fontSize: 13, letterSpacing: "0.01em", transition: "color 0.2s" }} onMouseEnter={(e) => e.currentTarget.style.color = C.accent} onMouseLeave={(e) => e.currentTarget.style.color = C.muted}>
+          <a href="../" className="home-back-link" style={{ display: "flex", alignItems: "center", gap: 7, textDecoration: "none", fontFamily: "'Syne', sans-serif", fontWeight: 600, fontSize: 13, letterSpacing: "0.01em" }}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M11 7H3M3 7l4-4M3 7l4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

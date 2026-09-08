@@ -740,6 +740,11 @@ img, svg {
     flex-shrink: 0;
 }
 
+.exp-card__company-dot--blue   { background: var(--color-blue); }
+.exp-card__company-dot--purple { background: var(--color-purple); }
+.exp-card__company-dot--green  { background: var(--color-green); }
+.exp-card__company-dot--orange { background: var(--color-orange); }
+
 .exp-card__company-link {
     color: var(--color-gray-500);
     text-decoration: none;

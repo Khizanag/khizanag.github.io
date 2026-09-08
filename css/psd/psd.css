@@ -371,6 +371,28 @@ body {
     color: var(--color-gray-500);
 }
 
+.psd-bank-status {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 16px;
+    text-align: center;
+}
+
+.psd-bank-status__text {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-500);
+    letter-spacing: 0.02em;
+}
+
+.psd-bank-status--error .psd-bank-status__text {
+    color: var(--color-red);
+}
+
 /* ============================================
    QUIZ SETUP SCREEN
    ============================================ */

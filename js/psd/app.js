@@ -61,13 +61,56 @@
     var $ = function (id) { return document.getElementById(id); };
 
     /* ============================================
-       INIT
+       QUESTION BANK
        ============================================ */
+    var QUESTIONS_URL = 'js/psd/questions.json';
+    var PSD_QUESTIONS = [];
+
     function init() {
-        buildCategoryChips();
-        buildCatGrid();
-        updateFilteredCount();
-        bindEvents();
+        loadQuestions();
+    }
+
+    function loadQuestions() {
+        renderBankStatus('Loading questions\u2026', false);
+        fetch(QUESTIONS_URL)
+            .then(function (response) {
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                return response.json();
+            })
+            .then(function (questions) {
+                PSD_QUESTIONS = questions;
+                buildCategoryChips();
+                buildCatGrid();
+                updateFilteredCount();
+                bindEvents();
+            })
+            .catch(function () {
+                renderBankStatus('Could not load the questions.', true);
+            });
+    }
+
+    function renderBankStatus(message, failed) {
+        var container = $('catGrid');
+        container.innerHTML = '';
+
+        var box = document.createElement('div');
+        box.className = failed ? 'psd-bank-status psd-bank-status--error' : 'psd-bank-status';
+        box.setAttribute('role', 'status');
+
+        var text = document.createElement('p');
+        text.className = 'psd-bank-status__text';
+        text.textContent = message;
+        box.appendChild(text);
+
+        if (failed) {
+            var retry = document.createElement('button');
+            retry.className = 'psd-btn-secondary';
+            retry.textContent = 'Try again';
+            retry.addEventListener('click', loadQuestions);
+            box.appendChild(retry);
+        }
+
+        container.appendChild(box);
     }
 
     /* ============================================

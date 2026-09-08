@@ -1,4 +1,4 @@
-var PSD_QUESTIONS = [
+[
   {
     "id": 1,
     "category": "Backlog Management",
@@ -8129,4 +8129,4 @@ var PSD_QUESTIONS = [
     "tip": "The goal: sustainable delivery of value every Sprint, every time, indefinitely.",
     "source": "Scrum Guide 2020"
   }
-];
+]

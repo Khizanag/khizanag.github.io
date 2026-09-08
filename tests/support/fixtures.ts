@@ -27,7 +27,11 @@ export const test = base.extend<SmokeOptions & SmokeFixtures>({
       const source = message.location().url;
       if (source && !isOurs(source)) return;
       const text = message.text();
-      if (expectedConsoleErrors.some((pattern) => pattern.test(text))) return;
+      // An allowance covers the navigated document only: Chromium words a failed
+      // sub-resource exactly like the document itself, so matching on the text
+      // alone would excuse every broken asset on that page too.
+      const fromDocument = source === page.url();
+      if (fromDocument && expectedConsoleErrors.some((pattern) => pattern.test(text))) return;
       problems.push(`console: ${text}`);
     });
 

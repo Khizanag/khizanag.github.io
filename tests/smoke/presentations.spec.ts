@@ -13,11 +13,13 @@ test("opening a deck renders it with a way back", async ({ page }) => {
 
   const firstDeck = page.locator('a[href^="#"]').first();
   const hash = await firstDeck.getAttribute("href");
+  const deckTitle = await firstDeck.locator("h2").innerText();
   await firstDeck.click();
 
   await expect.poll(() => page.evaluate(() => window.location.hash)).toBe(hash);
   await expect(page.getByRole("button", { name: "All presentations" })).toBeVisible();
-  await expect(page.getByRole("heading").first()).toBeVisible();
+  // Only a deck id the registry resolves puts its own title on the document.
+  await expect(page).toHaveTitle(`${deckTitle} — Giga Khizanishvili`);
 });
 
 test("an unknown deck id explains itself", async ({ page }) => {

@@ -7,6 +7,7 @@ export { WorkflowStep, CodeBlock, KeyValueDiff } from "./components/content.tsx"
 export { TabButton } from "./components/interactive.tsx";
 export { PresentationHero } from "./components/HeroSection.tsx";
 export { PresentationNav } from "./components/PresentationNav.tsx";
+export { DeckShell, DeckFooterLogo } from "./components/DeckShell.tsx";
 export { ThankYouSection } from "./components/ThankYouSection.tsx";
 export { PresentationFooter } from "./components/PresentationFooter.tsx";
 export { ErrorBoundary } from "./components/ErrorBoundary.tsx";

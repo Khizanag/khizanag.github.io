@@ -1,9 +1,4 @@
-import {
-  C,
-  useScrolled, useKeyboardNav,
-  AnimatedGrid, AmbientBlobs,
-  PresentationNav, ThankYouSection, PresentationFooter,
-} from "../../shared.tsx";
+import { DeckFooterLogo, DeckShell } from "../../shared.tsx";
 import { P, PDim } from "./ui.tsx";
 import { HeroSection } from "./hero.tsx";
 import { WhyItMattersSection } from "./whyItMatters.tsx";
@@ -29,76 +24,53 @@ const NAV_LOGO = (
 );
 
 const FOOTER_LOGO = (
-  <div style={{
-    width: 22, height: 22, borderRadius: 6, background: PDim, border: `1px solid ${P}30`,
-    display: "flex", alignItems: "center", justifyContent: "center",
-    fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 9, color: P,
-  }}>
+  <DeckFooterLogo
+    color={P}
+    colorDim={PDim}
+    style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 9, color: P }}
+  >
     CI
-  </div>
+  </DeckFooterLogo>
 );
 
 export default function BitriseConfigAnalysis() {
-  const scrolled = useScrolled(60);
-  useKeyboardNav(SECTION_IDS);
-
   return (
-    <>
-      <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif" }}>
-
-        <AnimatedGrid />
-        <AmbientBlobs />
-
-        <PresentationNav
-          scrolled={scrolled}
-          logo={NAV_LOGO}
-          title="Bitrise · CI as Code"
-          links={[
-            { label: "Why It Matters",  id: "s-why" },
-            { label: "Proposal",        id: "s-proposal" },
-            { label: "Security",        id: "s-security" },
-            { label: "Safeguards",      id: "s-safeguards" },
-            { label: "Comparison",      id: "s-comparison" },
-            { label: "Recommendation",  id: "s-recommendation" },
-          ]}
-          badge="Giga Khizanishvili"
-          color={P}
-          colorDim={PDim}
-        />
-
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <HeroSection />
-
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 48px" }}>
-            <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C.border}, transparent)` }} />
-          </div>
-
-          <WhyItMattersSection />
-          <CurrentStateSection />
-          <ProposalSection />
-          <AdvantagesSection />
-          <TradeOffsSection />
-          <SecuritySection />
-          <CriticalThreatSection />
-          <SafeguardsSection />
-          <EnterpriseSection />
-          <ComparisonSection />
-          <RecommendationSection />
-
-          <ThankYouSection id="s-thankyou" label="FEBRUARY 2026" color={P} colorDim={PDim} />
-
-          <PresentationFooter
-            logo={FOOTER_LOGO}
-            name="CI as Code · Giga Khizanishvili"
-            links={[
-              { label: "Audit Report" },
-              { label: "Recommendations v2" },
-              { label: "Senior Audit" },
-            ]}
-            date="Feb 2026"
-          />
-        </div>
-      </div>
-    </>
+    <DeckShell
+      sectionIds={SECTION_IDS}
+      color={P}
+      colorDim={PDim}
+      navLogo={NAV_LOGO}
+      title="Bitrise · CI as Code"
+      navLinks={[
+        { label: "Why It Matters",  id: "s-why" },
+        { label: "Proposal",        id: "s-proposal" },
+        { label: "Security",        id: "s-security" },
+        { label: "Safeguards",      id: "s-safeguards" },
+        { label: "Comparison",      id: "s-comparison" },
+        { label: "Recommendation",  id: "s-recommendation" },
+      ]}
+      hero={<HeroSection />}
+      thankYouLabel="FEBRUARY 2026"
+      footerLogo={FOOTER_LOGO}
+      footerName="CI as Code · Giga Khizanishvili"
+      footerLinks={[
+        { label: "Audit Report" },
+        { label: "Recommendations v2" },
+        { label: "Senior Audit" },
+      ]}
+      footerDate="Feb 2026"
+    >
+      <WhyItMattersSection />
+      <CurrentStateSection />
+      <ProposalSection />
+      <AdvantagesSection />
+      <TradeOffsSection />
+      <SecuritySection />
+      <CriticalThreatSection />
+      <SafeguardsSection />
+      <EnterpriseSection />
+      <ComparisonSection />
+      <RecommendationSection />
+    </DeckShell>
   );
 }

@@ -40,6 +40,12 @@ jobs:
       - name: Assemble site
         run: npm run assemble
 
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Test
+        run: npm test
+
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request'
 

@@ -40,13 +40,17 @@ npx serve .
 npm run typecheck
 npm run lint
 npm run build
+npm run assemble
+npm test
 ```
 
 `npm run assemble` reproduces the deploy assembly locally: it stages the shippable files into `_site` and smoke-checks them, exactly as CI does.
 
+`npm test` runs the Playwright smoke suite against that `_site`, so build and assemble it first. Install the browser once with `npx playwright install chromium`.
+
 ## Deployment
 
-Pushing to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): it typechecks, lints, and builds the presentations app, assembles the static pages plus the build output into `_site`, smoke-checks what would ship, and deploys the result to GitHub Pages.
+Pushing to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): it typechecks, lints, and builds the presentations app, assembles the static pages plus the build output into `_site`, smoke-checks what would ship, runs the browser tests against it, and deploys the result to GitHub Pages.
 
 ## Docs
 

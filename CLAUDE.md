@@ -86,7 +86,11 @@ Run on the Node version pinned in `.nvmrc` (`nvm use`), after `npm ci`:
 npm run typecheck
 npm run lint
 npm run build
+npm run assemble
+npm test
 ```
+
+`npm test` is the Playwright smoke suite in `tests/smoke/` (Chromium only). It drives the assembled `_site` through `tests/support/serve.mjs`, a static server that mirrors GitHub Pages routing, so `npm run build && npm run assemble` must run first. Install the browser once with `npx playwright install chromium`.
 
 ## Presentations
 
@@ -100,7 +104,7 @@ npm run build
 ## Deployment
 
 - GitHub Pages deploys via GitHub Actions (`.github/workflows/deploy.yml`)
-- Push to `main` runs: typecheck → lint → build → assemble → smoke-check → deploy
+- Push to `main` runs: typecheck → lint → build → assemble → smoke-check → browser tests → deploy
 - Assembly and its smoke check live in `scripts/assemble.sh` (`npm run assemble`), so CI and a local run stay identical
 - Assembly uses `rsync` to copy the static pages, excluding `src/`, Markdown, and the tooling config; the built presentations are then copied in explicitly
 - The smoke check fails the run if a required file is missing or if source, Markdown, or manifests would ship

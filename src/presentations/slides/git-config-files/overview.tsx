@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 const GITCONFIG_POINTS = [
   "Controls Git's behavior for every command you run",

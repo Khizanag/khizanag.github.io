@@ -1,6 +1,7 @@
-import { useState, useRef, type Dispatch, type SetStateAction } from "react";
-import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, TabButton, PlainEnglishBox, useLocalTabNav } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { useCallback, useState, useRef, type Dispatch, type SetStateAction } from "react";
+import { useLocalTabNav } from "../../hooks.ts";
+import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, TabButton, PlainEnglishBox } from "../../shared.tsx";
+import { P } from "./tokens.ts";
 
 // ─── Issue Template files ────────────────────────────────────────────────────
 
@@ -247,7 +248,7 @@ export function TemplatesSection() {
   const tab = MAIN_TABS[mainIdx];
   const sub = tab.subtabs[subIdx];
 
-  const handleMain = (i: number) => { setMainIdx(i); setSubIdx(0); };
+  const handleMain = useCallback((i: number) => { setMainIdx(i); setSubIdx(0); }, []);
   const mainIdxRef = useRef(mainIdx);
   // eslint-disable-next-line react-hooks/refs -- read back only from a keydown handler, never during render
   mainIdxRef.current = mainIdx;

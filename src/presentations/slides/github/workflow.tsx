@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, WorkflowStep } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 export function WorkflowSection() {
   return (

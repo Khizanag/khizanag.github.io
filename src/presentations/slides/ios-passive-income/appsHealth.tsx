@@ -1,5 +1,6 @@
 import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
-import { P, AppCard, CategoryHeader } from "./ui.tsx";
+import { P } from "./tokens.ts";
+import { AppCard, CategoryHeader } from "./ui.tsx";
 
 export function AppsHealthSection() {
   return (

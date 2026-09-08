@@ -1,5 +1,6 @@
 import { C, Reveal, SectionLabel, SectionHeading, CalloutBox } from "../../shared.tsx";
-import { P, StatCard } from "./ui.tsx";
+import { P } from "./tokens.ts";
+import { StatCard } from "./ui.tsx";
 
 export function MarketSection() {
   return (

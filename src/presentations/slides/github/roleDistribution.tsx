@@ -1,5 +1,6 @@
-import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, TagChip, useInView } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { useInView } from "../../hooks.ts";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, TagChip } from "../../shared.tsx";
+import { P } from "./tokens.ts";
 
 const ROLE_COLOR: Record<string, string> = { Admin: C.red, Maintain: C.yellow, Write: C.accent };
 

@@ -1,4 +1,5 @@
-import { C, Reveal, SectionLabel, SectionHeading, useInView } from "../../shared.tsx";
+import { useInView } from "../../hooks.ts";
+import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
 
 const ROLES = [
   {

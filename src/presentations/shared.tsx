@@ -1,5 +1,4 @@
 export { C, FONTS, KEYFRAMES } from "./tokens.ts";
-export { useInView, useScrolled, useKeyboardNav, useLocalTabNav } from "./hooks.ts";
 export { Reveal, AnimatedGrid, AmbientBlobs } from "./components/layout.tsx";
 export { SectionLabel, SectionHeading, TagChip } from "./components/typography.tsx";
 export { InfoCard, CheckItem, CalloutBox, PlainEnglishBox, FeatureCard } from "./components/cards.tsx";

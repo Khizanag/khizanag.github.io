@@ -1,7 +1,5 @@
-import { C, useInView } from "../../shared.tsx";
-
-export const P = C.blue;
-export const PDim = C.blueDim;
+import { useInView } from "../../hooks.ts";
+import { C } from "../../shared.tsx";
 
 interface ConfigKeyRowProps {
   name: string;

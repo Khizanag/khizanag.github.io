@@ -59,7 +59,7 @@ export function useLocalTabNav(
     };
     window.addEventListener("keydown", onKey, { capture: true });
     return () => window.removeEventListener("keydown", onKey, { capture: true });
-  }, [sectionId, count]);
+  }, [sectionId, count, indexRef, setIndex]);
 }
 
 function resolveCurrentIndex(sections: HTMLElement[]): number {

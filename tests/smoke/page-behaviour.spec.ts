@@ -39,9 +39,22 @@ for (const { path, reveal, progressBar } of PAGES) {
 
     await scrollToBottom(page);
 
-    await expect
-      .poll(() => page.locator(`${reveal}.is-visible`).count(), { timeout: SETTLE_TIMEOUT })
-      .toBe(total);
+    // The observers shrink their root by up to 60px at the bottom, so a target that ends the
+    // walk inside that band, or has no box at all, can never intersect and must not be counted.
+    const observableTargetsRevealed = () =>
+      page.evaluate(
+        ({ selector, margin }) => {
+          const targets = Array.from(document.querySelectorAll<HTMLElement>(selector));
+          const observable = targets.filter((el) => {
+            const rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0 && rect.top < window.innerHeight - margin;
+          });
+          return observable.length > 0 && observable.every((el) => el.classList.contains("is-visible"));
+        },
+        { selector: reveal, margin: 60 },
+      );
+
+    await expect.poll(observableTargetsRevealed, { timeout: SETTLE_TIMEOUT }).toBe(true);
   });
 
   test(`${path} grows the reading progress bar on the way down`, async ({ page }) => {

@@ -1,16 +1,31 @@
+import questionBank from "../../js/psd/questions.json" with { type: "json" };
 import { expect, test } from "../support/fixtures.ts";
 
+const questions = questionBank as { category: string }[];
+
+function countByCategory(items: { category: string }[]): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const item of items) counts[item.category] = (counts[item.category] ?? 0) + 1;
+  return counts;
+}
+
 test("the PSD hub lists categories and starts a quiz", async ({ page }) => {
+  const bank = page.waitForResponse((response) => response.url().endsWith("/js/psd/questions.json"));
   await page.goto("/psd");
+  expect((await bank).ok(), "the question bank was served").toBe(true);
 
   const cards = page.locator("#catGrid .psd-cat-card");
   await expect(cards.first()).toBeVisible();
 
+  const expected = countByCategory(questions);
+  await expect(cards).toHaveCount(Object.keys(expected).length);
+  const names = await cards.locator(".psd-cat-card__name").allInnerTexts();
   const counts = await cards.locator(".psd-cat-card__count").allInnerTexts();
-  expect(counts.length).toBeGreaterThan(0);
-  for (const count of counts) {
-    expect(Number.parseInt(count, 10)).toBeGreaterThan(0);
-  }
+  const rendered: Record<string, number> = {};
+  names.forEach((name, index) => {
+    rendered[name.trim()] = Number.parseInt(counts[index], 10);
+  });
+  expect(rendered).toEqual(expected);
 
   await page.locator('.psd-mode-card[data-mode="quiz"]').click();
   await expect(page.locator("#screen-setup")).toHaveClass(/is-active/);

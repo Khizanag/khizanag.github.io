@@ -73,52 +73,15 @@ a {
 }
 
 /* ============================================
-   SHARED SECTION TYPOGRAPHY
+   SECTION HEADER — page spacing
    ============================================ */
-.section-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 16px;
-}
-
 .section-headline {
-    font-family: var(--font-display);
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 1.1;
     margin-bottom: 28px;
 }
 
 .section-desc {
-    font-size: 18px;
-    line-height: 1.6;
-    max-width: 640px;
-    font-weight: 300;
-    letter-spacing: -0.01em;
     margin-bottom: 24px;
 }
-
-/* Dark section text */
-.s-dark {
-    background: var(--color-black);
-    color: var(--color-gray-50);
-}
-
-.s-dark .section-eyebrow { color: var(--color-blue); }
-.s-dark .section-desc { color: var(--color-gray-400); }
-
-/* Light section text */
-.s-light {
-    background: var(--color-gray-50);
-    color: var(--color-gray-900);
-}
-
-.s-light .section-eyebrow { color: var(--color-blue-dark); }
-.s-light .section-desc { color: var(--color-gray-500); }
 
 /* ============================================
    SCROLL ANIMATIONS
@@ -133,96 +96,6 @@ a {
     opacity: 1;
     transform: translateY(0);
 }
-
-/* ============================================
-   NAVIGATION
-   ============================================ */
-.nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    height: var(--nav-height);
-    background: rgba(0, 0, 0, 0.8);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: var(--border-dark);
-}
-
-.nav__inner {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 22px;
-}
-
-.nav__back {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: var(--color-blue);
-    text-decoration: none;
-    transition: opacity 0.3s;
-}
-
-.nav__back:hover { opacity: 0.7; }
-
-.nav__back svg {
-    width: 16px;
-    height: 16px;
-}
-
-.nav__title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--color-gray-50);
-    letter-spacing: -0.01em;
-}
-
-.nav__links {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-}
-
-.nav__link {
-    font-size: 12px;
-    color: var(--color-gray-400);
-    transition: color 0.3s;
-}
-
-.nav__link:hover { color: var(--color-gray-50); }
-
-.nav__toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 20px;
-    height: 16px;
-    position: relative;
-}
-
-.nav__toggle-bar {
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: var(--color-gray-200);
-    position: absolute;
-    left: 0;
-    transition: all 0.3s;
-}
-
-.nav__toggle-bar:nth-child(1) { top: 0; }
-.nav__toggle-bar:nth-child(2) { top: 7px; }
-.nav__toggle-bar:nth-child(3) { top: 14px; }
 
 /* ============================================
    READING PROGRESS BAR
@@ -1005,24 +878,6 @@ a {
    ============================================ */
 @media (max-width: 640px) {
     .rm-section { padding: 64px 20px; }
-
-    .nav__links { display: none; }
-    .nav__toggle { display: block; }
-
-    .nav__links.is-open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: var(--nav-height);
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.96);
-        -webkit-backdrop-filter: blur(20px);
-        backdrop-filter: blur(20px);
-        padding: 24px;
-        gap: 16px;
-        border-bottom: var(--border-dark);
-    }
 
     .nav__links.is-open .nav__link {
         font-size: 14px;

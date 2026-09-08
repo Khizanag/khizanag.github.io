@@ -15,6 +15,10 @@ node_modules/
 dist/
 _site/
 
+# Test output
+test-results/
+playwright-report/
+
 # Local
 .env
 .env.*

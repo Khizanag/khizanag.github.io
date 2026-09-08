@@ -17,6 +17,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["src/presentations/**/*.ts", "src/presentations/**/*.tsx"],
+  "include": ["src/presentations/**/*.ts", "src/presentations/**/*.tsx", "tests/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

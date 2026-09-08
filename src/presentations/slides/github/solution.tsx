@@ -1,6 +1,6 @@
 import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox } from "../../shared.tsx";
 import { P } from "./tokens.ts";
-import { codeownersBasic, codeownersMultiTeam } from "./ui.tsx";
+import { codeownersBasic, codeownersMultiTeam } from "./data.ts";
 
 export function SolutionSection() {
   return (

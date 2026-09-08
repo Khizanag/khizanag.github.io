@@ -35,7 +35,9 @@ src/presentations/
 └── slides/
     └── <deck-id>/
         ├── index.tsx ← default-exported deck component
-        ├── ui.tsx    ← deck accent colour + deck-local components
+        ├── tokens.ts ← deck accent colour
+        ├── ui.tsx    ← deck-local components
+        ├── data.ts   ← deck-local data (code samples, tables)
         ├── hero.tsx
         └── …         ← one file per section
 ```
@@ -46,16 +48,19 @@ output to `dist/presentations` (not tracked in Git).
 
 ## Shared building blocks
 
-Decks import from `shared.tsx`, never from the individual files behind it:
+Decks import components and tokens from `shared.tsx`, never from the individual files
+behind it. Hooks are the exception — the barrel re-exports components, and mixing hooks
+in would cost it its fast-refresh boundary — so import those straight from `hooks.ts`:
 
 ```tsx
-import { C, Reveal, SectionHeading, useKeyboardNav } from "../../shared.tsx";
+import { useKeyboardNav } from "../../hooks.ts";
+import { C, Reveal, SectionHeading } from "../../shared.tsx";
 ```
 
 | Source file                         | Exports                                                    |
 |-------------------------------------|------------------------------------------------------------|
 | `tokens.ts`                         | `C`, `FONTS`, `KEYFRAMES`                                  |
-| `hooks.ts`                          | `useInView`, `useScrolled`, `useKeyboardNav`, `useLocalTabNav` |
+| `hooks.ts` (imported directly)      | `useInView`, `useScrolled`, `useKeyboardNav`, `useLocalTabNav` |
 | `components/layout.tsx`             | `Reveal`, `AnimatedGrid`, `AmbientBlobs`                   |
 | `components/typography.tsx`         | `SectionLabel`, `SectionHeading`, `TagChip`                |
 | `components/cards.tsx`              | `InfoCard`, `CheckItem`, `CalloutBox`, `PlainEnglishBox`, `FeatureCard` |
@@ -73,16 +78,17 @@ import { C, Reveal, SectionHeading, useKeyboardNav } from "../../shared.tsx";
 
 `slides/<deck-id>/`, kebab-case. The URL comes from the registry `id`, not the folder.
 
-### 2. Pin the accent colour in `ui.tsx`
+### 2. Pin the accent colour in `tokens.ts`
 
 ```tsx
-import { C } from "../../shared.tsx";
+import { C } from "../../tokens.ts";
 
 export const P = C.purple;
 export const PDim = C.purpleDim;
 ```
 
-Deck-local components — stat badges, comparison rows — belong in the same file.
+Deck-local components — stat badges, comparison rows — belong in `ui.tsx`, and
+deck-local data such as long code samples in `data.ts`.
 
 ### 3. Write one file per section
 
@@ -91,7 +97,7 @@ for keyboard navigation:
 
 ```tsx
 import { Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 export function WhatSection() {
   return (
@@ -110,11 +116,12 @@ export function WhatSection() {
 Both `PresentationNav` and `PresentationFooter` require a `logo` node.
 
 ```tsx
+import { useScrolled, useKeyboardNav } from "../../hooks.ts";
 import {
-  C, useScrolled, useKeyboardNav, AnimatedGrid, AmbientBlobs,
+  C, AnimatedGrid, AmbientBlobs,
   PresentationNav, ThankYouSection, PresentationFooter,
 } from "../../shared.tsx";
-import { P, PDim } from "./ui.tsx";
+import { P, PDim } from "./tokens.ts";
 import { HeroSection } from "./hero.tsx";
 import { WhatSection } from "./what.tsx";
 

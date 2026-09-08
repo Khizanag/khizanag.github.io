@@ -642,6 +642,8 @@ body {
     background: var(--color-purple-a12);
 }
 
+.psd-badge.is-hidden { display: none; }
+
 .psd-quiz__bookmark {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -795,6 +797,8 @@ body {
     text-align: center;
     margin-bottom: 16px;
 }
+
+.psd-confirm-wrap.is-hidden { display: none; }
 
 .psd-btn-confirm {
     display: inline-flex;
@@ -1387,6 +1391,11 @@ body {
 .psd-study__nav-btn svg {
     width: 16px;
     height: 16px;
+}
+
+.psd-study__back-wrap {
+    text-align: center;
+    margin-top: 24px;
 }
 
 /* ============================================

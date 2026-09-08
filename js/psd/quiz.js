@@ -78,10 +78,10 @@
         var multiEl = $('quizMulti');
         var multi = isMultiSelect(q);
         if (multi) {
-            multiEl.style.display = '';
+            multiEl.classList.remove('is-hidden');
             multiEl.textContent = 'Select ' + q.correct.length;
         } else {
-            multiEl.style.display = 'none';
+            multiEl.classList.add('is-hidden');
         }
 
         // Bookmark
@@ -107,10 +107,10 @@
         // Confirm button for multi-select
         var confirmWrap = $('quizConfirmWrap');
         if (multi) {
-            confirmWrap.style.display = '';
+            confirmWrap.classList.remove('is-hidden');
             $('btnConfirm').disabled = true;
         } else {
-            confirmWrap.style.display = 'none';
+            confirmWrap.classList.add('is-hidden');
         }
 
         // Hide explanation & next
@@ -193,7 +193,7 @@
         }
 
         // Hide confirm
-        $('quizConfirmWrap').style.display = 'none';
+        $('quizConfirmWrap').classList.add('is-hidden');
 
         // Show explanation
         $('quizExplText').textContent = q.explanation;

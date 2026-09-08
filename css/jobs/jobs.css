@@ -454,6 +454,10 @@ a {
     margin-bottom: 20px;
 }
 
+/* Outweighs the flat tint the theme layer paints on every icon. */
+.j-col-card .j-col-card__icon.j-col-card__icon--blue   { background: var(--color-blue-a10); }
+.j-col-card .j-col-card__icon.j-col-card__icon--purple { background: var(--color-purple-a10); }
+
 .j-col-card__title {
     font-family: var(--font-display);
     font-size: 22px;

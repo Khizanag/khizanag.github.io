@@ -184,7 +184,7 @@
             <span class="psd-quiz__streak" id="quizStreak"></span>
             <span class="psd-badge psd-badge--category" id="quizCategory"></span>
             <span class="psd-badge" id="quizDifficulty"></span>
-            <span class="psd-badge psd-badge--multi" id="quizMulti" style="display:none"></span>
+            <span class="psd-badge psd-badge--multi is-hidden" id="quizMulti"></span>
             <button class="psd-quiz__bookmark" id="quizBookmark" aria-label="Bookmark question">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
             </button>
@@ -194,7 +194,7 @@
         <div class="psd-qcard">
             <div class="psd-qcard__question" id="quizQuestion"></div>
             <div class="psd-options" id="quizOptions"></div>
-            <div class="psd-confirm-wrap" id="quizConfirmWrap" style="display:none">
+            <div class="psd-confirm-wrap is-hidden" id="quizConfirmWrap">
                 <button class="psd-btn-confirm" id="btnConfirm" disabled>Confirm Selection</button>
             </div>
             <div class="psd-explanation" id="quizExplanation">
@@ -296,7 +296,7 @@
             <div class="psd-flashcard__meta">
                 <span class="psd-badge psd-badge--category" id="studyCategory"></span>
                 <span class="psd-badge" id="studyDifficulty"></span>
-                <button class="psd-quiz__bookmark" id="studyBookmark" aria-label="Bookmark question" style="margin-left:auto">
+                <button class="psd-quiz__bookmark" id="studyBookmark" aria-label="Bookmark question">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
                 </button>
             </div>
@@ -304,7 +304,7 @@
             <div class="psd-flashcard__reveal-hint" id="studyHint">Tap to reveal answer</div>
             <div class="psd-flashcard__answer" id="studyAnswer">
                 <div class="psd-flashcard__options" id="studyOptions"></div>
-                <div class="psd-explanation" style="display:block">
+                <div class="psd-explanation is-visible">
                     <div class="psd-explanation__text" id="studyExplText"></div>
                     <div class="psd-explanation__tip" id="studyExplTip"></div>
                     <div class="psd-explanation__source" id="studyExplSource"></div>
@@ -324,7 +324,7 @@
             </button>
         </div>
 
-        <div style="text-align:center; margin-top:24px">
+        <div class="psd-study__back-wrap">
             <button class="psd-btn-secondary" id="btnStudyHome">Back to Home</button>
         </div>
     </div>

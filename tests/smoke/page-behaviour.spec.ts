@@ -72,13 +72,6 @@ for (const { path, reveal, progressBar } of PAGES) {
     await expect.poll(unrevealedIntersectingTargets, { timeout: SETTLE_TIMEOUT }).toEqual([]);
     expect(await page.locator(`${reveal}.is-visible`).count()).toBeGreaterThan(0);
   });
-          return observable.length > 0 && observable.every((el) => el.classList.contains("is-visible"));
-        },
-        { selector: reveal, margin: 60 },
-      );
-
-    await expect.poll(observableTargetsRevealed, { timeout: SETTLE_TIMEOUT }).toBe(true);
-  });
 
   test(`${path} grows the reading progress bar on the way down`, async ({ page }) => {
     if (progressBar === null) {

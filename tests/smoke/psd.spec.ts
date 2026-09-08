@@ -15,9 +15,12 @@ test("the PSD hub lists categories and starts a quiz", async ({ page }) => {
   await page.locator('.psd-mode-card[data-mode="quiz"]').click();
   await expect(page.locator("#screen-setup")).toHaveClass(/is-active/);
 
+  // 20 is the size the markup ships selected, so ask for a length only a real
+  // quiz run can put on the counter.
+  await page.locator('#sizeOptions .psd-size-btn[data-size="40"]').click();
   await page.locator("#btnStartQuiz").click();
   await expect(page.locator("#screen-quiz")).toHaveClass(/is-active/);
-  await expect(page.locator("#quizCounter")).toHaveText("1 / 20");
+  await expect(page.locator("#quizCounter")).toHaveText("1 / 40");
   await expect(page.locator("#quizQuestion")).not.toBeEmpty();
   await expect(page.locator("#quizOptions .psd-option")).not.toHaveCount(0);
 });

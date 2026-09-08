@@ -1024,11 +1024,20 @@ body {
 }
 
 .psd-breakdown__fill {
+    width: 0;
     height: 100%;
     border-radius: 3px;
     background: var(--color-teal);
     transition: width 0.8s var(--ease-out-expo);
 }
+
+.psd-breakdown__fill--green { background: var(--color-green); }
+
+.psd-breakdown__fill--teal { background: var(--color-teal); }
+
+.psd-breakdown__fill--orange { background: var(--color-orange); }
+
+.psd-breakdown__fill--red { background: var(--color-red); }
 
 .psd-breakdown__pct {
     font-family: var(--font-mono);

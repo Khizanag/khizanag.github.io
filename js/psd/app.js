@@ -145,21 +145,21 @@
             state.hideReviewDifficulty = this.checked;
             var badges = document.querySelectorAll('#reviewList .psd-review__diff-badge');
             for (var i = 0; i < badges.length; i++) {
-                badges[i].style.display = state.hideReviewDifficulty ? 'none' : '';
+                badges[i].classList.toggle('is-hidden', state.hideReviewDifficulty);
             }
         });
         $('hideReviewCategoryToggle').addEventListener('change', function () {
             state.hideReviewCategory = this.checked;
             var badges = document.querySelectorAll('#reviewList .psd-review__cat-badge');
             for (var i = 0; i < badges.length; i++) {
-                badges[i].style.display = state.hideReviewCategory ? 'none' : '';
+                badges[i].classList.toggle('is-hidden', state.hideReviewCategory);
             }
         });
         $('hideReviewMultiToggle').addEventListener('change', function () {
             state.hideReviewMulti = this.checked;
             var badges = document.querySelectorAll('#reviewList .psd-review__multi-badge');
             for (var i = 0; i < badges.length; i++) {
-                badges[i].style.display = state.hideReviewMulti ? 'none' : '';
+                badges[i].classList.toggle('is-hidden', state.hideReviewMulti);
             }
         });
 

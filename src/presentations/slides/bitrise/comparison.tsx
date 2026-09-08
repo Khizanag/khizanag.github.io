@@ -1,5 +1,6 @@
 import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
-import { P, CompareRow } from "./ui.tsx";
+import { P } from "./tokens.ts";
+import { CompareRow } from "./ui.tsx";
 
 export function ComparisonSection() {
   return (

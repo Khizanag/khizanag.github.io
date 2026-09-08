@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
-import { C, useInView } from "../../shared.tsx";
-
-export const P = C.accent;
-export const PDim = C.accentDim;
+import { useInView } from "../../hooks.ts";
+import { C } from "../../shared.tsx";
+import { P } from "./tokens.ts";
 
 interface AppCardProps {
   number: number;

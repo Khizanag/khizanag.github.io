@@ -1,7 +1,5 @@
-import { C, useInView } from "../../shared.tsx";
-
-export const P = C.accent;
-export const PDim = C.accentDim;
+import { useInView } from "../../hooks.ts";
+import { C } from "../../shared.tsx";
 
 export const codeownersBasic = `# Everything in this repo → payments team
 * @org/payments-ios-team

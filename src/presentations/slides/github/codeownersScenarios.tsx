@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { C, Reveal, SectionLabel, SectionHeading } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 const SCENARIOS = [
   {

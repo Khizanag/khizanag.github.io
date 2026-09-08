@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
-import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, TabButton, useLocalTabNav } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { useLocalTabNav } from "../../hooks.ts";
+import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, TabButton } from "../../shared.tsx";
+import { P } from "./tokens.ts";
 
 const CONTRIBUTING = `# Contributing to iOS-Payments SDK
 

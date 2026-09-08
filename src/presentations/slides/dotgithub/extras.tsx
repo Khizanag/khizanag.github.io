@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, PlainEnglishBox } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 const CODEOWNERS_CODE = `# .github/CODEOWNERS — iOS-Payments SDK
 # Format: <pattern>  <owner(s)>

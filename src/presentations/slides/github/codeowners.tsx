@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CodeBlock, CalloutBox, CheckItem } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 const SYNTAX_EXAMPLE = `# ── Location (checked in order, first wins) ──────
 #    .github/CODEOWNERS   ← recommended

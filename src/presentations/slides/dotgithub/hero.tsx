@@ -1,5 +1,5 @@
 import { C, PresentationHero } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 export function HeroSection() {
   return (

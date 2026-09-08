@@ -1,5 +1,6 @@
-import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, useInView } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { useInView } from "../../hooks.ts";
+import { C, Reveal, SectionLabel, SectionHeading, CalloutBox } from "../../shared.tsx";
+import { P } from "./tokens.ts";
 
 const SUPPORTED = [
   { file: "CODE_OF_CONDUCT.md", note: "Applied across all repos" },

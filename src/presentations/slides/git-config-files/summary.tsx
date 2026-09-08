@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CalloutBox } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 const ROWS = [
   { aspect: "Purpose",       gitconfig: "Controls Git's behavior",           gitmodules: "Declares submodule dependencies" },

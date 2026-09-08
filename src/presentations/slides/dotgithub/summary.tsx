@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CalloutBox } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 const ROWS = [
   { file: "CONTRIBUTING.md",         cat: "Community",   color: C.accent,  loc: ".github/ · root · docs/",  idea: "Contributor onboarding guide — linked on new issue & PR pages" },

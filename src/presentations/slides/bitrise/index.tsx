@@ -1,5 +1,5 @@
 import { DeckFooterLogo, DeckShell } from "../../shared.tsx";
-import { P, PDim } from "./ui.tsx";
+import { P, PDim } from "./tokens.ts";
 import { HeroSection } from "./hero.tsx";
 import { WhyItMattersSection } from "./whyItMatters.tsx";
 import { CurrentStateSection } from "./currentState.tsx";

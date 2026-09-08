@@ -1,5 +1,5 @@
 import { C, Reveal, SectionLabel, SectionHeading, CalloutBox, CheckItem } from "../../shared.tsx";
-import { P } from "./ui.tsx";
+import { P } from "./tokens.ts";
 
 const BEFORE = [
   { name: "CODEOWNERS",               tag: "governance" },

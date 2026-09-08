@@ -294,7 +294,7 @@
             row.className = 'psd-breakdown__row';
             row.innerHTML =
                 '<span class="psd-breakdown__name">' + escapeHtml(cat) + '</span>' +
-                '<div class="psd-breakdown__bar"><div class="psd-breakdown__fill" style="width:0%;background:' + barColor(pct) + '"></div></div>' +
+                '<div class="psd-breakdown__bar"><div class="psd-breakdown__fill ' + barClass(pct) + '"></div></div>' +
                 '<span class="psd-breakdown__pct">' + pct + '%</span>';
             container.appendChild(row);
 
@@ -378,11 +378,11 @@
         }
     }
 
-    function barColor(pct) {
-        if (pct >= 80) return 'var(--color-green)';
-        if (pct >= 60) return 'var(--color-teal)';
-        if (pct >= 40) return 'var(--color-orange)';
-        return 'var(--color-red)';
+    function barClass(pct) {
+        if (pct >= 80) return 'psd-breakdown__fill--green';
+        if (pct >= 60) return 'psd-breakdown__fill--teal';
+        if (pct >= 40) return 'psd-breakdown__fill--orange';
+        return 'psd-breakdown__fill--red';
     }
 
     PSD.openQuizSetup = openQuizSetup;

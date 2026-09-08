@@ -214,14 +214,14 @@
                     '<span>' + LETTERS[i] + '. ' + escapeHtml(opt) + '</span></div>';
             }).join('');
 
-            var catStyle = state.hideReviewCategory ? ' style="display:none"' : '';
-            var multiStyle = state.hideReviewMulti ? ' style="display:none"' : '';
-            var diffStyle = state.hideReviewDifficulty ? ' style="display:none"' : '';
+            var catHidden = state.hideReviewCategory ? ' is-hidden' : '';
+            var multiHidden = state.hideReviewMulti ? ' is-hidden' : '';
+            var diffHidden = state.hideReviewDifficulty ? ' is-hidden' : '';
 
             var badgesHtml =
-                '<span class="psd-badge psd-badge--category psd-review__cat-badge"' + catStyle + '>' + escapeHtml(q.category) + '</span>' +
-                (isMultiSelect(q) ? '<span class="psd-badge psd-badge--multi psd-review__multi-badge"' + multiStyle + '>Multi</span>' : '') +
-                '<span class="psd-badge psd-review__diff-badge ' + difficultyClass(q.difficulty) + '"' + diffStyle + '>' + q.difficulty + '</span>';
+                '<span class="psd-badge psd-badge--category psd-review__cat-badge' + catHidden + '">' + escapeHtml(q.category) + '</span>' +
+                (isMultiSelect(q) ? '<span class="psd-badge psd-badge--multi psd-review__multi-badge' + multiHidden + '">Multi</span>' : '') +
+                '<span class="psd-badge psd-review__diff-badge ' + difficultyClass(q.difficulty) + diffHidden + '">' + q.difficulty + '</span>';
 
             var explanationHtml =
                 '<div class="psd-review__explanation-label">Explanation</div>' +

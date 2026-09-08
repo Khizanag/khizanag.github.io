@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useScrolled, useInView } from "./hooks.ts";
+import { useScrolled, useInView, useKeyboardNav } from "./hooks.ts";
 import { C } from "./tokens.ts";
 import { SLIDES, type Slide } from "./registry.ts";
+
+const SECTION_IDS = ["home-hero", "home-decks"];
 
 interface PresentationCardProps {
   slide: Slide;
@@ -89,6 +91,7 @@ function StatPill({ value, label, delay }: StatPillProps) {
 
 export function Home() {
   const scrolled = useScrolled(40);
+  useKeyboardNav(SECTION_IDS);
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", color: C.text, fontFamily: "'DM Sans', sans-serif" }}>
@@ -123,7 +126,7 @@ export function Home() {
       </nav>
 
       <div style={{ position: "relative", zIndex: 1 }}>
-        <section style={{ minHeight: "100vh", position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "120px 48px 80px" }}>
+        <section id="home-hero" style={{ minHeight: "100vh", position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", padding: "120px 48px 80px" }}>
           <div style={{ animation: "fadeUp 0.7s ease 0.1s both" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "7px 20px", background: C.accentDim, border: `1px solid ${C.accent}25`, borderRadius: 50, marginBottom: 48 }}>
               <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: C.accent, letterSpacing: "0.1em" }}>RESEARCH · PROPOSALS · ARCHITECTURE</span>
@@ -157,7 +160,7 @@ export function Home() {
           <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${C.border}, transparent)` }} />
         </div>
 
-        <section style={{ maxWidth: 1200, margin: "0 auto", padding: "96px 48px 120px" }}>
+        <section id="home-decks" style={{ maxWidth: 1200, margin: "0 auto", padding: "96px 48px 120px" }}>
           <div style={{ marginBottom: 56 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
               <div style={{ width: 32, height: 1, background: C.accent }} />

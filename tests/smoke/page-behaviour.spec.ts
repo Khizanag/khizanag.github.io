@@ -20,15 +20,21 @@ const PAGES: PageBehaviour[] = [
 /** Walks the page down in viewport-sized steps so every reveal target passes through view. */
 async function scrollToBottom(page: Page) {
   await page.evaluate(async () => {
+    const root = document.documentElement;
     const step = Math.round(window.innerHeight * 0.5);
-    const twoFrames = () =>
-      new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    for (let y = 0; y <= document.documentElement.scrollHeight; y += step) {
+    const settle = () =>
+      new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(resolve, 30))));
+    // The pages scroll smoothly; an animated scrollTo never lands before the next step, so the
+    // walk forces instant scrolling the way keyboard-nav.js does and restores it afterwards.
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    for (let y = 0; y <= root.scrollHeight; y += step) {
       window.scrollTo(0, y);
-      await twoFrames();
+      await settle();
     }
-    window.scrollTo(0, document.documentElement.scrollHeight);
-    await twoFrames();
+    window.scrollTo(0, root.scrollHeight);
+    await settle();
+    root.style.scrollBehavior = previousBehavior;
   });
 }
 

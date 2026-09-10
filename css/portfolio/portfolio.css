@@ -521,11 +521,11 @@ img, svg {
     pointer-events: none;
 }
 
-.about__photo svg {
-    width: 56px;
-    height: 56px;
-    color: var(--color-gray-400);
-    opacity: 0.6;
+.about__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .about__float-card {

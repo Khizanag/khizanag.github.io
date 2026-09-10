@@ -52,4 +52,4 @@ await browser.close();
 
 const target = join(root, "img/og-card.png");
 writeFileSync(target, png);
-console.log(`img/og-card.png: ${png.length} bytes`);
+console.log(`${target}: ${png.length} bytes`);

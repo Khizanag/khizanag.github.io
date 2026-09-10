@@ -34,6 +34,7 @@ for (const path of PAGES) {
     await page.goto(path);
     const card = await page.locator('meta[property="og:image"]').getAttribute("content");
     expect(card).not.toBeNull();
+    expect(new URL(card!).origin).toBe("https://khizanag.github.io");
     const response = await page.request.get(new URL(card!).pathname);
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain("image/png");

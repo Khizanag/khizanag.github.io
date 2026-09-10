@@ -503,11 +503,6 @@ img, svg {
     aspect-ratio: 3 / 4;
     border-radius: var(--border-radius-card-lg);
     background: linear-gradient(160deg, #e8e8ed 0%, #d2d2d7 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
     position: relative;
     overflow: hidden;
 }

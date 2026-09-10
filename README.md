@@ -41,9 +41,10 @@ npm run typecheck
 npm run lint
 npm run build
 npm run assemble
-- `node scripts/build-og-card.mjs` regenerates `img/og-card.png`, the social preview card, from the portrait in `img/`; run it after changing the name, title or portrait.
 npm test
 ```
+
+`node scripts/build-og-card.mjs` regenerates `img/og-card.png`, the social preview card, from the portrait in `img/`; run it after changing the name, title or portrait.
 
 `npm run assemble` reproduces the deploy assembly locally: it stages the shippable files into `_site` and smoke-checks them, exactly as CI does.
 

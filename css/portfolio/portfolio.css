@@ -1036,6 +1036,7 @@ img, svg {
 .skill-card:nth-child(4) .skill-card__icon { background: linear-gradient(135deg, #ff9f0a, #ff375f); }
 .skill-card:nth-child(5) .skill-card__icon { background: linear-gradient(135deg, #5e5ce6, #bf5af2); }
 .skill-card:nth-child(6) .skill-card__icon { background: linear-gradient(135deg, #ff375f, #ff9f0a); }
+.skill-card:nth-child(7) .skill-card__icon { background: linear-gradient(135deg, #5ac8fa, #30d158); }
 
 .skill-card__title {
     font-family: var(--font-display);
@@ -1564,6 +1565,7 @@ img, svg {
 .rv--d3 { transition-delay: 0.3s; }
 .rv--d4 { transition-delay: 0.4s; }
 .rv--d5 { transition-delay: 0.5s; }
+.rv--d6 { transition-delay: 0.6s; }
 
 /* ============================================
    RESPONSIVE — Tablet

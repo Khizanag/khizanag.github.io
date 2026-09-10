@@ -106,6 +106,7 @@ npm test
 - GitHub Pages deploys via GitHub Actions (`.github/workflows/deploy.yml`)
 - Push to `main` runs: typecheck → lint → build → assemble → smoke-check → browser tests → deploy
 - Assembly and its smoke check live in `scripts/assemble.sh` (`npm run assemble`), so CI and a local run stay identical
+- `scripts/build-og-card.mjs` renders `img/og-card.png` (the `og:image` every page advertises) from `img/giga.webp`; rerun it when the name, title or portrait changes
 - Assembly uses `rsync` to copy the static pages, excluding `src/`, Markdown, and the tooling config; the built presentations are then copied in explicitly
 - The smoke check fails the run if a required file is missing or if source, Markdown, or manifests would ship
 - Pull requests against `main` run the same checks but do not deploy

@@ -21,3 +21,21 @@ test("an extensionless URL serves the same page as the .html file", async ({ pag
   expect(new URL(page.url()).pathname).toBe("/jobs");
   expect(await page.title()).toBe(titleWithExtension);
 });
+
+test("the portrait on the home page loads", async ({ page }) => {
+  await page.goto("/");
+  const portrait = page.locator(".about__photo img");
+  await portrait.scrollIntoViewIfNeeded();
+  await expect.poll(() => portrait.evaluate((el) => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+});
+
+for (const path of PAGES) {
+  test(`${path} advertises a preview card that exists`, async ({ page }) => {
+    await page.goto(path);
+    const card = await page.locator('meta[property="og:image"]').getAttribute("content");
+    expect(card).not.toBeNull();
+    const response = await page.request.get(new URL(card!).pathname);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/png");
+  });
+}

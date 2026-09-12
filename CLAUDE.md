@@ -25,7 +25,7 @@ Root pages:
 - `psd.html` — Professional Scrum Developer study hub
 - `404.html` — not-found page (absolute asset paths)
 
-Root assets: `cv.pdf`, `favicon.svg`, `robots.txt`, `sitemap.xml`.
+Root assets: `favicon.svg`, `robots.txt`, `sitemap.xml`. The CV is not published; it is generated from the cv-lab document and sent on request.
 
 `css/` — stylesheets organized by concern:
 

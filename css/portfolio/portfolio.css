@@ -1256,16 +1256,6 @@ img, svg {
     border-color: rgba(255, 255, 255, 0.12);
 }
 
-.pres-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--border-radius-card-lg);
-    border: var(--border-dark);
-    pointer-events: none;
-    z-index: 1;
-}
-
 /* ── Presentation card variants ─────────────── */
 .pres-card--cicd   { background: linear-gradient(160deg, #0a1e3e, #080d1f); }
 .pres-card--arch   { background: linear-gradient(160deg, #0a2e1e, #081a10); }

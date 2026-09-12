@@ -40,3 +40,10 @@ for (const path of PAGES) {
     expect(response.headers()["content-type"]).toContain("image/png");
   });
 }
+
+test("the CV is not published", async ({ page }) => {
+  const response = await page.request.get("/cv.pdf");
+  expect(response.status()).toBe(404);
+  await page.goto("/");
+  await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
+});

@@ -40,6 +40,18 @@ jobs:
       - name: Assemble site
         run: npm run assemble
 
+      - name: Resolve Playwright version
+        id: playwright
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      # WebKit's Linux bundle adds ~107MB to the download, otherwise paid on every push
+      # and pull request. Its 52-package apt set behind --with-deps is still paid.
+      - name: Cache browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+
       - name: Install browsers
         run: npx playwright install --with-deps chromium webkit
 

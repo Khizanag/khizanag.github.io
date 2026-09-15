@@ -33,18 +33,23 @@ test("an unknown deck id explains itself", async ({ page }) => {
 
 test("the presentations home moves between sections with the arrow keys", async ({ page }) => {
   await page.goto("/presentations/");
+  // The web font arrives after load and grows the page under the sections, so a scroll
+  // offset read before it lands names a place the decks no longer sit at.
+  await page.evaluate(() => document.fonts.ready);
 
-  const decksTop = await page.evaluate(() => {
-    const decks = document.getElementById("home-decks");
-    return decks ? Math.round(decks.getBoundingClientRect().top + window.scrollY) : -1;
-  });
-  expect(decksTop).toBeGreaterThan(0);
-
-  const distanceTo = (top: number) => page.evaluate((y) => Math.abs(window.scrollY - y), top);
+  // How far the decks are from the top of the viewport, measured live: the arrow keys
+  // promise to bring the section there, whatever the page does to its own height.
+  const decksOffset = () =>
+    page.evaluate(() => {
+      const decks = document.getElementById("home-decks");
+      return decks ? Math.abs(decks.getBoundingClientRect().top) : Number.NaN;
+    });
+  expect(await decksOffset()).toBeGreaterThan(0);
 
   await page.keyboard.press("ArrowRight");
-  await expect.poll(() => distanceTo(decksTop), { timeout: SETTLE_TIMEOUT }).toBeLessThanOrEqual(TOLERANCE);
+  await expect.poll(decksOffset, { timeout: SETTLE_TIMEOUT }).toBeLessThanOrEqual(TOLERANCE);
 
   await page.keyboard.press("ArrowLeft");
-  await expect.poll(() => distanceTo(0), { timeout: SETTLE_TIMEOUT }).toBeLessThanOrEqual(TOLERANCE);
+  const scrollY = () => page.evaluate(() => window.scrollY);
+  await expect.poll(scrollY, { timeout: SETTLE_TIMEOUT }).toBeLessThanOrEqual(TOLERANCE);
 });

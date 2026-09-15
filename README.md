@@ -48,7 +48,7 @@ npm test
 
 `npm run assemble` reproduces the deploy assembly locally: it stages the shippable files into `_site` and smoke-checks them, exactly as CI does.
 
-`npm test` runs the Playwright smoke suite against that `_site`, so build and assemble it first. Install the browser once with `npx playwright install chromium`.
+`npm test` runs the Playwright smoke suite against that `_site`, so build and assemble it first; every spec runs in both Chromium and WebKit, so install the browsers once with `npx playwright install chromium webkit`.
 
 ## Deployment
 

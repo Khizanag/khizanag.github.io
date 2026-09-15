@@ -21,16 +21,25 @@ export const test = base.extend<SmokeOptions & SmokeFixtures>({
     const problems: string[] = [];
     const isOurs = (url: string) => url.startsWith(baseURL ?? "");
 
+    const documentUrls = new Set<string>();
+    page.on("request", (request) => {
+      if (request.isNavigationRequest() && request.frame() === page.mainFrame()) {
+        documentUrls.add(request.url());
+      }
+    });
+
     page.on("console", (message) => {
       if (message.type() !== "error") return;
       // Third-party assets (web fonts) report their own failures; only ours count.
       const source = message.location().url;
       if (source && !isOurs(source)) return;
       const text = message.text();
-      // An allowance covers the navigated document only: Chromium words a failed
+      // An allowance covers the navigated document only: both engines word a failed
       // sub-resource exactly like the document itself, so matching on the text
-      // alone would excuse every broken asset on that page too.
-      const fromDocument = source === page.url();
+      // alone would excuse every broken asset on that page too. WebKit reports the
+      // document's own failure before the navigation commits, so page.url() is still
+      // the previous document there — the navigated URLs are what identify it.
+      const fromDocument = documentUrls.has(source);
       if (fromDocument && expectedConsoleErrors.some((pattern) => pattern.test(text))) return;
       problems.push(`console: ${text}`);
     });

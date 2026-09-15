@@ -31,6 +31,39 @@ test("an unknown deck id explains itself", async ({ page }) => {
   await expect(page.getByRole("button", { name: "All presentations" })).toBeVisible();
 });
 
+test("every deck linked from the home page opens a real deck", async ({ page }) => {
+  await page.goto("/");
+  // The home page curates a subset of the collection on purpose, so its own links —
+  // not the registry — are what this checks, whichever decks it chooses to carry.
+  const deckLinks = await page.locator("a[href]").evaluateAll((anchors) => [...new Set(
+    anchors
+      .map((anchor) => (anchor as HTMLAnchorElement).href)
+      .filter((href) => {
+        const url = new URL(href);
+        return url.pathname.startsWith("/presentations") && url.hash !== "";
+      }),
+  )]);
+  expect(deckLinks.length).toBeGreaterThan(0);
+
+  await page.goto("/presentations/");
+  const titleByHash = new Map(await page.locator('a[href^="#"]').evaluateAll((anchors) =>
+    anchors.map((anchor): [string, string] => [
+      new URL((anchor as HTMLAnchorElement).href).hash,
+      anchor.querySelector("h2")?.textContent ?? "",
+    ])));
+
+  for (const link of deckLinks) {
+    const hash = new URL(link).hash;
+    const deckTitle = titleByHash.get(hash);
+    await page.goto(link);
+
+    expect(deckTitle, `the home page links ${hash}, which the collection no longer offers`).toBeTruthy();
+    // Only a deck id the registry resolves puts its own title on the document.
+    await expect(page).toHaveTitle(`${deckTitle} — Giga Khizanishvili`);
+    await expect(page.getByRole("heading", { name: "No such presentation" })).toHaveCount(0);
+  }
+});
+
 test("the presentations home moves between sections with the arrow keys", async ({ page }) => {
   await page.goto("/presentations/");
   // The web font arrives after load and grows the page under the sections, so a scroll

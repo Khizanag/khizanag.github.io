@@ -16,10 +16,19 @@
     var bar = document.getElementById(scriptTag.dataset.target);
     if (!bar) return;
 
-    window.addEventListener('scroll', function () {
+    function update() {
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         var docHeight = document.documentElement.scrollHeight - window.innerHeight;
         var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         bar.style.width = Math.min(pct, 100) + '%';
-    });
+    }
+
+    window.addEventListener('scroll', update);
+    // A page that grows or shrinks under a reader who is not scrolling — late images,
+    // a section revealing, a font swap — changes the answer without a scroll event.
+    window.addEventListener('resize', update);
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(update).observe(document.documentElement);
+    }
+    update();
 })();

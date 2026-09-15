@@ -38,6 +38,17 @@ async function scrollToBottom(page: Page) {
   });
 }
 
+/** Returns to the very bottom instantly, the way `scrollToBottom` ends its walk. */
+async function jumpToBottom(page: Page) {
+  await page.evaluate(() => {
+    const root = document.documentElement;
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+    window.scrollTo(0, root.scrollHeight);
+    root.style.scrollBehavior = previousBehavior;
+  });
+}
+
 for (const { path, reveal, progressBar } of PAGES) {
   test(`${path} reveals its sections once they scroll into view`, async ({ page }) => {
     await page.goto(path);
@@ -94,7 +105,14 @@ for (const { path, reveal, progressBar } of PAGES) {
     await scrollToBottom(page);
 
     const pageWidth = await page.evaluate(() => document.documentElement.clientWidth);
-    await expect.poll(width, { timeout: SETTLE_TIMEOUT }).toBeGreaterThan(pageWidth * 0.9);
+    // The bar moves only on a scroll event, so a page that grows after the walk — late
+    // images, sections revealing — leaves behind a width no amount of waiting corrects;
+    // returning to the bottom on every poll keeps the reading position the real one.
+    const widthAtBottom = async () => {
+      await jumpToBottom(page);
+      return width();
+    };
+    await expect.poll(widthAtBottom, { timeout: SETTLE_TIMEOUT }).toBeGreaterThan(pageWidth * 0.9);
   });
 
   test(`${path} opens the mobile nav on its toggle and closes it on Escape`, async ({ page }) => {

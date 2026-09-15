@@ -90,7 +90,7 @@ npm run assemble
 npm test
 ```
 
-`npm test` is the Playwright smoke suite in `tests/smoke/` (Chromium only). It drives the assembled `_site` through `tests/support/serve.mjs`, a static server that mirrors GitHub Pages routing, so `npm run build && npm run assemble` must run first. Install the browser once with `npx playwright install chromium`.
+`npm test` is the Playwright smoke suite in `tests/smoke/`, and every spec runs in both Chromium and WebKit. It drives the assembled `_site` through `tests/support/serve.mjs`, a static server that mirrors GitHub Pages routing, so `npm run build && npm run assemble` must run first. Install the browsers once with `npx playwright install chromium webkit`.
 
 ## Presentations
 

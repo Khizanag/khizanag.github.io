@@ -8,7 +8,7 @@ export function SecuritySection() {
         <Reveal>
           <SectionLabel color={C.red}>SECURITY ANALYSIS</SectionLabel>
           <SectionHeading sub="7 risks identified based on OWASP CI/CD Top 10. 1 critical — fully mitigable.">
-            What we must protect against
+            What to protect against
           </SectionHeading>
         </Reveal>
 

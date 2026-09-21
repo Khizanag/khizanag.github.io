@@ -6,7 +6,7 @@ export function CurrentStateSection() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <Reveal>
           <SectionLabel color={C.blue}>CURRENT STATE</SectionLabel>
-          <SectionHeading sub="The Bitrise.io GUI stores and manages our workflow configuration in the cloud.">
+          <SectionHeading sub="The Bitrise.io GUI stores and manages the workflow configuration in the cloud.">
             Bitrise.io managed
           </SectionHeading>
         </Reveal>

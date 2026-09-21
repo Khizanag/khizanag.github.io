@@ -7,8 +7,8 @@ export function AdvantagesSection() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <Reveal>
           <SectionLabel color={P}>ADVANTAGES</SectionLabel>
-          <SectionHeading sub="Git as the source of truth unlocks capabilities we don't have today.">
-            What we gain
+          <SectionHeading sub="Git as the source of truth unlocks capabilities a GUI-managed config cannot offer.">
+            What you gain
           </SectionHeading>
         </Reveal>
 

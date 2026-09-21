@@ -6,7 +6,7 @@ export function TradeOffsSection() {
       <Reveal>
         <SectionLabel color={C.yellow}>TRADE-OFFS</SectionLabel>
         <SectionHeading sub="Known limitations and challenges when moving to Git-managed config.">
-          What we give up
+          What you give up
         </SectionHeading>
       </Reveal>
 
@@ -30,7 +30,7 @@ export function TradeOffsSection() {
         />
         <FeatureCard
           icon="📚" title="Team Learning Curve" color={C.yellow} delay={0.32}
-          description="50+ developers must handle YAML syntax directly. Mistakes can break CI for everyone until the bad commit is reverted."
+          description="Every developer must handle YAML syntax directly. Mistakes can break CI for everyone until the bad commit is reverted."
         />
         <FeatureCard
           icon="🔀" title="Merge Conflicts" color={C.muted} delay={0.4}

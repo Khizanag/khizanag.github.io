@@ -6,14 +6,14 @@ export function WhyItMattersSection() {
     <section id="s-why" style={{ maxWidth: 1100, margin: "0 auto", padding: "96px 48px" }}>
       <Reveal>
         <SectionLabel color={P}>WHY THIS MATTERS</SectionLabel>
-        <SectionHeading sub="Our CI/CD configuration impacts every developer, every day.">
+        <SectionHeading sub="CI/CD configuration impacts every developer, every day.">
           The stakes
         </SectionHeading>
       </Reveal>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         <Reveal delay={0}>
-          <InfoCard color={P} title="50+ iOS Developers" delay={0}>
+          <InfoCard color={P} title="The Whole iOS Team" delay={0}>
             <p style={{ color: C.muted, fontSize: 14, lineHeight: 1.7 }}>
               Every developer on the iOS team is affected by every change to the CI configuration. An invisible change today can break everyone's builds tomorrow — with no trace of who did it or why.
             </p>
@@ -44,7 +44,7 @@ export function WhyItMattersSection() {
           <CalloutBox color={P} label="THE QUESTION" icon="💡">
             <strong style={{ color: C.text }}>Is there a better way?</strong>
             <br /><br />
-            Git already manages our source code, dependency manifests, and documentation with full history, review, and rollback. Should our CI configuration be any different?
+            Git already manages source code, dependency manifests, and documentation with full history, review, and rollback. Should CI configuration be any different?
           </CalloutBox>
         </Reveal>
       </div>

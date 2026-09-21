@@ -7,7 +7,7 @@ export function AccessModelSection() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <Reveal>
           <SectionLabel color={C.blue}>ACCESS MODEL</SectionLabel>
-          <SectionHeading sub="Replace the current single-tier write access model with a structured GitHub Teams hierarchy. Each tier has a clear, distinct role.">
+          <SectionHeading sub="Replace a single-tier write access model with a structured GitHub Teams hierarchy. Each tier has a clear, distinct role.">
             A 3-Tier Team Structure
           </SectionHeading>
         </Reveal>
@@ -16,7 +16,7 @@ export function AccessModelSection() {
           <TierCard
             tier={1} delay={0} color={C.blue}
             title="Org-wide Developer Team"
-            members="@org/ios-developers · All 50+"
+            members="@org/ios-developers · Everyone"
             role="Write access to ALL repos. Solves the 'I need to push a branch to another repo' problem. No access requests. No friction."
           />
           <TierCard

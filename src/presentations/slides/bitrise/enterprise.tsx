@@ -17,7 +17,7 @@ export function EnterpriseSection() {
   - path: ci/workflows/build.yml
   - path: ci/workflows/test.yml
   - path: ci/workflows/deploy.yml
-  - repository: space-int/shared-ci
+  - repository: acme-org/shared-ci
     path: ios/common-steps.yml`}
           </CodeBlock>
         </Reveal>
@@ -27,11 +27,11 @@ export function EnterpriseSection() {
             <div style={{ marginBottom: 16 }}>
               <TagChip color={C.purple} dot={false}>WHY THIS MATTERS</TagChip>
             </div>
-            <CheckItem active>Split ownership per team — payments team owns deploy.yml</CheckItem>
+            <CheckItem active>Split ownership per team — the deploy team owns deploy.yml</CheckItem>
             <CheckItem active>Reduce merge conflicts — teams work in separate files</CheckItem>
             <CheckItem active>Reuse workflows across multiple apps in the org</CheckItem>
             <CheckItem active>Isolate changes to specific feature workflows</CheckItem>
-            <CheckItem active>Improves readability at scale (1,200+ line files)</CheckItem>
+            <CheckItem active>Improves readability at scale (multi-thousand-line files)</CheckItem>
 
             <div style={{ marginTop: 24 }}>
               <CalloutBox color={C.purple} label="PREREQUISITE">

@@ -22,7 +22,7 @@ export function SafeguardsSection() {
                 iOS Leads / Architecture team must approve any CI config change before it can be merged.
               </p>
               <CodeBlock filename="CODEOWNERS" highlights={[2]}>
-                {`# CI configuration — requires iOS Lead review\n/bitrise.yml @space-int/ios-leads\n/ci/          @space-int/ios-leads`}
+                {`# CI configuration — requires iOS Lead review\n/bitrise.yml @acme-org/ios-leads\n/ci/          @acme-org/ios-leads`}
               </CodeBlock>
             </div>
           </Reveal>

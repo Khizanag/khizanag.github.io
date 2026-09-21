@@ -16,7 +16,7 @@ const STEPS = [
   },
   {
     n: "04", title: "Harden", color: C.blue,
-    items: ["Protect all 17 secrets (is_protected=True)", "Monitor for drift in first 2 sprints", "Evaluate Modular YAML if needed", "Document the new workflow for team"],
+    items: ["Protect every secret (is_protected=True)", "Monitor for drift in first 2 sprints", "Evaluate Modular YAML if needed", "Document the new workflow for team"],
   },
 ];
 

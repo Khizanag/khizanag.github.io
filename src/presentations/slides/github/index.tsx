@@ -47,7 +47,7 @@ export default function GithubAccessStrategy() {
         { label: "Solution",     id: "s-solution" },
         { label: "CODEOWNERS",   id: "s-codeowners" },
         { label: "Access Model", id: "s-access-model" },
-        { label: "Our Setup",    id: "s-distribution" },
+        { label: "Role Model",   id: "s-distribution" },
       ]}
       hero={<HeroSection />}
       thankYouLabel="2026"

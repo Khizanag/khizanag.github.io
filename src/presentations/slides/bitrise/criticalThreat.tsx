@@ -46,7 +46,7 @@ export function CriticalThreatSection() {
         </Reveal>
 
         <Reveal delay={0.15}>
-          <InfoCard color={P} tag="BITRISE PROTECTION" title="Why we're protected" delay={0}>
+          <InfoCard color={P} tag="BITRISE PROTECTION" title="Why forks stay safe" delay={0}>
             <p style={{ color: C.muted, fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>
               PRs from forks have <strong style={{ color: C.text }}>NO access to secrets</strong> by default. Protected secrets cannot be exposed in PRs — values always display as{" "}
               <code style={{ color: P, fontFamily: "'JetBrains Mono', monospace", fontSize: 12 }}>[REDACTED]</code>.

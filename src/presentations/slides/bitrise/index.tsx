@@ -54,9 +54,9 @@ export default function BitriseConfigAnalysis() {
       footerLogo={FOOTER_LOGO}
       footerName="CI as Code · Giga Khizanishvili"
       footerLinks={[
-        { label: "Audit Report" },
-        { label: "Recommendations v2" },
-        { label: "Senior Audit" },
+        { label: "OWASP CI/CD Top 10" },
+        { label: "Bitrise YAML Docs" },
+        { label: "Threat Model" },
       ]}
       footerDate="Feb 2026"
     >

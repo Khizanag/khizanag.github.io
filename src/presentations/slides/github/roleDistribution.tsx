@@ -44,7 +44,7 @@ const TIERS = [
     title: "Product Team Developers",
     handle: "@org/ios-developers  (everyone)",
     color: C.accent,
-    description: "All 50+ developers get Write on every repository through a single org-wide team. This removes cross-team access friction entirely — any developer can push a branch to any repo without asking anyone. CODEOWNERS is what controls who reviews and approves the work. Access and governance are deliberately separated.",
+    description: "Every developer gets Write on every repository through a single org-wide team. This removes cross-team access friction entirely — any developer can push a branch to any repo without asking anyone. CODEOWNERS is what controls who reviews and approves the work. Access and governance are deliberately separated.",
     assignments: [
       { scope: "All repos", role: "Write", note: "Via @org/ios-developers — one team, universal base access" },
     ],
@@ -117,7 +117,7 @@ export function RoleDistributionSection() {
     <section id="s-distribution" style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "96px 48px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <Reveal>
-          <SectionLabel color={P}>OUR SETUP</SectionLabel>
+          <SectionLabel color={P}>THE MODEL</SectionLabel>
           <SectionHeading sub="Three tiers, clear lines of authority. Architects set the rules, leads own their repos, developers contribute everywhere.">
             Recommended Role Distribution
           </SectionHeading>

@@ -1,3 +1,4 @@
 User-agent: *
 
 Sitemap: https://khizanag.github.io/sitemap.xml
+Sitemap: https://khizanag.github.io/Cinematic-iOS/sitemap.xml

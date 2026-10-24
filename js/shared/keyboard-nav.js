@@ -40,6 +40,20 @@
         return best;
     }
 
+    // Arrow keys move the caret in fields and pick options in selects — leave them alone there
+    function isTypingTarget(el) {
+        if (!el || !el.tagName) return false;
+        var tag = el.tagName.toLowerCase();
+        return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable;
+    }
+
+    // A dialog usually hides through an ancestor, so ask whether it renders rather than read its own attributes
+    function isDialogOpen() {
+        return Array.prototype.some.call(document.querySelectorAll('[aria-modal="true"]'), function (el) {
+            return el.getClientRects().length > 0;
+        });
+    }
+
     // Easing: ease-in-out quart — very smooth acceleration/deceleration
     function easeInOutQuart(t) {
         return t < 0.5
@@ -93,6 +107,8 @@
 
     document.addEventListener('keydown', function (e) {
         if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+        if (isTypingTarget(e.target) || isDialogOpen()) return;
         e.preventDefault();
         if (navLock) return;
 

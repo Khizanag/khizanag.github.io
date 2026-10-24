@@ -850,6 +850,12 @@ img, svg {
     gap: 24px;
 }
 
+.projects__more {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
 .projects__row {
     display: grid;
     grid-template-columns: 1fr 1fr;

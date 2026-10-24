@@ -24,3 +24,6 @@ playwright-report/
 .env.*
 *.log
 coverage/
+
+# Repos kept off projects.html
+.projects-ignore

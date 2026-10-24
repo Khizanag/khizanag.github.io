@@ -1,0 +1,2285 @@
+{
+  "projects": [
+    {
+      "id": "what-where-when",
+      "name": "What? Where? When?",
+      "tagline": "Study app for the Georgian quiz game რა? სად? როდის?, on iPhone, Mac and the web",
+      "description": "Browse about 29,000 questions from Georgian tournament series, play rounds against a 60-second clock, search, bookmark and review with spaced repetition. A Python pipeline parses the original packets into one corpus, and one schema generates the models for the SwiftUI and React clients.",
+      "category": "app",
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "visionOS",
+        "Web"
+      ],
+      "status": "beta",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "iOS study app: browse, timed rounds, search, SM-2 review",
+          "done": true
+        },
+        {
+          "title": "Web client live on Firebase Hosting",
+          "done": true
+        },
+        {
+          "title": "Core repo: one schema generates Swift, TypeScript and Python models",
+          "done": true
+        },
+        {
+          "title": "Original packets archived with checksums so the corpus can be re-parsed",
+          "done": true
+        },
+        {
+          "title": "Archive laid out to mirror the app's browse tree, all series",
+          "done": true
+        },
+        {
+          "title": "Access limited to invited, verified accounts",
+          "done": true
+        },
+        {
+          "title": "iOS client catches up with the web on sign-in and the latest schema",
+          "done": false
+        }
+      ],
+      "next": "Bring the iOS client up to the current shared schema and the web's sign-in flow.",
+      "repos": [
+        "WhatWhereWhen-Core",
+        "WhatWhereWhen-Web",
+        "WhatWhereWhen-iOS",
+        "WhatWhereWhen-Resources"
+      ],
+      "links": {
+        "appStore": null,
+        "site": "https://what-where-when-e7f71.web.app",
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift 6",
+        "React 19",
+        "TypeScript",
+        "Tailwind 4",
+        "Firebase",
+        "Python",
+        "Code generation"
+      ],
+      "started": "2026-04",
+      "featured": true
+    },
+    {
+      "id": "cinematic",
+      "name": "Cinematic",
+      "tagline": "A complete SwiftUI movie app that shows MVI and Clean Architecture working",
+      "description": "A reference app for iOS 26 and Swift 6: five layered Swift packages, typed throws end to end, tests at every seam, and a documentation site that explains each decision. No API keys or setup; the catalog comes from Apple's public iTunes feeds.",
+      "category": "app",
+      "platforms": [
+        "iOS",
+        "iPadOS"
+      ],
+      "status": "maintained",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "MVIKit extracted into its own package",
+          "done": true
+        },
+        {
+          "title": "v1.0.0 release",
+          "done": true
+        },
+        {
+          "title": "Documentation site with sitemap",
+          "done": true
+        },
+        {
+          "title": "Search built three ways (MV, MVVM, MVI) against one test suite",
+          "done": true
+        },
+        {
+          "title": "Accessibility audit tests on every screen",
+          "done": true
+        },
+        {
+          "title": "iPad polish: sidebar tabs, readable detail column",
+          "done": true
+        },
+        {
+          "title": "Promotion: curated lists and an article",
+          "done": false
+        }
+      ],
+      "next": "Submit the repo to curated lists such as awesome-ios and write an article about it.",
+      "repos": [
+        "Cinematic-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": "https://khizanag.github.io/Cinematic-iOS/",
+        "docs": "https://khizanag.github.io/Cinematic-iOS/"
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift 6",
+        "MVIKit",
+        "Swift packages",
+        "Swift Testing",
+        "GitHub Actions"
+      ],
+      "started": "2026-06",
+      "featured": true
+    },
+    {
+      "id": "app-store-review-kit",
+      "name": "app-store-review-kit",
+      "tagline": "Check an iOS app against Apple's App Review Guidelines before you submit",
+      "description": "An open, machine-readable rulebook of the App Review Guidelines, 217 rules with a coverage map that says which checks need a person, plus asrk, a dependency-free Swift CLI that runs it on a project. Installs through Homebrew, a Claude Code plugin, an agent skill or a GitHub Action.",
+      "category": "tooling",
+      "platforms": [
+        "CLI",
+        "macOS"
+      ],
+      "status": "shipped",
+      "progress": {
+        "label": "17 of 30 roadmap items",
+        "value": 0.57
+      },
+      "milestones": [
+        {
+          "title": "Rulebook schema v2: confidence, app traits, profiles",
+          "done": true
+        },
+        {
+          "title": "Every guideline section covered by a rule or marked for review",
+          "done": true
+        },
+        {
+          "title": "asrk engine with text, JSON and SARIF output",
+          "done": true
+        },
+        {
+          "title": "Homebrew, Claude Code plugin, agent skill, GitHub Action",
+          "done": true
+        },
+        {
+          "title": "v0.1.0 release",
+          "done": true
+        },
+        {
+          "title": "Config file, baseline and diff mode",
+          "done": false
+        },
+        {
+          "title": "Read .xcarchive and .ipa builds",
+          "done": false
+        },
+        {
+          "title": "Runtime reviewer on a simulator",
+          "done": false
+        }
+      ],
+      "next": "Add a .asrk.toml config with reasoned suppressions, a baseline, and diff mode.",
+      "repos": [
+        "app-store-review-kit"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Swift",
+        "SwiftPM",
+        "SARIF",
+        "Homebrew",
+        "GitHub Actions"
+      ],
+      "started": "2026-10",
+      "featured": true
+    },
+    {
+      "id": "interview-lab",
+      "name": "Interview Lab",
+      "tagline": "Adaptive technical interviews that end in a 0–100 score with a confidence interval",
+      "description": "An interview tool where an item-response-theory engine moves question difficulty per answer and produces a seniority score with a confidence interval. Hosts run live sessions with a join code; companies share workspaces; candidates practise with flashcards, a coding sandbox and a bank of about 1,100 questions.",
+      "category": "web",
+      "platforms": [
+        "Web"
+      ],
+      "status": "maintained",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "interview-lab"
+      ],
+      "links": {
+        "appStore": null,
+        "site": "https://interview-lab-khizanag.web.app/",
+        "docs": null
+      },
+      "tech": [
+        "React 19",
+        "TypeScript",
+        "Vite",
+        "Firebase Auth",
+        "Firestore",
+        "Web Workers",
+        "Vitest"
+      ],
+      "started": "2026-05",
+      "featured": true
+    },
+    {
+      "id": "geografy",
+      "name": "Geografy",
+      "tagline": "Geography learning app with interactive maps, quizzes and a travel tracker",
+      "description": "Learn the world on iPhone, iPad, Apple TV and Mac: interactive maps, 197 country profiles, 15+ quiz and game modes, flashcards, a travel tracker, and XP, streaks, leaderboards and achievements through Game Center. About 85,000 lines of Swift in 59 local packages.",
+      "category": "app",
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "tvOS",
+        "macOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "55+ features across maps, quizzes, flashcards and travel",
+          "done": true
+        },
+        {
+          "title": "Full modularization into local Swift packages",
+          "done": true
+        },
+        {
+          "title": "Launch plan phase 1: App Store blockers",
+          "done": false
+        },
+        {
+          "title": "Launch plan phase 2–3: core quality and architecture cleanup",
+          "done": false
+        },
+        {
+          "title": "Launch plan phase 4–5: deep links, accessibility and design polish",
+          "done": false
+        },
+        {
+          "title": "Launch plan phase 6: App Store Connect, screenshots, TestFlight",
+          "done": false
+        }
+      ],
+      "next": "Clear the App Store blockers in the launch plan, starting with StoreKit configuration and the privacy manifest.",
+      "repos": [
+        "Geografy-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift 6",
+        "StoreKit 2",
+        "Game Center",
+        "Mac Catalyst",
+        "tvOS",
+        "Metal",
+        "SwiftPM"
+      ],
+      "started": "2026-03",
+      "featured": true
+    },
+    {
+      "id": "lent",
+      "name": "Lent",
+      "tagline": "Remember what you lend and borrow, and get a gentle nudge when it is due back",
+      "description": "Log a loan in seconds, get reminded when it is due, and mark it returned with one swipe. Widgets, a Control Center control and Shortcuts, eight languages, and an optional Pro tier with iCloud sync and on-device AI quick add.",
+      "category": "app",
+      "platforms": [
+        "iOS",
+        "iPadOS"
+      ],
+      "status": "building",
+      "progress": {
+        "label": "Phases 0–9 done; 6b and 10 left",
+        "value": 0.83
+      },
+      "milestones": [
+        {
+          "title": "Scaffold, schema and the core free flow",
+          "done": true
+        },
+        {
+          "title": "Reminders, App Intents, widgets and a control",
+          "done": true
+        },
+        {
+          "title": "Pro tier with StoreKit, sync logic behind a flag",
+          "done": true
+        },
+        {
+          "title": "On-device AI: quick add, photo naming, nudges",
+          "done": true
+        },
+        {
+          "title": "Eight languages with plural forms",
+          "done": true
+        },
+        {
+          "title": "Icons, accessibility audits, store screenshots",
+          "done": true
+        },
+        {
+          "title": "iCloud sync on devices (phase 6b)",
+          "done": false
+        },
+        {
+          "title": "App Store Connect and review submission (phase 10)",
+          "done": false
+        }
+      ],
+      "next": "Turn on iCloud sync and submit for review once the Apple Developer account is ready.",
+      "repos": [
+        "Lent-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "CloudKit",
+        "StoreKit 2",
+        "WidgetKit",
+        "App Intents",
+        "Foundation Models",
+        "Swift Testing"
+      ],
+      "started": "2026-09",
+      "featured": true
+    },
+    {
+      "id": "oompah",
+      "name": "Oompah",
+      "tagline": "A pocket accordion where the iPhone Duo hinge is the bellows",
+      "description": "Fold the phone to push air and unfold to pull; on other iPhones and iPad, drag the bellows or let them pump. A reed synthesizer with seven registers, Easy and Pro button layouts, 12 public-domain songs with a play-along guide, and recorded takes exported as a shareable video. Nine languages.",
+      "category": "app",
+      "platforms": [
+        "iOS",
+        "iPadOS"
+      ],
+      "status": "building",
+      "progress": {
+        "label": "7 of 9 phases",
+        "value": 0.78
+      },
+      "milestones": [
+        {
+          "title": "Reed synth, registers and bellows model",
+          "done": true
+        },
+        {
+          "title": "Full-screen instrument, Easy and Pro layouts",
+          "done": true
+        },
+        {
+          "title": "Hinge bellows and fold-aware layout (simulator)",
+          "done": true
+        },
+        {
+          "title": "12 songs with a guided play mode",
+          "done": true
+        },
+        {
+          "title": "Record, replay and share as video",
+          "done": true
+        },
+        {
+          "title": "Eight translations",
+          "done": true
+        },
+        {
+          "title": "Polish: screenshots, App Preview, large-text pass",
+          "done": false
+        },
+        {
+          "title": "App Store submission",
+          "done": false
+        }
+      ],
+      "next": "Finish polish: store screenshots, the App Preview video, and the large-text accessibility pass.",
+      "repos": [
+        "Oompah-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "AVAudioEngine",
+        "Swift 6",
+        "Swift Testing"
+      ],
+      "started": "2026-10",
+      "featured": false
+    },
+    {
+      "id": "alias",
+      "name": "Alias",
+      "tagline": "The explain-the-word party game for one phone passed around the table",
+      "description": "Two to six teams take turns explaining words against the clock while the phone keeps cards and score. Custom rules, a shared last word, tiebreakers, resume and history; nearly 6,000 English and Georgian words offline, custom decks, and decks written on device by Apple Intelligence.",
+      "category": "game",
+      "platforms": [
+        "iOS",
+        "iPadOS"
+      ],
+      "status": "building",
+      "progress": {
+        "label": "6 of 7 phases",
+        "value": 0.86
+      },
+      "milestones": [
+        {
+          "title": "Scaffold, design tokens and components",
+          "done": true
+        },
+        {
+          "title": "Schema, saved games and bundled decks",
+          "done": true
+        },
+        {
+          "title": "Full game flow with iPad and iPhone Duo layouts",
+          "done": true
+        },
+        {
+          "title": "AI-written decks on device",
+          "done": true
+        },
+        {
+          "title": "Georgian interface with an in-app language switch",
+          "done": true
+        },
+        {
+          "title": "Icon, motion, haptics and accessibility audits",
+          "done": true
+        },
+        {
+          "title": "App Store submission",
+          "done": false
+        }
+      ],
+      "next": "Settle the store title and submit for review once the developer account is ready.",
+      "repos": [
+        "Alias-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "GameWorld",
+        "Foundation Models",
+        "Liquid Glass",
+        "Swift Testing"
+      ],
+      "started": "2026-10",
+      "featured": false
+    },
+    {
+      "id": "gameworld",
+      "name": "GameWorld",
+      "tagline": "Shared Swift package behind the party-game apps",
+      "description": "A deterministic turn-based word-game engine (rounds, role swaps, ties, resumable saves), a themeable Liquid Glass design system, a generic coordinator navigation stack, synthesized game audio with Apple Music control, and bundled word packs. Five products an app imports as needed.",
+      "category": "library",
+      "platforms": [
+        "Package",
+        "iOS",
+        "macOS"
+      ],
+      "status": "building",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "Extracted from Read My Lips into a shared package",
+          "done": true
+        },
+        {
+          "title": "Rosters, target score and shared last word (0.3.x)",
+          "done": true
+        },
+        {
+          "title": "Second consumer: Alias",
+          "done": true
+        }
+      ],
+      "next": null,
+      "repos": [
+        "GameWorld"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Swift 6",
+        "SwiftPM",
+        "SwiftUI",
+        "Liquid Glass",
+        "AVFoundation",
+        "MusicKit"
+      ],
+      "started": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "read-my-lips",
+      "name": "Read My Lips",
+      "tagline": "Party game: guess the word from your partner's lips while music blasts",
+      "description": "Pairs take turns: one wears headphones with music playing, the other mouths a word with no voice or gestures. The app drives Apple Music or any playing audio between turns, keeps score with a recap, settles ties, resumes saved games, and ships six word packs including Georgian.",
+      "category": "game",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "building",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "ReadMyLips-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "GameWorld",
+        "Swift 6"
+      ],
+      "started": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "kinetic",
+      "name": "Kinetic",
+      "tagline": "The science of health, training, running and nutrition, explained in three layers",
+      "description": "A reference site in English and Georgian: each article gives the short answer, what to do, and the deep science with graded evidence and sources. Articles are researched, written and fact-checked by an AI pipeline. Includes calculators, free training programs, search and a glossary.",
+      "category": "web",
+      "platforms": [
+        "Web"
+      ],
+      "status": "building",
+      "progress": {
+        "label": "3 of 4 roadmap steps",
+        "value": 0.75
+      },
+      "milestones": [
+        {
+          "title": "Topic map, scaffold and design system",
+          "done": true
+        },
+        {
+          "title": "16 articles in English and Georgian",
+          "done": true
+        },
+        {
+          "title": "Five calculators, search, glossary, evidence explorer",
+          "done": true
+        },
+        {
+          "title": "Trust layer: AI disclosure, review dates, corrections log",
+          "done": true
+        },
+        {
+          "title": "Readability rewrite",
+          "done": true
+        },
+        {
+          "title": "Free training programs and goal paths",
+          "done": true
+        },
+        {
+          "title": "Batch 4: reader-demand topics",
+          "done": false
+        },
+        {
+          "title": "Public deployment",
+          "done": false
+        }
+      ],
+      "next": "Write batch 4, led by demand topics such as injury and pain, older adults and race fuelling.",
+      "repos": [
+        "Kinetic-Web"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Astro",
+        "MDX",
+        "React",
+        "Tailwind",
+        "Pagefind"
+      ],
+      "started": "2026-10",
+      "featured": false
+    },
+    {
+      "id": "quizboard",
+      "name": "Quizboard",
+      "tagline": "A team quiz board for a host and a big screen, on Apple devices and the web",
+      "description": "Teams pick a topic and level from the board; the host scores answers, steals and penalties, and the results end on a podium. An app for Mac, iPhone and iPad and a single-file web board play the same shared bank of 1,440 multiple-choice questions in six decks.",
+      "category": "game",
+      "platforms": [
+        "macOS",
+        "iOS",
+        "iPadOS",
+        "Web"
+      ],
+      "status": "building",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "Scaffold, game engine and saved games",
+          "done": true
+        },
+        {
+          "title": "Setup, board, question and results screens",
+          "done": true
+        },
+        {
+          "title": "Shared question bank: 6 decks, 1,440 questions",
+          "done": true
+        },
+        {
+          "title": "Five levels, multiple choice, played-question tracking",
+          "done": true
+        },
+        {
+          "title": "Georgian interface for the macOS app",
+          "done": false
+        }
+      ],
+      "next": "Translate the macOS board's interface into Georgian.",
+      "repos": [
+        "Quizboard-Core",
+        "Quizboard-Web",
+        "Quizboard-macOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "macOS",
+        "JavaScript",
+        "JSON Schema",
+        "Node.js"
+      ],
+      "started": "2026-10",
+      "featured": false
+    },
+    {
+      "id": "whatwherewhen-generator",
+      "name": "WhatWhereWhen Generator",
+      "tagline": "Writes new რა? სად? როდის? questions with local models, for a person to review",
+      "description": "Learns how published questions work, indexes Georgian Wikipedia so drafts rest on real facts, writes drafts with a local model, scores them against a hand-labelled set, and may fine-tune with LoRA. Nothing publishes on its own: every draft goes to a review queue.",
+      "category": "lab",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "building",
+      "progress": {
+        "label": "5 of 28 plan items",
+        "value": 0.18
+      },
+      "milestones": [
+        {
+          "title": "Repo, gate, corpus reader",
+          "done": true
+        },
+        {
+          "title": "Georgian Wikipedia parsed into 175,705 articles",
+          "done": true
+        },
+        {
+          "title": "Baseline question writer",
+          "done": true
+        },
+        {
+          "title": "Craft analysis: label every question's mechanism",
+          "done": false
+        },
+        {
+          "title": "Hybrid search over the knowledge index",
+          "done": false
+        },
+        {
+          "title": "Evaluation with a golden set and an LLM judge",
+          "done": false
+        },
+        {
+          "title": "LoRA fine-tune with mlx-lm",
+          "done": false
+        },
+        {
+          "title": "Review queue and a machine-written series",
+          "done": false
+        }
+      ],
+      "next": "Turn the 50 sampled questions into a label schema for question mechanisms.",
+      "repos": [
+        "WhatWhereWhen-Generator"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Python",
+        "uv",
+        "Ollama",
+        "Qwen",
+        "bge-m3",
+        "SQLite FTS5",
+        "mlx-lm"
+      ],
+      "started": "2026-10",
+      "featured": false
+    },
+    {
+      "id": "ai-lab",
+      "name": "ai-lab",
+      "tagline": "A learning lab for AI and LLM engineering on local, open-weight models",
+      "description": "A five-phase plan with checklists: LLM APIs, retrieval, evals, agents and MCP, and on-device models shipped in an app. Everything runs on local models through Ollama, with no API keys and no per-token cost.",
+      "category": "lab",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "building",
+      "progress": {
+        "label": "0 of 47 checklist items",
+        "value": 0.0
+      },
+      "milestones": [
+        {
+          "title": "Phase 0: foundations (Zero to Hero)",
+          "done": false
+        },
+        {
+          "title": "Phase 1: LLM APIs on local models",
+          "done": false
+        },
+        {
+          "title": "Phase 2: RAG over the quiz corpus",
+          "done": false
+        },
+        {
+          "title": "Phase 3: evals",
+          "done": false
+        },
+        {
+          "title": "Phase 4: agents and MCP",
+          "done": false
+        },
+        {
+          "title": "Phase 5: on-device AI shipped in an app",
+          "done": false
+        }
+      ],
+      "next": "Start phase 1: single calls, streaming and structured output against a local model.",
+      "repos": [
+        "ai-lab"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Python",
+        "uv",
+        "Ollama",
+        "Qwen"
+      ],
+      "started": "2026-10",
+      "featured": false
+    },
+    {
+      "id": "ios-toolkit",
+      "name": "iOS-Toolkit",
+      "tagline": "Shared SwiftLint base, git hooks and a local release gate for iOS apps",
+      "description": "One SwiftLint base config with 17 custom rules, machine-wide git hooks, a release gate that lints, builds once and tests on a simulator pinned by id, and a String Catalog translation check. Apps pin a release tag, so a fix reaches every app with a one-line bump.",
+      "category": "tooling",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "maintained",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "v1.0.0: shared SwiftLint base and machine-wide hooks",
+          "done": true
+        },
+        {
+          "title": "v1.1.0: reusable CI workflow",
+          "done": true
+        },
+        {
+          "title": "v1.2.0: local release gate on a pinned simulator",
+          "done": true
+        },
+        {
+          "title": "v1.3.0: String Catalog translation check",
+          "done": true
+        }
+      ],
+      "next": null,
+      "repos": [
+        "iOS-Toolkit"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Shell",
+        "SwiftLint",
+        "Git hooks",
+        "xcodebuild",
+        "GitHub Actions"
+      ],
+      "started": "2026-09",
+      "featured": false
+    },
+    {
+      "id": "ios-blueprint",
+      "name": "iOS-Blueprint",
+      "tagline": "An opinionated iOS 26 app starter and the playbook behind every decision",
+      "description": "A SwiftUI and SwiftData skeleton with coordinator navigation, design tokens, custom SwiftLint rules and Swift Testing, plus a 25-document playbook and drop-in modules for StoreKit, sync, widgets, App Intents, networking, notifications, on-device intelligence and multiplayer.",
+      "category": "tooling",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "building",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "Skeleton: navigation, tokens, SwiftData, tests",
+          "done": true
+        },
+        {
+          "title": "Advanced modules verified together by script",
+          "done": true
+        },
+        {
+          "title": "Scaffold writes String Catalogs and privacy manifests",
+          "done": true
+        },
+        {
+          "title": "In-app language switch in the skeleton",
+          "done": true
+        }
+      ],
+      "next": null,
+      "repos": [
+        "iOS-Blueprint"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "Swift 6",
+        "SwiftLint",
+        "Swift Testing"
+      ],
+      "started": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "gigai",
+      "name": "gigai",
+      "tagline": "One source of personal AI-assistant knowledge, compiled into each tool's format",
+      "description": "Personal conventions, workflows and agent definitions written once in Markdown and YAML, in layers (core, domains, orgs), and built by a tested Python package into Claude Code skills, agents and hooks, GitHub Copilot instructions and Copilot CLI files.",
+      "category": "tooling",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "building",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "gigai"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Python",
+        "uv",
+        "ruff",
+        "Markdown",
+        "YAML",
+        "Claude Code",
+        "GitHub Copilot"
+      ],
+      "started": "2026-04",
+      "featured": false
+    },
+    {
+      "id": "personal-site",
+      "name": "khizanag.github.io",
+      "tagline": "Personal site: portfolio, iOS roadmap, career hub, study tool and talk decks",
+      "description": "Portfolio and résumé, an iOS mastery roadmap across 18 domains, an iOS career hub, a Professional Scrum Developer study tool with 500 questions, and scroll-based tech-talk decks built with React and Vite.",
+      "category": "web",
+      "platforms": [
+        "Web"
+      ],
+      "status": "maintained",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "khizanag.github.io"
+      ],
+      "links": {
+        "appStore": null,
+        "site": "https://khizanag.github.io",
+        "docs": null
+      },
+      "tech": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "TypeScript",
+        "Vite",
+        "GitHub Pages"
+      ],
+      "started": "2026-02",
+      "featured": false
+    },
+    {
+      "id": "mvikit",
+      "name": "MVIKit",
+      "tagline": "Model-View-Intent for SwiftUI in about 270 lines, with zero dependencies",
+      "description": "A pure reducer, effects as data, switch-latest cancellation and an @Observable store, built for Swift 6 strict concurrency and small enough to read in one sitting. Cinematic is the full app built on it.",
+      "category": "library",
+      "platforms": [
+        "Package"
+      ],
+      "status": "maintained",
+      "progress": null,
+      "milestones": [
+        {
+          "title": "1.0.0 extracted from Cinematic",
+          "done": true
+        },
+        {
+          "title": "DocC documentation",
+          "done": true
+        },
+        {
+          "title": "Listed on Swift Package Index",
+          "done": true
+        },
+        {
+          "title": "1.0.1: cancellation re-checked on the main actor",
+          "done": true
+        }
+      ],
+      "next": null,
+      "repos": [
+        "MVIKit"
+      ],
+      "links": {
+        "appStore": null,
+        "site": "https://swiftpackageindex.com/Khizanag/MVIKit",
+        "docs": "https://swiftpackageindex.com/Khizanag/MVIKit/documentation/mvikit"
+      },
+      "tech": [
+        "Swift 6",
+        "SwiftUI",
+        "SwiftPM",
+        "Observation",
+        "DocC"
+      ],
+      "started": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "supta",
+      "name": "Supta",
+      "tagline": "Storage cleanup for iPhone that only claims what it can prove",
+      "description": "Shows an honest storage picture and finds exact duplicates, screenshots, screen recordings and large videos, with a review grid, one-batch removal and plain guides for the storage iOS keeps to itself. Built as the pilot for starting an app entirely from shared infrastructure.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": {
+        "label": "Phase 1 of 9",
+        "value": 0.11
+      },
+      "milestones": [
+        {
+          "title": "Phase 1: ground truth, exact duplicates, review and removal",
+          "done": true
+        },
+        {
+          "title": "Phase 2: fast on 100k-photo libraries, search",
+          "done": false
+        },
+        {
+          "title": "Phase 3: swipe review sessions",
+          "done": false
+        },
+        {
+          "title": "Phase 4: similar photos and bursts",
+          "done": false
+        },
+        {
+          "title": "Phase 5: scans that survive the background",
+          "done": false
+        },
+        {
+          "title": "Phase 6: blurry and underexposed, best shot",
+          "done": false
+        },
+        {
+          "title": "Phases 7–9: insights, widgets, video shrinking",
+          "done": false
+        }
+      ],
+      "next": "Run the phase 1 measurement gates on a physical iPhone.",
+      "repos": [
+        "Supta-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "PhotoKit",
+        "Liquid Glass",
+        "Swift 6"
+      ],
+      "started": "2026-09",
+      "featured": false
+    },
+    {
+      "id": "cv-lab",
+      "name": "cv-lab",
+      "tagline": "One validated JSON career record that every CV, variant and review derives from",
+      "description": "Keeps a whole career in one validated JSON document and renders the CV PDF and tailored variants from it. A rules engine reviews the CV with 64 checks, scores it and suggests fixes; a React editor shows a live PDF preview, and a CLI does the same locally.",
+      "category": "tooling",
+      "platforms": [
+        "Web",
+        "CLI"
+      ],
+      "status": "paused",
+      "progress": {
+        "label": "Milestone M1 of M0–M7",
+        "value": 0.12
+      },
+      "milestones": [
+        {
+          "title": "M0 foundation: CI, coverage gates, schema versioning",
+          "done": true
+        },
+        {
+          "title": "M1 dogfood: the maker's own CV ships from the product",
+          "done": false
+        },
+        {
+          "title": "M2 import: zero to draft in minutes",
+          "done": false
+        },
+        {
+          "title": "M3 output quality",
+          "done": false
+        },
+        {
+          "title": "M4 an editor that feels like writing",
+          "done": false
+        },
+        {
+          "title": "M5 the tailoring loop",
+          "done": false
+        }
+      ],
+      "next": "Move the maker's own CV into the product and bring it to a review score of 90.",
+      "repos": [
+        "cv-lab"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Python",
+        "FastAPI",
+        "Pydantic",
+        "Jinja2",
+        "React",
+        "Vite",
+        "Cloud Run",
+        "Firebase Hosting"
+      ],
+      "started": "2026-08",
+      "featured": false
+    },
+    {
+      "id": "image-lab",
+      "name": "Image Lab",
+      "tagline": "Local image generation on a Mac with open, Apache 2.0 models",
+      "description": "A local text model first rewrites the prompt into a detailed scene, then Z-Image Turbo or Qwen-Image draws it with mflux; Qwen-Image-Edit changes existing images. Everything runs offline, and the licenses allow use in App Store screenshots and icons.",
+      "category": "lab",
+      "platforms": [
+        "macOS",
+        "CLI"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "mflux",
+        "Z-Image Turbo",
+        "Qwen-Image",
+        "Ollama",
+        "Shell"
+      ],
+      "started": "2026-09",
+      "featured": false
+    },
+    {
+      "id": "hat-game",
+      "name": "Hat Game",
+      "tagline": "Party game: explain, then hint, then mime the same words across three rounds",
+      "description": "Teams explain words to each other against a timer over three rounds. Play on one phone passed around, in online rooms joined with a six-character code, or with people on the same Wi-Fi without internet. English and Georgian.",
+      "category": "game",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "HatGame-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Firebase Realtime Database",
+        "MultipeerConnectivity",
+        "Swift packages"
+      ],
+      "started": "2025-11",
+      "ended": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "swiftui-showroom",
+      "name": "SwiftUIShowroom",
+      "tagline": "307 live SwiftUI component showcases: flip every property, copy the code",
+      "description": "An interactive reference for native SwiftUI components on iPhone, iPad, Mac and Apple TV. Each showcase lets you change every property, see every state, and copy code generated from what you configured. Pure SwiftUI, no dependencies.",
+      "category": "app",
+      "platforms": [
+        "iOS",
+        "iPadOS",
+        "macOS",
+        "tvOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "SwiftUIShowroom"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift 6"
+      ],
+      "started": "2026-05",
+      "ended": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "swiftui-playground",
+      "name": "SwiftUI Playground",
+      "tagline": "Solved SwiftUI UI problems, one self-contained scene each",
+      "description": "Demos for iOS 26: a card that morphs into a page, a live-configurable Liquid Glass toolbar, a gesture-driven snap scroller, four ways to switch a field's keyboard, and chained sheets with dynamic detents.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "SwiftUIPlayground-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift 6.2",
+        "Liquid Glass"
+      ],
+      "started": "2026-01",
+      "featured": false
+    },
+    {
+      "id": "icrshop",
+      "name": "ICRShop",
+      "tagline": "Shopping app for a Georgian multi-brand clothing and footwear retailer",
+      "description": "Browse, search, filter and favourite products across more than 60 stores, with coordinator navigation, an actor-based network layer with a disk cache, bundled offline fallbacks and a token-driven design system.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "ICRShop-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift 6",
+        "@Observable",
+        "Swift actors",
+        "URLSession"
+      ],
+      "started": "2026-03",
+      "ended": "2026-03",
+      "featured": false
+    },
+    {
+      "id": "trippy",
+      "name": "Trippy",
+      "tagline": "Travel planner with bookings, itinerary, maps and shared trip expenses",
+      "description": "Per-trip bookings, documents, itinerary, map and weather, with expense splitting, group trips joined by invite code, calendar and reminders integration, Wallet-pass and email booking import, and passport scanning.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Trippy-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "Firestore",
+        "EventKit",
+        "Vision"
+      ],
+      "started": "2026-05",
+      "featured": false
+    },
+    {
+      "id": "splitty",
+      "name": "Splitty",
+      "tagline": "Group expense splitter with exact money math and debt simplification",
+      "description": "Split equally, by exact amounts, percentages or shares with penny-exact integer math, simplify who owes whom, handle multiple currencies, attach receipts, set budgets and export CSV. Works offline; English and Georgian.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Splitty-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Firebase Auth",
+        "Firestore",
+        "Firebase Storage"
+      ],
+      "started": "2026-05",
+      "ended": "2026-05",
+      "featured": false
+    },
+    {
+      "id": "subly",
+      "name": "Subly",
+      "tagline": "Subscription tracker with multi-currency totals and renewal reminders",
+      "description": "Track subscriptions with totals across currencies on offline-first exchange rates, a payment ledger that fills itself in, renewal reminders, a Home Screen widget and Siri shortcuts. No third-party dependencies.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Subly-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "WidgetKit",
+        "App Intents",
+        "Swift 6"
+      ],
+      "started": "2026-06",
+      "ended": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "folio",
+      "name": "Folio",
+      "tagline": "Stock and crypto tracker with candlestick charts and portfolio returns",
+      "description": "Watchlists, market movers, interactive candlestick charts, and a portfolio with FIFO or average cost basis, realized gains, allocation and XIRR. Five local packages and 70 tests.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Folio-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "Swift Charts",
+        "Swift 6"
+      ],
+      "started": "2026-06",
+      "ended": "2026-07",
+      "featured": false
+    },
+    {
+      "id": "flashly",
+      "name": "Flashly",
+      "tagline": "Language flashcards from any CSV, studied with spaced repetition",
+      "description": "Import a CSV, map its columns, and study with SM-2 spaced repetition, a 3D flip card and on-device pronunciation, with a progress dashboard.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Flashly-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "Swift Charts",
+        "AVFoundation"
+      ],
+      "started": "2026-06",
+      "ended": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "jocker",
+      "name": "Jocker",
+      "tagline": "Scoresheet for the Georgian card game ჯოკერი",
+      "description": "Guides trump, bid and trick entry across all 24 hands, enforces the dealer's bid rule, and computes penalties, set premiums and totals with a unit-tested scoring engine. English, Georgian and Russian.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Jocker-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData"
+      ],
+      "started": "2026-05",
+      "featured": false
+    },
+    {
+      "id": "wardrobe-care",
+      "name": "WardrobeCare",
+      "tagline": "Wardrobe manager that reads garment care symbols and tags clothes on device",
+      "description": "Draws 41 ISO 3758 care symbols with Canvas, auto-tags clothing photos on device with Vision, and adds outfits, a laundry tracker, packing lists and wardrobe stats. No third-party dependencies.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "WardrobeCare-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "Vision",
+        "Canvas"
+      ],
+      "started": "2026-06",
+      "featured": false
+    },
+    {
+      "id": "nexus",
+      "name": "Nexus",
+      "tagline": "Life-management app: notes, tasks, calendar, health and finances in one place",
+      "description": "Notes, tasks, a calendar on EventKit, health and nutrition logging on HealthKit, and finances with budgets, subscriptions, holdings and Georgian utility bills, plus a chat assistant, iCloud sync and Control Center widgets.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Nexus-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "EventKit",
+        "HealthKit",
+        "CloudKit",
+        "WidgetKit"
+      ],
+      "started": "2026-01",
+      "featured": false
+    },
+    {
+      "id": "claude-usage-bar",
+      "name": "ClaudeUsageBar",
+      "tagline": "macOS menu bar app showing Claude Code token usage from local logs",
+      "description": "Reads Claude Code's local logs to show live session and seven-day token usage, split by model and by input, output and cache. No network and no API key.",
+      "category": "tooling",
+      "platforms": [
+        "macOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "ClaudeUsageBar-macOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift 6",
+        "Swift actors"
+      ],
+      "started": "2026-04",
+      "featured": false
+    },
+    {
+      "id": "kitchen-planner",
+      "name": "Kitchen Planner",
+      "tagline": "Browser-based 3D kitchen layout editor",
+      "description": "Lay out a kitchen in the browser and inspect it in 3D with orbit controls, all in one HTML page.",
+      "category": "web",
+      "platforms": [
+        "Web"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "kitchen-planner"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "HTML",
+        "JavaScript",
+        "three.js"
+      ],
+      "started": "2026-09",
+      "featured": false
+    },
+    {
+      "id": "governance",
+      "name": "governance",
+      "tagline": "Inventory of every repo on the account, plus a new-machine bootstrap",
+      "description": "One manifest that tiers every repository (core, active, dormant, archive) and refreshes its facts from GitHub, and a script that clones what a new machine needs. Depends only on git, gh and Python.",
+      "category": "tooling",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "governance"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Python",
+        "YAML",
+        "GitHub CLI"
+      ],
+      "started": "2026-09",
+      "featured": false
+    },
+    {
+      "id": "word-bundle",
+      "name": "Word Bundle",
+      "tagline": "Vocabulary bundles per language with definitions, photos and daily review",
+      "description": "Build vocabulary bundles per language: definitions from the Oxford Dictionaries API, photos from Unsplash, words stored in Core Data, and daily review reminders. English and Georgian.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "word-bundle"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Core Data",
+        "Oxford Dictionaries API",
+        "Unsplash API"
+      ],
+      "started": "2022-04",
+      "ended": "2022-09",
+      "featured": false
+    },
+    {
+      "id": "mstsvlbl",
+      "name": "Mstsvlbl",
+      "tagline": "SwiftUI quiz app prototype with its own dependency container and deep links",
+      "description": "A quiz app prototype with categories, quizzes and multiple-choice questions, built on a hand-written dependency-injection container and a deep-link routing package.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Mstsvlbl-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift packages"
+      ],
+      "started": "2025-08",
+      "ended": "2025-10",
+      "featured": false
+    },
+    {
+      "id": "assistant",
+      "name": "Assistant",
+      "tagline": "Personal hub app prototype: speech-to-text, clipboard history and more",
+      "description": "A hub of small personal tools: speech recognition, a clipboard history, reminders and an about-me profile, with screens switched on remotely through Firebase Remote Config.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Assistant-iOS"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Speech",
+        "Firebase Remote Config"
+      ],
+      "started": "2025-04",
+      "ended": "2025-04",
+      "featured": false
+    },
+    {
+      "id": "open-weather-app",
+      "name": "Open Weather",
+      "tagline": "UIKit weather app with current conditions and a five-day forecast",
+      "description": "Current conditions and a five-day, three-hour forecast for your location from OpenWeatherMap, with offline, parse-failure and location-denied states and light and dark themes.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "open-weather-app"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "UIKit",
+        "Alamofire",
+        "R.swift"
+      ],
+      "started": "2021-09",
+      "featured": false
+    },
+    {
+      "id": "weather-app-ios",
+      "name": "Weather App",
+      "tagline": "UIKit weather app with a city carousel and a five-day forecast",
+      "description": "A Today screen with a scaling carousel of saved cities, a five-day forecast in a sectioned table, and Core Data persistence, built with MVVM and reusable xib views.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "weather-app-ios"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "UIKit",
+        "Core Data",
+        "CocoaPods",
+        "MVVM"
+      ],
+      "started": "2021-02",
+      "featured": false
+    },
+    {
+      "id": "messenger-app-android",
+      "name": "Messenger (Android)",
+      "tagline": "Android messenger, the final project of a mobile engineering course",
+      "description": "A chat app for Android built on Firebase authentication, Realtime Database and Storage, as the final project for a university Android course.",
+      "category": "coursework",
+      "platforms": [
+        "Android"
+      ],
+      "status": "paused",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "messenger-app-android"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Kotlin",
+        "Firebase Auth",
+        "Firebase Realtime Database",
+        "Firebase Storage"
+      ],
+      "started": "2021-07",
+      "featured": false
+    },
+    {
+      "id": "distributed-systems",
+      "name": "Distributed Systems Labs",
+      "tagline": "MapReduce, Raft and a sharded key/value store in Go",
+      "description": "Go implementations of the MIT 6.824 labs: MapReduce, Raft consensus with persistence and snapshots, a fault-tolerant key/value store on Raft, and a sharded key/value service.",
+      "category": "coursework",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "distributed-systems"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Go"
+      ],
+      "started": "2020-10",
+      "featured": false
+    },
+    {
+      "id": "cs188-ai",
+      "name": "CS188 AI",
+      "tagline": "Pacman AI projects: search, adversarial agents, reinforcement learning",
+      "description": "University AI coursework in Python on the Berkeley CS188 projects: search, multi-agent games, reinforcement learning, probabilistic tracking and machine learning.",
+      "category": "coursework",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "CS188-AI"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Python"
+      ],
+      "started": "2020-10",
+      "featured": false
+    },
+    {
+      "id": "cs108-oop",
+      "name": "CS108 OOP",
+      "tagline": "Java coursework: Tetris AI, Sudoku solver, JDBC apps and JSP web apps",
+      "description": "Java coursework for a university OOP and software engineering course: Tetris with a heuristic AI, a Sudoku solver, JDBC and Swing data browsers, multithreading exercises, and JSP web apps on Tomcat.",
+      "category": "coursework",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "CS108-OOP"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Java",
+        "Swing",
+        "JDBC",
+        "JSP"
+      ],
+      "started": "2020-08",
+      "ended": "2020-08",
+      "featured": false
+    },
+    {
+      "id": "quizanthemum",
+      "name": "Quizanthemum",
+      "tagline": "Team-built Java EE quiz platform with challenges and leaderboards",
+      "description": "A quiz platform built by a five-person team for a university OOP course: quiz authoring with several question types, friends, challenges, achievements and leaderboards.",
+      "category": "coursework",
+      "platforms": [
+        "Web"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Quizanthemum"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Java EE",
+        "JSP",
+        "MySQL"
+      ],
+      "started": "2020-07",
+      "featured": false
+    },
+    {
+      "id": "memorize",
+      "name": "Memorize",
+      "tagline": "SwiftUI memory matching game from Stanford CS193p",
+      "description": "A memory matching game with eight emoji themes, MVVM over a generic model, and scoring that penalizes re-mismatching cards already seen.",
+      "category": "coursework",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Memorize"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI"
+      ],
+      "started": "2021-10",
+      "featured": false
+    },
+    {
+      "id": "set-game",
+      "name": "Set",
+      "tagline": "The card game Set in SwiftUI for iOS and macOS",
+      "description": "A full 81-card deck with hand-drawn shapes and shadings, an adaptive grid and set detection.",
+      "category": "coursework",
+      "platforms": [
+        "iOS",
+        "macOS"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "set-game-ios"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI"
+      ],
+      "started": "2022-02",
+      "featured": false
+    },
+    {
+      "id": "chamasma",
+      "name": "Chamasma",
+      "tagline": "SwiftUI restaurant menu demo built from five local packages",
+      "description": "Menu categories, dish details with diet and allergen tags, a QR table scanner, reviews and a support chat, split into Domain, Networking, DesignSystem, Presentation and Common packages. Demo data only.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "chamasma"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Swift packages",
+        "SwiftLint"
+      ],
+      "started": "2023-04",
+      "featured": false
+    },
+    {
+      "id": "gigamovies",
+      "name": "GigaMovies",
+      "tagline": "Small clean-architecture movie list demo, later replaced by Cinematic",
+      "description": "A list of movies with detail screens, structured as data, domain and presentation layers with a coordinator, Combine and Resolver.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "GigaMovies"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "Combine",
+        "Resolver"
+      ],
+      "started": "2024-02",
+      "featured": false
+    },
+    {
+      "id": "bu",
+      "name": "bu",
+      "tagline": "Early prototype shell for a რა? სად? როდის? quiz app",
+      "description": "A SwiftUI and SwiftData tab-bar scaffold, abandoned in favour of a full rewrite.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "bu"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData"
+      ],
+      "started": "2024-01",
+      "featured": false
+    },
+    {
+      "id": "fascts",
+      "name": "fascts",
+      "tagline": "SwiftUI trivia prototype with swipeable question cards",
+      "description": "Swipe vertically through question and answer cards parsed from a bundled text file, with category filters and tap-to-reveal.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "fascts"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI"
+      ],
+      "started": "2022-09",
+      "featured": false
+    },
+    {
+      "id": "swifture",
+      "name": "swifture",
+      "tagline": "Abandoned Swift package of small utility extensions",
+      "description": "String, Optional, Numeric and UUID helpers; the package never built its sources.",
+      "category": "library",
+      "platforms": [
+        "Package"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "swifture"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Swift"
+      ],
+      "started": "2022-09",
+      "featured": false
+    },
+    {
+      "id": "algorithms",
+      "name": "algorithms",
+      "tagline": "163 solved LeetCode problems from 2020",
+      "description": "Solutions in C++, SQL, Java and Python, indexed by problem number with difficulty and source links.",
+      "category": "lab",
+      "platforms": [
+        "CLI"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "algorithms"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "C++",
+        "SQL",
+        "Java",
+        "Python"
+      ],
+      "started": "2020-12",
+      "featured": false
+    },
+    {
+      "id": "stinking-cucumbers",
+      "name": "Stinking Cucumbers",
+      "tagline": "Unfinished layout for a Georgian movie review site parody",
+      "description": "A CSS grid skeleton for a movie review site, stopped after the layout.",
+      "category": "coursework",
+      "platforms": [
+        "Web"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "stinking-cucumbers"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "HTML",
+        "CSS"
+      ],
+      "started": "2020-10",
+      "featured": false
+    },
+    {
+      "id": "duohaa",
+      "name": "Duohaa",
+      "tagline": "Abandoned Java EE skeleton for a couplet-pairing web app",
+      "description": "A MySQL schema and stubbed classes, created and dropped within a day.",
+      "category": "web",
+      "platforms": [
+        "Web"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "Duohaa"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Java EE",
+        "JSP",
+        "MySQL"
+      ],
+      "started": "2020-08",
+      "featured": false
+    },
+    {
+      "id": "doors",
+      "name": "doors",
+      "tagline": "Abandoned Android login scaffold for a door-management app",
+      "description": "Two activities and no backend; the door logic was never written.",
+      "category": "app",
+      "platforms": [
+        "Android"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "doors"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Java",
+        "Android"
+      ],
+      "started": "2021-10",
+      "featured": false
+    },
+    {
+      "id": "restaurant-management-android",
+      "name": "Restaurant Management (Android)",
+      "tagline": "Abandoned Android prototype with login and sign-up screens",
+      "description": "Login and sign-up on Firebase Auth; the rest of the app was never written.",
+      "category": "app",
+      "platforms": [
+        "Android"
+      ],
+      "status": "archived",
+      "progress": null,
+      "milestones": [],
+      "next": null,
+      "repos": [
+        "restaurant-management-android-app"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "Java",
+        "Firebase Auth"
+      ],
+      "started": "2021-10",
+      "featured": false
+    }
+  ]
+}

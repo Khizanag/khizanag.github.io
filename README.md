@@ -8,6 +8,7 @@ Personal portfolio and resume site for Giga Khizanishvili, deployed to [khizanag
 - [iOS Career Hub](jobs.html) — job search tracker and resources
 - [iOS Mastery Roadmap](roadmap.html) — knowledge map for senior iOS developers
 - [PSD Study Hub](psd.html) — Professional Scrum Developer certification study tool
+- [Projects](projects.html) — every side project with its status, plan, and live commit activity
 - [Not found](404.html) — custom 404 page for unknown URLs
 - [Presentations](https://khizanag.github.io/presentations/) — scroll-based tech-talk decks, built from `src/presentations/`
 
@@ -28,11 +29,26 @@ Run the presentations app locally:
 npm run dev
 ```
 
-Preview the static pages (portfolio, jobs, roadmap, psd) with any static file server, for example:
+Preview the static pages (portfolio, jobs, roadmap, psd, projects) with any static file server, for example:
 
 ```bash
 npx serve .
 ```
+
+## Projects page
+
+`projects.html` reads two files:
+
+- `js/projects/projects.json` — hand-written: one entry per project with its status, progress, milestones, next step, links, and the repos it spans
+- `js/projects/github.json` — generated: commits, weekly activity, languages, releases, and the 52-week commit calendar for every listed repo
+
+Edit `projects.json`, then refresh the numbers with an authenticated `gh`:
+
+```bash
+node scripts/sync-projects.mjs
+```
+
+The script never writes a private repo's URL, and it lists any repo on the account that the page does not cover. Repos deliberately kept off the page go in a local, untracked `.projects-ignore`, one name per line.
 
 ## Checks
 

@@ -1,0 +1,2478 @@
+{
+  "generatedAt": "2026-10-24T09:02:03.973Z",
+  "owner": "Khizanag",
+  "calendar": [
+    {
+      "start": "2025-10-26",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2025-11-02",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2025-11-09",
+      "days": [0, 0, 0, 0, 0, 0, 6]
+    },
+    {
+      "start": "2025-11-16",
+      "days": [60, 20, 0, 0, 15, 7, 2]
+    },
+    {
+      "start": "2025-11-23",
+      "days": [2, 4, 1, 39, 9, 1, 3]
+    },
+    {
+      "start": "2025-11-30",
+      "days": [1, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2025-12-07",
+      "days": [0, 7, 3, 0, 0, 0, 0]
+    },
+    {
+      "start": "2025-12-14",
+      "days": [10, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2025-12-21",
+      "days": [0, 0, 0, 0, 0, 0, 2]
+    },
+    {
+      "start": "2025-12-28",
+      "days": [0, 0, 0, 0, 0, 0, 1]
+    },
+    {
+      "start": "2026-01-04",
+      "days": [23, 2, 34, 4, 5, 5, 4]
+    },
+    {
+      "start": "2026-01-11",
+      "days": [8, 16, 12, 7, 3, 3, 3]
+    },
+    {
+      "start": "2026-01-18",
+      "days": [3, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-01-25",
+      "days": [0, 0, 0, 18, 1, 0, 3]
+    },
+    {
+      "start": "2026-02-01",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-02-08",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-02-15",
+      "days": [0, 1, 79, 0, 0, 16, 9]
+    },
+    {
+      "start": "2026-02-22",
+      "days": [1, 67, 22, 12, 0, 12, 0]
+    },
+    {
+      "start": "2026-03-01",
+      "days": [0, 0, 0, 39, 1, 0, 0]
+    },
+    {
+      "start": "2026-03-08",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-03-15",
+      "days": [0, 0, 0, 2, 0, 150, 74]
+    },
+    {
+      "start": "2026-03-22",
+      "days": [63, 80, 152, 5, 58, 9, 6]
+    },
+    {
+      "start": "2026-03-29",
+      "days": [18, 43, 90, 88, 45, 32, 7]
+    },
+    {
+      "start": "2026-04-05",
+      "days": [72, 11, 1, 3, 3, 2, 3]
+    },
+    {
+      "start": "2026-04-12",
+      "days": [2, 2, 3, 2, 2, 3, 2]
+    },
+    {
+      "start": "2026-04-19",
+      "days": [5, 1, 0, 8, 38, 15, 2]
+    },
+    {
+      "start": "2026-04-26",
+      "days": [7, 13, 25, 0, 53, 37, 15]
+    },
+    {
+      "start": "2026-05-03",
+      "days": [134, 26, 8, 1, 1, 41, 23]
+    },
+    {
+      "start": "2026-05-10",
+      "days": [3, 3, 3, 4, 3, 3, 3]
+    },
+    {
+      "start": "2026-05-17",
+      "days": [3, 1, 3, 23, 65, 21, 0]
+    },
+    {
+      "start": "2026-05-24",
+      "days": [13, 0, 0, 0, 13, 29, 14]
+    },
+    {
+      "start": "2026-05-31",
+      "days": [23, 1, 12, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-06-07",
+      "days": [0, 11, 67, 1, 43, 3, 0]
+    },
+    {
+      "start": "2026-06-14",
+      "days": [0, 7, 4, 37, 1, 2, 0]
+    },
+    {
+      "start": "2026-06-21",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-06-28",
+      "days": [0, 32, 14, 23, 29, 9, 0]
+    },
+    {
+      "start": "2026-07-05",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-07-12",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-07-19",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-07-26",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-08-02",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-08-09",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-08-16",
+      "days": [0, 0, 0, 0, 0, 0, 0]
+    },
+    {
+      "start": "2026-08-23",
+      "days": [0, 0, 0, 0, 22, 14, 5]
+    },
+    {
+      "start": "2026-08-30",
+      "days": [0, 41, 43, 25, 120, 25, 0]
+    },
+    {
+      "start": "2026-09-06",
+      "days": [0, 0, 69, 86, 11, 21, 19]
+    },
+    {
+      "start": "2026-09-13",
+      "days": [92, 5, 67, 157, 45, 47, 243]
+    },
+    {
+      "start": "2026-09-20",
+      "days": [40, 39, 52, 18, 10, 0, 0]
+    },
+    {
+      "start": "2026-09-27",
+      "days": [0, 33, 35, 33, 58, 21, 9]
+    },
+    {
+      "start": "2026-10-04",
+      "days": [0, 47, 20, 23, 0, 1, 0]
+    },
+    {
+      "start": "2026-10-11",
+      "days": [20, 3, 0, 0, 3, 14, 44]
+    },
+    {
+      "start": "2026-10-18",
+      "days": [44, 15, 8, 0, 1, 0, 13]
+    }
+  ],
+  "repos": {
+    "WhatWhereWhen-Core": {
+      "name": "WhatWhereWhen-Core",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-09-10T18:59:20Z",
+      "pushedAt": "2026-10-24T08:53:20Z",
+      "homepage": null,
+      "language": {
+        "name": "Python",
+        "color": "#3572A5"
+      },
+      "languages": [
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 1651266
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 9660
+        },
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 5853
+        },
+        {
+          "name": "TypeScript",
+          "color": "#3178c6",
+          "bytes": 2290
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-24T08:53:05Z",
+      "commits": 277,
+      "commitsLastYear": 278,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 172, 54, 19, 4, 15, 7]
+    },
+    "WhatWhereWhen-Web": {
+      "name": "WhatWhereWhen-Web",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-07-01T21:01:57Z",
+      "pushedAt": "2026-10-07T09:55:30Z",
+      "homepage": null,
+      "language": {
+        "name": "TypeScript",
+        "color": "#3178c6"
+      },
+      "languages": [
+        {
+          "name": "TypeScript",
+          "color": "#3178c6",
+          "bytes": 1129258
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 41400
+        },
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a",
+          "bytes": 6508
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 1134
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-07T09:55:29Z",
+      "commits": 240,
+      "commitsLastYear": 240,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 149, 55, 19, 6, 0, 0]
+    },
+    "WhatWhereWhen-iOS": {
+      "name": "WhatWhereWhen-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-04-26T16:52:08Z",
+      "pushedAt": "2026-10-16T00:51:23Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 619576
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-16T00:51:21Z",
+      "commits": 319,
+      "commitsLastYear": 319,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 18, 0, 0, 0, 10, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 100, 3, 13, 0, 11, 0]
+    },
+    "WhatWhereWhen-Resources": {
+      "name": "WhatWhereWhen-Resources",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-09-16T01:23:38Z",
+      "pushedAt": "2026-09-30T00:01:13Z",
+      "homepage": null,
+      "language": {
+        "name": "HTML",
+        "color": "#e34c26"
+      },
+      "languages": [
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 12056626
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-30T00:01:11Z",
+      "commits": 42,
+      "commitsLastYear": 42,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 20, 7, 0, 0, 0]
+    },
+    "Cinematic-iOS": {
+      "name": "Cinematic-iOS",
+      "url": "https://github.com/Khizanag/Cinematic-iOS",
+      "private": false,
+      "archived": false,
+      "stars": 4,
+      "forks": 0,
+      "createdAt": "2026-06-11T13:13:56Z",
+      "pushedAt": "2026-10-11T09:14:13Z",
+      "homepage": "https://khizanag.github.io/Cinematic-iOS/",
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 198937
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 4516
+        },
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 1884
+        }
+      ],
+      "release": {
+        "tag": "v1.0.0",
+        "publishedAt": "2026-09-29T06:47:46Z"
+      },
+      "latestTag": "v1.0.0",
+      "tags": 1,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-11T09:14:11Z",
+      "commits": 51,
+      "commitsLastYear": 51,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 3, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 19, 0, 2, 0]
+    },
+    "app-store-review-kit": {
+      "name": "app-store-review-kit",
+      "url": "https://github.com/Khizanag/app-store-review-kit",
+      "private": false,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-10-01T10:56:46Z",
+      "pushedAt": "2026-10-03T10:34:50Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 535806
+        },
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 47921
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 1192
+        },
+        {
+          "name": "Ruby",
+          "color": "#701516",
+          "bytes": 856
+        }
+      ],
+      "release": {
+        "tag": "v0.1.0",
+        "publishedAt": "2026-10-03T10:34:14Z"
+      },
+      "latestTag": "v0.1.0",
+      "tags": 1,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-03T10:34:45Z",
+      "commits": 24,
+      "commitsLastYear": 24,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0]
+    },
+    "interview-lab": {
+      "name": "interview-lab",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-05-28T04:21:41Z",
+      "pushedAt": "2026-10-11T09:31:40Z",
+      "homepage": null,
+      "language": {
+        "name": "TypeScript",
+        "color": "#3178c6"
+      },
+      "languages": [
+        {
+          "name": "TypeScript",
+          "color": "#3178c6",
+          "bytes": 1074678
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 202558
+        },
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a",
+          "bytes": 31099
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 2377
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-11T09:31:39Z",
+      "commits": 182,
+      "commitsLastYear": 182,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 38, 2, 2, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 26, 16, 0, 46, 14, 0, 0, 2, 0]
+    },
+    "Geografy-iOS": {
+      "name": "Geografy-iOS",
+      "url": "https://github.com/Khizanag/Geografy-iOS",
+      "private": false,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-03-20T10:17:05Z",
+      "pushedAt": "2026-09-01T07:52:21Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 3099102
+        },
+        {
+          "name": "Metal",
+          "color": "#8f14e9",
+          "bytes": 2494
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 1110
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-04-20T06:42:00Z",
+      "commits": 907,
+      "commitsLastYear": 892,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 224, 301, 250, 95, 16, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Lent-iOS": {
+      "name": "Lent-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-09-30T08:58:53Z",
+      "pushedAt": "2026-10-17T21:25:13Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 412895
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 4533
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-17T21:25:01Z",
+      "commits": 27,
+      "commitsLastYear": 27,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 1]
+    },
+    "Oompah-iOS": {
+      "name": "Oompah-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-02T10:00:46Z",
+      "pushedAt": "2026-10-17T21:25:31Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 254724
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 1691
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-17T21:25:17Z",
+      "commits": 28,
+      "commitsLastYear": 28,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 1]
+    },
+    "Alias-iOS": {
+      "name": "Alias-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-17T17:13:12Z",
+      "pushedAt": "2026-10-19T14:19:07Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 410890
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 962
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-19T14:18:57Z",
+      "commits": 72,
+      "commitsLastYear": 72,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 41]
+    },
+    "GameWorld": {
+      "name": "GameWorld",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-06-11T04:25:46Z",
+      "pushedAt": "2026-10-18T12:09:18Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 149295
+        }
+      ],
+      "release": null,
+      "latestTag": "0.3.5",
+      "tags": 12,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-18T12:09:14Z",
+      "commits": 26,
+      "commitsLastYear": 26,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 0, 0, 0, 8, 6]
+    },
+    "ReadMyLips-iOS": {
+      "name": "ReadMyLips-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-06-10T16:36:29Z",
+      "pushedAt": "2026-10-18T12:24:41Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 90369
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-18T12:24:39Z",
+      "commits": 18,
+      "commitsLastYear": 18,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 3, 2]
+    },
+    "Kinetic-Web": {
+      "name": "Kinetic-Web",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-05T11:12:08Z",
+      "pushedAt": "2026-10-09T07:00:06Z",
+      "homepage": null,
+      "language": {
+        "name": "MDX",
+        "color": "#fcb32c"
+      },
+      "languages": [
+        {
+          "name": "MDX",
+          "color": "#fcb32c",
+          "bytes": 2071697
+        },
+        {
+          "name": "TypeScript",
+          "color": "#3178c6",
+          "bytes": 1009007
+        },
+        {
+          "name": "Astro",
+          "color": "#ff5a03",
+          "bytes": 89887
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 13726
+        },
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a",
+          "bytes": 13422
+        },
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 2026
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-09T06:59:52Z",
+      "commits": 81,
+      "commitsLastYear": 81,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 81, 0, 0]
+    },
+    "Quizboard-Core": {
+      "name": "Quizboard-Core",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-24T08:46:51Z",
+      "pushedAt": "2026-10-24T08:46:56Z",
+      "homepage": null,
+      "language": {
+        "name": "JavaScript",
+        "color": "#f1e05a"
+      },
+      "languages": [
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a",
+          "bytes": 11584
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-24T08:45:34Z",
+      "commits": 4,
+      "commitsLastYear": 4,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4]
+    },
+    "Quizboard-Web": {
+      "name": "Quizboard-Web",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-24T08:46:57Z",
+      "pushedAt": "2026-10-24T08:47:03Z",
+      "homepage": null,
+      "language": {
+        "name": "HTML",
+        "color": "#e34c26"
+      },
+      "languages": [
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 254271
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-24T08:46:03Z",
+      "commits": 1,
+      "commitsLastYear": 1,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+    },
+    "Quizboard-macOS": {
+      "name": "Quizboard-macOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-24T08:47:04Z",
+      "pushedAt": "2026-10-24T08:47:13Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 212557
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 3819
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-24T08:46:37Z",
+      "commits": 6,
+      "commitsLastYear": 6,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+    },
+    "WhatWhereWhen-Generator": {
+      "name": "WhatWhereWhen-Generator",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-10T22:27:55Z",
+      "pushedAt": "2026-10-12T15:15:59Z",
+      "homepage": null,
+      "language": {
+        "name": "Python",
+        "color": "#3572A5"
+      },
+      "languages": [
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 29771
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 1115
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-12T15:15:57Z",
+      "commits": 4,
+      "commitsLastYear": 4,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0]
+    },
+    "ai-lab": {
+      "name": "ai-lab",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-10-01T08:03:16Z",
+      "pushedAt": "2026-10-10T22:28:15Z",
+      "homepage": null,
+      "language": {
+        "name": "Python",
+        "color": "#3572A5"
+      },
+      "languages": [
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 2965
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 641
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-10T22:28:13Z",
+      "commits": 4,
+      "commitsLastYear": 4,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 0]
+    },
+    "iOS-Toolkit": {
+      "name": "iOS-Toolkit",
+      "url": "https://github.com/Khizanag/iOS-Toolkit",
+      "private": false,
+      "archived": false,
+      "stars": 2,
+      "forks": 0,
+      "createdAt": "2026-09-11T11:03:52Z",
+      "pushedAt": "2026-10-17T21:23:13Z",
+      "homepage": null,
+      "language": {
+        "name": "Shell",
+        "color": "#89e051"
+      },
+      "languages": [
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 48289
+        },
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 12297
+        }
+      ],
+      "release": null,
+      "latestTag": "v1.3.0",
+      "tags": 5,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-17T21:22:32Z",
+      "commits": 9,
+      "commitsLastYear": 9,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 3, 0, 0, 2]
+    },
+    "iOS-Blueprint": {
+      "name": "iOS-Blueprint",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-06-09T08:13:26Z",
+      "pushedAt": "2026-10-19T13:48:59Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 366840
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 27010
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-19T13:48:57Z",
+      "commits": 33,
+      "commitsLastYear": 33,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 19, 0, 1, 4]
+    },
+    "gigai": {
+      "name": "gigai",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-04-23T19:18:01Z",
+      "pushedAt": "2026-10-24T08:49:38Z",
+      "homepage": null,
+      "language": {
+        "name": "Python",
+        "color": "#3572A5"
+      },
+      "languages": [
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 426059
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 78326
+        },
+        {
+          "name": "Vue",
+          "color": "#41b883",
+          "bytes": 54416
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 38930
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 29458
+        },
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a",
+          "bytes": 4179
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 2,
+      "lastCommitAt": "2026-10-24T08:49:14Z",
+      "commits": 203,
+      "commitsLastYear": 203,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 39, 7, 0, 5, 0, 0, 0, 0, 0, 0, 0, 12, 18, 14, 56, 10, 5, 0, 3, 6]
+    },
+    "khizanag.github.io": {
+      "name": "khizanag.github.io",
+      "url": "https://github.com/Khizanag/khizanag.github.io",
+      "private": false,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-02-16T19:19:16Z",
+      "pushedAt": "2026-10-21T19:34:01Z",
+      "homepage": "https://khizanag.github.io",
+      "language": {
+        "name": "TypeScript",
+        "color": "#3178c6"
+      },
+      "languages": [
+        {
+          "name": "TypeScript",
+          "color": "#3178c6",
+          "bytes": 395073
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 187603
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 156046
+        },
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a",
+          "bytes": 129537
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 1522
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 4,
+      "lastCommitAt": "2026-10-11T09:00:47Z",
+      "commits": 426,
+      "commitsLastYear": 421,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 105, 114, 40, 0, 2, 1, 15, 0, 0, 35, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 57, 38, 7, 2, 1, 0, 1, 0]
+    },
+    "MVIKit": {
+      "name": "MVIKit",
+      "url": "https://github.com/Khizanag/MVIKit",
+      "private": false,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-09-29T06:16:48Z",
+      "pushedAt": "2026-10-11T09:08:19Z",
+      "homepage": "https://swiftpackageindex.com/Khizanag/MVIKit",
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 20979
+        }
+      ],
+      "release": {
+        "tag": "1.0.1",
+        "publishedAt": "2026-09-29T10:54:16Z"
+      },
+      "latestTag": "1.0.1",
+      "tags": 2,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-10-11T09:08:17Z",
+      "commits": 12,
+      "commitsLastYear": 12,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 2, 0]
+    },
+    "Supta-iOS": {
+      "name": "Supta-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-09-12T21:32:35Z",
+      "pushedAt": "2026-09-15T12:46:55Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 1060002
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 19339
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-15T12:46:52Z",
+      "commits": 15,
+      "commitsLastYear": 15,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0]
+    },
+    "cv-lab": {
+      "name": "cv-lab",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2026-08-31T21:45:15Z",
+      "pushedAt": "2026-09-15T14:25:29Z",
+      "homepage": null,
+      "language": {
+        "name": "Python",
+        "color": "#3572A5"
+      },
+      "languages": [
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 629480
+        },
+        {
+          "name": "TypeScript",
+          "color": "#3178c6",
+          "bytes": 318995
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 31098
+        },
+        {
+          "name": "Jinja",
+          "color": "#a52a22",
+          "bytes": 18460
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 11402
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 790
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-15T14:15:19Z",
+      "commits": 323,
+      "commitsLastYear": 321,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 98, 73, 0, 0, 0, 0, 0]
+    },
+    "HatGame-iOS": {
+      "name": "HatGame-iOS",
+      "url": "https://github.com/Khizanag/HatGame-iOS",
+      "private": false,
+      "archived": false,
+      "stars": 0,
+      "forks": 1,
+      "createdAt": "2025-11-15T19:06:36Z",
+      "pushedAt": "2026-09-01T10:21:30Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 582399
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 4140
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 2,
+      "lastCommitAt": "2026-08-31T19:32:42Z",
+      "commits": 304,
+      "commitsLastYear": 303,
+      "weekly": [0, 0, 6, 104, 59, 1, 10, 10, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 22, 31, 3, 21, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "SwiftUIShowroom": {
+      "name": "SwiftUIShowroom",
+      "url": "https://github.com/Khizanag/SwiftUIShowroom",
+      "private": false,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-05-29T12:50:46Z",
+      "pushedAt": "2026-09-13T08:15:38Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 1839598
+        },
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 4071
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:36Z",
+      "commits": 19,
+      "commitsLastYear": 19,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0]
+    },
+    "SwiftUIPlayground-iOS": {
+      "name": "SwiftUIPlayground-iOS",
+      "url": "https://github.com/Khizanag/SwiftUIPlayground-iOS",
+      "private": false,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-01-28T11:10:31Z",
+      "pushedAt": "2026-09-11T00:10:30Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 105041
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-11T00:10:28Z",
+      "commits": 35,
+      "commitsLastYear": 35,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0]
+    },
+    "ICRShop-iOS": {
+      "name": "ICRShop-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-03-26T04:16:25Z",
+      "pushedAt": "2026-09-13T08:15:27Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 253349
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:25Z",
+      "commits": 119,
+      "commitsLastYear": 118,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 71, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0]
+    },
+    "Trippy-iOS": {
+      "name": "Trippy-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-05-02T20:26:36Z",
+      "pushedAt": "2026-09-01T08:00:00Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 947255
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-05-08T23:54:13Z",
+      "commits": 213,
+      "commitsLastYear": 213,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 213, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Splitty-iOS": {
+      "name": "Splitty-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-05-20T08:28:49Z",
+      "pushedAt": "2026-09-13T08:15:32Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 566165
+        },
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 9276
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 1164
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:31Z",
+      "commits": 87,
+      "commitsLastYear": 87,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0]
+    },
+    "Subly-iOS": {
+      "name": "Subly-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-06-16T18:42:00Z",
+      "pushedAt": "2026-09-13T08:15:34Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 315563
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:32Z",
+      "commits": 46,
+      "commitsLastYear": 46,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0]
+    },
+    "Folio-iOS": {
+      "name": "Folio-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-06-29T07:49:24Z",
+      "pushedAt": "2026-09-13T08:15:23Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 224695
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:21Z",
+      "commits": 40,
+      "commitsLastYear": 40,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0]
+    },
+    "Flashly-iOS": {
+      "name": "Flashly-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-06-09T04:19:32Z",
+      "pushedAt": "2026-09-13T08:15:21Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 140130
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:19Z",
+      "commits": 17,
+      "commitsLastYear": 17,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 0, 0, 0, 0]
+    },
+    "Jocker-iOS": {
+      "name": "Jocker-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-05-24T05:15:31Z",
+      "pushedAt": "2026-09-13T08:15:28Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 227482
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:27Z",
+      "commits": 25,
+      "commitsLastYear": 25,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 2, 0, 0, 0, 0, 0]
+    },
+    "WardrobeCare-iOS": {
+      "name": "WardrobeCare-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-06-02T12:15:11Z",
+      "pushedAt": "2026-09-01T07:48:31Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 474889
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-06-02T12:15:07Z",
+      "commits": 1,
+      "commitsLastYear": 1,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Nexus-iOS": {
+      "name": "Nexus-iOS",
+      "url": "https://github.com/Khizanag/Nexus-iOS",
+      "private": false,
+      "archived": false,
+      "stars": 2,
+      "forks": 1,
+      "createdAt": "2026-01-03T18:38:44Z",
+      "pushedAt": "2026-09-01T07:55:30Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 1039177
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-01-18T15:55:00Z",
+      "commits": 139,
+      "commitsLastYear": 133,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 77, 52, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "ClaudeUsageBar-macOS": {
+      "name": "ClaudeUsageBar-macOS",
+      "url": "https://github.com/Khizanag/ClaudeUsageBar-macOS",
+      "private": false,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-04-02T10:01:46Z",
+      "pushedAt": "2026-04-02T17:07:06Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 38918
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-04-02T17:07:02Z",
+      "commits": 13,
+      "commitsLastYear": 13,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "kitchen-planner": {
+      "name": "kitchen-planner",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-09-21T16:57:44Z",
+      "pushedAt": "2026-09-21T16:58:07Z",
+      "homepage": null,
+      "language": {
+        "name": "HTML",
+        "color": "#e34c26"
+      },
+      "languages": [
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 53248
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-21T16:58:05Z",
+      "commits": 1,
+      "commitsLastYear": 1,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+    },
+    "governance": {
+      "name": "governance",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2026-09-08T18:03:06Z",
+      "pushedAt": "2026-09-19T13:41:16Z",
+      "homepage": null,
+      "language": {
+        "name": "Python",
+        "color": "#3572A5"
+      },
+      "languages": [
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 18609
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-19T13:41:15Z",
+      "commits": 9,
+      "commitsLastYear": 9,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 0, 0, 0, 0, 0]
+    },
+    "word-bundle": {
+      "name": "word-bundle",
+      "url": "https://github.com/Khizanag/word-bundle",
+      "private": false,
+      "archived": false,
+      "stars": 2,
+      "forks": 0,
+      "createdAt": "2022-04-23T18:52:25Z",
+      "pushedAt": "2026-09-13T08:15:51Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 102337
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-13T08:15:49Z",
+      "commits": 79,
+      "commitsLastYear": 3,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 0]
+    },
+    "Mstsvlbl-iOS": {
+      "name": "Mstsvlbl-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2025-08-29T10:41:51Z",
+      "pushedAt": "2026-09-10T20:19:45Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 143878
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-10T20:17:13Z",
+      "commits": 100,
+      "commitsLastYear": 1,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+    },
+    "Assistant-iOS": {
+      "name": "Assistant-iOS",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2025-04-14T19:47:59Z",
+      "pushedAt": "2026-09-10T20:19:43Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 47170
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-10T20:17:13Z",
+      "commits": 13,
+      "commitsLastYear": 1,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+    },
+    "open-weather-app": {
+      "name": "open-weather-app",
+      "url": "https://github.com/Khizanag/open-weather-app",
+      "private": false,
+      "archived": false,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2021-09-05T22:53:48Z",
+      "pushedAt": "2026-08-26T13:23:49Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 127354
+        },
+        {
+          "name": "Ruby",
+          "color": "#701516",
+          "bytes": 317
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2021-09-06T01:55:47Z",
+      "commits": 6,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "weather-app-ios": {
+      "name": "weather-app-ios",
+      "url": "https://github.com/Khizanag/weather-app-ios",
+      "private": false,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2021-02-18T13:58:09Z",
+      "pushedAt": "2026-08-26T13:23:51Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 57037
+        },
+        {
+          "name": "Ruby",
+          "color": "#701516",
+          "bytes": 375
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2021-02-18T14:59:21Z",
+      "commits": 2,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "messenger-app-android": {
+      "name": "messenger-app-android",
+      "url": null,
+      "private": true,
+      "archived": false,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2021-07-20T15:12:58Z",
+      "pushedAt": "2026-08-27T17:58:33Z",
+      "homepage": null,
+      "language": {
+        "name": "Kotlin",
+        "color": "#A97BFF"
+      },
+      "languages": [
+        {
+          "name": "Kotlin",
+          "color": "#A97BFF",
+          "bytes": 49965
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2021-08-13T00:47:17Z",
+      "commits": 66,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "distributed-systems": {
+      "name": "distributed-systems",
+      "url": null,
+      "private": true,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2020-10-11T11:25:06Z",
+      "pushedAt": "2026-08-27T18:02:11Z",
+      "homepage": null,
+      "language": {
+        "name": "Go",
+        "color": "#00ADD8"
+      },
+      "languages": [
+        {
+          "name": "Go",
+          "color": "#00ADD8",
+          "bytes": 36036180
+        },
+        {
+          "name": "Shell",
+          "color": "#89e051",
+          "bytes": 15508
+        },
+        {
+          "name": "Makefile",
+          "color": "#427819",
+          "bytes": 2278
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2021-01-14T00:14:23Z",
+      "commits": 80,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "CS188-AI": {
+      "name": "CS188-AI",
+      "url": null,
+      "private": true,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2020-10-02T14:00:32Z",
+      "pushedAt": "2020-12-30T13:20:16Z",
+      "homepage": null,
+      "language": {
+        "name": "Python",
+        "color": "#3572A5"
+      },
+      "languages": [
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 1432967
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2020-12-30T13:19:29Z",
+      "commits": 18,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "CS108-OOP": {
+      "name": "CS108-OOP",
+      "url": null,
+      "private": true,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2020-08-17T07:12:24Z",
+      "pushedAt": "2026-09-08T17:33:42Z",
+      "homepage": null,
+      "language": {
+        "name": "Java",
+        "color": "#b07219"
+      },
+      "languages": [
+        {
+          "name": "Java",
+          "color": "#b07219",
+          "bytes": 286180
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2026-09-08T17:33:39Z",
+      "commits": 3,
+      "commitsLastYear": 1,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+    },
+    "Quizanthemum": {
+      "name": "Quizanthemum",
+      "url": null,
+      "private": true,
+      "archived": true,
+      "stars": 4,
+      "forks": 0,
+      "createdAt": "2020-07-15T16:55:05Z",
+      "pushedAt": "2026-08-27T18:02:21Z",
+      "homepage": null,
+      "language": {
+        "name": "Java",
+        "color": "#b07219"
+      },
+      "languages": [
+        {
+          "name": "Java",
+          "color": "#b07219",
+          "bytes": 391875
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 40348
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 11732
+        },
+        {
+          "name": "JavaScript",
+          "color": "#f1e05a",
+          "bytes": 782
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 1,
+      "lastCommitAt": "2020-10-16T15:48:39Z",
+      "commits": 641,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Memorize": {
+      "name": "Memorize",
+      "url": "https://github.com/Khizanag/Memorize",
+      "private": false,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2021-10-28T18:20:36Z",
+      "pushedAt": "2026-08-27T18:03:09Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 15238
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2022-02-05T12:57:47Z",
+      "commits": 3,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "set-game-ios": {
+      "name": "set-game-ios",
+      "url": "https://github.com/Khizanag/set-game-ios",
+      "private": false,
+      "archived": true,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2022-02-05T21:24:26Z",
+      "pushedAt": "2026-08-27T18:03:14Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 14694
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2022-02-06T14:23:21Z",
+      "commits": 6,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "chamasma": {
+      "name": "chamasma",
+      "url": "https://github.com/Khizanag/chamasma",
+      "private": false,
+      "archived": true,
+      "stars": 2,
+      "forks": 0,
+      "createdAt": "2023-04-02T19:33:55Z",
+      "pushedAt": "2026-08-27T18:19:10Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 59073
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2023-07-03T16:26:26Z",
+      "commits": 78,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "GigaMovies": {
+      "name": "GigaMovies",
+      "url": "https://github.com/Khizanag/GigaMovies",
+      "private": false,
+      "archived": true,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2024-02-25T21:39:11Z",
+      "pushedAt": "2026-08-27T18:02:59Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 18669
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2025-07-19T06:35:48Z",
+      "commits": 5,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "bu": {
+      "name": "bu",
+      "url": "https://github.com/Khizanag/bu",
+      "private": false,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2024-01-25T05:37:12Z",
+      "pushedAt": "2026-08-27T18:01:53Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 8864
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2024-01-27T00:55:25Z",
+      "commits": 5,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "fascts": {
+      "name": "fascts",
+      "url": "https://github.com/Khizanag/fascts",
+      "private": false,
+      "archived": true,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2022-09-13T11:53:14Z",
+      "pushedAt": "2026-08-27T18:02:54Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 16728
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2022-09-18T19:18:56Z",
+      "commits": 10,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "swifture": {
+      "name": "swifture",
+      "url": "https://github.com/Khizanag/swifture",
+      "private": false,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2022-09-13T18:07:25Z",
+      "pushedAt": "2026-08-27T18:03:30Z",
+      "homepage": null,
+      "language": {
+        "name": "Swift",
+        "color": "#F05138"
+      },
+      "languages": [
+        {
+          "name": "Swift",
+          "color": "#F05138",
+          "bytes": 3855
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2022-09-13T18:18:54Z",
+      "commits": 2,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "algorithms": {
+      "name": "algorithms",
+      "url": "https://github.com/Khizanag/algorithms",
+      "private": false,
+      "archived": true,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2020-12-03T02:21:16Z",
+      "pushedAt": "2026-08-27T18:04:14Z",
+      "homepage": null,
+      "language": {
+        "name": "C++",
+        "color": "#f34b7d"
+      },
+      "languages": [
+        {
+          "name": "C++",
+          "color": "#f34b7d",
+          "bytes": 131929
+        },
+        {
+          "name": "Python",
+          "color": "#3572A5",
+          "bytes": 9847
+        },
+        {
+          "name": "Java",
+          "color": "#b07219",
+          "bytes": 490
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2020-12-05T15:08:00Z",
+      "commits": 12,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "stinking-cucumbers": {
+      "name": "stinking-cucumbers",
+      "url": "https://github.com/Khizanag/stinking-cucumbers",
+      "private": false,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2020-10-16T15:43:38Z",
+      "pushedAt": "2026-08-27T18:05:39Z",
+      "homepage": null,
+      "language": {
+        "name": "CSS",
+        "color": "#663399"
+      },
+      "languages": [
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 13638
+        },
+        {
+          "name": "HTML",
+          "color": "#e34c26",
+          "bytes": 10811
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2020-10-16T19:51:53Z",
+      "commits": 18,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Duohaa": {
+      "name": "Duohaa",
+      "url": "https://github.com/Khizanag/Duohaa",
+      "private": false,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2020-08-22T19:52:01Z",
+      "pushedAt": "2026-08-27T18:04:18Z",
+      "homepage": null,
+      "language": {
+        "name": "Java",
+        "color": "#b07219"
+      },
+      "languages": [
+        {
+          "name": "Java",
+          "color": "#b07219",
+          "bytes": 8789
+        },
+        {
+          "name": "PLSQL",
+          "color": "#dad8d8",
+          "bytes": 513
+        },
+        {
+          "name": "CSS",
+          "color": "#663399",
+          "bytes": 121
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2020-08-22T21:25:04Z",
+      "commits": 2,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "doors": {
+      "name": "doors",
+      "url": null,
+      "private": true,
+      "archived": true,
+      "stars": 1,
+      "forks": 0,
+      "createdAt": "2021-10-24T10:12:25Z",
+      "pushedAt": "2026-08-27T18:06:02Z",
+      "homepage": null,
+      "language": {
+        "name": "Java",
+        "color": "#b07219"
+      },
+      "languages": [
+        {
+          "name": "Java",
+          "color": "#b07219",
+          "bytes": 3252
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2021-11-11T18:02:27Z",
+      "commits": 4,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "restaurant-management-android-app": {
+      "name": "restaurant-management-android-app",
+      "url": null,
+      "private": true,
+      "archived": true,
+      "stars": 0,
+      "forks": 0,
+      "createdAt": "2021-10-16T16:01:16Z",
+      "pushedAt": "2026-08-27T18:02:27Z",
+      "homepage": null,
+      "language": {
+        "name": "Java",
+        "color": "#b07219"
+      },
+      "languages": [
+        {
+          "name": "Java",
+          "color": "#b07219",
+          "bytes": 8310
+        }
+      ],
+      "release": null,
+      "latestTag": null,
+      "tags": 0,
+      "openIssues": 0,
+      "openPullRequests": 0,
+      "lastCommitAt": "2021-10-26T14:59:28Z",
+      "commits": 9,
+      "commitsLastYear": 0,
+      "weekly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  }
+}

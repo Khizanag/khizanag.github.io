@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-XCj3HGmHg6aHBZ+iSw5jVdGRTrgU0i+9hL1t2kbDpXg='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <title>Projects — Giga Khizanishvili</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="Everything Giga Khizanishvili builds outside work — iOS apps, party games, Swift packages, web apps and AI labs — with live status, progress and commit activity.">
+    <meta name="author" content="Giga Khizanishvili">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Projects — Giga Khizanishvili">
+    <meta property="og:description" content="iOS apps, party games, Swift packages, web apps and AI labs — with live status, progress and commit activity.">
+    <meta property="og:url" content="https://khizanag.github.io/projects">
+    <meta property="og:image" content="https://khizanag.github.io/img/og-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Giga Khizanishvili, Senior iOS Engineer and Mobile Architect">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Projects — Giga Khizanishvili">
+    <meta name="twitter:description" content="iOS apps, party games, Swift packages, web apps and AI labs — with live status, progress and commit activity.">
+    <meta name="twitter:image" content="https://khizanag.github.io/img/og-card.png">
+
+    <link rel="canonical" href="https://khizanag.github.io/projects">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/core/design-system.css">
+    <link rel="stylesheet" href="css/core/components.css">
+    <link rel="stylesheet" href="css/projects/projects.css">
+    <link rel="stylesheet" href="css/projects/pulse.css">
+    <link rel="stylesheet" href="css/projects/cards.css">
+    <link rel="stylesheet" href="css/projects/views.css">
+    <link rel="stylesheet" href="css/projects/detail.css">
+    <link rel="stylesheet" id="themeCSS" href="css/themes/pres.css">
+    <script>(function(){try{var t=localStorage.getItem('site-theme')||localStorage.getItem('ios-interview-theme');if(t==='light')document.documentElement.classList.add('theme-light');}catch(e){}})();</script>
+</head>
+<body>
+
+<a class="pj-skip" href="#pj-projects">Skip to projects</a>
+
+<!-- Navigation -->
+<header class="nav">
+    <div class="nav__inner">
+        <a href="index.html" class="nav__back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Portfolio
+        </a>
+        <span class="nav__title">Projects</span>
+        <nav aria-label="Section navigation">
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#pj-pulse" class="nav__link">Pulse</a></li>
+                <li><a href="#pj-projects" class="nav__link">Projects</a></li>
+                <li><a href="#pj-stack" class="nav__link">Stack</a></li>
+            </ul>
+        </nav>
+        <button class="nav__fullscreen" id="btnFullscreen" aria-label="Enter fullscreen (F)">
+            <svg class="nav__fullscreen__expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            <svg class="nav__fullscreen__collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+        <button class="nav__theme-toggle" id="btnTheme" aria-label="Toggle light/dark mode">
+            <svg class="nav__theme-icon--dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="nav__theme-icon--light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+        </button>
+    </div>
+</header>
+
+<main>
+
+<!-- ==========================================
+     1. HERO
+     ========================================== -->
+<section class="pj-hero" id="pj-hero" aria-labelledby="pj-hero-title">
+    <div class="container">
+        <div class="pj-hero__badge" data-anim="fade-up"><span class="pj-live-dot" aria-hidden="true"></span>Build log &middot; <span id="pjSynced">synced from GitHub</span></div>
+        <h1 class="pj-hero__title" id="pj-hero-title" data-anim="fade-up" data-delay="100">Things I build<br><span class="pj-hero__title-gradient">after hours.</span></h1>
+        <p class="pj-hero__subtitle" data-anim="fade-up" data-delay="200">Apps, party games, Swift packages, web apps and AI experiments — every one of them, with where it stands, what is next, and the commits behind it.</p>
+        <div class="pj-hero__stats" id="pjHeroStats" role="list" aria-label="Project totals" data-anim="fade-up" data-delay="300">
+            <div class="pj-hero__stat" role="listitem"><span class="pj-hero__stat-val" data-stat="projects">&ndash;</span><span class="pj-hero__stat-label">Projects</span></div>
+            <div class="pj-hero__stat" role="listitem"><span class="pj-hero__stat-val" data-stat="active">&ndash;</span><span class="pj-hero__stat-label">In progress</span></div>
+            <div class="pj-hero__stat" role="listitem"><span class="pj-hero__stat-val" data-stat="shipped">&ndash;</span><span class="pj-hero__stat-label">Shipped</span></div>
+            <div class="pj-hero__stat" role="listitem"><span class="pj-hero__stat-val" data-stat="commits">&ndash;</span><span class="pj-hero__stat-label">Commits, past year</span></div>
+            <div class="pj-hero__stat" role="listitem"><span class="pj-hero__stat-val" data-stat="languages">&ndash;</span><span class="pj-hero__stat-label">Languages</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     2. PULSE — activity calendar + now building
+     ========================================== -->
+<section class="pj-section" id="pj-pulse" aria-labelledby="pj-pulse-title">
+    <div class="container">
+        <p class="section-eyebrow" data-anim="fade-up">Pulse</p>
+        <h2 class="section-headline" id="pj-pulse-title" data-anim="fade-up" data-delay="100">Every commit,<br>one calendar.</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">The last 52 weeks across every repository — public and private — on one grid.</p>
+
+        <div class="pj-pulse" data-anim="fade-up" data-delay="200">
+            <div class="pj-pulse__calendar-card">
+                <div class="pj-pulse__calendar-scroll">
+                    <div class="pj-calendar" id="pjCalendar" role="img" aria-label="Commit calendar"></div>
+                </div>
+                <div class="pj-pulse__legend" aria-hidden="true">
+                    <span>Less</span>
+                    <span class="pj-calendar__cell" data-level="0"></span>
+                    <span class="pj-calendar__cell" data-level="1"></span>
+                    <span class="pj-calendar__cell" data-level="2"></span>
+                    <span class="pj-calendar__cell" data-level="3"></span>
+                    <span class="pj-calendar__cell" data-level="4"></span>
+                    <span>More</span>
+                </div>
+                <dl class="pj-pulse__facts" id="pjPulseFacts"></dl>
+            </div>
+            <div class="pj-pulse__now">
+                <h3 class="pj-pulse__now-title"><span class="pj-live-dot" aria-hidden="true"></span>Now building</h3>
+                <p class="pj-pulse__now-sub">Most commits in the last four weeks</p>
+                <ol class="pj-now" id="pjNow"></ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     3. PROJECTS — filters + grid / board / timeline
+     ========================================== -->
+<section class="pj-section" id="pj-projects" aria-labelledby="pj-projects-title">
+    <div class="container">
+        <p class="section-eyebrow" data-anim="fade-up">Projects</p>
+        <h2 class="section-headline" id="pj-projects-title" data-anim="fade-up" data-delay="100">The whole shelf.</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">Filter, search, or switch to a board or a timeline. Open any project for its plan, milestones and numbers. Private repositories are listed without a link.</p>
+
+        <div class="pj-toolbar" id="pjToolbar">
+            <div class="pj-toolbar__row">
+                <label class="pj-search">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span class="pj-visually-hidden">Search projects</span>
+                    <input type="search" id="pjSearch" placeholder="Search name, tech, platform…" autocomplete="off" spellcheck="false">
+                    <kbd class="pj-search__kbd" aria-hidden="true">/</kbd>
+                </label>
+                <div class="pj-toolbar__controls">
+                    <label class="pj-select">
+                        <span class="pj-visually-hidden">Sort by</span>
+                        <select id="pjSort">
+                            <option value="activity">Recently active</option>
+                            <option value="commits">Most commits this year</option>
+                            <option value="progress">Furthest along</option>
+                            <option value="started">Newest first</option>
+                            <option value="name">Name A–Z</option>
+                        </select>
+                    </label>
+                    <div class="pj-segmented" role="group" aria-label="View">
+                        <button type="button" class="pj-segmented__btn" data-view="grid" aria-pressed="true" aria-label="Grid">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="pj-segmented__label">Grid</span>
+                        </button>
+                        <button type="button" class="pj-segmented__btn" data-view="board" aria-pressed="false" aria-label="Board">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="5" height="18" rx="1.5"/><rect x="10" y="3" width="5" height="12" rx="1.5"/><rect x="17" y="3" width="4" height="8" rx="1.5"/></svg><span class="pj-segmented__label">Board</span>
+                        </button>
+                        <button type="button" class="pj-segmented__btn" data-view="timeline" aria-pressed="false" aria-label="Timeline">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="14" y2="6"/><line x1="7" y1="12" x2="21" y2="12"/><line x1="5" y1="18" x2="16" y2="18"/></svg><span class="pj-segmented__label">Timeline</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="pj-filters" id="pjStatusFilters" role="group" aria-label="Filter by status"></div>
+            <div class="pj-filters pj-filters--secondary" id="pjFacetFilters" role="group" aria-label="Filter by kind and platform"></div>
+            <div class="pj-toolbar__summary">
+                <p class="pj-results" id="pjResults" aria-live="polite"></p>
+                <button type="button" class="pj-reset" id="pjReset" hidden>Clear filters</button>
+            </div>
+        </div>
+
+        <div class="pj-view" id="pjView" aria-busy="true">
+            <div class="pj-skeleton" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="pj-empty" id="pjEmpty" hidden>
+            <p class="pj-empty__title">Nothing matches.</p>
+            <p class="pj-empty__text">Try another search, or clear the filters.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     4. STACK — languages + tech
+     ========================================== -->
+<section class="pj-section" id="pj-stack" aria-labelledby="pj-stack-title">
+    <div class="container">
+        <p class="section-eyebrow" data-anim="fade-up">Stack</p>
+        <h2 class="section-headline" id="pj-stack-title" data-anim="fade-up" data-delay="100">What it is<br>made of.</h2>
+        <p class="section-desc" data-anim="fade-up" data-delay="150">Languages by share of code, with every project counted once, the frameworks the projects lean on, and where the shelf stands. Pick a framework to filter the shelf.</p>
+        <div class="pj-stack" data-anim="fade-up" data-delay="200">
+            <div class="pj-stack__languages">
+                <div class="pj-langbar pj-langbar--lg" id="pjLangBar" role="img" aria-label="Languages by share of code"></div>
+                <ul class="pj-langlist" id="pjLangList"></ul>
+                <h3 class="pj-stack__title pj-stack__title--spaced">Shelf by status</h3>
+                <div class="pj-statusmix" id="pjStatusMix"></div>
+            </div>
+            <div class="pj-stack__tech">
+                <h3 class="pj-stack__title">Frameworks &amp; tools</h3>
+                <div class="pj-techcloud" id="pjTechCloud"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- Project detail drawer -->
+<div class="pj-drawer" id="pjDrawer" hidden>
+    <div class="pj-drawer__backdrop" data-close></div>
+    <div class="pj-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="pjDrawerTitle" tabindex="-1">
+        <div class="pj-drawer__bar">
+            <button type="button" class="pj-icon-btn" id="pjDrawerPrev" aria-label="Previous project (K)">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <button type="button" class="pj-icon-btn" id="pjDrawerNext" aria-label="Next project (J)">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <span class="pj-drawer__position" id="pjDrawerPosition"></span>
+            <button type="button" class="pj-icon-btn" id="pjDrawerCopy" aria-label="Copy link to this project">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            </button>
+            <button type="button" class="pj-icon-btn" data-close aria-label="Close (Esc)">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="pj-drawer__body" id="pjDrawerBody"></div>
+    </div>
+</div>
+
+<div class="pj-tooltip" id="pjTooltip" role="tooltip" hidden></div>
+<div class="pj-toast" id="pjToast" role="status" aria-live="polite" hidden></div>
+
+<!-- Footer -->
+<footer class="rm-footer pj-footer">
+    <div class="rm-footer__links">
+        <a href="index.html" class="rm-footer__link">Portfolio</a>
+        <a href="https://github.com/Khizanag" target="_blank" rel="noopener noreferrer" class="rm-footer__link">GitHub</a>
+        <a href="roadmap.html" class="rm-footer__link">iOS Roadmap</a>
+        <a href="#" class="rm-footer__link" id="footerTop">Back to Top</a>
+    </div>
+    <p class="rm-footer__copy">Giga Khizanishvili &middot; Projects &middot; <span id="pjFooterSynced">numbers from GitHub</span></p>
+</footer>
+
+<!-- Back to Top Button -->
+<button class="g-btt" id="gBtt" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script src="js/shared/fullscreen.js"></script>
+<script src="js/shared/theme-toggle.js"></script>
+<script src="js/shared/scroll-top.js"></script>
+<script src="js/shared/keyboard-nav.js" data-sections="pj-hero,pj-pulse,pj-projects,pj-stack"></script>
+<script src="js/shared/reveal.js" data-selector="[data-anim]" data-threshold="0.12" data-root-margin="0px 0px -40px 0px"></script>
+<script src="js/shared/mobile-nav.js"></script>
+<script src="js/shared/smooth-scroll.js"></script>
+<script src="js/projects/model.js"></script>
+<script src="js/projects/charts.js"></script>
+<script src="js/projects/views.js"></script>
+<script src="js/projects/detail.js"></script>
+<script src="js/projects/app.js"></script>
+</body>
+</html>

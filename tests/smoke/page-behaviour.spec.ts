@@ -15,6 +15,7 @@ const PAGES: PageBehaviour[] = [
   { path: "/", reveal: ".rv", progressBar: null },
   { path: "/jobs", reveal: "[data-anim]", progressBar: "#jProgress" },
   { path: "/roadmap", reveal: "[data-anim]", progressBar: "#rmProgress" },
+  { path: "/projects", reveal: "[data-anim]", progressBar: null },
 ];
 
 /** Walks the page down in viewport-sized steps so every reveal target passes through view. */

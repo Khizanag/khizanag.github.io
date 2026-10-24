@@ -3,7 +3,7 @@ import { expect, test } from "../support/fixtures.ts";
 const SETTLE_TIMEOUT = 10_000;
 const TOLERANCE = 2;
 
-for (const path of ["/jobs", "/roadmap"]) {
+for (const path of ["/jobs", "/roadmap", "/projects"]) {
   test(`${path} moves between sections with the arrow keys`, async ({ page }) => {
     await page.goto(path);
 

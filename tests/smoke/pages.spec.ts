@@ -1,6 +1,6 @@
 import { expect, test } from "../support/fixtures.ts";
 
-const PAGES = ["/", "/jobs", "/roadmap", "/psd", "/projects", "/presentations/", "/privacy/jocker"];
+const PAGES = ["/", "/jobs", "/roadmap", "/psd", "/projects", "/presentations/", "/privacy/joker"];
 
 for (const path of PAGES) {
   test(`${path} loads with a title and a favicon`, async ({ page }) => {

@@ -1474,8 +1474,8 @@
       "featured": false
     },
     {
-      "id": "jocker",
-      "name": "Jocker",
+      "id": "joker",
+      "name": "Joker",
       "tagline": "Scoresheet for the Georgian card game ჯოკერი",
       "description": "Guides trump, bid and trick entry across all 24 hands, enforces the dealer's bid rule, and computes penalties, set premiums and totals with a unit-tested scoring engine. English, Georgian and Russian.",
       "category": "app",
@@ -1487,7 +1487,7 @@
       "milestones": [],
       "next": null,
       "repos": [
-        "Jocker-iOS"
+        "Joker-iOS"
       ],
       "links": {
         "appStore": null,

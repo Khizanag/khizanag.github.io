@@ -26,6 +26,9 @@
     var navLock = false;
     var lockTimeout = null;
     var animId = null;
+    // Where the last arrow-key scroll came to rest. Until the reader scrolls away from it, the section the
+    // keys chose stays current: a short section can leave the next one's top inside the reference line.
+    var settledY = null;
 
     function resolveCurrentIndex() {
         var ref = window.scrollY + window.innerHeight * 0.4;
@@ -66,6 +69,7 @@
         var diff = targetY - startY;
         if (diff === 0) {
             navLock = false;
+            settledY = startY;
             return;
         }
 
@@ -93,7 +97,7 @@
                 html.style.scrollBehavior = prevBehavior;
                 navLock = false;
                 clearTimeout(lockTimeout);
-                navIndex = resolveCurrentIndex();
+                settledY = window.scrollY;
             }
         }
 
@@ -102,7 +106,10 @@
 
     // Sync index from scroll position when no programmatic scroll is in flight
     window.addEventListener('scroll', function () {
-        if (!navLock) navIndex = resolveCurrentIndex();
+        if (navLock) return;
+        if (settledY !== null && Math.abs(window.scrollY - settledY) <= 2) return;
+        settledY = null;
+        navIndex = resolveCurrentIndex();
     }, { passive: true });
 
     document.addEventListener('keydown', function (e) {

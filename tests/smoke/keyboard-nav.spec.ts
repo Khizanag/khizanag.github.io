@@ -1,3 +1,4 @@
+import type { Page } from "@playwright/test";
 import { expect, test } from "../support/fixtures.ts";
 
 const SETTLE_TIMEOUT = 10_000;
@@ -21,8 +22,22 @@ for (const path of ["/jobs", "/roadmap", "/projects"]) {
 
     await page.keyboard.press("ArrowRight");
     await expect.poll(() => distanceTo(tops[1]), { timeout: SETTLE_TIMEOUT }).toBeLessThanOrEqual(TOLERANCE);
+    // The eased scroll spends its last frames within the tolerance; a key pressed before it ends is ignored
+    await waitForScrollToStop(page);
 
     await page.keyboard.press("ArrowLeft");
     await expect.poll(() => distanceTo(tops[0]), { timeout: SETTLE_TIMEOUT }).toBeLessThanOrEqual(TOLERANCE);
   });
+}
+
+async function waitForScrollToStop(page: Page) {
+  await page.waitForFunction(
+    () =>
+      new Promise<boolean>((resolve) => {
+        const start = window.scrollY;
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve(window.scrollY === start)));
+      }),
+    undefined,
+    { timeout: SETTLE_TIMEOUT },
+  );
 }

@@ -367,6 +367,72 @@
       "featured": true
     },
     {
+      "id": "lariback",
+      "name": "Lariback",
+      "tagline": "Every Georgian bank's card offers in one app, ranked for the cards you hold",
+      "description": "Collects the cashback, discounts, 0% installments and points that Georgian banks and card networks publish into one feed, and shows which of your cards does best at each shop. A Python pipeline with a local model builds the feed twice a day; the iPhone app works offline in English and Georgian.",
+      "category": "app",
+      "platforms": [
+        "iOS"
+      ],
+      "status": "building",
+      "progress": {
+        "label": "Pipeline and core app done; publishing, reminders and widget next",
+        "value": 0.55
+      },
+      "milestones": [
+        {
+          "title": "Source survey and feed contract",
+          "done": true
+        },
+        {
+          "title": "Seven source adapters with fixture tests",
+          "done": true
+        },
+        {
+          "title": "Offers, compare, search, saved and My Cards",
+          "done": true
+        },
+        {
+          "title": "Georgian, icon and branch maps",
+          "done": true
+        },
+        {
+          "title": "Feed on Cloudflare Pages, twice-daily runs",
+          "done": false
+        },
+        {
+          "title": "Reminders and an ending-soon widget",
+          "done": false
+        },
+        {
+          "title": "Source permissions and App Store review",
+          "done": false
+        }
+      ],
+      "next": "Publish the feed on Cloudflare Pages and schedule the twice-daily run.",
+      "repos": [
+        "Lariback-iOS",
+        "Lariback-Core"
+      ],
+      "links": {
+        "appStore": null,
+        "site": null,
+        "docs": null
+      },
+      "tech": [
+        "SwiftUI",
+        "SwiftData",
+        "MapKit",
+        "Swift Testing",
+        "Python",
+        "Pydantic",
+        "Ollama"
+      ],
+      "started": "2026-11",
+      "featured": false
+    },
+    {
       "id": "oompah",
       "name": "Oompah",
       "tagline": "A pocket accordion where the iPhone Duo hinge is the bellows",
